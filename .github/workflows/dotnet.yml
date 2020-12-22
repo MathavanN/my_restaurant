@@ -1,0 +1,29 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.100
+    - name: Install MyRestaurant.Data dependencies
+      run: dotnet restore ./MyRestaurant.Data/MyRestaurant.Data.csproj
+    - name: Install MyRestaurant.Api dependencies
+      run: dotnet restore ./MyRestaurant.Api/MyRestaurant.Api.csproj
+    - name: Build MyRestaurant.Data
+      run: dotnet build ./MyRestaurant.Data/MyRestaurant.Data.csproj 
+    - name: Build MyRestaurant.Api
+      run: dotnet build ./MyRestaurant.Api/MyRestaurant.Api.csproj --configuration Release --no-restore
+    - name: Test MyRestaurant.Api.Test
+      run: dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj --no-restore --verbosity normal
