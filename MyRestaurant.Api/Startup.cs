@@ -20,8 +20,10 @@ namespace MyRestaurant.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureMSSQLContext(Configuration);
             services.ConfigureVersionedApiExplorer();
             services.ConfigureApiVersioning();
+            services.ConfigureRepositories();
             services.AddControllers();
             services.ConfigureSwagger();
         }
