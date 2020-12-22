@@ -1,14 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MyRestaurant.Api.Swagger;
+using MyRestaurant.Business.Repositories;
+using MyRestaurant.Business.Repositories.Contracts;
+using MyRestaurant.Core;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace MyRestaurant.Api.Extensions
 {
     public static class ServiceExtensions
     {
+        public static void ConfigureRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+        }
+        public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<MyRestaurantContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("RestaurantConnectionString"));
+                options.UseLazyLoadingProxies(true);
+                options.EnableSensitiveDataLogging(false);
+            });
+        }
 
         public static void ConfigureVersionedApiExplorer(this IServiceCollection services)
         {
