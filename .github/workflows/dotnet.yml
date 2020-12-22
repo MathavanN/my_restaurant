@@ -17,12 +17,16 @@ jobs:
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
-    - name: Install MyRestaurant.Data dependencies
-      run: dotnet restore ./MyRestaurant.Data/MyRestaurant.Data.csproj
+    - name: Install MyRestaurant.Core dependencies
+      run: dotnet restore ./MyRestaurant.Core/MyRestaurant.Core.csproj
+    - name: Install MyRestaurant.Business dependencies
+      run: dotnet restore ./MyRestaurant.Business/MyRestaurant.Business.csproj
     - name: Install MyRestaurant.Api dependencies
       run: dotnet restore ./MyRestaurant.Api/MyRestaurant.Api.csproj
-    - name: Build MyRestaurant.Data
-      run: dotnet build ./MyRestaurant.Data/MyRestaurant.Data.csproj 
+    - name: Build MyRestaurant.Core
+      run: dotnet build ./MyRestaurant.Core/MyRestaurant.Core.csproj 
+    - name: Build MyRestaurant.Business
+      run: dotnet build ./MyRestaurant.Business/MyRestaurant.Business.csproj 
     - name: Build MyRestaurant.Api
       run: dotnet build ./MyRestaurant.Api/MyRestaurant.Api.csproj --configuration Release --no-restore
     - name: Test MyRestaurant.Api.Test
