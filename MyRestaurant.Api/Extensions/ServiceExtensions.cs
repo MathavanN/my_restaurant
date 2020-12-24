@@ -8,6 +8,8 @@ using MyRestaurant.Api.Swagger;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
+using MyRestaurant.Services;
+using MyRestaurant.Services.Contracts;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace MyRestaurant.Api.Extensions
@@ -18,6 +20,11 @@ namespace MyRestaurant.Api.Extensions
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
         }
+
+        public static void ConfigureServices(this IServiceCollection services)
+        {
+            services.AddScoped<IServiceTypeService, ServiceTypeService>();
+        }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<MyRestaurantContext>(options =>
@@ -26,6 +33,8 @@ namespace MyRestaurant.Api.Extensions
                 options.UseLazyLoadingProxies(true);
                 options.EnableSensitiveDataLogging(false);
             });
+
+            services.AddScoped<IMyRestaurantContext, MyRestaurantContext>();
         }
 
         public static void ConfigureVersionedApiExplorer(this IServiceCollection services)
