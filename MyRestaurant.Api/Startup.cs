@@ -23,6 +23,7 @@ namespace MyRestaurant.Api
             services.ConfigureMSSQLContext(Configuration);
             services.ConfigureVersionedApiExplorer();
             services.ConfigureApiVersioning();
+            services.ConfigureAutoMapper();
             services.ConfigureServices();
             services.ConfigureRepositories();
             services.AddControllers();
@@ -33,10 +34,11 @@ namespace MyRestaurant.Api
         public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider provider, IWebHostEnvironment env)
         {
             app.UseApiVersioning();
+            app.ConfigureCustomExceptionMiddleware();
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
