@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using MyRestaurant.Api.Middleware;
 using MyRestaurant.Api.Swagger;
+using MyRestaurant.Business.Dtos.V1.ServiceTypeDtos;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
@@ -16,6 +20,14 @@ namespace MyRestaurant.Api.Extensions
 {
     public static class ServiceExtensions
     {
+        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+        }
+        public static void ConfigureAutoMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(GetServiceTypeDto));
+        }
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
