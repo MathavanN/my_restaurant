@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyRestaurant.Core.Configurations.Base;
-using MyRestaurant.Core.Models;
+using MyRestaurant.Models;
 
 namespace MyRestaurant.Core.Configurations.Mapping
 {
