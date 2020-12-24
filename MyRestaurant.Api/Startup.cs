@@ -23,6 +23,7 @@ namespace MyRestaurant.Api
             services.ConfigureMSSQLContext(Configuration);
             services.ConfigureVersionedApiExplorer();
             services.ConfigureApiVersioning();
+            services.ConfigureServices();
             services.ConfigureRepositories();
             services.AddControllers();
             services.ConfigureSwagger();
