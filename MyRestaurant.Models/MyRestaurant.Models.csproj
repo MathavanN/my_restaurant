@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyRestaurant.Services\MyRestaurant.Services.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
   </ItemGroup>
 
 </Project>

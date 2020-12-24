@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 
-namespace MyRestaurant.Core.Models
+namespace MyRestaurant.Models
 {
     public class User : IdentityUser<Guid>
     {

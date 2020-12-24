@@ -1,4 +1,4 @@
-﻿using MyRestaurant.Core.Models;
+﻿using MyRestaurant.Models;
 
 namespace MyRestaurant.Core.Configurations.Base
 {

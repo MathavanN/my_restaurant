@@ -1,6 +1,6 @@
-﻿namespace MyRestaurant.Core.Models
+﻿namespace MyRestaurant.Models
 {
-    public class ServiceType : MyRestaurantBase
+    public class ServiceType : MyRestaurantObject
     {
         public int Id { get; set; }
         public string Type { get; set; }

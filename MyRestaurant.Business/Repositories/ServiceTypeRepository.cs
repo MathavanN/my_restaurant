@@ -1,19 +1,21 @@
 ﻿using MyRestaurant.Business.Repositories.Contracts;
-using MyRestaurant.Core;
-using MyRestaurant.Core.Models;
+using MyRestaurant.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MyRestaurant.Services.Contracts;
 
 namespace MyRestaurant.Business.Repositories
 {
-    public class ServiceTypeRepository : RepositoryBase<ServiceType>, IServiceTypeRepository
+    public class ServiceTypeRepository : IServiceTypeRepository
     {
-        public ServiceTypeRepository(MyRestaurantContext context) : base(context)
+        private readonly IServiceTypeService _serviceType;
+        public ServiceTypeRepository(IServiceTypeService serviceType)
         {
+            _serviceType = serviceType;
         }
         public async Task<IEnumerable<ServiceType>> GetServicesTypeAsync()
         {
-            return await GetAllAsync(null);
+            return await _serviceType.GetServiceTypesAsync();
         }
     }
 }
