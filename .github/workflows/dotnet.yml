@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Install MyRestaurant.Models dependencies
-      run: dotnet restore ./MyRestaurant.Core/MyRestaurant.Models.csproj
+      run: dotnet restore ./MyRestaurant.Models/MyRestaurant.Models.csproj
     - name: Install MyRestaurant.Core dependencies
       run: dotnet restore ./MyRestaurant.Core/MyRestaurant.Core.csproj
     - name: Install MyRestaurant.Services dependencies
