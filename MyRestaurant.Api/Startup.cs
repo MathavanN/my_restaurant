@@ -26,7 +26,7 @@ namespace MyRestaurant.Api
             services.ConfigureAutoMapper();
             services.ConfigureServices();
             services.ConfigureRepositories();
-            services.AddControllers();
+            services.ConfigureController();
             services.ConfigureSwagger();
         }
 
