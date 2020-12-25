@@ -15,23 +15,17 @@ namespace MyRestaurant.Api.Swagger
             operation.Deprecated |= apiDescription.IsDeprecated();
 
             if (operation.Parameters == null)
-            {
                 return;
-            }
 
             foreach (var parameter in operation.Parameters)
             {
                 var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
 
                 if (parameter.Description == null)
-                {
                     parameter.Description = description.ModelMetadata?.Description;
-                }
 
                 if (parameter.Schema.Default == null && description.DefaultValue != null)
-                {
                     parameter.Schema.Default = new OpenApiString(description.DefaultValue.ToString());
-                }
 
                 parameter.Required |= description.IsRequired;
             }
