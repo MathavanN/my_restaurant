@@ -22,6 +22,10 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetServiceTypeDto> CreateServiceTypeAsync(CreateServiceTypeDto serviceTypeDto)
         {
+            var dbServiceType = await _serviceType.GetServiceTypeAsync(d => d.Type == serviceTypeDto.Type);
+            if (dbServiceType != null)
+                throw new RestException(HttpStatusCode.Conflict, "ServiceType already available");
+
             var serviceType = _mapper.Map<ServiceType>(serviceTypeDto);
             await _serviceType.AddServiceTypeAsync(serviceType);
 
@@ -30,7 +34,7 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task DeleteServiceTypeAsync(int id)
         {
-            var serviceType = await _serviceType.GetServiceTypeAsync(id);
+            var serviceType = await _serviceType.GetServiceTypeAsync(d => d.Id == id);
 
             if (serviceType == null)
                 throw new RestException(HttpStatusCode.NotFound, "ServiceType Not Found");
@@ -47,7 +51,7 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetServiceTypeDto> GetServiceTypeAsync(int id)
         {
-            var serviceType = await _serviceType.GetServiceTypeAsync(id);
+            var serviceType = await _serviceType.GetServiceTypeAsync(d => d.Id == id);
 
             if (serviceType == null)
                 throw new RestException(HttpStatusCode.NotFound, "ServiceType Not Found");
@@ -57,7 +61,7 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task UpdateServiceTypeAsync(int id, EditServiceTypeDto serviceTypeDto)
         {
-            var serviceType = await _serviceType.GetServiceTypeAsync(id);
+            var serviceType = await _serviceType.GetServiceTypeAsync(d => d.Id == id);
 
             if (serviceType == null)
                 throw new RestException(HttpStatusCode.NotFound, "ServiceType Not Found");
