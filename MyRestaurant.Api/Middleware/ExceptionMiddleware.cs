@@ -25,37 +25,40 @@ namespace MyRestaurant.Api.Middleware
             {
                 await _next(context);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await HandleExceptionAsync(context, ex, _logger);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ExceptionMiddleware> logger)
+        private static async Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ExceptionMiddleware> logger)
         {
-            object errors = null;
+            object error = null;
 
             switch (ex)
             {
                 case RestException re:
-                    errors = new { re.ErrorCode, re.ErrorType, re.ErrorMessage, ErrorDate = DateTime.Now };
-                    logger.LogError("REST ERROR: {0}", errors);
+                    error = new { re.ErrorCode, re.ErrorType, re.ErrorMessage, ErrorDate = DateTime.Now };
+                    logger.LogError("REST ERROR: {0}", error);
                     context.Response.StatusCode = (int)re.ErrorCode;
                     break;
 
                 case Exception e:
                     logger.LogError("SERVER ERROR: {0}", e.Message);
-                    errors = new { ErrorCode= HttpStatusCode.InternalServerError, 
-                        ErrorType= HttpStatusCode.InternalServerError.ToString(), 
-                        ErrorMessage= string.IsNullOrWhiteSpace(e.Message) ? "Error" : e.Message, 
-                        ErrorDate = DateTime.Now };
+                    error = new
+                    {
+                        ErrorCode = HttpStatusCode.InternalServerError,
+                        ErrorType = HttpStatusCode.InternalServerError.ToString(),
+                        ErrorMessage = string.IsNullOrWhiteSpace(e.Message) ? "Error" : e.Message,
+                        ErrorDate = DateTime.Now
+                    };
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
             }
             context.Response.ContentType = "application/json";
-            if(errors != null )
+            if (error != null)
             {
-                var result = JsonConvert.SerializeObject(new { errors }, Formatting.Indented, new JsonSerializerSettings
+                var result = JsonConvert.SerializeObject(error, Formatting.Indented, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
                 });
