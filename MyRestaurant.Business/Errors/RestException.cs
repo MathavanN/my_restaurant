@@ -7,7 +7,7 @@ namespace MyRestaurant.Business.Errors
     {
         public HttpStatusCode ErrorCode { get; }
         public string ErrorType { get; }
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; }
 
         public RestException(HttpStatusCode statusCode, string message)
         {
