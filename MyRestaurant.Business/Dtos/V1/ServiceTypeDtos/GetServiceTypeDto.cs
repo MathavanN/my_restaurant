@@ -1,4 +1,4 @@
-﻿namespace MyRestaurant.Business.Dtos.V1.ServiceTypeDtos
+﻿namespace MyRestaurant.Business.Dtos.V1
 {
     public class GetServiceTypeDto
     {
