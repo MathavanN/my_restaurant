@@ -1,29 +1,64 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using MyRestaurant.Api.Middleware;
 using MyRestaurant.Api.Swagger;
+using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
 using MyRestaurant.Services;
 using MyRestaurant.Services.Contracts;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using FluentValidation.AspNetCore;
+using MyRestaurant.Api.Validators.V1;
+using System.Linq;
+using System.Net;
+using System;
 
 namespace MyRestaurant.Api.Extensions
 {
     public static class ServiceExtensions
     {
+        public static void ConfigureController(this IServiceCollection services)
+        {
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    //To disable Auto Model Data Validation Response
+                    options.InvalidModelStateResponseFactory = actionContext =>
+                    {
+                        var validationErrors = actionContext.ModelState.Select(x => new { x.Key, x.Value.Errors.FirstOrDefault().ErrorMessage });
+                        var errorCode = HttpStatusCode.BadRequest;
+                        object error = new { ErrorCode = errorCode, ErrorType = errorCode.ToString(), ErrorMessage = validationErrors, ErrorDate = DateTime.Now };
+                        return new BadRequestObjectResult(error);
+                    };
+                })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateServiceTypeDtoValidator>());
+        }
+        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+        }
+        public static void ConfigureAutoMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(GetServiceTypeDto));
+        }
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            services.AddScoped<IRestaurantInfoRepository, RestaurantInfoRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeService, ServiceTypeService>();
+            services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {

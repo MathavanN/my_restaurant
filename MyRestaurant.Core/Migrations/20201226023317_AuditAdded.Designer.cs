@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyRestaurant.Core;
 
 namespace MyRestaurant.Core.Migrations
 {
     [DbContext(typeof(MyRestaurantContext))]
-    partial class MyRestaurantContextModelSnapshot : ModelSnapshot
+    [Migration("20201226023317_AuditAdded")]
+    partial class AuditAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,43 +156,6 @@ namespace MyRestaurant.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Audits");
-                });
-
-            modelBuilder.Entity("MyRestaurant.Models.RestaurantInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("LandLine")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("Mobile")
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RestaurantInfos");
                 });
 
             modelBuilder.Entity("MyRestaurant.Models.Role", b =>
