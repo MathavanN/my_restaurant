@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyRestaurant.Api.Controllers.V2.Controllers
+namespace MyRestaurant.Api.Controllers.V2
 {
     [ApiVersion("2.0")]
     public class AboutController : BaseController
