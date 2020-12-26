@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MyRestaurant.Api.Middleware;
 using MyRestaurant.Api.Swagger;
-using MyRestaurant.Business.Dtos.V1.ServiceTypeDtos;
+using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
@@ -16,7 +16,7 @@ using MyRestaurant.Services;
 using MyRestaurant.Services.Contracts;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FluentValidation.AspNetCore;
-using MyRestaurant.Api.Validators.V1.ServiceType;
+using MyRestaurant.Api.Validators.V1;
 using System.Linq;
 using System.Net;
 using System;
@@ -52,11 +52,13 @@ namespace MyRestaurant.Api.Extensions
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            services.AddScoped<IRestaurantInfoRepository, RestaurantInfoRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeService, ServiceTypeService>();
+            services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {
