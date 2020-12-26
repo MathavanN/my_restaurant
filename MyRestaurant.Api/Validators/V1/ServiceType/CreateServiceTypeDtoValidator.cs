@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using MyRestaurant.Business.Dtos.V1.ServiceTypeDtos;
+using MyRestaurant.Business.Dtos.V1;
 
-namespace MyRestaurant.Api.Validators.V1.ServiceType
+namespace MyRestaurant.Api.Validators.V1
 {
     public class CreateServiceTypeDtoValidator : AbstractValidator<CreateServiceTypeDto>
     {
