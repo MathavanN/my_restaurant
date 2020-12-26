@@ -11,7 +11,7 @@ namespace MyRestaurant.Core
     public interface IMyRestaurantContext
     {
         DbSet<ServiceType> ServiceTypes { get; set; }
-
+        DbSet<RestaurantInfo> RestaurantInfos { get; set; }
         Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
         TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         void Delete<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;

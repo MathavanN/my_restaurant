@@ -24,9 +24,11 @@ namespace MyRestaurant.Core
 
             builder.ApplyConfiguration(new AuditMapping());
             builder.ApplyConfiguration(new ServiceTypeMapping());
+            builder.ApplyConfiguration(new RestaurantInfoMapping());
         }
 
         public DbSet<ServiceType> ServiceTypes { get; set; }
+        public DbSet<RestaurantInfo> RestaurantInfos { get; set; }
         public DbSet<Audit> Audits { get; set; }
         public async Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
