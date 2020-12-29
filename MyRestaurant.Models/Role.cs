@@ -6,4 +6,12 @@ namespace MyRestaurant.Models
     public class Role : IdentityRole<Guid>
     {
     }
+
+    public enum Roles
+    {
+        SuperAdmin,
+        Admin,
+        Report,
+        Normal
+    }
 }
