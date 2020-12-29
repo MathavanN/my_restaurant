@@ -23,13 +23,16 @@ namespace MyRestaurant.Core
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new AuditMapping());
+            builder.ApplyConfiguration(new RefreshTokenMapping());
             builder.ApplyConfiguration(new ServiceTypeMapping());
             builder.ApplyConfiguration(new RestaurantInfoMapping());
         }
 
+        public DbSet<Audit> Audits { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<RestaurantInfo> RestaurantInfos { get; set; }
-        public DbSet<Audit> Audits { get; set; }
+        
         public async Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
             var savedEntity = await Set<TEntity>().AddAsync(entity, cancellationToken);
