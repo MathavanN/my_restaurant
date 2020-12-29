@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MyRestaurant.Api.Controllers.V2
 {
     [ApiVersion("2.0")]
-    public class AboutController : BaseController
+    public class AboutController : BaseApiController<AboutController>
     {
         public AboutController()
         {
