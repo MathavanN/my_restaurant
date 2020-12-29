@@ -1,30 +1,92 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MyRestaurant.Api.Middleware;
 using MyRestaurant.Api.Swagger;
+using MyRestaurant.Api.Validators.V1;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
+using MyRestaurant.Models;
 using MyRestaurant.Services;
+using MyRestaurant.Services.Account;
 using MyRestaurant.Services.Contracts;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using FluentValidation.AspNetCore;
-using MyRestaurant.Api.Validators.V1;
+using System;
 using System.Linq;
 using System.Net;
-using System;
+using System.Text;
 
 namespace MyRestaurant.Api.Extensions
 {
     public static class ServiceExtensions
     {
+        public static void ConfigureAuthorization(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+            });
+        }
+        public static void ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
+            services.Configure<SuperAdminAccount>(configuration.GetSection("SuperAdminAccount"));
+        }
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false; //only for DEV ENV
+                options.SaveToken = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = configuration["JWTSettings:Issuer"],
+                    ValidAudience = configuration["JWTSettings:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:AccessTokenSecret"]))
+                };
+            });
+        }
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<MyRestaurantContext>()
+                .AddDefaultTokenProviders();
+        }
+
+        public static void ConfigurePasswordPolicy(this IServiceCollection services)
+        {
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+            });
+        }
         public static void ConfigureController(this IServiceCollection services)
         {
             services.AddControllers()
@@ -53,12 +115,14 @@ namespace MyRestaurant.Api.Extensions
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
             services.AddScoped<IRestaurantInfoRepository, RestaurantInfoRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeService, ServiceTypeService>();
             services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {
