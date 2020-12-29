@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -21,13 +23,36 @@ namespace MyRestaurant.Api.Swagger
             {
                 options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
             }
+            var bearerSecurityScheme = CreateBearerOpenApiSecurityScheme();
+            options.AddSecurityDefinition(bearerSecurityScheme.Reference.Id, bearerSecurityScheme);
 
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { bearerSecurityScheme, new List<string>()}
+                });
             // Set the comments path for the Swagger JSON and UI.
             //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             //options.IncludeXmlComments(xmlPath);
         }
-
+        static OpenApiSecurityScheme CreateBearerOpenApiSecurityScheme()
+        {
+            return new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                Description = "Input your Bearer token in this format - Bearer {your token here} to access this API",
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+        }
+        
         static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
             var info = new OpenApiInfo()
