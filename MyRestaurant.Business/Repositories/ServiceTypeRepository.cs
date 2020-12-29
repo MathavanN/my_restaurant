@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var dbServiceType = await _serviceType.GetServiceTypeAsync(d => d.Type == serviceTypeDto.Type);
             if (dbServiceType != null)
-                throw new RestException(HttpStatusCode.Conflict, "ServiceType already available");
+                throw new RestException(HttpStatusCode.Conflict, $"ServiceType {serviceTypeDto.Type } is already available.");
 
             var serviceType = _mapper.Map<ServiceType>(serviceTypeDto);
             await _serviceType.AddServiceTypeAsync(serviceType);
