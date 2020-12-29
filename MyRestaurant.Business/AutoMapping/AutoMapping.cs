@@ -11,6 +11,8 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<CreateServiceTypeDto, ServiceType>();
             CreateMap<EditServiceTypeDto, ServiceType>();
             CreateMap<CreateRestaurantInfoDto, RestaurantInfo>();
+            CreateMap<RegisterDto, User>()
+                .ForMember(d => d.UserName, opt => opt.MapFrom(src => src.Email));
 
 
             //map from models to dto
