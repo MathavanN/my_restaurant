@@ -12,13 +12,4 @@ namespace MyRestaurant.Api.Validators.V1
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
         }
     }
-
-    public class RefreshDtoValidator : AbstractValidator<RefreshDto>
-    {
-        public RefreshDtoValidator()
-        {
-
-            RuleFor(x => x.RefreshToken).NotEmpty().WithMessage("RefreshToken is required.");
-        }
-    }
 }

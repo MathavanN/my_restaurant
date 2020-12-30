@@ -3,9 +3,9 @@ using MyRestaurant.Business.Dtos.V1;
 
 namespace MyRestaurant.Api.Validators.V1
 {
-    public class RegisterDtoValidator : AbstractValidator<RegisterDto>
+    public class RegisterAdminDtoValidator : AbstractValidator<RegisterAdminDto>
     {
-        public RegisterDtoValidator()
+        public RegisterAdminDtoValidator()
         {
             RuleFor(x => x.FirstName).NotEmpty().WithMessage("FirstName is required.");
 
