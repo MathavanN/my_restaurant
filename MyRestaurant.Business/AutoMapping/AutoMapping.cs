@@ -1,5 +1,6 @@
 ﻿using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Models;
+using MyRestaurant.Services;
 
 namespace MyRestaurant.Business.AutoMapping
 {
@@ -11,7 +12,9 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<CreateServiceTypeDto, ServiceType>();
             CreateMap<EditServiceTypeDto, ServiceType>();
             CreateMap<CreateRestaurantInfoDto, RestaurantInfo>();
-            CreateMap<RegisterDto, User>()
+            CreateMap<RegisterAdminDto, User>()
+                .ForMember(d => d.UserName, opt => opt.MapFrom(src => src.Email));
+            CreateMap<RegisterNormalDto, User>()
                 .ForMember(d => d.UserName, opt => opt.MapFrom(src => src.Email));
 
 
@@ -19,6 +22,8 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<ServiceType, GetServiceTypeDto>();
             CreateMap<RestaurantInfo, GetRestaurantInfoDto>()
                 .ForMember(d => d.Address, opt => opt.MapFrom(src => $"{src.Address}, {src.City}, {src.Country}"));
+            CreateMap<CurrentUser, CurrentUserDto>()
+                .ForMember(d => d.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
         }
     }
 }
