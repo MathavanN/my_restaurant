@@ -1,6 +1,6 @@
 ﻿namespace MyRestaurant.Business.Dtos.V1
 {
-    public class RegisterDto
+    public class RegisterAdminDto
     {
         public string Email { get; set; }
         public string Password { get; set; }
