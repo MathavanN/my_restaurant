@@ -1,6 +1,5 @@
 ﻿using MyRestaurant.Core;
 using MyRestaurant.Models;
-using MyRestaurant.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -17,7 +16,7 @@ namespace MyRestaurant.Services
         }
 
         public async Task<ServiceType> GetServiceTypeAsync(Expression<Func<ServiceType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
-        
+
         public async Task AddServiceTypeAsync(ServiceType serviceType)
         {
             await _context.InsertAsync(serviceType);
