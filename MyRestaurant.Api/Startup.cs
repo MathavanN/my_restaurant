@@ -25,6 +25,8 @@ namespace MyRestaurant.Api
             services.ConfigureIdentity();
             services.ConfigurePasswordPolicy();
             services.ConfigureAuthentication(Configuration);
+            services.ConfigureAuthorization();
+            services.ConfigureAuthorizationHandler();
             services.ConfigureVersionedApiExplorer();
             services.ConfigureApiVersioning();
             services.ConfigureAutoMapper();
