@@ -3,7 +3,7 @@ using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
-using MyRestaurant.Services.Contracts;
+using MyRestaurant.Services;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var dbServiceType = await _serviceType.GetServiceTypeAsync(d => d.Type == serviceTypeDto.Type);
             if (dbServiceType != null)
-                throw new RestException(HttpStatusCode.Conflict, "ServiceType already available");
+                throw new RestException(HttpStatusCode.Conflict, $"ServiceType {serviceTypeDto.Type } is already available.");
 
             var serviceType = _mapper.Map<ServiceType>(serviceTypeDto);
             await _serviceType.AddServiceTypeAsync(serviceType);

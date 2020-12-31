@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class RestaurantInfoController : BaseController
+    public class RestaurantInfoController : BaseApiController<RestaurantInfoController>
     {
         private readonly IRestaurantInfoRepository _repository;
         public RestaurantInfoController(IRestaurantInfoRepository repository)

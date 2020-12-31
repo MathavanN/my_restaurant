@@ -10,6 +10,7 @@ namespace MyRestaurant.Core
 {
     public interface IMyRestaurantContext
     {
+        DbSet<RefreshToken> RefreshTokens { get; set; }
         DbSet<ServiceType> ServiceTypes { get; set; }
         DbSet<RestaurantInfo> RestaurantInfos { get; set; }
         Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;

@@ -9,7 +9,7 @@ namespace MyRestaurant.Api.Controllers.V1
 {
 
     [ApiVersion("1.0")]
-    public class ServiceTypeController : BaseController
+    public class ServiceTypeController : BaseApiController<ServiceTypeController>
     {
 
         private readonly IServiceTypeRepository _repository;

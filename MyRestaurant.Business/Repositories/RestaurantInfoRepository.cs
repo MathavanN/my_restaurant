@@ -3,7 +3,7 @@ using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
-using MyRestaurant.Services.Contracts;
+using MyRestaurant.Services;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
