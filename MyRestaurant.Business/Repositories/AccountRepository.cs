@@ -79,14 +79,14 @@ namespace MyRestaurant.Business.Repositories
         {
             var dbUser = await _userManager.FindByNameAsync(loginDto.Email);
             if (dbUser == null)
-                throw new RestException(HttpStatusCode.NotFound, $"No accounts registered with email {loginDto.Email }.");
+                throw new RestException(HttpStatusCode.Unauthorized, "Username or password is incorrect.");
 
             ////if(!dbUser.EmailConfirmed)
             ////    throw new RestException(HttpStatusCode.Forbidden, $"Email is not confirmed for {loginDto.Email }.");
 
             var result = await _userManager.CheckPasswordAsync(dbUser, loginDto.Password);
             if (!result)
-                throw new RestException(HttpStatusCode.BadRequest, "Username or password is incorrect.");
+                throw new RestException(HttpStatusCode.Unauthorized, "Username or password is incorrect.");
 
             var accessToken = await _token.GenerateAccessToken(dbUser);
             var refreshToken = await _token.GenerateRefreshToken(dbUser.Id, ipAddress);
