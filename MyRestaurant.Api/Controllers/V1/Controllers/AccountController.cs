@@ -41,8 +41,7 @@ namespace MyRestaurant.Api.Controllers.V1.Controllers
 
         [HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDto loginDto)
