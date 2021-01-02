@@ -3,7 +3,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -17,13 +16,12 @@ using MyRestaurant.Api.PolicyHandlers;
 using MyRestaurant.Api.Swagger;
 using MyRestaurant.Api.Validators.V1;
 using MyRestaurant.Business.Dtos.V1;
+using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Linq;
@@ -35,6 +33,28 @@ namespace MyRestaurant.Api.Extensions
 {
     public static class ServiceExtensions
     {
+        private static string ValidateConfig(IConfiguration configuration, string configName)
+        {
+            var configValue = configuration.GetSection(configName).Value;
+            if (string.IsNullOrWhiteSpace(configValue))
+                throw new Exception($"Cannot find the {configName} details.");
+            return configValue;
+        }
+        public static void ConfigureCors(this IServiceCollection services, string corsPolicyName, IConfiguration configuration)
+        {
+            var origins = ValidateConfig(configuration, "App:CorsOrigins");
+            services.AddCors(options =>
+            {
+                options.AddPolicy(corsPolicyName,
+                    policy =>
+                    {
+                        policy.WithOrigins(origins.Split(",", StringSplitOptions.RemoveEmptyEntries));
+                        policy.AllowAnyHeader();
+                        policy.AllowAnyMethod();
+                        policy.AllowCredentials();
+                    });
+            });
+        }
         public static void ConfigureAuthorizationHandler(this IServiceCollection services)
         {
             services.AddSingleton<IAuthorizationHandler, MyRestaurantAccessHandler>();
@@ -99,44 +119,11 @@ namespace MyRestaurant.Api.Extensions
                     },
                     OnChallenge = context =>
                     {
-                        context.Response.StatusCode = 401;
-                        context.Response.ContentType = "application/json";
-                        var errorCode = HttpStatusCode.Unauthorized;
-                        object error = new 
-                        {
-                            ErrorCode = errorCode,
-                            ErrorType = errorCode.ToString(),
-                            ErrorMessage = string.IsNullOrWhiteSpace(context.Error) ? "Error" : context.Error,
-                            ErrorDate = DateTime.Now
-                        };
-
-                        var result = JsonConvert.SerializeObject(error, Formatting.Indented, new JsonSerializerSettings
-                        {
-                            ContractResolver = new CamelCasePropertyNamesContractResolver()
-                        });
-
-                        context.Response.WriteAsync(result);
-                        return Task.CompletedTask;
+                        throw new RestException(HttpStatusCode.Unauthorized, string.IsNullOrWhiteSpace(context.Error) ? "You are not authenticated." : context.Error);
                     },
                     OnForbidden = context =>
                     {
-                        context.Response.StatusCode = 403;
-                        context.Response.ContentType = "application/json";
-                        var errorCode = HttpStatusCode.Forbidden;
-                        object error = new
-                        {
-                            ErrorCode = errorCode,
-                            ErrorType = errorCode.ToString(),
-                            ErrorMessage = "You are not authorized to access this resource.",
-                            ErrorDate = DateTime.Now
-                        };
-
-                        var result = JsonConvert.SerializeObject(error, Formatting.Indented, new JsonSerializerSettings
-                        {
-                            ContractResolver = new CamelCasePropertyNamesContractResolver()
-                        });
-                        context.Response.WriteAsync(result);
-                        return Task.CompletedTask;
+                        throw new RestException(HttpStatusCode.Forbidden, "You are not authorized to access this resource.");
                     }
                 };
             });
@@ -167,7 +154,7 @@ namespace MyRestaurant.Api.Extensions
                     //To disable Auto Model Data Validation Response
                     options.InvalidModelStateResponseFactory = actionContext =>
                     {
-                        var validationErrors = actionContext.ModelState.Select(x => new { x.Key, x.Value.Errors.FirstOrDefault().ErrorMessage });
+                        var validationErrors = actionContext.ModelState.Select(x => new { Key = x.Key, Error = x.Value.Errors.FirstOrDefault().ErrorMessage });
                         var errorCode = HttpStatusCode.BadRequest;
                         object error = new { ErrorCode = errorCode, ErrorType = errorCode.ToString(), ErrorMessage = validationErrors, ErrorDate = DateTime.Now };
                         return new BadRequestObjectResult(error);
