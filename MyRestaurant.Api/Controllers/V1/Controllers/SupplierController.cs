@@ -8,29 +8,28 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class ServiceTypeController : BaseApiController<ServiceTypeController>
+    public class SupplierController : BaseApiController<SupplierController>
     {
-
-        private readonly IServiceTypeRepository _repository;
-        public ServiceTypeController(IServiceTypeRepository repository)
+        private readonly ISupplierRepository _repository;
+        public SupplierController(ISupplierRepository repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetServiceTypes()
+        public async Task<IActionResult> GetSuppliers()
         {
-            var result = await _repository.GetServiceTypesAsync();
+            var result = await _repository.GetSuppliersAsync();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetServiceType(int id)
+        public async Task<IActionResult> GetSupplier(long id)
         {
-            var result = await _repository.GetServiceTypeAsync(id);
+            var result = await _repository.GetSupplierAsync(id);
             return Ok(result);
         }
 
@@ -38,9 +37,9 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateServiceType(CreateServiceTypeDto serviceTypeDto, ApiVersion version)
+        public async Task<IActionResult> CreateSupplier(CreateSupplierDto supplierDto, ApiVersion version)
         {
-            var result = await _repository.CreateServiceTypeAsync(serviceTypeDto);
+            var result = await _repository.CreateSupplierAsync(supplierDto);
             return CreatedAtRoute(new { id = result.Id, version = $"{version}" }, result);
         }
 
@@ -48,25 +47,18 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateServiceType(int id,  EditServiceTypeDto serviceTypeDto) 
+        public async Task<IActionResult> UpdateSupplier(long id, EditSupplierDto supplierDto)
         {
-            await _repository.UpdateServiceTypeAsync(id, serviceTypeDto);
+            await _repository.UpdateSupplierAsync(id, supplierDto);
             return NoContent();
         }
 
-        /// <summary>
-        /// Delete a specific ServiceType
-        /// </summary>
-        /// <param name="id">ServiceType id</param>
-        /// <returns></returns>
-        /// <response code="204">Returns no content</response>
-        /// <response code="404">If the specified ServiceType id is not available</response> 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteServiceType(int id)
+        public async Task<IActionResult> DeleteSupplier(long id)
         {
-            await _repository.DeleteServiceTypeAsync(id);
+            await _repository.DeleteSupplierAsync(id);
 
             return NoContent();
         }
