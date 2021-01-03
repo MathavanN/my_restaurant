@@ -13,6 +13,11 @@ namespace MyRestaurant.Core
         DbSet<RefreshToken> RefreshTokens { get; set; }
         DbSet<ServiceType> ServiceTypes { get; set; }
         DbSet<RestaurantInfo> RestaurantInfos { get; set; }
+        DbSet<Supplier> Suppliers { get; set; }
+
+        DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+        DbSet<StockType> StockTypes { get; set; }
+        DbSet<StockItem> StockItems { get; set; }
         Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
         TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         void Delete<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
