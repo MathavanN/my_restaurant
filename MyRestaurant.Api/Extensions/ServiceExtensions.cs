@@ -173,16 +173,23 @@ namespace MyRestaurant.Api.Extensions
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IRestaurantInfoRepository, RestaurantInfoRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IStockTypeRepository, StockTyperepository>();
+            services.AddScoped<IUnitOfMeasureRepository, UnitOfMeasureRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<IServiceTypeService, ServiceTypeService>();
+            services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IUnitOfMeasureServices, UnitOfMeasureServices>();
+            services.AddScoped<IStockTypeServices, StockTypeServices>();
+            services.AddScoped<IStockItemServices, StockItemServices>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {
