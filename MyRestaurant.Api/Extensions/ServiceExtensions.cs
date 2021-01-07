@@ -116,14 +116,6 @@ namespace MyRestaurant.Api.Extensions
                             context.Token = accessToken;
                         }
                         return Task.CompletedTask;
-                    },
-                    OnChallenge = context =>
-                    {
-                        throw new RestException(HttpStatusCode.Unauthorized, string.IsNullOrWhiteSpace(context.Error) ? "You are not authenticated." : context.Error);
-                    },
-                    OnForbidden = context =>
-                    {
-                        throw new RestException(HttpStatusCode.Forbidden, "You are not authorized to access this resource.");
                     }
                 };
             });
@@ -176,7 +168,8 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IRestaurantInfoRepository, RestaurantInfoRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<IStockTypeRepository, StockTyperepository>();
+            services.AddScoped<IStockTypeRepository, StockTypeRepository>();
+            services.AddScoped<IStockItemRepository, StockItemRepository>();
             services.AddScoped<IUnitOfMeasureRepository, UnitOfMeasureRepository>();
         }
 
