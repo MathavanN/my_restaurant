@@ -2,9 +2,9 @@
 {
     public class EditStockItemDto
     {
-        public string StockType { get; set; }
+        public int TypeId { get; set; }
         public string Name { get; set; }
-        public string UnitOfMeasureName { get; set; }
+        public int UnitOfMeasureId { get; set; }
         public string Description { get; set; }
     }
 }
