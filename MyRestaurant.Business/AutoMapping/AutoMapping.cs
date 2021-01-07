@@ -34,7 +34,9 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<Supplier, GetSupplierDto>();
             CreateMap<UnitOfMeasure, GetUnitOfMeasureDto>();
             CreateMap<StockType, GetStockTypeDto>();
-            CreateMap<StockItem, GetStockItemDto>();
+            CreateMap<StockItem, GetStockItemDto>()
+                .ForMember(d => d.StockType, opt => opt.MapFrom(src => src.Type.Type))
+                .ForMember(d => d.UnitOfMeasureCode, opt => opt.MapFrom(src => src.UnitOfMeasure.Code));
 
         }
     }
