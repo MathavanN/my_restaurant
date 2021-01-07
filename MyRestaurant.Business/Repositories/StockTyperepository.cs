@@ -10,21 +10,26 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Business.Repositories
 {
-    public class StockTyperepository: IStockTypeRepository
+    public class StockTypeRepository: IStockTypeRepository
     {
         private readonly IMapper _mapper;
         private readonly IStockTypeServices _stockType;
-        public StockTyperepository(IMapper mapper, IStockTypeServices stockType)
+        public StockTypeRepository(IMapper mapper, IStockTypeServices stockType)
         {
             _mapper = mapper;
             _stockType = stockType;
         }
 
+        private async Task CheckStockTypeAsync(int id, string type)
+        {
+            var dbStockType = await _stockType.GetStockTypeAsync(d => d.Type == type && d.Id != id);
+            if (dbStockType != null)
+                throw new RestException(HttpStatusCode.Conflict, $"Stock Type {type} is already available.");
+        }
+
         public async Task<GetStockTypeDto> CreateStockTypeAsync(CreateStockTypeDto stockTypeDto)
         {
-            var dbStockType = await _stockType.GetStockTypeAsync(d => d.Type == stockTypeDto.Type);
-            if (dbStockType != null)
-                throw new RestException(HttpStatusCode.Conflict, $"Stock Type {stockTypeDto.Type} is already available.");
+            await CheckStockTypeAsync(0, stockTypeDto.Type);
 
             var stockType = _mapper.Map<StockType>(stockTypeDto);
             await _stockType.AddStockTypeAsync(stockType);
@@ -63,6 +68,8 @@ namespace MyRestaurant.Business.Repositories
         }
         public async Task UpdateStockTypeAsync(int id, EditStockTypeDto stockTypeDto)
         {
+            await CheckStockTypeAsync(id, stockTypeDto.Type); 
+
             var stockType = await GetStockTypeById(id);
 
             stockType = _mapper.Map(stockTypeDto, stockType);
