@@ -16,9 +16,9 @@ namespace MyRestaurant.Business.Repositories
     {
         private readonly IMapper _mapper;
         private readonly IJwtTokenService _token;
-        private readonly IUserAccessor _userAccessor;
+        private readonly IUserAccessorService _userAccessor;
         private readonly UserManager<User> _userManager;
-        public AccountRepository(IMapper mapper, UserManager<User> userManager, IJwtTokenService token, IUserAccessor userAccessor)
+        public AccountRepository(IMapper mapper, UserManager<User> userManager, IJwtTokenService token, IUserAccessorService userAccessor)
         {
             _mapper = mapper;
             _userManager = userManager;
