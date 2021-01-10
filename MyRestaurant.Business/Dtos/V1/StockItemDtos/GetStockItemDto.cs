@@ -6,6 +6,7 @@
         public int TypeId { get; set; }
         public string StockType { get; set; }
         public string Name { get; set; }
+        public decimal ItemUnit { get; set; }
         public int UnitOfMeasureId { get; set; }
         public string UnitOfMeasureCode { get; set; }
         public string Description { get; set; }
