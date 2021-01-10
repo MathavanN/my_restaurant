@@ -1,14 +1,23 @@
-﻿namespace MyRestaurant.Models
+﻿using System.Collections.Generic;
+
+namespace MyRestaurant.Models
 {
     public class StockItem : MyRestaurantObject
     {
+        public StockItem()
+        {
+            PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+        }
+
         public long Id { get; set; }
         public int TypeId { get; set; }
         public string Name { get; set; }
         public int UnitOfMeasureId { get; set; }
+        public decimal ItemUnit { get; set; }
         public string Description { get; set; }
 
         public virtual StockType Type { get; set; }
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }
+        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItems { get; set; }
     }
 }
