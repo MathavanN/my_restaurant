@@ -20,16 +20,18 @@ namespace MyRestaurant.Business.Repositories
             _stockItem = stockItem;
         }
 
-        private async Task CheckStockItemAsync(long id, string name, int typeId, int unitOfMeasureId)
+        private async Task CheckStockItemAsync(long id, string name, int typeId, int unitOfMeasureId, decimal itemUnit)
         {
-            var dbStockItem = await _stockItem.GetStockItemAsync(d => d.Name == name && d.TypeId == typeId && d.UnitOfMeasureId == unitOfMeasureId && d.Id != id);
+            var dbStockItem = await _stockItem.GetStockItemAsync(d => d.Name == name 
+                                                                    && d.TypeId == typeId && d.UnitOfMeasureId == unitOfMeasureId  
+                                                                    && d.ItemUnit == itemUnit && d.Id != id);
             if (dbStockItem != null)
                 throw new RestException(HttpStatusCode.Conflict, $"Stock Item is already available.");
         }
 
         public async Task<GetStockItemDto> CreateStockItemAsync(CreateStockItemDto stockItemDto)
         {
-            await CheckStockItemAsync(0, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId);
+            await CheckStockItemAsync(0, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId, stockItemDto.ItemUnit);
 
             var stockItem = _mapper.Map<StockItem>(stockItemDto);
             await _stockItem.AddStockItemAsync(stockItem);
@@ -49,7 +51,7 @@ namespace MyRestaurant.Business.Repositories
             var stockItem = await _stockItem.GetStockItemAsync(d => d.Id == id);
 
             if (stockItem == null)
-                throw new RestException(HttpStatusCode.NotFound, "Stock Type Not Found");
+                throw new RestException(HttpStatusCode.NotFound, "Stock Item Not Found");
 
             return stockItem;
         }
@@ -70,7 +72,7 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task UpdateStockItemAsync(long id, EditStockItemDto stockItemDto)
         {
-            await CheckStockItemAsync(id, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId);
+            await CheckStockItemAsync(id, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId, stockItemDto.ItemUnit);
 
             var stockItem = await GetStockItemById(id);
 
