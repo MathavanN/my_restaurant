@@ -18,6 +18,8 @@ namespace MyRestaurant.Core
         DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
         DbSet<StockType> StockTypes { get; set; }
         DbSet<StockItem> StockItems { get; set; }
+        DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
         Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
         TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         void Delete<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;

@@ -30,6 +30,8 @@ namespace MyRestaurant.Core
             builder.ApplyConfiguration(new UnitOfMeasureMapping());
             builder.ApplyConfiguration(new StockTypeMapping());
             builder.ApplyConfiguration(new StockItemMapping());
+            builder.ApplyConfiguration(new PurchaseOrderMapping());
+            builder.ApplyConfiguration(new PurchaseOrderItemMapping());
         }
 
         public DbSet<Audit> Audits { get; set; }
@@ -40,6 +42,8 @@ namespace MyRestaurant.Core
         public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
         public DbSet<StockType> StockTypes { get; set; }
         public DbSet<StockItem> StockItems { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
 
         public async Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
