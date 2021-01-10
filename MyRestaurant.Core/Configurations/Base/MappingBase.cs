@@ -10,4 +10,6 @@ namespace MyRestaurant.Core.Configurations.Base
     public abstract class UnitOfMeasureMappingBase : BaseEntityTypeConfiguration<UnitOfMeasure> { }
     public abstract class StockTypeMappingBase : BaseEntityTypeConfiguration<StockType> { }
     public abstract class StockItemMappingBase : BaseEntityTypeConfiguration<StockItem> { }
+    public abstract class PurchaseOrderMappingBase : BaseEntityTypeConfiguration<PurchaseOrder> { }
+    public abstract class PurchaseOrderItemMappingBase : BaseEntityTypeConfiguration<PurchaseOrderItem> { }
 }

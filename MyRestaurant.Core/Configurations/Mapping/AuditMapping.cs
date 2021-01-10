@@ -12,7 +12,7 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Action).HasColumnType("varchar(20)").IsRequired().HasMaxLength(20);
             builder.Property(t => t.TableName).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(t => t.Username).HasColumnType("nvarchar(256)").IsRequired();
+            builder.Property(t => t.Username).HasColumnType("varchar(256)").IsRequired();
             builder.ToTable("Audits");
             base.Configure(builder);
         }
