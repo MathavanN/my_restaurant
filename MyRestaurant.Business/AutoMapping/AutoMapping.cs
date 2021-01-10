@@ -24,6 +24,7 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<EditStockTypeDto, StockType>();
             CreateMap<CreateStockItemDto, StockItem>();
             CreateMap<EditStockItemDto, StockItem>();
+            CreateMap<CreatePurchaseOrderDto, PurchaseOrder>();
 
             //map from models to dto
             CreateMap<ServiceType, GetServiceTypeDto>();
@@ -37,7 +38,10 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<StockItem, GetStockItemDto>()
                 .ForMember(d => d.StockType, opt => opt.MapFrom(src => src.Type.Type))
                 .ForMember(d => d.UnitOfMeasureCode, opt => opt.MapFrom(src => src.UnitOfMeasure.Code));
-
+            CreateMap<PurchaseOrder, GetPurchaseOrderDto>()
+                .ForMember(d => d.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name))
+                .ForMember(d => d.RequestedBy, opt => opt.MapFrom(src => $"{src.RequestedUser.FirstName} {src.RequestedUser.LastName}" ))
+                .ForMember(d => d.ApprovedBy, opt => opt.MapFrom(src => $"{src.ApprovedUser.FirstName} {src.ApprovedUser.LastName}"));
         }
     }
 }
