@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public interface IUserAccessor
+    public interface IUserAccessorService
     {
         CurrentUser GetCurrentUser();
     }

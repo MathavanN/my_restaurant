@@ -5,10 +5,10 @@ using System.Security.Claims;
 
 namespace MyRestaurant.Services
 {
-    public class UserAccessor : IUserAccessor
+    public class UserAccessorService : IUserAccessorService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public UserAccessor(IHttpContextAccessor httpContextAccessor)
+        public UserAccessorService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
