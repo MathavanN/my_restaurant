@@ -171,11 +171,12 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IStockTypeRepository, StockTypeRepository>();
             services.AddScoped<IStockItemRepository, StockItemRepository>();
             services.AddScoped<IUnitOfMeasureRepository, UnitOfMeasureRepository>();
+            services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IUserAccessorService, UserAccessorService>();
             services.AddScoped<IServiceTypeService, ServiceTypeService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
@@ -183,6 +184,7 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IUnitOfMeasureServices, UnitOfMeasureServices>();
             services.AddScoped<IStockTypeServices, StockTypeServices>();
             services.AddScoped<IStockItemServices, StockItemServices>();
+            services.AddScoped<IPurchaseOrderServices, PurchaseOrderServices>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {
