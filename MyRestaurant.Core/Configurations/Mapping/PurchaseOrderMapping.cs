@@ -17,6 +17,7 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.Property(t => t.RequestedDate).HasColumnType("datetime").IsRequired();
             builder.Property(t => t.ApprovalStatus).IsRequired();
             builder.Property(t => t.ApprovedBy);
+            builder.Property(t => t.ApprovalReason).HasColumnType("varchar(500)");
             builder.Property(t => t.ApprovedDate).HasColumnType("datetime");
             builder.Property(t => t.Discount).HasColumnType("decimal(18, 2)");
             builder.Property(t => t.Description).HasColumnType("varchar(500)").HasMaxLength(500);
