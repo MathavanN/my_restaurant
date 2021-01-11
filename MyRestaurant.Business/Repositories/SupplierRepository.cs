@@ -37,7 +37,7 @@ namespace MyRestaurant.Business.Repositories
             var supplier = await _supplier.GetSupplierAsync(d => d.Id == id);
 
             if (supplier == null)
-                throw new RestException(HttpStatusCode.NotFound, "Supplier Not Found");
+                throw new RestException(HttpStatusCode.NotFound, "Supplier not found.");
 
             return supplier;
         }

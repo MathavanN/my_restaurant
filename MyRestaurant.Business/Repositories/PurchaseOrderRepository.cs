@@ -43,18 +43,18 @@ namespace MyRestaurant.Business.Repositories
             var order = await _purchaseOrder.GetPurchaseOrderAsync(d => d.Id == id);
 
             if (order == null)
-                throw new RestException(HttpStatusCode.NotFound, "Purchase order not found");
+                throw new RestException(HttpStatusCode.NotFound, "Purchase order not found.");
 
             return order;
         }
-
+        
         public async Task<GetPurchaseOrderDto> GetPurchaseOrderAsync(long id)
         {
             var order = await GetPurchaseOrderById(id);
 
             return _mapper.Map<GetPurchaseOrderDto>(order);
         }
-
+        
         public async Task<IEnumerable<GetPurchaseOrderDto>> GetPurchaseOrdersAsync()
         {
             var orders = await _purchaseOrder.GetPurchaseOrdersAsync();

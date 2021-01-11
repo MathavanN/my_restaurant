@@ -62,7 +62,7 @@ namespace MyRestaurant.Business.Repositories
             var stockType = await _stockType.GetStockTypeAsync(d => d.Id == id);
 
             if (stockType == null)
-                throw new RestException(HttpStatusCode.NotFound, "Stock Type Not Found");
+                throw new RestException(HttpStatusCode.NotFound, "Stock type not found.");
 
             return stockType;
         }

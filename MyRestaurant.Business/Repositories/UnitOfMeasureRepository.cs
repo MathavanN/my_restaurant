@@ -42,7 +42,7 @@ namespace MyRestaurant.Business.Repositories
             var unitOfMeasure = await _unitOfMeasure.GetUnitOfMeasureAsync(d => d.Id == id);
 
             if (unitOfMeasure == null)
-                throw new RestException(HttpStatusCode.NotFound, "Unit Of Measure Not Found");
+                throw new RestException(HttpStatusCode.NotFound, "Unit of measure not found.");
 
             return unitOfMeasure;
         }

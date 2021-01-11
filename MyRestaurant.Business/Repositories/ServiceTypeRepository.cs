@@ -37,7 +37,7 @@ namespace MyRestaurant.Business.Repositories
             var serviceType = await _serviceType.GetServiceTypeAsync(d => d.Id == id);
 
             if (serviceType == null)
-                throw new RestException(HttpStatusCode.NotFound, "ServiceType Not Found");
+                throw new RestException(HttpStatusCode.NotFound, "Service type not found.");
 
             return serviceType;
         }
