@@ -17,6 +17,7 @@ namespace MyRestaurant.Models
         public DateTime RequestedDate { get; set; }
         public PurchaseOrderStatus ApprovalStatus { get; set; }
         public Guid? ApprovedBy { get; set; }
+        public string ApprovalReason { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public decimal Discount { get; set; }
         public string Description { get; set; }
