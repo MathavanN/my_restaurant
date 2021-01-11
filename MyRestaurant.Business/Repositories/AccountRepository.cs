@@ -112,7 +112,7 @@ namespace MyRestaurant.Business.Repositories
             var isValidRefreshToken = _token.ValidateRefreshToken(refreshDto.RefreshToken);
 
             if (!isValidRefreshToken)
-                throw new RestException(HttpStatusCode.Unauthorized, "Invalid Refresh token");
+                throw new RestException(HttpStatusCode.Unauthorized, "Invalid Refresh token.");
 
             var dbRefreshToken = await _token.GetRefreshTokenAsync(t => t.Token == refreshDto.RefreshToken);
 
