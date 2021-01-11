@@ -149,11 +149,92 @@ namespace MyRestaurant.Core.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Audits");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ApprovalReason")
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<int>("ApprovalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ApprovedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ApprovedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<Guid>("RequestedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("RequestedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<long>("SupplierId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedBy");
+
+                    b.HasIndex("RequestedBy");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("PurchaseOrders");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.PurchaseOrderItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("ItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("ItemUnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("PurchaseOrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.ToTable("PurchaseOrderItems");
                 });
 
             modelBuilder.Entity("MyRestaurant.Models.RefreshToken", b =>
@@ -275,6 +356,131 @@ namespace MyRestaurant.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceTypes");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.StockItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<decimal>("ItemUnit")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitOfMeasureId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.HasIndex("UnitOfMeasureId");
+
+                    b.HasIndex(new[] { "Name", "TypeId", "UnitOfMeasureId", "ItemUnit" }, "IX_StockItems")
+                        .IsUnique();
+
+                    b.ToTable("StockItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.StockType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Type" }, "IX_StockTypes")
+                        .IsUnique();
+
+                    b.ToTable("StockTypes");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.Supplier", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ContactPerson")
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Fax")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Telephone1")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Telephone2")
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.UnitOfMeasure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Code" }, "IX_UnitOfMeasures")
+                        .IsUnique();
+
+                    b.ToTable("UnitOfMeasures");
                 });
 
             modelBuilder.Entity("MyRestaurant.Models.User", b =>
@@ -400,6 +606,56 @@ namespace MyRestaurant.Core.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.User", "ApprovedUser")
+                        .WithMany("PurchaseOrderApprovals")
+                        .HasForeignKey("ApprovedBy")
+                        .HasConstraintName("FK_PurchaseOrders_ApprovedBy")
+                        .OnDelete(DeleteBehavior.ClientCascade);
+
+                    b.HasOne("MyRestaurant.Models.User", "RequestedUser")
+                        .WithMany("PurchaseOrderRequests")
+                        .HasForeignKey("RequestedBy")
+                        .HasConstraintName("FK_PurchaseOrders_RequestedBy")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.Supplier", "Supplier")
+                        .WithMany("PurchaseOrders")
+                        .HasForeignKey("SupplierId")
+                        .HasConstraintName("FK_PurchaseOrders_Suppliers")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedUser");
+
+                    b.Navigation("RequestedUser");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.PurchaseOrderItem", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.StockItem", "Item")
+                        .WithMany("PurchaseOrderItems")
+                        .HasForeignKey("ItemId")
+                        .HasConstraintName("FK_PurchaseOrderItems_StockItems")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("PurchaseOrderItems")
+                        .HasForeignKey("PurchaseOrderId")
+                        .HasConstraintName("FK_PurchaseOrderItems_PurchaseOrders")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("PurchaseOrder");
+                });
+
             modelBuilder.Entity("MyRestaurant.Models.RefreshToken", b =>
                 {
                     b.HasOne("MyRestaurant.Models.User", "User")
@@ -411,8 +667,58 @@ namespace MyRestaurant.Core.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.StockItem", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.StockType", "Type")
+                        .WithMany("StockItems")
+                        .HasForeignKey("TypeId")
+                        .HasConstraintName("FK_StockItems_StockTypes")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.UnitOfMeasure", "UnitOfMeasure")
+                        .WithMany("StockItems")
+                        .HasForeignKey("UnitOfMeasureId")
+                        .HasConstraintName("FK_StockItems_UnitOfMeasures")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+
+                    b.Navigation("UnitOfMeasure");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
+                {
+                    b.Navigation("PurchaseOrderItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.StockItem", b =>
+                {
+                    b.Navigation("PurchaseOrderItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.StockType", b =>
+                {
+                    b.Navigation("StockItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.Supplier", b =>
+                {
+                    b.Navigation("PurchaseOrders");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.UnitOfMeasure", b =>
+                {
+                    b.Navigation("StockItems");
+                });
+
             modelBuilder.Entity("MyRestaurant.Models.User", b =>
                 {
+                    b.Navigation("PurchaseOrderApprovals");
+
+                    b.Navigation("PurchaseOrderRequests");
+
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618

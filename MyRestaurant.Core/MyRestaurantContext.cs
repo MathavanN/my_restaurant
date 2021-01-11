@@ -26,13 +26,25 @@ namespace MyRestaurant.Core
             builder.ApplyConfiguration(new RefreshTokenMapping());
             builder.ApplyConfiguration(new ServiceTypeMapping());
             builder.ApplyConfiguration(new RestaurantInfoMapping());
+            builder.ApplyConfiguration(new SupplierMapping());
+            builder.ApplyConfiguration(new UnitOfMeasureMapping());
+            builder.ApplyConfiguration(new StockTypeMapping());
+            builder.ApplyConfiguration(new StockItemMapping());
+            builder.ApplyConfiguration(new PurchaseOrderMapping());
+            builder.ApplyConfiguration(new PurchaseOrderItemMapping());
         }
 
         public DbSet<Audit> Audits { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<RestaurantInfo> RestaurantInfos { get; set; }
-        
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
+        public DbSet<StockType> StockTypes { get; set; }
+        public DbSet<StockItem> StockItems { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+
         public async Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
             var savedEntity = await Set<TEntity>().AddAsync(entity, cancellationToken);

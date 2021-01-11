@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Api.Controllers.V1
 {
-
     [ApiVersion("1.0")]
     public class ServiceTypeController : BaseApiController<ServiceTypeController>
     {
@@ -22,7 +21,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetServiceTypes()
         {
-            var result = await _repository.GetServicesTypesAsync();
+            var result = await _repository.GetServiceTypesAsync();
             return Ok(result);
         }
 

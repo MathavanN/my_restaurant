@@ -116,14 +116,6 @@ namespace MyRestaurant.Api.Extensions
                             context.Token = accessToken;
                         }
                         return Task.CompletedTask;
-                    },
-                    OnChallenge = context =>
-                    {
-                        throw new RestException(HttpStatusCode.Unauthorized, string.IsNullOrWhiteSpace(context.Error) ? "You are not authenticated." : context.Error);
-                    },
-                    OnForbidden = context =>
-                    {
-                        throw new RestException(HttpStatusCode.Forbidden, "You are not authorized to access this resource.");
                     }
                 };
             });
@@ -173,16 +165,28 @@ namespace MyRestaurant.Api.Extensions
         public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IRestaurantInfoRepository, RestaurantInfoRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IStockTypeRepository, StockTypeRepository>();
+            services.AddScoped<IStockItemRepository, StockItemRepository>();
+            services.AddScoped<IUnitOfMeasureRepository, UnitOfMeasureRepository>();
+            services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            services.AddScoped<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IUserAccessorService, UserAccessorService>();
             services.AddScoped<IServiceTypeService, ServiceTypeService>();
+            services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IUnitOfMeasureServices, UnitOfMeasureServices>();
+            services.AddScoped<IStockTypeServices, StockTypeServices>();
+            services.AddScoped<IStockItemServices, StockItemServices>();
+            services.AddScoped<IPurchaseOrderServices, PurchaseOrderServices>();
+            services.AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {

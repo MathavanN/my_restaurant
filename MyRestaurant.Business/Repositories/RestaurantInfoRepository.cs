@@ -40,7 +40,7 @@ namespace MyRestaurant.Business.Repositories
             var restaurantInfo = await _restaurantInfo.GetRestaurantInfoAsync(d => d.Id == id);
 
             if (restaurantInfo == null)
-                throw new RestException(HttpStatusCode.NotFound, "RestaurantInfo Not Found");
+                throw new RestException(HttpStatusCode.NotFound, "Restaurant information not found.");
 
             return _mapper.Map<GetRestaurantInfoDto>(restaurantInfo);
         }
