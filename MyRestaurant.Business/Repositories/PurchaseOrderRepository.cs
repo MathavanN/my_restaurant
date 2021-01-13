@@ -47,19 +47,46 @@ namespace MyRestaurant.Business.Repositories
 
             return order;
         }
-        
+
         public async Task<GetPurchaseOrderDto> GetPurchaseOrderAsync(long id)
         {
             var order = await GetPurchaseOrderById(id);
 
             return _mapper.Map<GetPurchaseOrderDto>(order);
         }
-        
+
         public async Task<IEnumerable<GetPurchaseOrderDto>> GetPurchaseOrdersAsync()
         {
             var orders = await _purchaseOrder.GetPurchaseOrdersAsync();
 
             return _mapper.Map<IEnumerable<GetPurchaseOrderDto>>(orders);
+        }
+
+        public async Task UpdatePurchaseOrderAsync(long id, EditPurchaseOrderDto purchaseOrderDto)
+        {
+
+            var order = await GetPurchaseOrderById(id);
+
+            order = _mapper.Map(purchaseOrderDto, order);
+
+            await _purchaseOrder.UpdatePurchaseOrderAsync(order);
+        }
+        public async Task DeletePurchaseOrderAsync(long id)
+        {
+            var order = await GetPurchaseOrderById(id);
+
+            await _purchaseOrder.DeletePurchaseOrderAsync(order);
+        }
+
+        public async Task ApprovalPurchaseOrderAsync(long id, ApprovalPurchaseOrderDto purchaseOrderDto)
+        {
+            var order = await GetPurchaseOrderById(id);
+            order = _mapper.Map(purchaseOrderDto, order);
+            var currentUser = _userAccessor.GetCurrentUser();
+            order.ApprovedBy = currentUser.UserId;
+            order.ApprovedDate = DateTime.Now;
+
+            await _purchaseOrder.UpdatePurchaseOrderAsync(order);
         }
     }
 }

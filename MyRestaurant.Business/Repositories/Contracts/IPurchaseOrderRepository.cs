@@ -9,5 +9,8 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<IEnumerable<GetPurchaseOrderDto>> GetPurchaseOrdersAsync();
         Task<GetPurchaseOrderDto> GetPurchaseOrderAsync(long id);
         Task<GetPurchaseOrderDto> CreatePurchaseOrderAsync(CreatePurchaseOrderDto purchaseOrderDto);
+        Task UpdatePurchaseOrderAsync(long id, EditPurchaseOrderDto purchaseOrderDto);
+        Task DeletePurchaseOrderAsync(long id);
+        Task ApprovalPurchaseOrderAsync(long id, ApprovalPurchaseOrderDto purchaseOrderDto);
     }
 }
