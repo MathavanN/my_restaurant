@@ -25,6 +25,8 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<CreateStockItemDto, StockItem>();
             CreateMap<EditStockItemDto, StockItem>();
             CreateMap<CreatePurchaseOrderDto, PurchaseOrder>();
+            CreateMap<EditPurchaseOrderDto, PurchaseOrder>();
+            CreateMap<ApprovalPurchaseOrderDto, PurchaseOrder>();
             CreateMap<CreatePurchaseOrderItemDto, PurchaseOrderItem>();
             CreateMap<EditPurchaseOrderItemDto, PurchaseOrderItem>();
 
