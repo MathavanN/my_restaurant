@@ -31,6 +31,8 @@ namespace MyRestaurant.Core.Configurations.Mapping
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("FK_StockItems_UnitOfMeasures");
 
+            builder.Navigation(d => d.Type).UsePropertyAccessMode(PropertyAccessMode.Property);
+            builder.Navigation(d => d.UnitOfMeasure).UsePropertyAccessMode(PropertyAccessMode.Property);
 
             base.Configure(builder);
         }
