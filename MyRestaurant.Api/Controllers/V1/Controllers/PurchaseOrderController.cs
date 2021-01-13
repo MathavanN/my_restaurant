@@ -42,5 +42,34 @@ namespace MyRestaurant.Api.Controllers.V1
             var result = await _repository.CreatePurchaseOrderAsync(purchaseOrderDto);
             return CreatedAtRoute(new { id = result.Id, version = $"{version}" }, result);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdatePurchaseOrder(int id, EditPurchaseOrderDto purchaseOrderDto)
+        {
+            await _repository.UpdatePurchaseOrderAsync(id, purchaseOrderDto);
+            return NoContent();
+        }
+
+        [HttpPut("approval/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ApprovePurchaseOrder(int id, ApprovalPurchaseOrderDto purchaseOrderDto)
+        {
+            await _repository.ApprovalPurchaseOrderAsync(id, purchaseOrderDto);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeletePurchaseOrder(int id)
+        {
+            await _repository.DeletePurchaseOrderAsync(id);
+            return NoContent();
+        }
     }
 }
