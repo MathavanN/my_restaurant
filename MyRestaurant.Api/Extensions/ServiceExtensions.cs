@@ -51,6 +51,7 @@ namespace MyRestaurant.Api.Extensions
                         policy.WithOrigins(origins.Split(",", StringSplitOptions.RemoveEmptyEntries));
                         policy.AllowAnyHeader();
                         policy.AllowAnyMethod();
+                        policy.WithExposedHeaders("WWW-Authenticate");
                         policy.AllowCredentials();
                     });
             });
