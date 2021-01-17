@@ -51,6 +51,11 @@ namespace MyRestaurant.Core
             return savedEntity.Entity;
         }
 
+        public void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
+        {
+            Set<TEntity>().Add(entity);
+        }
+
         public TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
         {
             return Set<TEntity>().Update(entity).Entity;

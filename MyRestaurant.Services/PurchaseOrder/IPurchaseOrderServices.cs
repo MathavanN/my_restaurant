@@ -13,7 +13,5 @@ namespace MyRestaurant.Services
         Task AddPurchaseOrderAsync(PurchaseOrder order);
         Task UpdatePurchaseOrderAsync(PurchaseOrder order);
         Task DeletePurchaseOrderAsync(PurchaseOrder order);
-
-        
     }
 }

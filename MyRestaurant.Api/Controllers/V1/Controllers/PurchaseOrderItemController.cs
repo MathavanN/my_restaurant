@@ -42,5 +42,25 @@ namespace MyRestaurant.Api.Controllers.V1
             var result = await _repository.CreatePurchaseOrderItemAsync(purchaseOrderDto);
             return CreatedAtRoute(new { id = result.Id, version = $"{ version}" }, result);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdatePurchaseOrderItem(int id, EditPurchaseOrderItemDto purchaseOrderItemDto)
+        {
+            await _repository.UpdatePurchaseOrderItemAsync(id, purchaseOrderItemDto);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeletePurchaseOrderItem(int id)
+        {
+            await _repository.DeletePurchaseOrderItemAsync(id);
+
+            return NoContent();
+        }
     }
 }
