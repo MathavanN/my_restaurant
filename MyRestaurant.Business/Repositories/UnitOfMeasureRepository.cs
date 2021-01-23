@@ -5,6 +5,7 @@ using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -65,7 +66,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var unitOfMeasures = await _unitOfMeasure.GetUnitOfMeasuresAsync();
 
-            return _mapper.Map<IEnumerable<GetUnitOfMeasureDto>>(unitOfMeasures);
+            return _mapper.Map<IEnumerable<GetUnitOfMeasureDto>>(unitOfMeasures.OrderBy(d => d.Code));
         }
 
         public async Task UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto)
