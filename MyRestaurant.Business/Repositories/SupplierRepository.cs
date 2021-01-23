@@ -73,7 +73,7 @@ namespace MyRestaurant.Business.Repositories
                 queryable = queryable.Where(d => d.City.Equals(city, StringComparison.InvariantCultureIgnoreCase));
 
             if (!string.IsNullOrWhiteSpace(contactPerson))
-                queryable = queryable.Where(d => d.Name.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
+                queryable = queryable.Where(d => d.ContactPerson.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
 
             var suppliers = await queryable
                                     .Skip(offset ?? 0)
