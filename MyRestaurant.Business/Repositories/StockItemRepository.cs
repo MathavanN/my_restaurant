@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -63,11 +65,28 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<GetStockItemDto>(stockItem);
         }
 
+        public async Task<StockItemEnvelop> GetStockItemByType(int typeId, int? limit, int? offset)
+        {
+            var queryable = _stockItem.GetStockItemsAsync(d => d.TypeId == typeId)
+                                      .OrderBy(d => d.Name);
+
+            var stockItems = await queryable
+                                    .Skip(offset ?? 0)
+                                    .Take(limit ?? 10)
+                                    .ToListAsync();
+            
+            return new StockItemEnvelop
+            {
+                StockItems = _mapper.Map<IEnumerable<GetStockItemDto>>(stockItems),
+                StockItemCount = queryable.Count()
+            };
+        }
+
         public async Task<IEnumerable<GetStockItemDto>> GetStockItemsAsync()
         {
             var stockItems = await _stockItem.GetStockItemsAsync();
 
-            return _mapper.Map<IEnumerable<GetStockItemDto>>(stockItems);
+            return _mapper.Map<IEnumerable<GetStockItemDto>>(stockItems.OrderBy(d => d.Type.Type).ThenBy(d => d.Name));
         }
 
         public async Task UpdateStockItemAsync(long id, EditStockItemDto stockItemDto)
