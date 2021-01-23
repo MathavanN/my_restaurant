@@ -18,9 +18,9 @@ namespace MyRestaurant.Api.Controllers.V1
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetSuppliers()
+        public async Task<IActionResult> GetSuppliers(int? limit, int? offset, string name, string city, string contactPerson)
         {
-            var result = await _repository.GetSuppliersAsync();
+            var result = await _repository.GetSuppliersAsync(limit, offset, name, city, contactPerson);
             return Ok(result);
         }
 
