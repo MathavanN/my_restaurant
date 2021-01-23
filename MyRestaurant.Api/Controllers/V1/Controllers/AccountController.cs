@@ -68,10 +68,19 @@ namespace MyRestaurant.Api.Controllers.V1.Controllers
         }
 
         [HttpGet("CurrentUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetCurrentUser()
         {
             var currentUser =  _repository.GetCurrentUser();
             return Ok(currentUser);
+        }
+        
+        [HttpGet("Users")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUsers()
+        {
+            var result = await _repository.GetUsersAsync();
+            return Ok(result);
         }
 
         private string IpAddress()
