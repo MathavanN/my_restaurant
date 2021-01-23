@@ -86,21 +86,6 @@ namespace MyRestaurant.Core.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -555,6 +540,21 @@ namespace MyRestaurant.Core.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.UserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("MyRestaurant.Models.Role", null)
@@ -575,21 +575,6 @@ namespace MyRestaurant.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("MyRestaurant.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
-                {
-                    b.HasOne("MyRestaurant.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MyRestaurant.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -688,9 +673,33 @@ namespace MyRestaurant.Core.Migrations
                     b.Navigation("UnitOfMeasure");
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.UserRole", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
                 {
                     b.Navigation("PurchaseOrderItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.Role", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("MyRestaurant.Models.StockItem", b =>
@@ -720,6 +729,8 @@ namespace MyRestaurant.Core.Migrations
                     b.Navigation("PurchaseOrderRequests");
 
                     b.Navigation("RefreshTokens");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }
