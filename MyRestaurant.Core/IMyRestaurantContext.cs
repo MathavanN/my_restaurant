@@ -2,6 +2,7 @@
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace MyRestaurant.Core
         void DeleteRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : MyRestaurantObject;
         Task<TEntity> GetFirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
         Task<IEnumerable<TEntity>> GetAllAsync<TEntity>(Expression<Func<TEntity, bool>> expression = null, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
+        IQueryable<TEntity> GetAllQueryable<TEntity>(Expression<Func<TEntity, bool>> expression = null) where TEntity : MyRestaurantObject;
         Task CommitAsync(CancellationToken cancellationToken = default);
     }
 }
