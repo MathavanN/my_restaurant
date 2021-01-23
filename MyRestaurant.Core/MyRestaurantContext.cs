@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MyRestaurant.Core.Configurations.Mapping;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Core
 {
-    public class MyRestaurantContext : IdentityDbContext<User, Role, Guid>, IMyRestaurantContext
+    public class MyRestaurantContext : IdentityDbContext<User, Role, Guid, IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>, IMyRestaurantContext
     {
         public MyRestaurantContext(DbContextOptions<MyRestaurantContext> options) : base(options)
         { }
@@ -21,6 +22,23 @@ namespace MyRestaurant.Core
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<User>(entity =>
+            {
+                entity.HasMany(d => d.UserRoles);
+            });
+
+            builder.Entity<UserRole>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.UserRoles)
+                    .HasForeignKey(d => d.RoleId);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserRoles)
+                    .HasForeignKey(d => d.UserId);
+            });
 
             builder.ApplyConfiguration(new AuditMapping());
             builder.ApplyConfiguration(new RefreshTokenMapping());
@@ -83,7 +101,12 @@ namespace MyRestaurant.Core
                 await Set<TEntity>().Where(expression).ToListAsync(cancellationToken);
         }
 
-        
+        public IQueryable<TEntity> GetAllQueryable<TEntity>(Expression<Func<TEntity, bool>> expression = null) where TEntity : MyRestaurantObject
+        {
+            return expression == null ?
+                Set<TEntity>().AsQueryable() : 
+                Set<TEntity>().Where(expression).AsQueryable();
+        }
         public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
             await SaveChangesAsync(cancellationToken);
