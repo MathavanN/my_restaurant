@@ -1,4 +1,5 @@
 ﻿using MyRestaurant.Business.Dtos.V1;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyRestaurant.Business.Repositories.Contracts
@@ -11,5 +12,6 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task RevokeToken(RevokeDto revokeDto, string ipAddress);
         Task<TokenResultDto> RefreshToken(RefreshDto refreshDto, string ipAddress);
         CurrentUserDto GetCurrentUser();
+        Task<IEnumerable<GetUserDto>> GetUsersAsync();
     }
 }
