@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +17,6 @@ using MyRestaurant.Api.PolicyHandlers;
 using MyRestaurant.Api.Swagger;
 using MyRestaurant.Api.Validators.V1;
 using MyRestaurant.Business.Dtos.V1;
-using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Core;
@@ -147,7 +147,8 @@ namespace MyRestaurant.Api.Extensions
                     //To disable Auto Model Data Validation Response
                     options.InvalidModelStateResponseFactory = actionContext =>
                     {
-                        var validationErrors = actionContext.ModelState.Select(x => new { Key = x.Key, Error = x.Value.Errors.FirstOrDefault().ErrorMessage });
+                        var validationErrors = actionContext.ModelState.Where(x =>x.Value.ValidationState == ModelValidationState.Invalid)
+                                                            .Select(x => new { Key = x.Key, Error = x.Value.Errors.FirstOrDefault().ErrorMessage });
                         var errorCode = HttpStatusCode.BadRequest;
                         object error = new { ErrorCode = errorCode, ErrorType = errorCode.ToString(), ErrorMessage = validationErrors, ErrorDate = DateTime.Now };
                         return new BadRequestObjectResult(error);
