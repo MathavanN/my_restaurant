@@ -10,7 +10,7 @@ namespace MyRestaurant.Services
 {
     public interface ISupplierService
     {
-        Task<IEnumerable<Supplier>> GetSuppliersAsync();
+        IQueryable<Supplier> GetSuppliersAsync();
         Task<Supplier> GetSupplierAsync(Expression<Func<Supplier, bool>> expression);
         Task AddSupplierAsync(Supplier supplier);
         Task UpdateSupplierAsync(Supplier supplier);
