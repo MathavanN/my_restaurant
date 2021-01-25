@@ -2,6 +2,7 @@
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace MyRestaurant.Services
 
         public async Task<Supplier> GetSupplierAsync(Expression<Func<Supplier, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
-        public async Task<IEnumerable<Supplier>> GetSuppliersAsync() => await _context.GetAllAsync<Supplier>();
+        public IQueryable<Supplier> GetSuppliersAsync() => _context.GetAllQueryable<Supplier>();
 
         public async Task UpdateSupplierAsync(Supplier supplier)
         {

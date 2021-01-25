@@ -1,6 +1,7 @@
 ﻿using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
+using System.Linq;
 
 namespace MyRestaurant.Business.AutoMapping
 {
@@ -34,6 +35,8 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<ServiceType, GetServiceTypeDto>();
             CreateMap<RestaurantInfo, GetRestaurantInfoDto>()
                 .ForMember(d => d.Address, opt => opt.MapFrom(src => $"{src.Address}, {src.City}, {src.Country}"));
+            CreateMap<User, GetUserDto>()
+                .ForMember(d => d.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(t => t.Role.Name).ToList()));
             CreateMap<CurrentUser, CurrentUserDto>()
                 .ForMember(d => d.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
             CreateMap<Supplier, GetSupplierDto>();

@@ -24,6 +24,14 @@ namespace MyRestaurant.Api.Controllers.V1
             return Ok(result);
         }
 
+        [HttpGet("type/{typeId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetStockItemsByType(int typeId, int? limit, int? offset)
+        {
+            var result = await _repository.GetStockItemByType(typeId, limit, offset);
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]

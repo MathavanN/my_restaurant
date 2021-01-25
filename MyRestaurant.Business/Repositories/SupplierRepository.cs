@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -56,11 +59,32 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<GetSupplierDto>(supplier);
         }
 
-        public async Task<IEnumerable<GetSupplierDto>> GetSuppliersAsync()
+        public async Task<SupplierEnvelop> GetSuppliersAsync(int? limit, int? offset, string name, string city, string contactPerson)
         {
-            var serviceTypes = await _supplier.GetSuppliersAsync();
+            var queryable = _supplier.GetSuppliersAsync()
+                                     .OrderBy(d => d.Name)
+                                     .AsQueryable()
+                                     .AsAsyncEnumerable();
 
-            return _mapper.Map<IEnumerable<GetSupplierDto>>(serviceTypes);
+            if (!string.IsNullOrWhiteSpace(name))
+                queryable = queryable.Where(d => d.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(city))
+                queryable = queryable.Where(d => d.City.Equals(city, StringComparison.InvariantCultureIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(contactPerson))
+                queryable = queryable.Where(d => d.ContactPerson.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
+
+            var suppliers = await queryable
+                                    .Skip(offset ?? 0)
+                                    .Take(limit ?? int.MaxValue)
+                                    .ToListAsync();
+
+            return new SupplierEnvelop
+            {
+                Suppliers = _mapper.Map<IEnumerable<GetSupplierDto>>(suppliers),
+                SupplierCount = await queryable.CountAsync()
+            };
         }
 
         public async Task UpdateSupplierAsync(long id, EditSupplierDto supplierDto)

@@ -5,6 +5,7 @@ using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -53,9 +54,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<IEnumerable<GetStockTypeDto>> GetStockTypesAsync()
         {
-            var serviceTypes = await _stockType.GetStockTypesAsync();
+            var stockTypes = await _stockType.GetStockTypesAsync();
 
-            return _mapper.Map<IEnumerable<GetStockTypeDto>>(serviceTypes);
+            return _mapper.Map<IEnumerable<GetStockTypeDto>>(stockTypes.OrderBy(d => d.Type));
         }
         private async Task<StockType> GetStockTypeById(int id)
         {
