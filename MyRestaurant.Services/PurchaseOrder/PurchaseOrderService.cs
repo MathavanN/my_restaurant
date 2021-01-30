@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public class PurchaseOrderServices : IPurchaseOrderServices
+    public class PurchaseOrderService : IPurchaseOrderService
     {
         private readonly IMyRestaurantContext _context;
-        public PurchaseOrderServices(IMyRestaurantContext context)
+        public PurchaseOrderService(IMyRestaurantContext context)
         {
             _context = context;
         }
