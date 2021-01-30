@@ -9,18 +9,21 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.UserId).IsRequired();
-            builder.Property(t => t.Token).IsRequired();
-            builder.Property(t => t.Expires).IsRequired();
-            builder.Property(t => t.Created).IsRequired();
-            builder.Property(t => t.CreatedByIp).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(t => t.Revoked);
-            builder.Property(t => t.RevokedByIp).HasColumnType("varchar(100)");
-            builder.Property(t => t.ReplacedByToken);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.UserId).IsRequired();
+            builder.Property(e => e.Token).IsRequired();
+            builder.Property(e => e.Expires).IsRequired();
+            builder.Property(e => e.Created).IsRequired();
+            builder.Property(e => e.CreatedByIp).HasColumnType("varchar(100)").IsRequired();
+            builder.Property(e => e.Revoked);
+            builder.Property(e => e.RevokedByIp).HasColumnType("varchar(100)");
+            builder.Property(e => e.ReplacedByToken);
             builder.ToTable("RefreshTokens");
 
-            builder.HasOne(t => t.User).WithMany(r => r.RefreshTokens).HasForeignKey(f => f.UserId);
+            builder.HasOne(d => d.User)
+                .WithMany(p => p.RefreshTokens)
+                .HasForeignKey(d => d.UserId);
+
             base.Configure(builder);
         }
     }

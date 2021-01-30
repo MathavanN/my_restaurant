@@ -9,18 +9,17 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<PurchaseOrder> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.OrderNumber).HasColumnType("varchar(50)").IsRequired();
-            builder.Property(t => t.SupplierId).IsRequired();
-            builder.Property(t => t.RequestedBy).IsRequired();
-            builder.Property(t => t.RequestedDate).HasColumnType("datetime").IsRequired();
-            builder.Property(t => t.ApprovalStatus).IsRequired();
-            builder.Property(t => t.ApprovedBy);
-            builder.Property(t => t.ApprovalReason).HasColumnType("varchar(500)");
-            builder.Property(t => t.ApprovedDate).HasColumnType("datetime");
-            builder.Property(t => t.Discount).HasColumnType("decimal(18, 2)");
-            builder.Property(t => t.Description).HasColumnType("varchar(500)").HasMaxLength(500);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.OrderNumber).HasColumnType("varchar(50)").IsRequired();
+            builder.Property(e => e.SupplierId).IsRequired();
+            builder.Property(e => e.RequestedBy).IsRequired();
+            builder.Property(e => e.RequestedDate).HasColumnType("datetime").IsRequired();
+            builder.Property(e => e.ApprovalStatus).IsRequired();
+            builder.Property(e => e.ApprovedBy);
+            builder.Property(e => e.ApprovalReason).HasColumnType("varchar(500)");
+            builder.Property(e => e.ApprovedDate).HasColumnType("datetime");
+            builder.Property(e => e.Description).HasColumnType("varchar(500)").HasMaxLength(500);
             builder.ToTable("PurchaseOrders");
 
             builder.HasOne(d => d.Supplier)

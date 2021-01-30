@@ -9,15 +9,15 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<RestaurantInfo> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.Name).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(t => t.Address).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(t => t.City).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(t => t.Country).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(t => t.LandLine).HasColumnType("varchar(20)");
-            builder.Property(t => t.Mobile).HasColumnType("varchar(20)");
-            builder.Property(t => t.Email).HasColumnType("varchar(256)");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.Name).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(e => e.Address).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(e => e.City).HasColumnType("varchar(100)").IsRequired();
+            builder.Property(e => e.Country).HasColumnType("varchar(100)").IsRequired();
+            builder.Property(e => e.LandLine).HasColumnType("varchar(20)");
+            builder.Property(e => e.Mobile).HasColumnType("varchar(20)");
+            builder.Property(e => e.Email).HasColumnType("varchar(256)");
             builder.ToTable("RestaurantInfos");
             base.Configure(builder);
         }

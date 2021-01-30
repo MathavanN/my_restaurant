@@ -9,23 +9,22 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<PurchaseOrderItem> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.PurchaseOrderId).IsRequired();
-            builder.Property(t => t.ItemId).IsRequired();
-            builder.Property(t => t.ItemUnitPrice).HasColumnType("decimal(18, 2)");
-            builder.Property(t => t.Quantity).IsRequired();
-            builder.Property(t => t.Discount).HasColumnType("decimal(18, 2)");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.PurchaseOrderId).IsRequired();
+            builder.Property(e => e.ItemId).IsRequired();
+            builder.Property(e => e.ItemUnitPrice).HasColumnType("decimal(18, 2)");
+            builder.Property(e => e.Quantity).IsRequired();
             builder.ToTable("PurchaseOrderItems");
 
             builder.HasOne(d => d.Item)
-                    .WithMany(d => d.PurchaseOrderItems)
-                    .HasForeignKey(d => d.ItemId)
-                    .OnDelete(DeleteBehavior.ClientCascade)
-                    .HasConstraintName("FK_PurchaseOrderItems_StockItems");
+                .WithMany(p => p.PurchaseOrderItems)
+                .HasForeignKey(d => d.ItemId)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .HasConstraintName("FK_PurchaseOrderItems_StockItems");
 
             builder.HasOne(d => d.PurchaseOrder)
-                .WithMany(d => d.PurchaseOrderItems)
+                .WithMany(p => p.PurchaseOrderItems)
                 .HasForeignKey(d => d.PurchaseOrderId)
                 .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("FK_PurchaseOrderItems_PurchaseOrders");
