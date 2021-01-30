@@ -14,9 +14,9 @@ namespace MyRestaurant.Business.Repositories
     public class PurchaseOrderRepository : IPurchaseOrderRepository
     {
         private readonly IMapper _mapper;
-        private readonly IPurchaseOrderServices _purchaseOrder;
+        private readonly IPurchaseOrderService _purchaseOrder;
         private readonly IUserAccessorService _userAccessor;
-        public PurchaseOrderRepository(IMapper mapper, IPurchaseOrderServices purchaseOrder, IUserAccessorService userAccessor)
+        public PurchaseOrderRepository(IMapper mapper, IPurchaseOrderService purchaseOrder, IUserAccessorService userAccessor)
         {
             _mapper = mapper;
             _purchaseOrder = purchaseOrder;

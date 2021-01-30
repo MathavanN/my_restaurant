@@ -20,8 +20,8 @@ namespace MyRestaurant.Business.Repositories
         }
         private async Task CheckOrderItemAsync(long id, long orderId, long itemId)
         {
-            var dbStockType = await _purchaseOrderItem.GetPurchaseOrderItemAsync(d => d.ItemId == itemId && d.PurchaseOrderId == orderId && d.Id != id);
-            if (dbStockType != null)
+            var dbItem = await _purchaseOrderItem.GetPurchaseOrderItemAsync(d => d.ItemId == itemId && d.PurchaseOrderId == orderId && d.Id != id);
+            if (dbItem != null)
                 throw new RestException(HttpStatusCode.Conflict, $"Item already available for this purchase request.");
         }
         private async Task<PurchaseOrderItem> GetPurchaseOrderItemById(long id)
