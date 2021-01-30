@@ -6,6 +6,5 @@
         public long ItemId { get; set; }
         public decimal ItemUnitPrice { get; set; }
         public int Quantity { get; set; }
-        public decimal Discount { get; set; }
     }
 }
