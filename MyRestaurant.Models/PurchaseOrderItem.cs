@@ -7,7 +7,6 @@
         public long ItemId { get; set; }
         public decimal ItemUnitPrice { get; set; }
         public int Quantity { get; set; }
-        public decimal Discount { get; set; }
 
         public virtual StockItem Item { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
