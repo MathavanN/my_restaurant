@@ -13,11 +13,13 @@ namespace MyRestaurant.Business.Dtos.V1
         public decimal Nbt { get; set; }
         public decimal Vat { get; set; }
         public decimal Discount { get; set; }
-        public Guid ReceivedUserId { get; set; }
+        public Guid ReceivedBy { get; set; }
         public string ReceivedUserName { get; set; }
         public DateTime ReceivedDate { get; set; }
-        public Guid CreatedUserId { get; set; }
-        public string CreatedUserName { get; set; }
+        public string ApprovalStatus { get; set; }
+        public Guid ApprovedBy { get; set; }
+        public string ApprovedUserName { get; set; }
+        public DateTime ApprovedDate { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }
