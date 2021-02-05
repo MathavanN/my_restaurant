@@ -31,7 +31,7 @@ namespace MyRestaurant.Business.Repositories
             purchaseOrder.OrderNumber = $"PO_{currentDate.ToString("yyyyMMdd")}_{currentDate.Ticks.ToString("x")}";
             purchaseOrder.RequestedBy = currentUser.UserId;
             purchaseOrder.RequestedDate = currentDate;
-            purchaseOrder.ApprovalStatus = PurchaseOrderStatus.Pending;
+            purchaseOrder.ApprovalStatus = Status.Pending;
 
             await _purchaseOrder.AddPurchaseOrderAsync(purchaseOrder);
 
