@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetGoodsReceivedNoteItems(long goodsReceivedNoteId)
         {
-            var result = await _repository.GetGoodsReceivedNoteItemAsync(goodsReceivedNoteId);
+            var result = await _repository.GetGoodsReceivedNoteItemsAsync(goodsReceivedNoteId);
             return Ok(result);
         }
 
