@@ -176,6 +176,9 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
             services.AddScoped<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>();
             services.AddScoped<IPaymentTypeRepository, PaymentTypeRepository>();
+            services.AddScoped<IGoodsReceivedNoteRepository, GoodsReceivedNoteRepository>();
+            services.AddScoped<IGoodsReceivedNoteItemRepository, GoodsReceivedNoteItemRepository>();
+            services.AddScoped<IGoodsReceivedNoteFreeItemRepository, GoodsReceivedNoteFreeItemRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
