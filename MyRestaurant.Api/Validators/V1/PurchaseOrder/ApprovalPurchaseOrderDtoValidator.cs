@@ -9,7 +9,7 @@ namespace MyRestaurant.Api.Validators.V1
         public ApprovalPurchaseOrderDtoValidator()
         {
             RuleFor(x => x.ApprovalStatus).NotEmpty().WithMessage("Approval status is required.")
-                .IsEnumName(typeof(PurchaseOrderStatus), caseSensitive: false);
+                .IsEnumName(typeof(Status), caseSensitive: false);
             RuleFor(x => x.ApprovalReason).MaximumLength(500).WithMessage("Approval reason maximum length is 500.");
         }
     }
