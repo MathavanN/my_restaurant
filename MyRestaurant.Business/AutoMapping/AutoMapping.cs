@@ -33,7 +33,7 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<CreatePaymentTypeDto, PaymentType>();
             CreateMap<EditPaymentTypeDto, PaymentType>();
             CreateMap<CreateGoodsReceivedNoteDto, GoodsReceivedNote>();
-            CreateMap<EditGoodsReceivedNoteDto, GoodsReceivedNote>();
+            //CreateMap<EditGoodsReceivedNoteDto, GoodsReceivedNote>();
             CreateMap<CreateGoodsReceivedNoteItemDto, GoodsReceivedNoteItem>();
             CreateMap<EditGoodsReceivedNoteItemDto, GoodsReceivedNoteItem>();
             CreateMap<CreateGoodsReceivedNoteFreeItemDto, GoodsReceivedNoteFreeItem>();
@@ -69,9 +69,9 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<GoodsReceivedNote, GetGoodsReceivedNoteDto>()
                 .ForMember(d => d.PurchaseOrderNumber, opt => opt.MapFrom(src => src.PurchaseOrder.OrderNumber))
                 .ForMember(d => d.PaymentTypeName, opt => opt.MapFrom(src => src.PaymentType.Name))
-                .ForMember(d => d.CreatedUserId, opt => opt.MapFrom(src => src.CreatedUser.Id))
-                .ForMember(d => d.CreatedUserName, opt => opt.MapFrom(src => $"{src.CreatedUser.FirstName} {src.CreatedUser.LastName}"))
-                .ForMember(d => d.ReceivedUserId, opt => opt.MapFrom(src => src.ReceivedUser.Id))
+                .ForMember(d => d.ApprovedBy, opt => opt.MapFrom(src => src.ApprovedUser.Id))
+                .ForMember(d => d.ApprovedUserName, opt => opt.MapFrom(src => $"{src.ApprovedUser.FirstName} {src.ApprovedUser.LastName}"))
+                .ForMember(d => d.ReceivedBy, opt => opt.MapFrom(src => src.ReceivedUser.Id))
                 .ForMember(d => d.ReceivedUserName, opt => opt.MapFrom(src => $"{src.ReceivedUser.FirstName} {src.ReceivedUser.LastName}"));
             CreateMap<GoodsReceivedNoteItem, GetGoodsReceivedNoteItemDto>()
                 .ForMember(d => d.ItemTypeId, opt => opt.MapFrom(src => src.Item.Type.Id))
