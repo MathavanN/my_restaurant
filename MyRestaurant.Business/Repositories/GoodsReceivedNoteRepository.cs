@@ -15,11 +15,16 @@ namespace MyRestaurant.Business.Repositories
     {
         private readonly IMapper _mapper;
         private readonly IGoodsReceivedNoteService _goodReceivedNote;
+        private readonly IPurchaseOrderItemService _purchaseOrderItem;
+        private readonly IGoodsReceivedNoteItemSevice _goodsReceivedNoteItem;
         private readonly IUserAccessorService _userAccessor;
-        public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote, IUserAccessorService userAccessor)
+        public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote, IUserAccessorService userAccessor, 
+            IPurchaseOrderItemService purchaseOrderItem, IGoodsReceivedNoteItemSevice goodsReceivedNoteItem)
         {
             _mapper = mapper;
             _goodReceivedNote = goodReceivedNote;
+            _purchaseOrderItem = purchaseOrderItem;
+            _goodsReceivedNoteItem = goodsReceivedNoteItem;
             _userAccessor = userAccessor;
         }
 
@@ -29,8 +34,22 @@ namespace MyRestaurant.Business.Repositories
             var goodsReceivedNote = _mapper.Map<GoodsReceivedNote>(goodsReceivedNoteDto);
             goodsReceivedNote.CreatedBy = currentUser.UserId;
             goodsReceivedNote.CreatedDate = DateTime.Now;
+            goodsReceivedNote.ApprovalStatus = Status.Pending;
 
             await _goodReceivedNote.AddGoodsReceivedNoteAsync(goodsReceivedNote);
+
+            var items = await _purchaseOrderItem.GetPurchaseOrderItemsAsync(e => e.PurchaseOrderId == goodsReceivedNoteDto.PurchaseOrderId);
+            foreach (var item in items)
+            {
+                var grnItem = new GoodsReceivedNoteItem
+                {
+                    GoodsReceivedNoteId = goodsReceivedNote.Id,
+                    ItemId = item.ItemId,
+                    ItemUnitPrice = item.ItemUnitPrice,
+                    Quantity = item.Quantity
+                };
+                await _goodsReceivedNoteItem.AddGoodsReceivedNoteItemAsync(grnItem);
+            }
 
             return _mapper.Map<GetGoodsReceivedNoteDto>(goodsReceivedNote);
         }
