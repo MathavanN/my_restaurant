@@ -47,7 +47,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateGoodsReceivedNoteItem(int id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto)
+        public async Task<IActionResult> UpdateGoodsReceivedNoteItem(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto)
         {
             await _repository.UpdateGoodsReceivedNoteItemAsync(id, goodsReceivedNoteItemDto);
             return NoContent();
@@ -56,7 +56,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteGoodsReceivedNoteItem(int id)
+        public async Task<IActionResult> DeleteGoodsReceivedNoteItem(long id)
         {
             await _repository.DeleteGoodsReceivedNoteItemAsync(id);
 
