@@ -5,9 +5,9 @@ using System;
 
 namespace MyRestaurant.Api.Validators.V1
 {
-    public class CreateGoodsReceivedNoteDtoValidator : AbstractValidator<CreateGoodsReceivedNoteDto>
+    public class EditGoodsReceivedNoteDtoValidator : AbstractValidator<EditGoodsReceivedNoteDto>
     {
-        public CreateGoodsReceivedNoteDtoValidator()
+        public EditGoodsReceivedNoteDtoValidator()
         {
             RuleFor(x => x.PurchaseOrderId).GreaterThan(0).WithMessage("Purchase order is required.");
             RuleFor(x => x.InvoiceNumber).NotEmpty().WithMessage("Invoice number is required.")
@@ -20,5 +20,6 @@ namespace MyRestaurant.Api.Validators.V1
             RuleFor(x => x.ReceivedDate).Must(CommonValidators.BeAValidDate).WithMessage("Received date is required")
                 .LessThan(DateTime.Now).WithMessage("Received date cannot be a future date.");
         }
+
     }
 }
