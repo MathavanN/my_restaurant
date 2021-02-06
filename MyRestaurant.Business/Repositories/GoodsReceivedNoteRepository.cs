@@ -6,6 +6,7 @@ using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -15,21 +16,51 @@ namespace MyRestaurant.Business.Repositories
     {
         private readonly IMapper _mapper;
         private readonly IGoodsReceivedNoteService _goodReceivedNote;
+        private readonly IPurchaseOrderService _purchaseOrder;
         private readonly IPurchaseOrderItemService _purchaseOrderItem;
         private readonly IGoodsReceivedNoteItemSevice _goodsReceivedNoteItem;
         private readonly IUserAccessorService _userAccessor;
-        public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote, IUserAccessorService userAccessor, 
+        public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote, 
+            IUserAccessorService userAccessor, IPurchaseOrderService purchaseOrder,
             IPurchaseOrderItemService purchaseOrderItem, IGoodsReceivedNoteItemSevice goodsReceivedNoteItem)
         {
             _mapper = mapper;
+            _purchaseOrder = purchaseOrder;
             _goodReceivedNote = goodReceivedNote;
             _purchaseOrderItem = purchaseOrderItem;
             _goodsReceivedNoteItem = goodsReceivedNoteItem;
             _userAccessor = userAccessor;
         }
 
+        private PurchaseOrder CheckPurchaseOrderAllowedToCreateGRN(PurchaseOrder order)
+        {
+            var statusNoNeedNewGRN = new List<Status> { Status.Approved, Status.Pending };
+
+            if (order.GoodsReceivedNotes.Any(d => statusNoNeedNewGRN.Contains(d.ApprovalStatus)))
+                throw new RestException(HttpStatusCode.BadRequest, "GRN already created for this purchase order");
+
+            return order;
+        }
+
+        private async Task<PurchaseOrder> CheckPurchaseOrder(long purchaseOrderId)
+        {
+            var order = await _purchaseOrder.GetPurchaseOrderAsync(d => d.Id == purchaseOrderId);
+
+            if(order == null)
+                throw new RestException(HttpStatusCode.NotFound, "Purchase order not found.");
+
+            if (order.ApprovalStatus != Status.Approved)
+                throw new RestException(HttpStatusCode.BadRequest, "GRN can create for approved purchase order");
+
+            return order;
+        }
+
         public async Task<GetGoodsReceivedNoteDto> CreateGoodsReceivedNoteAsync(CreateGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
+            //verify PO allowed to create GRN
+            var order = await CheckPurchaseOrder(goodsReceivedNoteDto.PurchaseOrderId);
+            CheckPurchaseOrderAllowedToCreateGRN(order);
+
             var currentUser = _userAccessor.GetCurrentUser();
             var goodsReceivedNote = _mapper.Map<GoodsReceivedNote>(goodsReceivedNoteDto);
             goodsReceivedNote.CreatedBy = currentUser.UserId;
@@ -86,6 +117,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task UpdateGoodsReceivedNoteAsync(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
+            //verify PO allowed to EDIT GRN
+            await CheckPurchaseOrder(goodsReceivedNoteDto.PurchaseOrderId);
+
             var goodsReceiveNote = await GetGoodsReceivedNoteById(id);
 
             goodsReceiveNote = _mapper.Map(goodsReceivedNoteDto, goodsReceiveNote);
