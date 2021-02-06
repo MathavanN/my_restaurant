@@ -23,6 +23,13 @@ namespace MyRestaurant.Api.Controllers.V1
             var result = await _repository.GetPurchaseOrdersAsync();
             return Ok(result);
         }
+        [HttpGet("grnAllowed")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPurchaseOrdersForGRN()
+        {
+            var result = await _repository.GetPurchaseOrdersAllowToCreateGRN();
+            return Ok(result);
+        }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
