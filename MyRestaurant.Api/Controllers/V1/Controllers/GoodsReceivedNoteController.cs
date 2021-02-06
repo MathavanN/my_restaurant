@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyRestaurant.Api.PolicyHandlers;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories.Contracts;
 using System.Collections.Generic;
@@ -47,6 +49,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        [Authorize(ApplicationClaimPolicy.SuperAdminOnly)]
         public async Task<IActionResult> UpdateGoodsReceivedNote(int id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
             await _repository.UpdateGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
