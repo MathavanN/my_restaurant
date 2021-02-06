@@ -71,7 +71,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var item = await GetGoodsReceivedNoteItemById(id);
 
-            await _goodsReceivedNoteItem.DeleteGoodsReceivedNoteItemAsync(item);
+            await _goodsReceivedNoteItem.UpdateGoodsReceivedNoteItemAsync(item);
         }
     }
 }
