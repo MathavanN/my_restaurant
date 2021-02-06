@@ -6,6 +6,7 @@ using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -23,12 +24,21 @@ namespace MyRestaurant.Business.Repositories
             _userAccessor = userAccessor;
         }
 
+        public async Task<IEnumerable<GetPurchaseOrderDto>> GetPurchaseOrdersAllowToCreateGRN()
+        {
+            var statusNoNeedNewGRN = new List<Status> { Status.Approved, Status.Pending };
+            var orders = await _purchaseOrder.GetPurchaseOrdersAsync(d => d.ApprovalStatus == Status.Approved
+            && !d.GoodsReceivedNotes.Any(x => statusNoNeedNewGRN.Contains(x.ApprovalStatus)));
+
+            return _mapper.Map<IEnumerable<GetPurchaseOrderDto>>(orders);
+        }
+
         public async Task<GetPurchaseOrderDto> CreatePurchaseOrderAsync(CreatePurchaseOrderDto purchaseOrderDto)
         {
             var currentUser = _userAccessor.GetCurrentUser();
             var purchaseOrder = _mapper.Map<PurchaseOrder>(purchaseOrderDto);
             var currentDate = DateTime.Now;
-            purchaseOrder.OrderNumber = $"PO_{currentDate.ToString("yyyyMMdd")}_{currentDate.Ticks.ToString("x")}";
+            purchaseOrder.OrderNumber = $"PO_{currentDate:yyyyMMdd}_{currentDate.Ticks:x}";
             purchaseOrder.RequestedBy = currentUser.UserId;
             purchaseOrder.RequestedDate = currentDate;
             purchaseOrder.ApprovalStatus = Status.Pending;
