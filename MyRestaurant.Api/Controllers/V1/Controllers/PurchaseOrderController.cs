@@ -34,7 +34,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPurchaseOrder(int id)
+        public async Task<IActionResult> GetPurchaseOrder(long id)
         {
             var result = await _repository.GetPurchaseOrderAsync(id);
             return Ok(result);
@@ -54,7 +54,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePurchaseOrder(int id, EditPurchaseOrderDto purchaseOrderDto)
+        public async Task<IActionResult> UpdatePurchaseOrder(long id, EditPurchaseOrderDto purchaseOrderDto)
         {
             await _repository.UpdatePurchaseOrderAsync(id, purchaseOrderDto);
             return NoContent();
@@ -64,7 +64,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ApprovePurchaseOrder(int id, ApprovalPurchaseOrderDto purchaseOrderDto)
+        public async Task<IActionResult> ApprovePurchaseOrder(long id, ApprovalPurchaseOrderDto purchaseOrderDto)
         {
             await _repository.ApprovalPurchaseOrderAsync(id, purchaseOrderDto);
             return NoContent();
@@ -73,7 +73,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeletePurchaseOrder(int id)
+        public async Task<IActionResult> DeletePurchaseOrder(long id)
         {
             await _repository.DeletePurchaseOrderAsync(id);
             return NoContent();
