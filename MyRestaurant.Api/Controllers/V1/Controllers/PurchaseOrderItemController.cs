@@ -47,7 +47,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePurchaseOrderItem(int id, EditPurchaseOrderItemDto purchaseOrderItemDto)
+        public async Task<IActionResult> UpdatePurchaseOrderItem(long id, EditPurchaseOrderItemDto purchaseOrderItemDto)
         {
             await _repository.UpdatePurchaseOrderItemAsync(id, purchaseOrderItemDto);
             return NoContent();
@@ -56,7 +56,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeletePurchaseOrderItem(int id)
+        public async Task<IActionResult> DeletePurchaseOrderItem(long id)
         {
             await _repository.DeletePurchaseOrderItemAsync(id);
 
