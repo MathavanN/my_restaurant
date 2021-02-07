@@ -34,6 +34,7 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<EditPaymentTypeDto, PaymentType>();
             CreateMap<CreateGoodsReceivedNoteDto, GoodsReceivedNote>();
             CreateMap<EditGoodsReceivedNoteDto, GoodsReceivedNote>();
+            CreateMap<ApprovalGoodsReceivedNoteDto, GoodsReceivedNote>();
             CreateMap<CreateGoodsReceivedNoteItemDto, GoodsReceivedNoteItem>();
             CreateMap<EditGoodsReceivedNoteItemDto, GoodsReceivedNoteItem>();
             CreateMap<CreateGoodsReceivedNoteFreeItemDto, GoodsReceivedNoteFreeItem>();
