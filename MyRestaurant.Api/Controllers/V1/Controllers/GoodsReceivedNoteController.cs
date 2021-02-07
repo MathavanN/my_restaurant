@@ -29,7 +29,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetGoodsReceivedNote(int id)
+        public async Task<IActionResult> GetGoodsReceivedNote(long id)
         {
             var result = await _repository.GetGoodsReceivedNoteAsync(id);
             return Ok(result);
@@ -50,16 +50,26 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         [Authorize(ApplicationClaimPolicy.SuperAdminOnly)]
-        public async Task<IActionResult> UpdateGoodsReceivedNote(int id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
+        public async Task<IActionResult> UpdateGoodsReceivedNote(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
             await _repository.UpdateGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
+            return NoContent();
+        }
+
+        [HttpPut("approval/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ApproveGoodsReceivedNote(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto)
+        {
+            await _repository.ApprovalGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteGoodsReceivedNote(int id)
+        public async Task<IActionResult> DeleteGoodsReceivedNote(long id)
         {
             await _repository.DeleteGoodsReceivedNoteAsync(id);
             return NoContent();
