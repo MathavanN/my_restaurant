@@ -126,5 +126,17 @@ namespace MyRestaurant.Business.Repositories
 
             await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceiveNote);
         }
+
+        public async Task ApprovalGoodsReceivedNoteAsync(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto)
+        {
+            var goodsReceiveNote = await GetGoodsReceivedNoteById(id);
+            goodsReceiveNote = _mapper.Map(goodsReceivedNoteDto, goodsReceiveNote);
+
+            var currentUser = _userAccessor.GetCurrentUser();
+            goodsReceiveNote.ApprovedBy = currentUser.UserId;
+            goodsReceiveNote.ApprovedDate = DateTime.Now;
+
+            await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceiveNote);
+        }
     }
 }

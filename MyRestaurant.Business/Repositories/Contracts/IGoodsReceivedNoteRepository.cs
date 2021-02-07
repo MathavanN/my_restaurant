@@ -11,5 +11,6 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<GetGoodsReceivedNoteDto> CreateGoodsReceivedNoteAsync(CreateGoodsReceivedNoteDto goodsReceivedNoteDto);
         Task UpdateGoodsReceivedNoteAsync(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto);
         Task DeleteGoodsReceivedNoteAsync(long id);
+        Task ApprovalGoodsReceivedNoteAsync(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto);
     }
 }
