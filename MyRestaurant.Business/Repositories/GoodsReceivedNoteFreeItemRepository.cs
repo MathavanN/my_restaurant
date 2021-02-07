@@ -69,7 +69,11 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task UpdateGoodsReceivedNoteFreeItemAsync(long id, EditGoodsReceivedNoteFreeItemDto goodsReceivedNoteFreeItemDto)
         {
+            await CheckGoodsReceivedNoteFreeItemAsync(id, goodsReceivedNoteFreeItemDto.GoodsReceivedNoteId, goodsReceivedNoteFreeItemDto.ItemId);
+
             var item = await GetGoodsReceivedNoteFreeItemById(id);
+
+            item = _mapper.Map(goodsReceivedNoteFreeItemDto, item);
 
             await _goodsReceivedNoteFreeItem.UpdateGoodsReceivedNoteFreeItemAsync(item);
         }
