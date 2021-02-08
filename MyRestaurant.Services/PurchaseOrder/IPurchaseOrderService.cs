@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public interface IPurchaseOrderServices
+    public interface IPurchaseOrderService
     {
-        Task<IEnumerable<PurchaseOrder>> GetPurchaseOrdersAsync();
+        Task<IEnumerable<PurchaseOrder>> GetPurchaseOrdersAsync(Expression<Func<PurchaseOrder, bool>> expression = null);
         Task<PurchaseOrder> GetPurchaseOrderAsync(Expression<Func<PurchaseOrder, bool>> expression);
         Task AddPurchaseOrderAsync(PurchaseOrder order);
         Task UpdatePurchaseOrderAsync(PurchaseOrder order);

@@ -141,6 +141,164 @@ namespace MyRestaurant.Core.Migrations
                     b.ToTable("Audits");
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNote", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ApprovalReason")
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<int>("ApprovalStatus")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ApprovedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ApprovedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("InvoiceNumber")
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<decimal>("Nbt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PaymentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("PurchaseOrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("ReceivedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ReceivedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("Vat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedBy");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.HasIndex("ReceivedBy");
+
+                    b.ToTable("GoodsReceivedNotes");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNoteFreeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("GoodsReceivedNoteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("ItemUnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Nbt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Vat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodsReceivedNoteId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("GoodsReceivedNoteFreeItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNoteItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("GoodsReceivedNoteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("ItemUnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Nbt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Vat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GoodsReceivedNoteId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("GoodsReceivedNoteItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.PaymentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CreditPeriod")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "IX_PaymentTypes")
+                        .IsUnique();
+
+                    b.ToTable("PaymentTypes");
+                });
+
             modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
                 {
                     b.Property<long>("Id")
@@ -163,9 +321,6 @@ namespace MyRestaurant.Core.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -197,9 +352,6 @@ namespace MyRestaurant.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("ItemId")
                         .HasColumnType("bigint");
@@ -591,6 +743,86 @@ namespace MyRestaurant.Core.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNote", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.User", "ApprovedUser")
+                        .WithMany("GRNApprovals")
+                        .HasForeignKey("ApprovedBy")
+                        .HasConstraintName("FK_GoodsReceivedNotes_ApprovedBy")
+                        .OnDelete(DeleteBehavior.ClientCascade);
+
+                    b.HasOne("MyRestaurant.Models.PaymentType", "PaymentType")
+                        .WithMany("GoodsReceivedNotes")
+                        .HasForeignKey("PaymentTypeId")
+                        .HasConstraintName("FK_GoodsReceivedNotes_PaymentTypes")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.PurchaseOrder", "PurchaseOrder")
+                        .WithMany("GoodsReceivedNotes")
+                        .HasForeignKey("PurchaseOrderId")
+                        .HasConstraintName("FK_GoodsReceivedNotes_PurchaseOrders")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.User", "ReceivedUser")
+                        .WithMany("GRNReceives")
+                        .HasForeignKey("ReceivedBy")
+                        .HasConstraintName("FK_GoodsReceivedNotes_ReceivedBy")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedUser");
+
+                    b.Navigation("PaymentType");
+
+                    b.Navigation("PurchaseOrder");
+
+                    b.Navigation("ReceivedUser");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNoteFreeItem", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.GoodsReceivedNote", "GoodsReceivedNote")
+                        .WithMany("GoodsReceivedNoteFreeItems")
+                        .HasForeignKey("GoodsReceivedNoteId")
+                        .HasConstraintName("FK_GoodsReceivedNoteFreeItems_GoodsReceivedNotes")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.StockItem", "Item")
+                        .WithMany("GoodsReceivedNoteFreeItems")
+                        .HasForeignKey("ItemId")
+                        .HasConstraintName("FK_GoodsReceivedNoteFreeItems_StockItems")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("GoodsReceivedNote");
+
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNoteItem", b =>
+                {
+                    b.HasOne("MyRestaurant.Models.GoodsReceivedNote", "GoodsReceivedNote")
+                        .WithMany("GoodsReceivedNoteItems")
+                        .HasForeignKey("GoodsReceivedNoteId")
+                        .HasConstraintName("FK_GoodsReceivedNoteItems_GoodsReceivedNotes")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("MyRestaurant.Models.StockItem", "Item")
+                        .WithMany("GoodsReceivedNoteItems")
+                        .HasForeignKey("ItemId")
+                        .HasConstraintName("FK_GoodsReceivedNoteItems_StockItems")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("GoodsReceivedNote");
+
+                    b.Navigation("Item");
+                });
+
             modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
                 {
                     b.HasOne("MyRestaurant.Models.User", "ApprovedUser")
@@ -692,8 +924,22 @@ namespace MyRestaurant.Core.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MyRestaurant.Models.GoodsReceivedNote", b =>
+                {
+                    b.Navigation("GoodsReceivedNoteFreeItems");
+
+                    b.Navigation("GoodsReceivedNoteItems");
+                });
+
+            modelBuilder.Entity("MyRestaurant.Models.PaymentType", b =>
+                {
+                    b.Navigation("GoodsReceivedNotes");
+                });
+
             modelBuilder.Entity("MyRestaurant.Models.PurchaseOrder", b =>
                 {
+                    b.Navigation("GoodsReceivedNotes");
+
                     b.Navigation("PurchaseOrderItems");
                 });
 
@@ -704,6 +950,10 @@ namespace MyRestaurant.Core.Migrations
 
             modelBuilder.Entity("MyRestaurant.Models.StockItem", b =>
                 {
+                    b.Navigation("GoodsReceivedNoteFreeItems");
+
+                    b.Navigation("GoodsReceivedNoteItems");
+
                     b.Navigation("PurchaseOrderItems");
                 });
 
@@ -724,6 +974,10 @@ namespace MyRestaurant.Core.Migrations
 
             modelBuilder.Entity("MyRestaurant.Models.User", b =>
                 {
+                    b.Navigation("GRNApprovals");
+
+                    b.Navigation("GRNReceives");
+
                     b.Navigation("PurchaseOrderApprovals");
 
                     b.Navigation("PurchaseOrderRequests");

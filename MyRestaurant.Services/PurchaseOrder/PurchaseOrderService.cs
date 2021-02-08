@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public class PurchaseOrderServices : IPurchaseOrderServices
+    public class PurchaseOrderService : IPurchaseOrderService
     {
         private readonly IMyRestaurantContext _context;
-        public PurchaseOrderServices(IMyRestaurantContext context)
+        public PurchaseOrderService(IMyRestaurantContext context)
         {
             _context = context;
         }
@@ -29,7 +29,7 @@ namespace MyRestaurant.Services
 
         public async Task<PurchaseOrder> GetPurchaseOrderAsync(Expression<Func<PurchaseOrder, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
-        public async Task<IEnumerable<PurchaseOrder>> GetPurchaseOrdersAsync() => await _context.GetAllAsync<PurchaseOrder>();
+        public async Task<IEnumerable<PurchaseOrder>> GetPurchaseOrdersAsync(Expression<Func<PurchaseOrder, bool>> expression = null) => await _context.GetAllAsync(expression);
 
         public async Task UpdatePurchaseOrderAsync(PurchaseOrder order)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using MyRestaurant.Business.Errors;
 using Newtonsoft.Json;
@@ -44,17 +45,34 @@ namespace MyRestaurant.Api.Middleware
                     break;
 
                 case Exception e:
-                    logger.LogError("SERVER ERROR: {0}", e.Message);
-                    error = new
+                    var receivedException = e.InnerException ?? e;
+                    logger.LogError("SERVER ERROR: {0}", receivedException.Message);
+                    var sqlError = receivedException as SqlException;
+                    if (sqlError.Number == 547)
                     {
-                        ErrorCode = HttpStatusCode.InternalServerError,
-                        ErrorType = HttpStatusCode.InternalServerError.ToString(),
-                        ErrorMessage = string.IsNullOrWhiteSpace(e.Message) ? "Error" : e.Message,
-                        ErrorDate = DateTime.Now
-                    };
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        error = new
+                        {
+                            ErrorCode = HttpStatusCode.Conflict,
+                            ErrorType = HttpStatusCode.Conflict.ToString(),
+                            ErrorMessage = "This item cannot be deleted.",
+                            ErrorDate = DateTime.Now
+                        };
+                        context.Response.StatusCode = (int)HttpStatusCode.Conflict;
+                    }
+                    else
+                    {
+                        error = new
+                        {
+                            ErrorCode = HttpStatusCode.InternalServerError,
+                            ErrorType = HttpStatusCode.InternalServerError.ToString(),
+                            ErrorMessage = string.IsNullOrWhiteSpace(receivedException.Message) ? "Error" : receivedException.Message,
+                            ErrorDate = DateTime.Now
+                        };
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    }
                     break;
             }
+
             context.Response.ContentType = "application/json";
             if (error != null)
             {

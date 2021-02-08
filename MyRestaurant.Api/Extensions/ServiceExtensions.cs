@@ -175,6 +175,10 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IUnitOfMeasureRepository, UnitOfMeasureRepository>();
             services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
             services.AddScoped<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>();
+            services.AddScoped<IPaymentTypeRepository, PaymentTypeRepository>();
+            services.AddScoped<IGoodsReceivedNoteRepository, GoodsReceivedNoteRepository>();
+            services.AddScoped<IGoodsReceivedNoteItemRepository, GoodsReceivedNoteItemRepository>();
+            services.AddScoped<IGoodsReceivedNoteFreeItemRepository, GoodsReceivedNoteFreeItemRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
@@ -187,8 +191,12 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IUnitOfMeasureServices, UnitOfMeasureServices>();
             services.AddScoped<IStockTypeServices, StockTypeServices>();
             services.AddScoped<IStockItemServices, StockItemServices>();
-            services.AddScoped<IPurchaseOrderServices, PurchaseOrderServices>();
+            services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
             services.AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+            services.AddScoped<IGoodsReceivedNoteService, GoodsReceivedNoteService>();
+            services.AddScoped<IGoodsReceivedNoteItemSevice, GoodsReceivedNoteItemService>();
+            services.AddScoped<IGoodsReceivedNoteFreeItemService, GoodsReceivedNoteFreeItemService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {

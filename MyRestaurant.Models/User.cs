@@ -11,6 +11,8 @@ namespace MyRestaurant.Models
             RefreshTokens = new HashSet<RefreshToken>();
             PurchaseOrderRequests = new HashSet<PurchaseOrder>();
             PurchaseOrderApprovals = new HashSet<PurchaseOrder>();
+            GRNReceives = new HashSet<GoodsReceivedNote>();
+            GRNApprovals = new HashSet<GoodsReceivedNote>();
             UserRoles = new HashSet<UserRole>();
         }
 
@@ -21,6 +23,8 @@ namespace MyRestaurant.Models
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderRequests { get; set; }
         public virtual ICollection<PurchaseOrder> PurchaseOrderApprovals { get; set; }
+        public virtual ICollection<GoodsReceivedNote> GRNReceives { get; set; }
+        public virtual ICollection<GoodsReceivedNote> GRNApprovals { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

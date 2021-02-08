@@ -9,14 +9,14 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<StockItem> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.TypeId).IsRequired();
-            builder.Property(t => t.UnitOfMeasureId).IsRequired();
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.TypeId).IsRequired();
+            builder.Property(e => e.UnitOfMeasureId).IsRequired();
             builder.Property(e => e.ItemUnit).HasColumnType("decimal(18, 4)").IsRequired();
-            builder.Property(t => t.Name).HasColumnType("varchar(250)").IsRequired();
+            builder.Property(e => e.Name).HasColumnType("varchar(250)").IsRequired();
             builder.HasIndex(e => new { e.Name, e.TypeId, e.UnitOfMeasureId, e.ItemUnit }, "IX_StockItems").IsUnique();
-            builder.Property(t => t.Description).HasColumnType("varchar(500)");
+            builder.Property(e => e.Description).HasColumnType("varchar(500)");
             builder.ToTable("StockItems");
             
             builder.HasOne(d => d.Type)

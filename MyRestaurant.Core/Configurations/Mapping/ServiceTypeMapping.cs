@@ -9,9 +9,9 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<ServiceType> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.Type).HasColumnType("varchar(20)").IsRequired().HasMaxLength(20);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.Type).HasColumnType("varchar(20)").IsRequired().HasMaxLength(20);
             builder.ToTable("ServiceTypes");
             base.Configure(builder);
         }

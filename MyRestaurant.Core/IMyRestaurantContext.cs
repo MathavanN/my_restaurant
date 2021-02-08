@@ -20,6 +20,10 @@ namespace MyRestaurant.Core
         DbSet<StockItem> StockItems { get; set; }
         DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+        DbSet<GoodsReceivedNote> GoodsReceivedNotes { get; set; }
+        DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
+        DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
+        DbSet<PaymentType> PaymentTypes { get; set; }
         Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
         void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;

@@ -9,11 +9,11 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<UnitOfMeasure> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.Code).HasColumnType("varchar(20)").IsRequired();
-            builder.HasIndex(t => t.Code, "IX_UnitOfMeasures").IsUnique();
-            builder.Property(t => t.Description).HasColumnType("varchar(50)");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.Code).HasColumnType("varchar(20)").IsRequired();
+            builder.HasIndex(e => e.Code, "IX_UnitOfMeasures").IsUnique();
+            builder.Property(e => e.Description).HasColumnType("varchar(50)");
             builder.ToTable("UnitOfMeasures");
 
             base.Configure(builder);

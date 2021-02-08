@@ -15,7 +15,6 @@ namespace MyRestaurant.Business.Dtos.V1
         public Guid ApprovedUserId { get; set; }
         public string ApprovedUserName { get; set; }
         public DateTime ApprovedDate { get; set; }
-        public decimal Discount { get; set; }
         public string Description { get; set; }
     }
 }

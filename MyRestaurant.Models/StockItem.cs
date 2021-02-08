@@ -6,6 +6,8 @@ namespace MyRestaurant.Models
     {
         public StockItem()
         {
+            GoodsReceivedNoteFreeItems = new HashSet<GoodsReceivedNoteFreeItem>();
+            GoodsReceivedNoteItems = new HashSet<GoodsReceivedNoteItem>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
         }
 
@@ -18,6 +20,8 @@ namespace MyRestaurant.Models
 
         public virtual StockType Type { get; set; }
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }
+        public virtual ICollection<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
+        public virtual ICollection<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
         public virtual ICollection<PurchaseOrderItem> PurchaseOrderItems { get; set; }
     }
 }

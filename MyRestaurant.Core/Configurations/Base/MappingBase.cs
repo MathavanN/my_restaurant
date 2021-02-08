@@ -12,4 +12,8 @@ namespace MyRestaurant.Core.Configurations.Base
     public abstract class StockItemMappingBase : BaseEntityTypeConfiguration<StockItem> { }
     public abstract class PurchaseOrderMappingBase : BaseEntityTypeConfiguration<PurchaseOrder> { }
     public abstract class PurchaseOrderItemMappingBase : BaseEntityTypeConfiguration<PurchaseOrderItem> { }
+    public abstract class PaymentTypeMappingBase : BaseEntityTypeConfiguration<PaymentType> { }
+    public abstract class GoodsReceivedNoteMappingBase : BaseEntityTypeConfiguration<GoodsReceivedNote> { }
+    public abstract class GoodsReceivedNoteItemMappingBase : BaseEntityTypeConfiguration<GoodsReceivedNoteItem> { }
+    public abstract class GoodsReceivedNoteFreeItemMappingBase : BaseEntityTypeConfiguration<GoodsReceivedNoteFreeItem> { }
 }

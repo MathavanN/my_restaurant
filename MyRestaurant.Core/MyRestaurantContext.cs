@@ -50,6 +50,10 @@ namespace MyRestaurant.Core
             builder.ApplyConfiguration(new StockItemMapping());
             builder.ApplyConfiguration(new PurchaseOrderMapping());
             builder.ApplyConfiguration(new PurchaseOrderItemMapping());
+            builder.ApplyConfiguration(new PaymentTypeMapping());
+            builder.ApplyConfiguration(new GoodsReceivedNoteMapping());
+            builder.ApplyConfiguration(new GoodsReceivedNoteItemMapping());
+            builder.ApplyConfiguration(new GoodsReceivedNoteFreeItemMapping());
         }
 
         public DbSet<Audit> Audits { get; set; }
@@ -62,6 +66,10 @@ namespace MyRestaurant.Core
         public DbSet<StockItem> StockItems { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
+        public DbSet<GoodsReceivedNote> GoodsReceivedNotes { get; set; }
+        public DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
+        public DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
 
         public async Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
@@ -156,7 +164,7 @@ namespace MyRestaurant.Core
             {
                 await Audits.AddRangeAsync(
                     temporatyEntities.ForEach(t => t.Item2.KeyValues = JsonConvert.SerializeObject(t.Item1.Properties.Where(p => p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty()))
-                    .Select(t => t.Item2)
+                    .Select(e => e.Item2)
                 );
                 await SaveChangesAsync();
             }

@@ -104,7 +104,7 @@ namespace MyRestaurant.Business.Repositories
         
         public async Task RevokeToken(RevokeDto revokeDto, string ipAddress)
         {
-            var refreshToken = await _token.GetRefreshTokenAsync(t => t.Token == revokeDto.RefreshToken);
+            var refreshToken = await _token.GetRefreshTokenAsync(e => e.Token == revokeDto.RefreshToken);
 
             if (refreshToken == null)
                 throw new RestException(HttpStatusCode.NotFound, "RefreshToken not found.");
@@ -122,7 +122,7 @@ namespace MyRestaurant.Business.Repositories
             if (!isValidRefreshToken)
                 throw new RestException(HttpStatusCode.Unauthorized, "Invalid Refresh token.");
 
-            var dbRefreshToken = await _token.GetRefreshTokenAsync(t => t.Token == refreshDto.RefreshToken);
+            var dbRefreshToken = await _token.GetRefreshTokenAsync(e => e.Token == refreshDto.RefreshToken);
 
             if (dbRefreshToken == null)
                 throw new RestException(HttpStatusCode.NotFound, "RefreshToken not found.");

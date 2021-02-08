@@ -8,11 +8,11 @@ namespace MyRestaurant.Core.Configurations.Mapping
     internal class StockTypeMapping : StockTypeMappingBase {
         public override void Configure(EntityTypeBuilder<StockType> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.Type).HasColumnType("varchar(50)").IsRequired();
-            builder.HasIndex(t => t.Type, "IX_StockTypes").IsUnique();
-            builder.Property(t => t.Description).HasColumnType("varchar(100)");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.Type).HasColumnType("varchar(50)").IsRequired();
+            builder.HasIndex(e => e.Type, "IX_StockTypes").IsUnique();
+            builder.Property(e => e.Description).HasColumnType("varchar(100)");
             builder.ToTable("StockTypes");
 
             base.Configure(builder);

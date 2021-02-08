@@ -9,18 +9,18 @@ namespace MyRestaurant.Core.Configurations.Mapping
     {
         public override void Configure(EntityTypeBuilder<Supplier> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).UseIdentityColumn();
-            builder.Property(t => t.Name).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(t => t.Address1).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(t => t.Address2).HasColumnType("varchar(256)");
-            builder.Property(t => t.City).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(t => t.Country).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(t => t.Telephone1).HasColumnType("varchar(20)");
-            builder.Property(t => t.Telephone2).HasColumnType("varchar(20)");
-            builder.Property(t => t.Fax).HasColumnType("varchar(20)");
-            builder.Property(t => t.Email).HasColumnType("varchar(256)");
-            builder.Property(t => t.ContactPerson).HasColumnType("varchar(256)");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).UseIdentityColumn();
+            builder.Property(e => e.Name).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(e => e.Address1).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(e => e.Address2).HasColumnType("varchar(256)");
+            builder.Property(e => e.City).HasColumnType("varchar(100)").IsRequired();
+            builder.Property(e => e.Country).HasColumnType("varchar(100)").IsRequired();
+            builder.Property(e => e.Telephone1).HasColumnType("varchar(20)");
+            builder.Property(e => e.Telephone2).HasColumnType("varchar(20)");
+            builder.Property(e => e.Fax).HasColumnType("varchar(20)");
+            builder.Property(e => e.Email).HasColumnType("varchar(256)");
+            builder.Property(e => e.ContactPerson).HasColumnType("varchar(256)");
             builder.ToTable("Suppliers");
 
             base.Configure(builder);
