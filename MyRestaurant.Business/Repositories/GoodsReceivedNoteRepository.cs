@@ -103,16 +103,16 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetGoodsReceivedNoteDto> GetGoodsReceivedNoteAsync(long id)
         {
-            var goodsReceiveNote = await GetGoodsReceivedNoteById(id);
+            var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
 
-            return _mapper.Map<GetGoodsReceivedNoteDto>(goodsReceiveNote);
+            return _mapper.Map<GetGoodsReceivedNoteDto>(goodsReceivedNote);
         }
 
         public async Task<IEnumerable<GetGoodsReceivedNoteDto>> GetGoodsReceivedNotesAsync()
         {
-            var goodsReceiveNotes = await _goodReceivedNote.GetGoodsReceivedNotesAsync();
+            var goodsReceivedNotes = await _goodReceivedNote.GetGoodsReceivedNotesAsync();
 
-            return _mapper.Map<IEnumerable<GetGoodsReceivedNoteDto>>(goodsReceiveNotes);
+            return _mapper.Map<IEnumerable<GetGoodsReceivedNoteDto>>(goodsReceivedNotes);
         }
 
         public async Task UpdateGoodsReceivedNoteAsync(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
@@ -120,23 +120,23 @@ namespace MyRestaurant.Business.Repositories
             //verify PO allowed to EDIT GRN
             await CheckPurchaseOrder(goodsReceivedNoteDto.PurchaseOrderId);
 
-            var goodsReceiveNote = await GetGoodsReceivedNoteById(id);
+            var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
 
-            goodsReceiveNote = _mapper.Map(goodsReceivedNoteDto, goodsReceiveNote);
+            goodsReceivedNote = _mapper.Map(goodsReceivedNoteDto, goodsReceivedNote);
 
-            await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceiveNote);
+            await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceivedNote);
         }
 
         public async Task ApprovalGoodsReceivedNoteAsync(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
-            var goodsReceiveNote = await GetGoodsReceivedNoteById(id);
-            goodsReceiveNote = _mapper.Map(goodsReceivedNoteDto, goodsReceiveNote);
+            var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
+            goodsReceivedNote = _mapper.Map(goodsReceivedNoteDto, goodsReceivedNote);
 
             var currentUser = _userAccessor.GetCurrentUser();
-            goodsReceiveNote.ApprovedBy = currentUser.UserId;
-            goodsReceiveNote.ApprovedDate = DateTime.Now;
+            goodsReceivedNote.ApprovedBy = currentUser.UserId;
+            goodsReceivedNote.ApprovedDate = DateTime.Now;
 
-            await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceiveNote);
+            await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceivedNote);
         }
     }
 }
