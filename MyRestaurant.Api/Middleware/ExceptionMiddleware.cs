@@ -45,12 +45,11 @@ namespace MyRestaurant.Api.Middleware
                     break;
 
                 case Exception e:
-
-                    var receiveException = e.InnerException ?? e;
-                    var sqlError = receiveException as SqlException;
+                    var receivedException = e.InnerException ?? e;
+                    logger.LogError("SERVER ERROR: {0}", receivedException.Message);
+                    var sqlError = receivedException as SqlException;
                     if (sqlError.Number == 547)
                     {
-                        logger.LogError("SERVER ERROR: {0}", receiveException.Message);
                         error = new
                         {
                             ErrorCode = HttpStatusCode.Conflict,
@@ -62,18 +61,18 @@ namespace MyRestaurant.Api.Middleware
                     }
                     else
                     {
-                        logger.LogError("SERVER ERROR: {0}", receiveException.Message);
                         error = new
                         {
                             ErrorCode = HttpStatusCode.InternalServerError,
                             ErrorType = HttpStatusCode.InternalServerError.ToString(),
-                            ErrorMessage = string.IsNullOrWhiteSpace(receiveException.Message) ? "Error" : receiveException.Message,
+                            ErrorMessage = string.IsNullOrWhiteSpace(receivedException.Message) ? "Error" : receivedException.Message,
                             ErrorDate = DateTime.Now
                         };
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     }
                     break;
             }
+
             context.Response.ContentType = "application/json";
             if (error != null)
             {
