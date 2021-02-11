@@ -351,3 +351,6 @@ MigrationBackup/
 
 # LogFiles
 LogFiles/
+
+# Code Coverage
+CoverageReports/
