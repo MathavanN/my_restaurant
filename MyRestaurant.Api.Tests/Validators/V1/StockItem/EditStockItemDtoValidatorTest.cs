@@ -2,7 +2,7 @@
 using MyRestaurant.Api.Tests.Validators.V1.Fixtures;
 using Xunit;
 
-namespace MyRestaurant.Api.Tests.Validators.V1.StockItem
+namespace MyRestaurant.Api.Tests.Validators.V1
 {
     public class EditStockItemDtoValidatorTest : IClassFixture<EditStockItemDtoValidatorFixture>
     {
@@ -97,6 +97,27 @@ namespace MyRestaurant.Api.Tests.Validators.V1.StockItem
             //Assert
             result.ShouldHaveValidationErrorFor(x => x.Description)
                 .WithErrorMessage("Description maximum length is 500.");
+        }
+
+        [Fact]
+        public void Should_Not_Have_Error_When_Valid_Dto()
+        {
+            //Arrange
+            _fixture.Model.TypeId = 1;
+            _fixture.Model.Name = "Sugar";
+            _fixture.Model.ItemUnit = 10;
+            _fixture.Model.UnitOfMeasureId = 1;
+            _fixture.Model.Description = "Sugar 10kg bag";
+
+            //Act
+            var result = _fixture.Validator.TestValidate(_fixture.Model);
+
+            //Assert
+            result.ShouldNotHaveValidationErrorFor(x => x.TypeId);
+            result.ShouldNotHaveValidationErrorFor(x => x.UnitOfMeasureId);
+            result.ShouldNotHaveValidationErrorFor(x => x.Name);
+            result.ShouldNotHaveValidationErrorFor(x => x.ItemUnit);
+            result.ShouldNotHaveValidationErrorFor(x => x.Description);
         }
     }
 }

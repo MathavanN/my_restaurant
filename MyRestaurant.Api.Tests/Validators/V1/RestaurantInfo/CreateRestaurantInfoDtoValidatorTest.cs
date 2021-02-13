@@ -2,7 +2,7 @@
 using MyRestaurant.Api.Tests.Validators.V1.Fixtures;
 using Xunit;
 
-namespace MyRestaurant.Api.Tests.Validators.V1.RestaurantInfo
+namespace MyRestaurant.Api.Tests.Validators.V1
 {
     public class CreateRestaurantInfoDtoValidatorTest : IClassFixture<CreateRestaurantInfoDtoValidatorFixture>
     {
