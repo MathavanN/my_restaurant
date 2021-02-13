@@ -126,8 +126,6 @@ namespace MyRestaurant.Api.Tests.Validators.V1
         [Fact]
         public void Should_Have_Error_When_Roles_Is_Null()
         {
-            //RuleForEach(x => x.Roles).IsEnumName(typeof(NormalUserRoles), caseSensitive: false);
-
             //Arrange
             _fixture.Model.Roles = null;
 
