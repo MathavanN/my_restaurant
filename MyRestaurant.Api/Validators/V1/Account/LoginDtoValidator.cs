@@ -7,7 +7,9 @@ namespace MyRestaurant.Api.Validators.V1
     {
         public LoginDtoValidator()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("Email is not a valid email address.");
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required.")
+                                 .NotNull().WithMessage("Email must not be empty.")
+                                 .EmailAddress().WithMessage("Email is not a valid email address.");
 
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
         }
