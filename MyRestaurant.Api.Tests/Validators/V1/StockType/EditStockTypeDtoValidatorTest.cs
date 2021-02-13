@@ -2,7 +2,7 @@
 using MyRestaurant.Api.Tests.Validators.V1.Fixtures;
 using Xunit;
 
-namespace MyRestaurant.Api.Tests.Validators.V1.StockType
+namespace MyRestaurant.Api.Tests.Validators.V1
 {
     public class EditStockTypeDtoValidatorTest : IClassFixture<EditStockTypeDtoValidatorFixture>
     {
@@ -68,6 +68,21 @@ namespace MyRestaurant.Api.Tests.Validators.V1.StockType
             //Assert
             result.ShouldHaveValidationErrorFor(x => x.Description)
                 .WithErrorMessage("Description maximum length is 100.");
+        }
+
+        [Fact]
+        public void Should_Not_Have_Error_When_Valid_Dto()
+        {
+            //Arrange
+            _fixture.Model.Type = "Beverage";
+            _fixture.Model.Description = "Items for beverage type";
+
+            //Act
+            var result = _fixture.Validator.TestValidate(_fixture.Model);
+
+            //Assert
+            result.ShouldNotHaveValidationErrorFor(x => x.Type);
+            result.ShouldNotHaveValidationErrorFor(x => x.Description);
         }
     }
 }

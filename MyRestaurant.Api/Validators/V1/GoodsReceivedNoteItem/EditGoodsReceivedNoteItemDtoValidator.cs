@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MyRestaurant.Business.Dtos.V1;
 
-namespace MyRestaurant.Api.Validators.V1.GoodsReceivedNoteItem
+namespace MyRestaurant.Api.Validators.V1
 {
     public class EditGoodsReceivedNoteItemDtoValidator : AbstractValidator<EditGoodsReceivedNoteItemDto>
     {

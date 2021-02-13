@@ -4,11 +4,11 @@ using Xunit;
 
 namespace MyRestaurant.Api.Tests.Validators.V1
 {
-    public class ApprovalPurchaseOrderDtoValidatorTest : IClassFixture<ApprovalPurchaseOrderDtoValidatorFixture>
+    public class ApprovalGoodsReceivedNoteDtoValidatorTest : IClassFixture<ApprovalGoodsReceivedNoteDtoValidatorFixture>
     {
-        private readonly ApprovalPurchaseOrderDtoValidatorFixture _fixture;
+        private readonly ApprovalGoodsReceivedNoteDtoValidatorFixture _fixture;
 
-        public ApprovalPurchaseOrderDtoValidatorTest(ApprovalPurchaseOrderDtoValidatorFixture fixture)
+        public ApprovalGoodsReceivedNoteDtoValidatorTest(ApprovalGoodsReceivedNoteDtoValidatorFixture fixture)
         {
             _fixture = fixture;
         }
@@ -63,7 +63,7 @@ namespace MyRestaurant.Api.Tests.Validators.V1
         {
             //Arrange
             _fixture.Model.ApprovalStatus = "Pending";
-            _fixture.Model.ApprovalReason = "Purchase order items are required";
+            _fixture.Model.ApprovalReason = "GRN items are received";
 
             //Act
             var result = _fixture.Validator.TestValidate(_fixture.Model);

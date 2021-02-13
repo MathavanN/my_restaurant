@@ -40,5 +40,20 @@ namespace MyRestaurant.Api.Tests.Validators.V1
             result.ShouldHaveValidationErrorFor(x => x.Description)
                 .WithErrorMessage("Description maximum length is 500.");
         }
+
+        [Fact]
+        public void Should_Not_Have_Error_When_Valid_Dto()
+        {
+            //Arrange
+            _fixture.Model.SupplierId = 1;
+            _fixture.Model.Description = "Purchase order description";
+
+            //Act
+            var result = _fixture.Validator.TestValidate(_fixture.Model);
+
+            //Assert
+            result.ShouldNotHaveValidationErrorFor(x => x.SupplierId);
+            result.ShouldNotHaveValidationErrorFor(x => x.Description);
+        }
     }
 }

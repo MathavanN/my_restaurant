@@ -16,8 +16,8 @@ namespace MyRestaurant.Api.Validators.V1
             RuleFor(x => x.Nbt).GreaterThanOrEqualTo(0).WithMessage("NBT must be a positive value.");
             RuleFor(x => x.Vat).GreaterThanOrEqualTo(0).WithMessage("VAT must be a positive value.");
             RuleFor(x => x.Discount).GreaterThanOrEqualTo(0).WithMessage("Discount must be a positive value.");
-            RuleFor(x => x.ReceivedBy).NotEmpty().WithMessage("Received by is required");
-            RuleFor(x => x.ReceivedDate).Must(CommonValidators.BeAValidDate).WithMessage("Received date is required")
+            RuleFor(x => x.ReceivedBy).NotEmpty().WithMessage("Received by is required.");
+            RuleFor(x => x.ReceivedDate).Must(CommonValidators.BeAValidDate).WithMessage("Received date is required.")
                 .LessThan(DateTime.Now).WithMessage("Received date cannot be a future date.");
         }
     }
