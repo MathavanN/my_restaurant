@@ -57,5 +57,20 @@ namespace MyRestaurant.Api.Tests.Validators.V1
             result.ShouldHaveValidationErrorFor(x => x.ApprovalReason)
                 .WithErrorMessage("Approval reason maximum length is 500.");
         }
+
+        [Fact]
+        public void Should_Not_Have_Error_When_Valid_Dto()
+        {
+            //Arrange
+            _fixture.Model.ApprovalStatus = "Pending";
+            _fixture.Model.ApprovalReason = "Purchase order items are required";
+
+            //Act
+            var result = _fixture.Validator.TestValidate(_fixture.Model);
+
+            //Assert
+            result.ShouldNotHaveValidationErrorFor(x => x.ApprovalStatus);
+            result.ShouldNotHaveValidationErrorFor(x => x.ApprovalReason);
+        }
     }
 }
