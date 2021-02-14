@@ -19,7 +19,7 @@ namespace MyRestaurant.Services
 
         public async Task AddServiceTypeAsync(ServiceType serviceType)
         {
-            await _context.InsertAsync(serviceType);
+            _context.Create(serviceType);
             await _context.CommitAsync();
         }
 
