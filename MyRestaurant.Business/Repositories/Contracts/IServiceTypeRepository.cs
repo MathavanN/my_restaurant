@@ -9,7 +9,7 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<IEnumerable<GetServiceTypeDto>> GetServiceTypesAsync();
         Task<GetServiceTypeDto> GetServiceTypeAsync(int id);
         Task<GetServiceTypeDto> CreateServiceTypeAsync(CreateServiceTypeDto serviceTypeDto);
-        Task UpdateServiceTypeAsync(int id, EditServiceTypeDto serviceTypeDto);
+        Task<GetServiceTypeDto> UpdateServiceTypeAsync(int id, EditServiceTypeDto serviceTypeDto);
         Task DeleteServiceTypeAsync(int id);
     }
 }
