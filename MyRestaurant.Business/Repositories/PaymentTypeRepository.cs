@@ -67,7 +67,7 @@ namespace MyRestaurant.Business.Repositories
 
             return paymentType;
         }
-        public async Task UpdatePaymentTypeAsync(int id, EditPaymentTypeDto paymentTypeDto)
+        public async Task<GetPaymentTypeDto> UpdatePaymentTypeAsync(int id, EditPaymentTypeDto paymentTypeDto)
         {
             await CheckPaymentTypeAsync(id, paymentTypeDto.Name);
 
@@ -76,6 +76,8 @@ namespace MyRestaurant.Business.Repositories
             paymentType = _mapper.Map(paymentTypeDto, paymentType);
 
             await _paymentType.UpdatePaymentTypeAsync(paymentType);
+
+            return _mapper.Map<GetPaymentTypeDto>(paymentType);
         }
     }
 }
