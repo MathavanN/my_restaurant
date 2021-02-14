@@ -10,7 +10,6 @@ namespace MyRestaurant.Api.Controllers.V1
     [ApiVersion("1.0")]
     public class ServiceTypeController : BaseApiController<ServiceTypeController>
     {
-
         private readonly IServiceTypeRepository _repository;
         public ServiceTypeController(IServiceTypeRepository repository)
         {
@@ -45,29 +44,21 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateServiceType(int id,  EditServiceTypeDto serviceTypeDto) 
         {
-            await _repository.UpdateServiceTypeAsync(id, serviceTypeDto);
-            return NoContent();
+            var result = await _repository.UpdateServiceTypeAsync(id, serviceTypeDto);
+            return Ok(result);
         }
 
-        /// <summary>
-        /// Delete a specific ServiceType
-        /// </summary>
-        /// <param name="id">ServiceType id</param>
-        /// <returns></returns>
-        /// <response code="204">Returns no content</response>
-        /// <response code="404">If the specified ServiceType id is not available</response> 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteServiceType(int id)
         {
             await _repository.DeleteServiceTypeAsync(id);
-
             return NoContent();
         }
     }

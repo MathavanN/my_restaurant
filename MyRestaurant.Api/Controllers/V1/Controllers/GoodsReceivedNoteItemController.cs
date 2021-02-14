@@ -44,13 +44,13 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateGoodsReceivedNoteItem(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto)
         {
-            await _repository.UpdateGoodsReceivedNoteItemAsync(id, goodsReceivedNoteItemDto);
-            return NoContent();
+            var result = await _repository.UpdateGoodsReceivedNoteItemAsync(id, goodsReceivedNoteItemDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -59,7 +59,6 @@ namespace MyRestaurant.Api.Controllers.V1
         public async Task<IActionResult> DeleteGoodsReceivedNoteItem(long id)
         {
             await _repository.DeleteGoodsReceivedNoteItemAsync(id);
-
             return NoContent();
         }
     }

@@ -9,7 +9,7 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<IEnumerable<GetUnitOfMeasureDto>> GetUnitOfMeasuresAsync();
         Task<GetUnitOfMeasureDto> GetUnitOfMeasureAsync(int id);
         Task<GetUnitOfMeasureDto> CreateUnitOfMeasureAsync(CreateUnitOfMeasureDto unitOfMeasureDto);
-        Task UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto);
+        Task<GetUnitOfMeasureDto> UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto);
         Task DeleteUnitOfMeasureAsync(int id);
     }
 }

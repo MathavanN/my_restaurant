@@ -1,4 +1,5 @@
-﻿using MyRestaurant.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using MyRestaurant.Core;
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,15 @@ namespace MyRestaurant.Services
             _context = context;
         }
 
-        public async Task AddGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem)
+        public async Task<GoodsReceivedNoteItem> AddGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem)
         {
             _context.Create(goodsReceivedNoteItem);
             await _context.CommitAsync();
+
+            return await _context.GoodsReceivedNoteItems
+                .Include(p => p.Item)
+                .Include(p => p.GoodsReceivedNote)
+                .SingleOrDefaultAsync(e => e.Id == goodsReceivedNoteItem.Id);
         }
 
         public async Task<IEnumerable<GoodsReceivedNoteItem>> GetGoodsReceivedNoteItemsAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression) => await _context.GetAllAsync(expression);

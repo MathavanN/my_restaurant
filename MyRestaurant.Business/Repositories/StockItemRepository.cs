@@ -36,7 +36,7 @@ namespace MyRestaurant.Business.Repositories
             await CheckStockItemAsync(0, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId, stockItemDto.ItemUnit);
 
             var stockItem = _mapper.Map<StockItem>(stockItemDto);
-            await _stockItem.AddStockItemAsync(stockItem);
+            stockItem = await _stockItem.AddStockItemAsync(stockItem);
 
             return _mapper.Map<GetStockItemDto>(stockItem);
         }
@@ -89,7 +89,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<IEnumerable<GetStockItemDto>>(stockItems.OrderBy(d => d.Type.Type).ThenBy(d => d.Name));
         }
 
-        public async Task UpdateStockItemAsync(long id, EditStockItemDto stockItemDto)
+        public async Task<GetStockItemDto> UpdateStockItemAsync(long id, EditStockItemDto stockItemDto)
         {
             await CheckStockItemAsync(id, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId, stockItemDto.ItemUnit);
 
@@ -98,6 +98,8 @@ namespace MyRestaurant.Business.Repositories
             stockItem = _mapper.Map(stockItemDto, stockItem);
 
             await _stockItem.UpdateStockItemAsync(stockItem);
+
+            return _mapper.Map<GetStockItemDto>(stockItem);
         }
     }
 }

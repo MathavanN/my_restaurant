@@ -67,7 +67,7 @@ namespace MyRestaurant.Business.Repositories
             goodsReceivedNote.CreatedDate = DateTime.Now;
             goodsReceivedNote.ApprovalStatus = Status.Pending;
 
-            await _goodReceivedNote.AddGoodsReceivedNoteAsync(goodsReceivedNote);
+            goodsReceivedNote = await _goodReceivedNote.AddGoodsReceivedNoteAsync(goodsReceivedNote);
 
             var items = await _purchaseOrderItem.GetPurchaseOrderItemsAsync(e => e.PurchaseOrderId == goodsReceivedNoteDto.PurchaseOrderId);
             foreach (var item in items)
@@ -115,7 +115,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<IEnumerable<GetGoodsReceivedNoteDto>>(goodsReceivedNotes);
         }
 
-        public async Task UpdateGoodsReceivedNoteAsync(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
+        public async Task<GetGoodsReceivedNoteDto> UpdateGoodsReceivedNoteAsync(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
             //verify PO allowed to EDIT GRN
             await CheckPurchaseOrder(goodsReceivedNoteDto.PurchaseOrderId);
@@ -125,9 +125,11 @@ namespace MyRestaurant.Business.Repositories
             goodsReceivedNote = _mapper.Map(goodsReceivedNoteDto, goodsReceivedNote);
 
             await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceivedNote);
+
+            return _mapper.Map<GetGoodsReceivedNoteDto>(goodsReceivedNote);
         }
 
-        public async Task ApprovalGoodsReceivedNoteAsync(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto)
+        public async Task<GetGoodsReceivedNoteDto> ApprovalGoodsReceivedNoteAsync(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
             var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
             goodsReceivedNote = _mapper.Map(goodsReceivedNoteDto, goodsReceivedNote);
@@ -137,6 +139,8 @@ namespace MyRestaurant.Business.Repositories
             goodsReceivedNote.ApprovedDate = DateTime.Now;
 
             await _goodReceivedNote.UpdateGoodsReceivedNoteAsync(goodsReceivedNote);
+
+            return _mapper.Map<GetGoodsReceivedNoteDto>(goodsReceivedNote);
         }
     }
 }

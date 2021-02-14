@@ -18,7 +18,7 @@ namespace MyRestaurant.Services
 
         public async Task AddStockTypeAsync(StockType stockType)
         {
-            await _context.InsertAsync(stockType);
+            _context.Create(stockType);
             await _context.CommitAsync();
         }
 

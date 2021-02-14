@@ -1,4 +1,5 @@
-﻿using MyRestaurant.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using MyRestaurant.Core;
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,15 @@ namespace MyRestaurant.Services
             _context = context;
         }
 
-        public async Task AddStockItemAsync(StockItem stockItem)
+        public async Task<StockItem> AddStockItemAsync(StockItem stockItem)
         {
-            await _context.InsertAsync(stockItem);
+            _context.Create(stockItem);
             await _context.CommitAsync();
+            
+            return await _context.StockItems
+                .Include(p => p.Type)
+                .Include(p => p.UnitOfMeasure)
+                .SingleOrDefaultAsync(e => e.Id == stockItem.Id);
         }
 
         public async Task DeleteStockItemAsync(StockItem stockItem)

@@ -87,13 +87,15 @@ namespace MyRestaurant.Business.Repositories
             };
         }
 
-        public async Task UpdateSupplierAsync(long id, EditSupplierDto supplierDto)
+        public async Task<GetSupplierDto> UpdateSupplierAsync(long id, EditSupplierDto supplierDto)
         {
             var supplier = await GetSupplierId(id);
 
             supplier = _mapper.Map(supplierDto, supplier);
 
             await _supplier.UpdateSupplierAsync(supplier);
+
+            return _mapper.Map<GetSupplierDto>(supplier);
         }
     }
 }

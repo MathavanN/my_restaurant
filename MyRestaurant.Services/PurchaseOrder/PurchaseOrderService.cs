@@ -1,4 +1,5 @@
-﻿using MyRestaurant.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using MyRestaurant.Core;
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,15 @@ namespace MyRestaurant.Services
             _context = context;
         }
 
-        public async Task AddPurchaseOrderAsync(PurchaseOrder order)
+        public async Task<PurchaseOrder> AddPurchaseOrderAsync(PurchaseOrder order)
         {
-            await _context.InsertAsync(order);
+            _context.Create(order);
             await _context.CommitAsync();
+
+            return await _context.PurchaseOrders
+                .Include(p => p.Supplier)
+                .Include(p => p.RequestedUser)
+                .SingleOrDefaultAsync(e => e.Id == order.Id);
         }
 
         public async Task DeletePurchaseOrderAsync(PurchaseOrder order)

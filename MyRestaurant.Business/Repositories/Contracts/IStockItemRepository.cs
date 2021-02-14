@@ -10,7 +10,7 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<StockItemEnvelop> GetStockItemByType(int typeId, int? limit, int? offset);
         Task<GetStockItemDto> GetStockItemAsync(long id);
         Task<GetStockItemDto> CreateStockItemAsync(CreateStockItemDto stockItemDto);
-        Task UpdateStockItemAsync(long id, EditStockItemDto stockItemDto);
+        Task<GetStockItemDto> UpdateStockItemAsync(long id, EditStockItemDto stockItemDto);
         Task DeleteStockItemAsync(long id);
     }
 }

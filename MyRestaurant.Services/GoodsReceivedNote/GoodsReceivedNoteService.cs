@@ -1,4 +1,5 @@
-﻿using MyRestaurant.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using MyRestaurant.Core;
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,16 @@ namespace MyRestaurant.Services
             _context = context;
         }
 
-        public async Task AddGoodsReceivedNoteAsync(GoodsReceivedNote goodsReceivedNote)
+        public async Task<GoodsReceivedNote> AddGoodsReceivedNoteAsync(GoodsReceivedNote goodsReceivedNote)
         {
-            await _context.InsertAsync(goodsReceivedNote);
+            _context.Create(goodsReceivedNote);
             await _context.CommitAsync();
+
+            return await _context.GoodsReceivedNotes
+                .Include(p => p.PaymentType)
+                .Include(p => p.PurchaseOrder)
+                .Include(p => p.ReceivedUser)
+                .SingleOrDefaultAsync(e => e.Id == goodsReceivedNote.Id);
         }
 
         public async Task DeleteGoodsReceivedNoteAsync(GoodsReceivedNote goodsReceivedNote)

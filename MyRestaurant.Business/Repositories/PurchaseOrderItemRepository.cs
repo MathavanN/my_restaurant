@@ -39,7 +39,7 @@ namespace MyRestaurant.Business.Repositories
             await CheckOrderItemAsync(0, purchaseOrderItemDto.PurchaseOrderId, purchaseOrderItemDto.ItemId);
 
             var item = _mapper.Map<PurchaseOrderItem>(purchaseOrderItemDto);
-            await _purchaseOrderItem.AddPurchaseOrderItemAsync(item);
+            item = await _purchaseOrderItem.AddPurchaseOrderItemAsync(item);
 
             return _mapper.Map<GetPurchaseOrderItemDto>(item);
         }
@@ -58,7 +58,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<IEnumerable<GetPurchaseOrderItemDto>>(items);
         }
 
-        public async Task UpdatePurchaseOrderItemAsync(long id, EditPurchaseOrderItemDto purchaseOrderItemDto)
+        public async Task<GetPurchaseOrderItemDto> UpdatePurchaseOrderItemAsync(long id, EditPurchaseOrderItemDto purchaseOrderItemDto)
         {
             await CheckOrderItemAsync(id, purchaseOrderItemDto.PurchaseOrderId, purchaseOrderItemDto.ItemId);
 
@@ -67,6 +67,8 @@ namespace MyRestaurant.Business.Repositories
             item = _mapper.Map(purchaseOrderItemDto, item);
 
             await _purchaseOrderItem.UpdatePurchaseOrderItemAsync(item);
+
+            return _mapper.Map<GetPurchaseOrderItemDto>(item);
         }
 
         public async Task DeletePurchaseOrderItemAsync(long id)

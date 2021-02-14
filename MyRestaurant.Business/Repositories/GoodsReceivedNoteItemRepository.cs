@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Repositories
             await CheckGoodsReceivedNoteItemAsync(0, goodsReceivedNoteItemDto.GoodsReceivedNoteId, goodsReceivedNoteItemDto.ItemId);
 
             var item = _mapper.Map<GoodsReceivedNoteItem>(goodsReceivedNoteItemDto);
-            await _goodsReceivedNoteItem.AddGoodsReceivedNoteItemAsync(item);
+            item = await _goodsReceivedNoteItem.AddGoodsReceivedNoteItemAsync(item);
 
             return _mapper.Map<GetGoodsReceivedNoteItemDto>(item);
         }
@@ -67,7 +67,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<IEnumerable<GetGoodsReceivedNoteItemDto>>(items);
         }
 
-        public async Task UpdateGoodsReceivedNoteItemAsync(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto)
+        public async Task<GetGoodsReceivedNoteItemDto> UpdateGoodsReceivedNoteItemAsync(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto)
         {
             await CheckGoodsReceivedNoteItemAsync(id, goodsReceivedNoteItemDto.GoodsReceivedNoteId, goodsReceivedNoteItemDto.ItemId);
 
@@ -76,6 +76,8 @@ namespace MyRestaurant.Business.Repositories
             item = _mapper.Map(goodsReceivedNoteItemDto, item);
 
             await _goodsReceivedNoteItem.UpdateGoodsReceivedNoteItemAsync(item);
+
+            return _mapper.Map<GetGoodsReceivedNoteItemDto>(item);
         }
     }
 }

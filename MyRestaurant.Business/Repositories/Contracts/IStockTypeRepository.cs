@@ -9,7 +9,7 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<IEnumerable<GetStockTypeDto>> GetStockTypesAsync();
         Task<GetStockTypeDto> GetStockTypeAsync(int id);
         Task<GetStockTypeDto> CreateStockTypeAsync(CreateStockTypeDto stockTypeDto);
-        Task UpdateStockTypeAsync(int id, EditStockTypeDto stockTypeDto);
+        Task<GetStockTypeDto> UpdateStockTypeAsync(int id, EditStockTypeDto stockTypeDto);
         Task DeleteStockTypeAsync(int id);
     }
 }

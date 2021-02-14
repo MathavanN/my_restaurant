@@ -10,7 +10,7 @@ namespace MyRestaurant.Services
     {
         Task<IEnumerable<PurchaseOrder>> GetPurchaseOrdersAsync(Expression<Func<PurchaseOrder, bool>> expression = null);
         Task<PurchaseOrder> GetPurchaseOrderAsync(Expression<Func<PurchaseOrder, bool>> expression);
-        Task AddPurchaseOrderAsync(PurchaseOrder order);
+        Task<PurchaseOrder> AddPurchaseOrderAsync(PurchaseOrder order);
         Task UpdatePurchaseOrderAsync(PurchaseOrder order);
         Task DeletePurchaseOrderAsync(PurchaseOrder order);
     }

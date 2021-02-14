@@ -17,7 +17,7 @@ namespace MyRestaurant.Services
 
         public async Task AddUnitOfMeasureAsync(UnitOfMeasure unitOfMeasure)
         {
-            await _context.InsertAsync(unitOfMeasure);
+            _context.Create(unitOfMeasure);
             await _context.CommitAsync();
         }
 

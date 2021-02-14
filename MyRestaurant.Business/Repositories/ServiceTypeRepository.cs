@@ -63,13 +63,15 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<GetServiceTypeDto>(serviceType);
         }
 
-        public async Task UpdateServiceTypeAsync(int id, EditServiceTypeDto serviceTypeDto)
+        public async Task<GetServiceTypeDto> UpdateServiceTypeAsync(int id, EditServiceTypeDto serviceTypeDto)
         {
             var serviceType = await GetServiceTypeById(id);
 
             serviceType = _mapper.Map(serviceTypeDto, serviceType);
 
             await _serviceType.UpdateServiceTypeAsync(serviceType);
+
+            return _mapper.Map<GetServiceTypeDto>(serviceType);
         }
     }
 }

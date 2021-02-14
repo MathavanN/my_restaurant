@@ -44,13 +44,13 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdatePaymentType(int id, EditPaymentTypeDto paymentTypeDto)
         {
-            await _repository.UpdatePaymentTypeAsync(id, paymentTypeDto);
-            return NoContent();
+            var result = await _repository.UpdatePaymentTypeAsync(id, paymentTypeDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -59,7 +59,6 @@ namespace MyRestaurant.Api.Controllers.V1
         public async Task<IActionResult> DeletePaymentType(int id)
         {
             await _repository.DeletePaymentTypeAsync(id);
-
             return NoContent();
         }
     }

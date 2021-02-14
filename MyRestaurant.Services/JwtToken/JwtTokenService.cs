@@ -87,7 +87,7 @@ namespace MyRestaurant.Services
                 CreatedByIp = ipAddress
             };
 
-            await _context.InsertAsync(refreshToken);
+            _context.Create(refreshToken);
             await _context.CommitAsync();
             return refreshToken;
         }
