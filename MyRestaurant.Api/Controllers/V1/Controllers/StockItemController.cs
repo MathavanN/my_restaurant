@@ -52,13 +52,13 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateStockItem(int id, EditStockItemDto stockTypeDto)
         {
-            await _repository.UpdateStockItemAsync(id, stockTypeDto);
-            return NoContent();
+            var result = await _repository.UpdateStockItemAsync(id, stockTypeDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -67,7 +67,6 @@ namespace MyRestaurant.Api.Controllers.V1
         public async Task<IActionResult> DeleteStockItem(int id)
         {
             await _repository.DeleteStockItemAsync(id);
-
             return NoContent();
         }
     }
