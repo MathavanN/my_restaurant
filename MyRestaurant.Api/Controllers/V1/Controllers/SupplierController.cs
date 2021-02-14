@@ -44,13 +44,13 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateSupplier(long id, EditSupplierDto supplierDto)
         {
-            await _repository.UpdateSupplierAsync(id, supplierDto);
-            return NoContent();
+            var result = await _repository.UpdateSupplierAsync(id, supplierDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -59,7 +59,6 @@ namespace MyRestaurant.Api.Controllers.V1
         public async Task<IActionResult> DeleteSupplier(long id)
         {
             await _repository.DeleteSupplierAsync(id);
-
             return NoContent();
         }
     }
