@@ -44,13 +44,13 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUnitOfMeasure(int id, EditUnitOfMeasureDto unitOfMeasureDto)
         {
-            await _repository.UpdateUnitOfMeasureAsync(id, unitOfMeasureDto);
-            return NoContent();
+            var result = await _repository.UpdateUnitOfMeasureAsync(id, unitOfMeasureDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -59,7 +59,6 @@ namespace MyRestaurant.Api.Controllers.V1
         public async Task<IActionResult> DeleteUnitOfMeasure(int id)
         {
             await _repository.DeleteUnitOfMeasureAsync(id);
-
             return NoContent();
         }
     }
