@@ -90,7 +90,8 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockPaymentTypeRepository.Setup(x => x.UpdatePaymentTypeAsync(id, _fixture.ValidUpdatePaymentTypeDto));
+            _fixture.MockPaymentTypeRepository.Setup(x => x.UpdatePaymentTypeAsync(id, _fixture.ValidUpdatePaymentTypeDto))
+                .ReturnsAsync(_fixture.EditPaymentTypeDtoResult);
 
             var controller = new PaymentTypeController(_fixture.MockPaymentTypeRepository.Object);
 

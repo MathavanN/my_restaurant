@@ -15,6 +15,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
         public CreatePaymentTypeDto ValidCreatePaymentTypeDto { get; private set; }
         public GetPaymentTypeDto CreatePaymentTypeDtoResult { get; private set; }
         public EditPaymentTypeDto ValidUpdatePaymentTypeDto { get; private set; }
+        public GetPaymentTypeDto EditPaymentTypeDtoResult { get; private set; }
 
         public PaymentTypeControllerFixture()
         {
@@ -32,6 +33,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             CreatePaymentTypeDtoResult = new GetPaymentTypeDto { Id = 3, Name = "Credit1", CreditPeriod = 15 };
 
             ValidUpdatePaymentTypeDto = new EditPaymentTypeDto { Name = "Credit", CreditPeriod = 20 };
+            EditPaymentTypeDtoResult = new GetPaymentTypeDto { Id = 2, Name = "Credit", CreditPeriod = 20 };
         }
 
         public void Dispose()
