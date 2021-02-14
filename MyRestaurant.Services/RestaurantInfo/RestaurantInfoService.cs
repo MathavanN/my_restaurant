@@ -14,7 +14,7 @@ namespace MyRestaurant.Services
 
         public async Task AddRestaurantInfoAsync(RestaurantInfo info)
         {
-            await _context.InsertAsync(info);
+            _context.Create(info);
             await _context.CommitAsync();
         }
 
