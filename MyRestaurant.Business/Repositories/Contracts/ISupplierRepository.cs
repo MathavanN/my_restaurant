@@ -9,7 +9,7 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<SupplierEnvelop> GetSuppliersAsync(int? limit, int? offset, string name, string city, string contactPerson);
         Task<GetSupplierDto> GetSupplierAsync(long id);
         Task<GetSupplierDto> CreateSupplierAsync(CreateSupplierDto supplierDto);
-        Task UpdateSupplierAsync(long id, EditSupplierDto supplierDto);
+        Task<GetSupplierDto> UpdateSupplierAsync(long id, EditSupplierDto supplierDto);
         Task DeleteSupplierAsync(long id);
     }
 }
