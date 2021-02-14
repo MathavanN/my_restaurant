@@ -9,7 +9,7 @@ namespace MyRestaurant.Business.Repositories.Contracts
         Task<IEnumerable<GetGoodsReceivedNoteItemDto>> GetGoodsReceivedNoteItemsAsync(long goodsReceivedNoteId);
         Task<GetGoodsReceivedNoteItemDto> CreateGoodsReceivedNoteItemAsync(CreateGoodsReceivedNoteItemDto goodsReceivedNoteItemDto);
         Task<GetGoodsReceivedNoteItemDto> GetGoodsReceivedNoteItemAsync(long id);
-        Task UpdateGoodsReceivedNoteItemAsync(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto);
+        Task<GetGoodsReceivedNoteItemDto> UpdateGoodsReceivedNoteItemAsync(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto);
         Task DeleteGoodsReceivedNoteItemAsync(long id);
     }
 }
