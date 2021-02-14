@@ -51,23 +51,23 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdatePurchaseOrder(long id, EditPurchaseOrderDto purchaseOrderDto)
         {
-            await _repository.UpdatePurchaseOrderAsync(id, purchaseOrderDto);
-            return NoContent();
+            var result = await _repository.UpdatePurchaseOrderAsync(id, purchaseOrderDto);
+            return Ok(result);
         }
 
         [HttpPut("approval/{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ApprovePurchaseOrder(long id, ApprovalPurchaseOrderDto purchaseOrderDto)
         {
-            await _repository.ApprovalPurchaseOrderAsync(id, purchaseOrderDto);
-            return NoContent();
+            var result = await _repository.ApprovalPurchaseOrderAsync(id, purchaseOrderDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
