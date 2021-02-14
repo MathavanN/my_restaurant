@@ -71,12 +71,6 @@ namespace MyRestaurant.Core
         public DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
-        public async Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
-        {
-            var savedEntity = await Set<TEntity>().AddAsync(entity, cancellationToken);
-            return savedEntity.Entity;
-        }
-
         public void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
         {
             Set<TEntity>().Add(entity);

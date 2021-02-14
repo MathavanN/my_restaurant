@@ -24,7 +24,6 @@ namespace MyRestaurant.Core
         DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
         DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
         DbSet<PaymentType> PaymentTypes { get; set; }
-        Task<TEntity> InsertAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject;
         void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         void Delete<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
