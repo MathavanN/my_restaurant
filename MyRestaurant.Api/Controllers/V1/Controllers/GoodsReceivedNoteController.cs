@@ -46,14 +46,14 @@ namespace MyRestaurant.Api.Controllers.V1
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         [Authorize(ApplicationClaimPolicy.SuperAdminOnly)]
         public async Task<IActionResult> UpdateGoodsReceivedNote(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
-            await _repository.UpdateGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
-            return NoContent();
+            var result = await _repository.UpdateGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
+            return Ok(result);
         }
 
         [HttpPut("approval/{id}")]
@@ -62,8 +62,8 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ApproveGoodsReceivedNote(long id, ApprovalGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
-            await _repository.ApprovalGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
-            return NoContent();
+            var result = await _repository.ApprovalGoodsReceivedNoteAsync(id, goodsReceivedNoteDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
