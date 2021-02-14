@@ -43,7 +43,7 @@ namespace MyRestaurant.Business.Repositories
             purchaseOrder.RequestedDate = currentDate;
             purchaseOrder.ApprovalStatus = Status.Pending;
 
-            await _purchaseOrder.AddPurchaseOrderAsync(purchaseOrder);
+            purchaseOrder = await _purchaseOrder.AddPurchaseOrderAsync(purchaseOrder);
 
             return _mapper.Map<GetPurchaseOrderDto>(purchaseOrder);
         }
@@ -72,7 +72,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<IEnumerable<GetPurchaseOrderDto>>(orders);
         }
 
-        public async Task UpdatePurchaseOrderAsync(long id, EditPurchaseOrderDto purchaseOrderDto)
+        public async Task<GetPurchaseOrderDto> UpdatePurchaseOrderAsync(long id, EditPurchaseOrderDto purchaseOrderDto)
         {
 
             var order = await GetPurchaseOrderById(id);
@@ -80,6 +80,8 @@ namespace MyRestaurant.Business.Repositories
             order = _mapper.Map(purchaseOrderDto, order);
 
             await _purchaseOrder.UpdatePurchaseOrderAsync(order);
+
+            return _mapper.Map<GetPurchaseOrderDto>(order);
         }
         public async Task DeletePurchaseOrderAsync(long id)
         {
@@ -88,7 +90,7 @@ namespace MyRestaurant.Business.Repositories
             await _purchaseOrder.DeletePurchaseOrderAsync(order);
         }
 
-        public async Task ApprovalPurchaseOrderAsync(long id, ApprovalPurchaseOrderDto purchaseOrderDto)
+        public async Task<GetPurchaseOrderDto> ApprovalPurchaseOrderAsync(long id, ApprovalPurchaseOrderDto purchaseOrderDto)
         {
             var order = await GetPurchaseOrderById(id);
             order = _mapper.Map(purchaseOrderDto, order);
@@ -97,6 +99,8 @@ namespace MyRestaurant.Business.Repositories
             order.ApprovedDate = DateTime.Now;
 
             await _purchaseOrder.UpdatePurchaseOrderAsync(order);
+
+            return _mapper.Map<GetPurchaseOrderDto>(order);
         }
     }
 }
