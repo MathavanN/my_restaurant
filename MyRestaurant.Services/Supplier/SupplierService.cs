@@ -17,7 +17,7 @@ namespace MyRestaurant.Services
         }
         public async Task AddSupplierAsync(Supplier supplier)
         {
-            await _context.InsertAsync(supplier);
+            _context.Create(supplier);
             await _context.CommitAsync();
         }
 
