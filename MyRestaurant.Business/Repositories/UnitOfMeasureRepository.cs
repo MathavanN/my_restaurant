@@ -69,7 +69,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<IEnumerable<GetUnitOfMeasureDto>>(unitOfMeasures.OrderBy(d => d.Code));
         }
 
-        public async Task UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto)
+        public async Task<GetUnitOfMeasureDto> UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto)
         {
             await CheckUnitOfMeasureAsync(id, unitOfMeasureDto.Code);
 
@@ -78,6 +78,8 @@ namespace MyRestaurant.Business.Repositories
             unitOfMeasure = _mapper.Map(unitOfMeasureDto, unitOfMeasure);
 
             await _unitOfMeasure.UpdateUnitOfMeasureAsync(unitOfMeasure);
+
+            return _mapper.Map<GetUnitOfMeasureDto>(unitOfMeasure);
         }
     }
 }
