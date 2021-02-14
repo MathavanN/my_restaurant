@@ -10,7 +10,7 @@ namespace MyRestaurant.Services
     {
         Task<IEnumerable<GoodsReceivedNoteItem>> GetGoodsReceivedNoteItemsAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression);
         Task<GoodsReceivedNoteItem> GetGoodsReceivedNoteItemAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression);
-        Task AddGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem);
+        Task<GoodsReceivedNoteItem> AddGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem);
         Task UpdateGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem);
         Task DeleteGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem);
     }
