@@ -28,7 +28,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetStockItemsByType(int typeId, int? limit, int? offset)
         {
-            var result = await _repository.GetStockItemByType(typeId, limit, offset);
+            var result = await _repository.GetStockItemsByType(typeId, limit, offset);
             return Ok(result);
         }
 
