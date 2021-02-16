@@ -11,10 +11,11 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
     {
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IServiceTypeRepository> MockServiceTypeRepository { get; private set; }
-        public IEnumerable<GetServiceTypeDto> PaymentTypes { get; private set; }
+        public IEnumerable<GetServiceTypeDto> ServiceTypes { get; private set; }
         public CreateServiceTypeDto ValidCreateServiceTypeDto { get; private set; }
         public GetServiceTypeDto CreateServiceTypeDtoResult { get; private set; }
         public EditServiceTypeDto ValidUpdateServiceTypeDto { get; private set; }
+        public GetServiceTypeDto EditServiceTypeDtoResult { get; set; }
 
         public ServiceTypeControllerFixture()
         {
@@ -22,15 +23,17 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
             MockServiceTypeRepository = new Mock<IServiceTypeRepository>();
 
-            PaymentTypes = new List<GetServiceTypeDto> {
+            ServiceTypes = new List<GetServiceTypeDto> {
                 new GetServiceTypeDto { Id = 1, Type = "Take Away" },
             };
 
-            //ValidCreateServiceTypeDto = new CreateServiceTypeDto { Type = "Take Away" };
+            ValidCreateServiceTypeDto = new CreateServiceTypeDto { Type = "Dine In" };
 
-            //CreateServiceTypeDtoResult = new GetServiceTypeDto { Id = 3, Name = "Credit1", CreditPeriod = 15 };
+            CreateServiceTypeDtoResult = new GetServiceTypeDto { Id = 2, Type = "Dine In" };
 
-            //ValidUpdateServiceTypeDto = new EditServiceTypeDto { Name = "Credit", CreditPeriod = 20 };
+            ValidUpdateServiceTypeDto = new EditServiceTypeDto { Type = "Take Out" };
+
+            EditServiceTypeDtoResult = new GetServiceTypeDto { Id = 1, Type = "Take Out" };
         }
 
         public void Dispose()
