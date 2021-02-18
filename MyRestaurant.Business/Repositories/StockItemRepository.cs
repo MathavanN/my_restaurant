@@ -65,7 +65,7 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<GetStockItemDto>(stockItem);
         }
 
-        public async Task<StockItemEnvelop> GetStockItemByType(int typeId, int? limit, int? offset)
+        public async Task<StockItemEnvelop> GetStockItemsByType(int typeId, int? limit, int? offset)
         {
             var queryable = _stockItem.GetStockItemsAsync(d => d.TypeId == typeId)
                                       .OrderBy(d => d.Name);

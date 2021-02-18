@@ -110,7 +110,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeletePaymentTYpe_ReturnNoContentResult()
+        public async void DeletePaymentType_ReturnNoContentResult()
         {
             //Arrange
             var id = 2;
