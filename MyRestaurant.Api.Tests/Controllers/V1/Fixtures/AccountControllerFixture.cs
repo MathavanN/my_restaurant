@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories.Contracts;
@@ -10,50 +11,135 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
     public class AccountControllerFixture : IDisposable
     {
         public ApiVersion ApiVersion { get; private set; }
-        public Mock<IUnitOfMeasureRepository> MockUnitOfMeasureRepository { get; private set; }
-        public IEnumerable<GetUnitOfMeasureDto> UnitOfMeasures { get; private set; }
-        public CreateUnitOfMeasureDto ValidCreateUnitOfMeasureDto { get; private set; }
-        public GetUnitOfMeasureDto CreateUnitOfMeasureDtoResult { get; private set; }
-        public EditUnitOfMeasureDto ValidEditUnitOfMeasureDto { get; private set; }
-        public GetUnitOfMeasureDto EditUnitOfMeasureDtoResult { get; private set; }
+        public Mock<IAccountRepository> MockAccountRepository { get; private set; }
+        public IEnumerable<GetUserDto> Users { get; private set; }
+        public RegisterAdminDto ValidRegisterAdminDto { get; private set; }
+        public RegisterNormalDto ValidRegisterNormalDto { get; private set; }
+        public LoginDto ValidLoginDto { get; private set; }
+        public RefreshDto ValidRefreshDto { get; private set; }
+        public RevokeDto ValidRevokeDto { get; private set; }
+        public CurrentUserDto CurrentUserDtoResult { get; private set; }
+        public TokenResultDto ValidTokenResultDtoResult { get; private set; }
+        public RegisterResultDto SuccessAdminRegisterResultDto { get; private set; }
+        public RegisterResultDto FailedRegisterResultDto { get; private set; }
+        public RegisterResultDto SuccessNormalRegisterResultDto { get; private set; }
+        public DefaultHttpContext HttpContext { get; set; }
 
         public AccountControllerFixture()
         {
             ApiVersion = new ApiVersion(1, 0);
 
-            MockUnitOfMeasureRepository = new Mock<IUnitOfMeasureRepository>();
+            MockAccountRepository = new Mock<IAccountRepository>();
 
-            UnitOfMeasures = new List<GetUnitOfMeasureDto>
+            HttpContext = new DefaultHttpContext();
+            Users = new List<GetUserDto>
             {
-                new GetUnitOfMeasureDto { Id = 1, Code = "kg", Description = "Kilogram" },
-                new GetUnitOfMeasureDto { Id = 2, Code = "g", Description = "Gram" }
+                new GetUserDto
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Anna",
+                    LastName = "Domino",
+                    Email = "anna@gmail.com",
+                    PhoneNumber = "",
+                    Roles = new List<string> { "SuperAdmin", "Admin", "Report", "Normal" }
+                },
+                new GetUserDto
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Neil",
+                    LastName = "Down",
+                    Email = "neil@gmail.com",
+                    PhoneNumber = "",
+                    Roles = new List<string> { "Admin" }
+                },
+                new GetUserDto
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Mark",
+                    LastName = "Ateer",
+                    Email = "mark@gmail.com",
+                    PhoneNumber = "",
+                    Roles = new List<string> { "Report", "Normal" }
+                },
+                new GetUserDto
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Dave",
+                    LastName = "Allippa",
+                    Email = "dave@gmail.com",
+                    PhoneNumber = "",
+                    Roles = new List<string> { "Normal" }
+                }
             };
-            ValidCreateUnitOfMeasureDto = new CreateUnitOfMeasureDto
+
+            ValidRegisterAdminDto = new RegisterAdminDto
             {
-                Code = "l",
-                Description = "Liter"
+                FirstName = "John",
+                LastName = "Quil",
+                ConfirmPassword = "password1234",
+                Password = "password1234",
+                Email = "john@gmail.com"
             };
-            CreateUnitOfMeasureDtoResult = new GetUnitOfMeasureDto
+
+            ValidRegisterNormalDto = new RegisterNormalDto
             {
-                Id = 3,
-                Code = "l",
-                Description = "Liter"
+                FirstName = "Rose",
+                LastName = "Bush",
+                ConfirmPassword = "password1234",
+                Password = "password1234",
+                Email = "rose@gmail.com",
+                Roles = new List<string> { "Report", "Normal" }
             };
-            ValidEditUnitOfMeasureDto = new EditUnitOfMeasureDto
+
+            ValidLoginDto = new LoginDto
             {
-                Code = "g",
-                Description = "Gram test"
+                Email = "test@gmail.com",
+                Password = "password1234"
             };
-            EditUnitOfMeasureDtoResult = new GetUnitOfMeasureDto
+
+            ValidRevokeDto = new RevokeDto
             {
-                Id = 2,
-                Code = "g",
-                Description = "Gram test"
+                RefreshToken = "this is refresh JWT token"
             };
+
+            SuccessAdminRegisterResultDto = new RegisterResultDto
+            {
+                Status = "Success",
+                Message = "User created successfully, grant Admin access."
+            };
+
+            FailedRegisterResultDto = new RegisterResultDto
+            {
+                Status = "Failed",
+                Message = "Failed to create new user."
+            };
+
+            SuccessNormalRegisterResultDto = new RegisterResultDto
+            {
+                Status = "Success",
+                Message = $"User created successfully, grant {string.Join(", ", ValidRegisterNormalDto.Roles)} access."
+            };
+
+            ValidTokenResultDtoResult = new TokenResultDto
+            {
+                AccessToken = "this will be a JWT access token",
+                RefreshToken = "this will be a JWT refresh token",
+            };
+
+            CurrentUserDtoResult = new CurrentUserDto
+            {
+                FirstName = "Simon",
+                LastName = "Sais",
+                Email = "simon@gmail.com",
+                Roles = new List<string> { "SuperAdmin", "Admin" },
+                FullName = "Simon Sais",
+                UserId = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9")
+            };
+
         }
         public void Dispose()
         {
-            MockUnitOfMeasureRepository = null;
+            MockAccountRepository = null;
         }
     }
 }

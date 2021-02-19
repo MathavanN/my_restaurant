@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyRestaurant.Api.Controllers.V1;
 using Xunit;
 
-
 namespace MyRestaurant.Api.Tests.Controllers.V1
 {
     public class AboutControllerTest
