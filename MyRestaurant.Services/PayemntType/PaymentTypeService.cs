@@ -15,10 +15,11 @@ namespace MyRestaurant.Services
             _context = context;
         }
 
-        public async Task AddPaymentTypeAsync(PaymentType paymentType)
+        public async Task<PaymentType> AddPaymentTypeAsync(PaymentType paymentType)
         {
             _context.Create(paymentType);
             await _context.CommitAsync();
+            return paymentType;
         }
 
         public async Task DeletePaymentTypeAsync(PaymentType paymentType)
