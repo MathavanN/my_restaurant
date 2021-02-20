@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public class UnitOfMeasureServices : IUnitOfMeasureServices
+    public class UnitOfMeasureService : IUnitOfMeasureService
     {
         private readonly IMyRestaurantContext _context;
-        public UnitOfMeasureServices(IMyRestaurantContext context)
+        public UnitOfMeasureService(IMyRestaurantContext context)
         {
             _context = context;
         }
 
-        public async Task AddUnitOfMeasureAsync(UnitOfMeasure unitOfMeasure)
+        public async Task<UnitOfMeasure> AddUnitOfMeasureAsync(UnitOfMeasure unitOfMeasure)
         {
             _context.Create(unitOfMeasure);
             await _context.CommitAsync();
+            return unitOfMeasure;
         }
 
         public async Task DeleteUnitOfMeasureAsync(UnitOfMeasure unitOfMeasure)
