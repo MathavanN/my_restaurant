@@ -39,3 +39,5 @@ jobs:
       run: dotnet build ./MyRestaurant.Api/MyRestaurant.Api.csproj --configuration Release --no-restore
     - name: Test MyRestaurant.Api.Test
       run: dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj --no-restore --verbosity normal
+    - name: Test MyRestaurant.Business.Test
+      run: dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj --no-restore --verbosity normal
