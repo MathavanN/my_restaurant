@@ -33,7 +33,7 @@ namespace MyRestaurant.Business.Repositories
             await CheckPaymentTypeAsync(0, paymentTypeDto.Name);
 
             var paymentType = _mapper.Map<PaymentType>(paymentTypeDto);
-            await _paymentType.AddPaymentTypeAsync(paymentType);
+            paymentType = await _paymentType.AddPaymentTypeAsync(paymentType);
 
             return _mapper.Map<GetPaymentTypeDto>(paymentType);
         }
