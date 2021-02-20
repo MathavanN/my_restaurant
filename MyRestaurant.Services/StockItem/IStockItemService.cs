@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public interface IStockItemServices
+    public interface IStockItemService
     {
         Task<IEnumerable<StockItem>> GetStockItemsAsync();
         IQueryable<StockItem> GetStockItemsAsync(Expression<Func<StockItem, bool>> expression);
