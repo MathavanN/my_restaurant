@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Services
 {
 
-    public class StockTypeServices : IStockTypeServices
+    public class StockTypeService : IStockTypeService
     {
         private readonly IMyRestaurantContext _context;
-        public StockTypeServices(IMyRestaurantContext context)
+        public StockTypeService(IMyRestaurantContext context)
         {
             _context = context;
         }
 
-        public async Task AddStockTypeAsync(StockType stockType)
+        public async Task<StockType> AddStockTypeAsync(StockType stockType)
         {
             _context.Create(stockType);
             await _context.CommitAsync();
+            return stockType;
         }
 
         public async Task DeleteStockTypeAsync(StockType stockType)
