@@ -15,8 +15,8 @@ namespace MyRestaurant.Business.Repositories
     public class StockItemRepository : IStockItemRepository
     {
         private readonly IMapper _mapper;
-        private readonly IStockItemServices _stockItem;
-        public StockItemRepository(IMapper mapper, IStockItemServices stockItem)
+        private readonly IStockItemService _stockItem;
+        public StockItemRepository(IMapper mapper, IStockItemService stockItem)
         {
             _mapper = mapper;
             _stockItem = stockItem;
