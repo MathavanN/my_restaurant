@@ -188,9 +188,9 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IRestaurantInfoService, RestaurantInfoService>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
-            services.AddScoped<IUnitOfMeasureServices, UnitOfMeasureServices>();
-            services.AddScoped<IStockTypeServices, StockTypeServices>();
-            services.AddScoped<IStockItemServices, StockItemServices>();
+            services.AddScoped<IUnitOfMeasureService, UnitOfMeasureService>();
+            services.AddScoped<IStockTypeService, StockTypeService>();
+            services.AddScoped<IStockItemService, StockItemService>();
             services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
             services.AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>();
             services.AddScoped<IPaymentTypeService, PaymentTypeService>();

@@ -14,8 +14,8 @@ namespace MyRestaurant.Business.Repositories
     public class UnitOfMeasureRepository : IUnitOfMeasureRepository
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfMeasureServices _unitOfMeasure;
-        public UnitOfMeasureRepository(IMapper mapper, IUnitOfMeasureServices unitOfMeasure)
+        private readonly IUnitOfMeasureService _unitOfMeasure;
+        public UnitOfMeasureRepository(IMapper mapper, IUnitOfMeasureService unitOfMeasure)
         {
             _mapper = mapper;
             _unitOfMeasure = unitOfMeasure;
@@ -33,12 +33,12 @@ namespace MyRestaurant.Business.Repositories
             await CheckUnitOfMeasureAsync(0, unitOfMeasureDto.Code);
 
             var unitOfMeasure = _mapper.Map<UnitOfMeasure>(unitOfMeasureDto);
-            await _unitOfMeasure.AddUnitOfMeasureAsync(unitOfMeasure);
+            unitOfMeasure = await _unitOfMeasure.AddUnitOfMeasureAsync(unitOfMeasure);
 
             return _mapper.Map<GetUnitOfMeasureDto>(unitOfMeasure);
         }
 
-        private async Task<UnitOfMeasure> GetUnitOfMeasureId(long id)
+        private async Task<UnitOfMeasure> GetUnitOfMeasureId(int id)
         {
             var unitOfMeasure = await _unitOfMeasure.GetUnitOfMeasureAsync(d => d.Id == id);
 

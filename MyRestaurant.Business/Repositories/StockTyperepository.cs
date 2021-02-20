@@ -14,8 +14,8 @@ namespace MyRestaurant.Business.Repositories
     public class StockTypeRepository: IStockTypeRepository
     {
         private readonly IMapper _mapper;
-        private readonly IStockTypeServices _stockType;
-        public StockTypeRepository(IMapper mapper, IStockTypeServices stockType)
+        private readonly IStockTypeService _stockType;
+        public StockTypeRepository(IMapper mapper, IStockTypeService stockType)
         {
             _mapper = mapper;
             _stockType = stockType;
@@ -33,7 +33,7 @@ namespace MyRestaurant.Business.Repositories
             await CheckStockTypeAsync(0, stockTypeDto.Type);
 
             var stockType = _mapper.Map<StockType>(stockTypeDto);
-            await _stockType.AddStockTypeAsync(stockType);
+            stockType = await _stockType.AddStockTypeAsync(stockType);
 
             return _mapper.Map<GetStockTypeDto>(stockType);
         }

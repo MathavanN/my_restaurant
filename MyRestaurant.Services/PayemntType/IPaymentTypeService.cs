@@ -10,7 +10,7 @@ namespace MyRestaurant.Services
     {
         Task<IEnumerable<PaymentType>> GetPaymentTypesAsync();
         Task<PaymentType> GetPaymentTypeAsync(Expression<Func<PaymentType, bool>> expression);
-        Task AddPaymentTypeAsync(PaymentType paymentType);
+        Task<PaymentType> AddPaymentTypeAsync(PaymentType paymentType);
         Task UpdatePaymentTypeAsync(PaymentType paymentType);
         Task DeletePaymentTypeAsync(PaymentType paymentType);
     }
