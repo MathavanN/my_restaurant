@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public class StockItemServices : IStockItemServices
+    public class StockItemService : IStockItemService
     {
         private readonly IMyRestaurantContext _context;
-        public StockItemServices(IMyRestaurantContext context)
+        public StockItemService(IMyRestaurantContext context)
         {
             _context = context;
         }
