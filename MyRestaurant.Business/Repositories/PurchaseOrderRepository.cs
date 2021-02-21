@@ -74,7 +74,6 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetPurchaseOrderDto> UpdatePurchaseOrderAsync(long id, EditPurchaseOrderDto purchaseOrderDto)
         {
-
             var order = await GetPurchaseOrderById(id);
 
             order = _mapper.Map(purchaseOrderDto, order);

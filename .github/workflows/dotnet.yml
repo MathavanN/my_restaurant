@@ -28,13 +28,13 @@ jobs:
     - name: Install MyRestaurant.Api dependencies
       run: dotnet restore ./MyRestaurant.Api/MyRestaurant.Api.csproj
     - name: Build MyRestaurant.Models
-      run: dotnet build ./MyRestaurant.Models/MyRestaurant.Models.csproj 
+      run: dotnet build ./MyRestaurant.Models/MyRestaurant.Models.csproj
     - name: Build MyRestaurant.Core
-      run: dotnet build ./MyRestaurant.Core/MyRestaurant.Core.csproj 
+      run: dotnet build ./MyRestaurant.Core/MyRestaurant.Core.csproj
     - name: Build MyRestaurant.Services
-      run: dotnet build ./MyRestaurant.Services/MyRestaurant.Services.csproj 
+      run: dotnet build ./MyRestaurant.Services/MyRestaurant.Services.csproj
     - name: Build MyRestaurant.Business
-      run: dotnet build ./MyRestaurant.Business/MyRestaurant.Business.csproj 
+      run: dotnet build ./MyRestaurant.Business/MyRestaurant.Business.csproj
     - name: Build MyRestaurant.Api
       run: dotnet build ./MyRestaurant.Api/MyRestaurant.Api.csproj --configuration Release --no-restore
     - name: Test MyRestaurant.Api.Test

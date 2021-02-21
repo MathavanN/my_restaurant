@@ -181,7 +181,6 @@ namespace MyRestaurant.Business.Tests.Repositories
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 
-
         [Fact]
         public async void DeleteStockItemAsync_Return_NoResult()
         {

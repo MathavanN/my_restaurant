@@ -90,7 +90,6 @@ namespace MyRestaurant.Api.Tests.Validators.V1
                 .WithErrorMessage("Email is not a valid email address.");
         }
 
-
         [Theory]
         [InlineData("")]
         [InlineData(null)]
