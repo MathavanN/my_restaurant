@@ -106,7 +106,6 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             paymentType.Id.Should().Be(2);
             paymentType.Name.Should().Be("Credit");
             paymentType.CreditPeriod.Should().Be(20);
-
         }
 
         [Fact]

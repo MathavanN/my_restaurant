@@ -21,7 +21,7 @@ namespace MyRestaurant.Api.Validators.V1
 
             RuleFor(x => x.Email).EmailAddress()
                 .When(x => !string.IsNullOrEmpty(x.Email))
-                .WithMessage("Email is not a valid email address."); ;
+                .WithMessage("Email is not a valid email address.");
         }
     }
 }

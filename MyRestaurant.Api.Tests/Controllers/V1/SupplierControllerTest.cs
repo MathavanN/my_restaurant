@@ -111,7 +111,6 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             supplier.Name.Should().Be("Colombo Supplier Pvt Ltd");
             supplier.City.Should().Be("Colombo");
             supplier.Country.Should().Be("Sri Lanka");
-
         }
 
         [Fact]

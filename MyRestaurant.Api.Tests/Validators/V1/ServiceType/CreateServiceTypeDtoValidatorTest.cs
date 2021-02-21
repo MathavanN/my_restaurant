@@ -34,7 +34,7 @@ namespace MyRestaurant.Api.Tests.Validators.V1
         public void Should_Have_Error_When_Type_Length_Is_MoreThan_20()
         {
             //Arrange
-            _fixture.Model.Type = new string('A', 21); ;
+            _fixture.Model.Type = new string('A', 21);
 
             //Act
             var result = _fixture.Validator.TestValidate(_fixture.Model);
@@ -56,6 +56,5 @@ namespace MyRestaurant.Api.Tests.Validators.V1
             //Assert
             result.ShouldNotHaveValidationErrorFor(x => x.Type);
         }
-
     }
 }

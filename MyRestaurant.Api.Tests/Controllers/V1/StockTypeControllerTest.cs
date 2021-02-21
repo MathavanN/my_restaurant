@@ -107,7 +107,6 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             uom.Id.Should().Be(2);
             uom.Type.Should().Be("Beverage");
             uom.Description.Should().Be("Beverage items to add");
-
         }
 
         [Fact]

@@ -88,6 +88,5 @@ namespace MyRestaurant.Api.Tests.Validators.V1
             result.ShouldNotHaveValidationErrorFor(x => x.Email);
             result.ShouldNotHaveValidationErrorFor(x => x.Password);
         }
-
     }
 }

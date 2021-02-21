@@ -135,8 +135,8 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 FullName = "Simon Sais",
                 UserId = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9")
             };
-
         }
+
         public void Dispose()
         {
             MockAccountRepository = null;

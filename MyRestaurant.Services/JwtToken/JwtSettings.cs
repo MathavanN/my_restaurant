@@ -10,7 +10,5 @@ namespace MyRestaurant.Services
         public double AccessTokenExpirationInMinutes { get; set; }
         public string RefreshTokenSecret { get; set; }
         public double RefreshTokenExpirationInMinutes { get; set; }
-
     }
-    
 }
