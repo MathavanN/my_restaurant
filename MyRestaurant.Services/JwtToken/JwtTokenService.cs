@@ -18,6 +18,7 @@ namespace MyRestaurant.Services
         private readonly UserManager<User> _userManager;
         private readonly JwtSettings _jwtSettings;
         private readonly IMyRestaurantContext _context;
+
         public JwtTokenService(UserManager<User> userManager, IMyRestaurantContext context, IOptions<JwtSettings> jwtSetting)
         {
             _userManager = userManager;
@@ -53,8 +54,8 @@ namespace MyRestaurant.Services
             {
                 return false;
             }
-
         }
+
         private static string GenerateToken(string secretKey, string issuer, string audience, double expirationMinutes, IEnumerable<Claim> claims = null)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
@@ -70,6 +71,7 @@ namespace MyRestaurant.Services
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }
+        
         public async Task<RefreshToken> GenerateRefreshToken(Guid userId, string ipAddress)
         {
             var token = GenerateToken(_jwtSettings.RefreshTokenSecret,
@@ -91,6 +93,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
             return refreshToken;
         }
+        
         public async Task<string> GenerateAccessToken(User user)
         {
             var claims = new List<Claim>
@@ -116,6 +119,7 @@ namespace MyRestaurant.Services
                 claims);
         }
         public async Task<RefreshToken> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        
         public async Task UpdateRefreshTokenAsync(RefreshToken token)
         {
             _context.Modify(token);

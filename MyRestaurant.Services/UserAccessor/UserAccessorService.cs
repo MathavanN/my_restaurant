@@ -23,7 +23,6 @@ namespace MyRestaurant.Services
                 LastName = userClaims?.FirstOrDefault(x => x.Type == "lastName")?.Value,
                 Roles = userClaims?.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value)
             };
-            
         }
     }
 }

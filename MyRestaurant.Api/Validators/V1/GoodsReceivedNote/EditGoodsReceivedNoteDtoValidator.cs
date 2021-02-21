@@ -20,6 +20,5 @@ namespace MyRestaurant.Api.Validators.V1
             RuleFor(x => x.ReceivedDate).Must(CommonValidators.BeAValidDate).WithMessage("Received date is required.")
                 .LessThan(DateTime.Now).WithMessage("Received date cannot be a future date.");
         }
-
     }
 }

@@ -56,6 +56,5 @@ namespace MyRestaurant.Api.Tests.Validators.V1
             //Assert
             result.ShouldNotHaveValidationErrorFor(x => x.Type);
         }
-
     }
 }

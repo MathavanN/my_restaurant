@@ -107,7 +107,6 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             uom.Id.Should().Be(2);
             uom.Code.Should().Be("g");
             uom.Description.Should().Be("Gram test");
-
         }
 
         [Fact]

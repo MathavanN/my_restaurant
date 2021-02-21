@@ -90,6 +90,5 @@ namespace MyRestaurant.Api.Controllers.V1.Controllers
             else
                 return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
         }
-
     }
 }
