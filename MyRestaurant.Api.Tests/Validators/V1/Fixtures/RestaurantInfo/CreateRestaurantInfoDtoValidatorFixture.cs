@@ -2,7 +2,6 @@
 using MyRestaurant.Business.Dtos.V1;
 using System;
 
-
 namespace MyRestaurant.Api.Tests.Validators.V1.Fixtures
 {
     public class CreateRestaurantInfoDtoValidatorFixture : IDisposable

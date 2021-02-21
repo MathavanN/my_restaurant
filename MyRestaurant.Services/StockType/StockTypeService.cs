@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-
     public class StockTypeService : IStockTypeService
     {
         private readonly IMyRestaurantContext _context;

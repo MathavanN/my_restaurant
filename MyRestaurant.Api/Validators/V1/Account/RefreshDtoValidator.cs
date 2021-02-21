@@ -7,7 +7,6 @@ namespace MyRestaurant.Api.Validators.V1
     {
         public RefreshDtoValidator()
         {
-
             RuleFor(x => x.RefreshToken).NotEmpty().WithMessage("RefreshToken is required.");
         }
     }

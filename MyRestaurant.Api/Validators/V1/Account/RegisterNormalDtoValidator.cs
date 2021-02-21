@@ -3,7 +3,6 @@ using MyRestaurant.Business.Dtos.V1;
 
 namespace MyRestaurant.Api.Validators.V1
 {
-
     public class RegisterNormalDtoValidator : AbstractValidator<RegisterNormalDto>
     {
         public RegisterNormalDtoValidator()

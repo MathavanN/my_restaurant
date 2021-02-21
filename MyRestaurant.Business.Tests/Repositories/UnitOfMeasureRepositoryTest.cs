@@ -175,7 +175,6 @@ namespace MyRestaurant.Business.Tests.Repositories
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 
-
         [Fact]
         public async void DeleteUnitOfMeasureAsync_Return_NoResult()
         {

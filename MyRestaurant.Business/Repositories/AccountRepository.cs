@@ -52,14 +52,12 @@ namespace MyRestaurant.Business.Repositories
             if (result.Succeeded)
                 await _userManager.AddToRolesAsync(user, new List<string> { Roles.Admin.ToString() });
 
-
             return new RegisterResultDto
             {
                 Status = result.Succeeded == true ? "Success" : "Failed",
                 Message = result.Succeeded == true ? "User created successfully, grant Admin access." : $"Failed to create new user. {result.Errors}"
             };
         }
-
 
         public async Task<RegisterResultDto> RegisterNormalAsync(RegisterNormalDto registerDto)
         {
@@ -74,14 +72,12 @@ namespace MyRestaurant.Business.Repositories
             if (result.Succeeded)
                 await _userManager.AddToRolesAsync(user, registerDto.Roles);
 
-
             return new RegisterResultDto
             {
                 Status = result.Succeeded == true ? "Success" : "Failed",
                 Message = result.Succeeded == true ? $"User created successfully, grant {string.Join(", ", registerDto.Roles)} access." : $"Failed to create new user. {result.Errors}"
             };
         }
-
 
         public async Task<TokenResultDto> LoginAsync(LoginDto loginDto, string ipAddress)
         {
