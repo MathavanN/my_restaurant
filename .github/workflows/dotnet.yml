@@ -45,6 +45,5 @@ jobs:
       uses: codecov/codecov-action@v1.2.1
       with:
         token: "{{secrets.CODECOV_TOKEN}}"
-        directory: ./CoverageReports
-        files: ./CoverageReports/MyRestaurant.Api.Test.Results.coverage.xml, ./CoverageReports/MyRestaurant.Business.Test.Results.coverage.xml
+        directory: .
         
