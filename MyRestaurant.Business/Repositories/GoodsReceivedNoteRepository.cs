@@ -18,11 +18,11 @@ namespace MyRestaurant.Business.Repositories
         private readonly IGoodsReceivedNoteService _goodReceivedNote;
         private readonly IPurchaseOrderService _purchaseOrder;
         private readonly IPurchaseOrderItemService _purchaseOrderItem;
-        private readonly IGoodsReceivedNoteItemSevice _goodsReceivedNoteItem;
+        private readonly IGoodsReceivedNoteItemService _goodsReceivedNoteItem;
         private readonly IUserAccessorService _userAccessor;
         public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote, 
             IUserAccessorService userAccessor, IPurchaseOrderService purchaseOrder,
-            IPurchaseOrderItemService purchaseOrderItem, IGoodsReceivedNoteItemSevice goodsReceivedNoteItem)
+            IPurchaseOrderItemService purchaseOrderItem, IGoodsReceivedNoteItemService goodsReceivedNoteItem)
         {
             _mapper = mapper;
             _purchaseOrder = purchaseOrder;
