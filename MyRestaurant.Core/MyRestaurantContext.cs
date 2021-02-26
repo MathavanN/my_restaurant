@@ -103,12 +103,6 @@ namespace MyRestaurant.Core
                 await Set<TEntity>().Where(expression).ToListAsync(cancellationToken);
         }
 
-        public IQueryable<TEntity> GetAllQueryable<TEntity>(Expression<Func<TEntity, bool>> expression = null) where TEntity : MyRestaurantObject
-        {
-            return expression == null ?
-                Set<TEntity>().AsQueryable() : 
-                Set<TEntity>().Where(expression).AsQueryable();
-        }
         public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
             await SaveChangesAsync(cancellationToken);
