@@ -40,10 +40,11 @@ jobs:
     - name: Test MyRestaurant.Api.Test
       run: dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj --no-restore --verbosity normal --results-directory ./CoverageReports /p:CollectCoverage=true /p:CoverletOutput=./CoverageReports/MyRestaurant.Api.Test.Results.coverage.xml /p:CoverletOutputFormat=opencover
     - name: Test MyRestaurant.Business.Test
-      run: dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj --no-restore --verbosity normal --results-directory ./CoverageReports /p:CollectCoverage=true /p:CoverletOutput=./CoverageReports/MyRestaurant.Api.Business.Results.coverage.xml /p:CoverletOutputFormat=opencover
+      run: dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj --no-restore --verbosity normal --results-directory ./CoverageReports /p:CollectCoverage=true /p:CoverletOutput=./CoverageReports/MyRestaurant.Business.Test.Results.coverage.xml /p:CoverletOutputFormat=opencover
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v1.2.1
       with:
         token: "{{secrets.CODECOV_TOKEN}}"
-        files: ./CoverageReports/MyRestaurant.Api.Test.Results.coverage.xml, ./CoverageReports/MyRestaurant.Api.Business.Results.coverage.xml
+        directory: ./CoverageReports
+        files: ./CoverageReports/MyRestaurant.Api.Test.Results.coverage.xml, ./CoverageReports/MyRestaurant.Business.Test.Results.coverage.xml
         
