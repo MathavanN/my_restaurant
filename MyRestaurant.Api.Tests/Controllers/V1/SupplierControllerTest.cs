@@ -38,6 +38,8 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             okResult.StatusCode.Should().Be(200);
             supplierEnvelop.SupplierCount.Should().Be(1);
             supplierEnvelop.Suppliers.Should().HaveCount(1);
+            supplierEnvelop.ItemsPerPage.Should().Be(10);
+            supplierEnvelop.TotalPages.Should().Be(1);
         }
 
         [Fact]
