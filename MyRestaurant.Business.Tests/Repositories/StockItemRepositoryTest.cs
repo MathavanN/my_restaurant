@@ -59,11 +59,6 @@ namespace MyRestaurant.Business.Tests.Repositories
             stockItemEnvelop.TotalPages.Should().Be(1);
         }
 
-        private object ToAsyncDbSetMock()
-        {
-            throw new NotImplementedException();
-        }
-
         [Fact]
         public async void GetStockItemAsync_Returns_GetStockItemDto()
         {
