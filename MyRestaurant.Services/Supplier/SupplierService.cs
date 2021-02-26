@@ -41,7 +41,6 @@ namespace MyRestaurant.Services
 
             if (!string.IsNullOrWhiteSpace(contactPerson))
                 suppliers = suppliers.Where(d => d.ContactPerson.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
-
             
             var toSkip = page * itemsPerPage;
             return new CollectionEnvelop<Supplier>
