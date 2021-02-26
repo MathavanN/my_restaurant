@@ -10,7 +10,6 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 
         public PurchaseOrderRepositoryFixture()
         {
-
         }
         public void Dispose()
         {
