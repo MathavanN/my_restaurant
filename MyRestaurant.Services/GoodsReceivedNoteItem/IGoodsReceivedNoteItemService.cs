@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public interface IGoodsReceivedNoteItemSevice
+    public interface IGoodsReceivedNoteItemService
     {
         Task<IEnumerable<GoodsReceivedNoteItem>> GetGoodsReceivedNoteItemsAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression);
         Task<GoodsReceivedNoteItem> GetGoodsReceivedNoteItemAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression);
