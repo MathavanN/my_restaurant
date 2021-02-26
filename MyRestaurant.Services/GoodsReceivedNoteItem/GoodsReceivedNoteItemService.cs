@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
-    public class GoodsReceivedNoteItemService : IGoodsReceivedNoteItemSevice
+    public class GoodsReceivedNoteItemService : IGoodsReceivedNoteItemService
     {
         private readonly IMyRestaurantContext _context;
         public GoodsReceivedNoteItemService(IMyRestaurantContext context)
