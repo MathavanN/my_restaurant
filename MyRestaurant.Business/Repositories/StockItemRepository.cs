@@ -65,20 +65,16 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<GetStockItemDto>(stockItem);
         }
 
-        public async Task<StockItemEnvelop> GetStockItemsByType(int typeId, int? limit, int? offset)
+        public async Task<StockItemEnvelop> GetStockItemsByTypeAsync(int typeId, int? limit, int? offset)
         {
-            var queryable = _stockItem.GetStockItemsAsync(d => d.TypeId == typeId)
-                                      .OrderBy(d => d.Name);
+            var collectionEnvelop = await _stockItem.GetStockItemsAsync(d => d.TypeId == typeId, offset ?? 0, limit ?? 10);
 
-            var stockItems = await queryable
-                                    .Skip(offset ?? 0)
-                                    .Take(limit ?? 10)
-                                    .ToListAsync();
-            
             return new StockItemEnvelop
             {
-                StockItems = _mapper.Map<IEnumerable<GetStockItemDto>>(stockItems),
-                StockItemCount = queryable.Count()
+                StockItems = _mapper.Map<IEnumerable<GetStockItemDto>>(collectionEnvelop.Items),
+                StockItemCount = collectionEnvelop.TotalItems,
+                ItemsPerPage = collectionEnvelop.ItemsPerPage,
+                TotalPages = collectionEnvelop.TotalPages()
             };
         }
 
