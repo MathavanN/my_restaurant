@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyRestaurant.Business.Dtos.V1
 {
@@ -6,5 +7,7 @@ namespace MyRestaurant.Business.Dtos.V1
     {
         public IEnumerable<GetStockItemDto> StockItems { get; set; }
         public int StockItemCount { get; set; }
+        public int ItemsPerPage { get; set; }
+        public int TotalPages { get; set; }
     }
 }
