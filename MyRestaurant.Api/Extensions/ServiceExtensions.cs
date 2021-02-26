@@ -195,7 +195,7 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>();
             services.AddScoped<IPaymentTypeService, PaymentTypeService>();
             services.AddScoped<IGoodsReceivedNoteService, GoodsReceivedNoteService>();
-            services.AddScoped<IGoodsReceivedNoteItemSevice, GoodsReceivedNoteItemService>();
+            services.AddScoped<IGoodsReceivedNoteItemService, GoodsReceivedNoteItemService>();
             services.AddScoped<IGoodsReceivedNoteFreeItemService, GoodsReceivedNoteFreeItemService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)

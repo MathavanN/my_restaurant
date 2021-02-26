@@ -21,7 +21,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetUnitOfMeasuresAsync_Returns_GetUnitOfMeasureDtos()
+        public async void GetGetSuppliersAsync_Returns_GetSupplierEnvelop()
         {
             //Arrange
             _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasuresAsync())

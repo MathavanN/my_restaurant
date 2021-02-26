@@ -2,14 +2,18 @@
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
+using MyRestaurant.Services.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class StockItemRepositoryFixture : IDisposable
     {
         public Mock<IStockItemService> MockStockItemService { get; private set; }
         public IEnumerable<StockItem> StockItems { get; private set; }
+        public CollectionEnvelop<StockItem> CollectionEnvelop { get; private set; }
         public CreateStockItemDto CreateStockItemDto { get; private set; }
         public StockItem CreatedNewStockItem { get; set; }
         public EditStockItemDto EditStockItemDto { get; private set; }
@@ -33,6 +37,13 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new StockItem { Id = 2, TypeId = 1, Type = stockType1, Name = "Chilli Powder", ItemUnit = 250, UnitOfMeasureId = 2, UnitOfMeasure = unitOfMeasure2 },
                 new StockItem { Id = 3, TypeId = 2, Type = stockType2, Name = "Water", ItemUnit = 1, UnitOfMeasureId = 3, UnitOfMeasure = unitOfMeasure3 },
                 new StockItem { Id = 4, TypeId = 3, Type = stockType3, Name = "Blue Pen", ItemUnit = 1, UnitOfMeasureId = 5, UnitOfMeasure = unitOfMeasure5 },
+            };
+
+            CollectionEnvelop = new CollectionEnvelop<StockItem>
+            {
+                Items = StockItems.Where(d => d.TypeId == 1),
+                ItemsPerPage = 10,
+                TotalItems = 2
             };
 
             CreateStockItemDto = new CreateStockItemDto

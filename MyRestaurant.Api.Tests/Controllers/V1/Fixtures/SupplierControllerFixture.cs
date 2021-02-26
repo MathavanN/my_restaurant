@@ -41,7 +41,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             SupplierEnvelop = new SupplierEnvelop
             {
                 SupplierCount = 1,
-                Suppliers = Suppliers
+                Suppliers = Suppliers,
+                ItemsPerPage = 10,
+                TotalPages = 1
             };
 
             ValidCreateSupplierDto = new CreateSupplierDto

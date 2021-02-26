@@ -43,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void GetStockItemsByType_ReturnsOkObjectResult()
         {
             //Arrange
-            _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsByType(1, 10, 0))
+            _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsByTypeAsync(1, 10, 0))
                 .ReturnsAsync(_fixture.StockItemEnvelop);
 
             var controller = new StockItemController(_fixture.MockStockItemRepository.Object);
@@ -58,6 +58,8 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             okResult.StatusCode.Should().Be(200);
             stockItemEnvelop.StockItemCount.Should().Be(2);
             stockItemEnvelop.StockItems.Should().HaveCount(2);
+            stockItemEnvelop.ItemsPerPage.Should().Be(10);
+            stockItemEnvelop.TotalPages.Should().Be(1);
         }
 
         [Fact]

@@ -35,7 +35,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             StockItemEnvelop = new StockItemEnvelop
             {
                 StockItemCount = 2,
-                StockItems = StockItems.Where(d => d.TypeId == 1)
+                StockItems = StockItems.Where(d => d.TypeId == 1),
+                ItemsPerPage = 10,
+                TotalPages = 1
             };
 
             ValidCreateStockItemDto = new CreateStockItemDto

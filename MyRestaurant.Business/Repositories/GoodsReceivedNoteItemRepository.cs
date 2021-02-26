@@ -13,8 +13,8 @@ namespace MyRestaurant.Business.Repositories
     public class GoodsReceivedNoteItemRepository : IGoodsReceivedNoteItemRepository
     {
         private readonly IMapper _mapper;
-        private readonly IGoodsReceivedNoteItemSevice _goodsReceivedNoteItem;
-        public GoodsReceivedNoteItemRepository(IMapper mapper, IGoodsReceivedNoteItemSevice goodsReceivedNoteItem)
+        private readonly IGoodsReceivedNoteItemService _goodsReceivedNoteItem;
+        public GoodsReceivedNoteItemRepository(IMapper mapper, IGoodsReceivedNoteItemService goodsReceivedNoteItem)
         {
             _mapper = mapper;
             _goodsReceivedNoteItem = goodsReceivedNoteItem;

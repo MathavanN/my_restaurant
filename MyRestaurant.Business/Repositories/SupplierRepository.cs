@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -23,14 +20,19 @@ namespace MyRestaurant.Business.Repositories
             _supplier = supplier;
         }
 
+        private async Task CheckSupplierAsync(long id, string name)
+        {
+            var dbSupplier = await _supplier.GetSupplierAsync(d => d.Name == name && d.Id != id);
+            if (dbSupplier != null)
+                throw new RestException(HttpStatusCode.Conflict, $"Supplier {name} is already available.");
+        }
+
         public async Task<GetSupplierDto> CreateSupplierAsync(CreateSupplierDto supplierDto)
         {
-            var dbSupplier = await _supplier.GetSupplierAsync(d => d.Name == supplierDto.Name);
-            if (dbSupplier != null)
-                throw new RestException(HttpStatusCode.Conflict, $"Supplier {supplierDto.Name} is already available.");
+            await CheckSupplierAsync(0, supplierDto.Name);
 
             var supplier = _mapper.Map<Supplier>(supplierDto);
-            await _supplier.AddSupplierAsync(supplier);
+            supplier = await _supplier.AddSupplierAsync(supplier);
 
             return _mapper.Map<GetSupplierDto>(supplier);
         }
@@ -61,34 +63,21 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<SupplierEnvelop> GetSuppliersAsync(int? limit, int? offset, string name, string city, string contactPerson)
         {
-            var queryable = _supplier.GetSuppliersAsync()
-                                     .OrderBy(d => d.Name)
-                                     .AsQueryable()
-                                     .AsAsyncEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(name))
-                queryable = queryable.Where(d => d.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase));
-
-            if (!string.IsNullOrWhiteSpace(city))
-                queryable = queryable.Where(d => d.City.Equals(city, StringComparison.InvariantCultureIgnoreCase));
-
-            if (!string.IsNullOrWhiteSpace(contactPerson))
-                queryable = queryable.Where(d => d.ContactPerson.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
-
-            var suppliers = await queryable
-                                    .Skip(offset ?? 0)
-                                    .Take(limit ?? int.MaxValue)
-                                    .ToListAsync();
+            var collectionEnvelop = await _supplier.GetSuppliersAsync(name, city, contactPerson, offset ?? 0, limit ?? 10);
 
             return new SupplierEnvelop
             {
-                Suppliers = _mapper.Map<IEnumerable<GetSupplierDto>>(suppliers),
-                SupplierCount = await queryable.CountAsync()
+                Suppliers = _mapper.Map<IEnumerable<GetSupplierDto>>(collectionEnvelop.Items),
+                SupplierCount = collectionEnvelop.TotalItems,
+                ItemsPerPage = collectionEnvelop.ItemsPerPage,
+                TotalPages = collectionEnvelop.TotalPages()
             };
         }
 
         public async Task<GetSupplierDto> UpdateSupplierAsync(long id, EditSupplierDto supplierDto)
         {
+            await CheckSupplierAsync(id, supplierDto.Name);
+
             var supplier = await GetSupplierId(id);
 
             supplier = _mapper.Map(supplierDto, supplier);

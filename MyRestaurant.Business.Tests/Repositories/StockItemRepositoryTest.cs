@@ -40,6 +40,26 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
+        public async void GetStockItemsByTypeAsync_Returns_StockItemEnvelop()
+        {
+            //Arrange
+            _fixture.MockStockItemService.Setup(x => x.GetStockItemsAsync(d => d.TypeId == 1, 0, 10))
+                .ReturnsAsync(_fixture.CollectionEnvelop);
+
+            var repository = new StockItemRepository(AutoMapperSingleton.Mapper, _fixture.MockStockItemService.Object);
+
+            //Act
+            var result = await repository.GetStockItemsByTypeAsync(1, 10, 0);
+
+            //Assert
+            var stockItemEnvelop = result.Should().BeAssignableTo<StockItemEnvelop>().Subject;
+            stockItemEnvelop.StockItemCount.Should().Be(2);
+            stockItemEnvelop.StockItems.Should().HaveCount(2);
+            stockItemEnvelop.ItemsPerPage.Should().Be(10);
+            stockItemEnvelop.TotalPages.Should().Be(1);
+        }
+
+        [Fact]
         public async void GetStockItemAsync_Returns_GetStockItemDto()
         {
             //Arrange
