@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
+using MyRestaurant.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,19 @@ namespace MyRestaurant.Services
 
         public async Task<IEnumerable<StockItem>> GetStockItemsAsync() => await _context.GetAllAsync<StockItem>();
 
-        public IQueryable<StockItem> GetStockItemsAsync(Expression<Func<StockItem, bool>> expression) => _context.GetAllQueryable(expression);
+        public async Task<CollectionEnvelop<StockItem>> GetStockItemsAsync(Expression<Func<StockItem, bool>> expression, int page, int itemsPerPage)
+        {
+            var stockItems = await _context.GetAllAsync(expression);
+            var toSkip = page * itemsPerPage;
+
+            return new CollectionEnvelop<StockItem>
+            {
+                TotalItems = stockItems.Count(),
+                ItemsPerPage = itemsPerPage,
+                Items = page == 0 ? stockItems.OrderBy(d => d.Name).AsQueryable().Take(itemsPerPage) : 
+                                    stockItems.OrderBy(d => d.Name).AsQueryable().Skip(toSkip).Take(itemsPerPage),
+            };
+        }
 
         public async Task UpdateStockItemAsync(StockItem stockItem)
         {
