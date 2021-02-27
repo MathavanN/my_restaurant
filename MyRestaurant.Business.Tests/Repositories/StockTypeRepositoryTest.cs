@@ -5,9 +5,12 @@ using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Tests.Repositories.Fixtures;
 using MyRestaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Business.Tests.Repositories
@@ -42,8 +45,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 1;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.StockTypes.Single(d => d.Id == id));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new StockTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockStockTypeService.Object);
 
@@ -62,7 +65,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Id == id));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new StockTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockStockTypeService.Object);
 
@@ -98,9 +102,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         public async void CreateStockTypeAsync_Returns_ConflictException()
         {
             //Arrange
-            var beverageId = 2;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Type == "Beverage" && d.Id != 0))
-                .ReturnsAsync(_fixture.StockTypes.Single(d => d.Id == beverageId));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new StockTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockStockTypeService.Object);
 
@@ -118,8 +121,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.StockTypes.Single(d => d.Id == id));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockStockTypeService.Setup(x => x.UpdateStockTypeAsync(It.IsAny<StockType>()));
 
@@ -140,7 +143,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Id == id));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockStockTypeService.Setup(x => x.UpdateStockTypeAsync(It.IsAny<StockType>()));
 
             var repository = new StockTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockStockTypeService.Object);
@@ -159,9 +164,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            var groceryId = 1;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Type == "Grocery" && d.Id != id))
-                .ReturnsAsync(_fixture.StockTypes.Single(d => d.Id == groceryId));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockStockTypeService.Setup(x => x.UpdateStockTypeAsync(It.IsAny<StockType>()));
 
             var repository = new StockTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockStockTypeService.Object);
@@ -180,8 +185,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.StockTypes.Single(d => d.Id == id));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockStockTypeService.Setup(x => x.DeleteStockTypeAsync(It.IsAny<StockType>()));
 
@@ -199,7 +204,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(d => d.Id == id));
+            _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
+                .Returns<Expression<Func<StockType, bool>>>(expression => Task.FromResult(_fixture.StockTypes.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockStockTypeService.Setup(x => x.DeleteStockTypeAsync(It.IsAny<StockType>()));
 
             var repository = new StockTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockStockTypeService.Object);
