@@ -23,7 +23,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGetSuppliersAsync_Returns_GetSupplierEnvelop()
+        public async void GetSuppliersAsync_Returns_GetSupplierEnvelop()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.GetSuppliersAsync("", "", "", 0, 10))
@@ -43,7 +43,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGetSuppliersAsync_With_Empty_Paged_Params_Returns_GetSupplierEnvelop()
+        public async void GetSuppliersAsync_With_Empty_Paged_Params_Returns_GetSupplierEnvelop()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.GetSuppliersAsync("", "", "", 0, 10))
@@ -63,7 +63,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGetSupplierAsync_Returns_GetSupplierDto()
+        public async void GetSupplierAsync_Returns_GetSupplierDto()
         {
             //Arrange
             var id = 1;
@@ -102,7 +102,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateSupplierAsync_Return_New_GetSupplierDto()
+        public async void CreateSupplierAsync_Returns_New_GetSupplierDto()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.AddSupplierAsync(It.IsAny<Supplier>()))
@@ -150,7 +150,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateSupplierAsync_Return_Updated_GetSupplierDto()
+        public async void UpdateSupplierAsync_Returns_Updated_GetSupplierDto()
         {
             //Arrange
             long id = 2;
@@ -225,7 +225,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteSupplierAsync_Return_NoResult()
+        public async void DeleteSupplierAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
