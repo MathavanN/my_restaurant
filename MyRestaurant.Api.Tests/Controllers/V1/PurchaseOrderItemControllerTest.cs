@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrderItems_ReturnsOkObjectResult()
+        public async void GetPurchaseOrderItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderItemRepository.Setup(x => x.GetPurchaseOrderItemsAsync(101))
@@ -40,7 +40,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrderItem_ReturnsOkObjectResult()
+        public async void GetPurchaseOrderItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -64,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreatePurchaseOrderItem_ReturnCreatedAtRouteResult()
+        public async void CreatePurchaseOrderItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderItemRepository.Setup(x => x.CreatePurchaseOrderItemAsync(_fixture.ValidCreatePurchaseOrderItemDto))
@@ -90,7 +90,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderItem_ReturnsOkObjectResult()
+        public async void UpdatePurchaseOrderItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -115,7 +115,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeletePurchaseOrderItem_ReturnNoContentResult()
+        public async void DeletePurchaseOrderItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;
