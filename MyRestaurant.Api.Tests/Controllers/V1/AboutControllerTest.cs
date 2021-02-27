@@ -8,7 +8,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
     public class AboutControllerTest
     {
         [Fact]
-        public void Get_ReturnOkObjectResult()
+        public void Get_Returns_OkObjectResult()
         {
             //Arrange
             var controller = new AboutController();

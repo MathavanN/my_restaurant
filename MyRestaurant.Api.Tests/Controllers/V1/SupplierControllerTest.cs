@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetSuppliers_ReturnsOkObjectResult()
+        public async void GetSuppliers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockSupplierRepository.Setup(x => x.GetSuppliersAsync(10, 0, "", "", ""))
@@ -43,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetSupplier_ReturnsOkObjectResult()
+        public async void GetSupplier_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -67,7 +67,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateSupplier_ReturnCreatedAtRouteResult()
+        public async void CreateSupplier_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockSupplierRepository.Setup(x => x.CreateSupplierAsync(_fixture.ValidCreateSupplierDto))
@@ -92,7 +92,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateSupplier_ReturnsOkObjectResult()
+        public async void UpdateSupplier_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -116,7 +116,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteSupplier_ReturnNoContentResult()
+        public async void DeleteSupplier_Returns_NoContentResult()
         {
             //Arrange
             var id = 1;

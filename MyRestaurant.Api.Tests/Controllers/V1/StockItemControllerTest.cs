@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetStockItems_ReturnsOkObjectResult()
+        public async void GetStockItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsAsync())
@@ -40,7 +40,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetStockItemsByType_ReturnsOkObjectResult()
+        public async void GetStockItemsByType_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsByTypeAsync(1, 10, 0))
@@ -63,7 +63,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetStockItem_ReturnsOkObjectResult()
+        public async void GetStockItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -87,7 +87,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateStockItem_ReturnCreatedAtRouteResult()
+        public async void CreateStockItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockStockItemRepository.Setup(x => x.CreateStockItemAsync(_fixture.ValidCreateStockItemDto))
@@ -112,7 +112,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateStockItem_ReturnsOkObjectResult()
+        public async void UpdateStockItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -137,7 +137,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteStockItem_ReturnNoContentResult()
+        public async void DeleteStockItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

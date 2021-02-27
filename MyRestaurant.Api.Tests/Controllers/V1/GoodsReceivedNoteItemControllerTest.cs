@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItems_ReturnsOkObjectResult()
+        public async void GetGoodsReceivedNoteItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemRepository.Setup(x => x.GetGoodsReceivedNoteItemsAsync(101))
@@ -40,7 +40,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItem_ReturnsOkObjectResult()
+        public async void GetGoodsReceivedNoteItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -64,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteItem_ReturnCreatedAtRouteResult()
+        public async void CreateGoodsReceivedNoteItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemRepository.Setup(x => x.CreateGoodsReceivedNoteItemAsync(_fixture.ValidCreateGoodsReceivedNoteItemDto))
@@ -89,7 +89,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteItem_ReturnsOkObjectResult()
+        public async void UpdateGoodsReceivedNoteItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -113,7 +113,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteItem_ReturnNoContentResult()
+        public async void DeleteGoodsReceivedNoteItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

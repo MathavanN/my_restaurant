@@ -19,7 +19,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNotes_ReturnsOkObjectResult()
+        public async void GetGoodsReceivedNotes_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.GetGoodsReceivedNotesAsync())
@@ -39,7 +39,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNote_ReturnsOkObjectResult()
+        public async void GetGoodsReceivedNote_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -63,7 +63,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNote_ReturnCreatedAtRouteResult()
+        public async void CreateGoodsReceivedNote_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.CreateGoodsReceivedNoteAsync(_fixture.ValidCreateGoodsReceivedNoteDto))
@@ -88,7 +88,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNote_ReturnsOkObjectResult()
+        public async void UpdateGoodsReceivedNote_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -115,7 +115,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void ApproveGoodsReceivedNote_ReturnsOkObjectResult()
+        public async void ApproveGoodsReceivedNote_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -142,7 +142,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNote_ReturnNoContentResult()
+        public async void DeleteGoodsReceivedNote_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetRestaurantInfos_ReturnsOkObjectResult()
+        public async void GetRestaurantInfos_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockRestaurantInfoRepository.Setup(x => x.GetRestaurantInfosAsync())
@@ -40,7 +40,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetRestaurantInfo_ReturnsOkObjectResult()
+        public async void GetRestaurantInfo_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -63,7 +63,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateRestaurantInfo_ReturnCreatedAtRouteResult()
+        public async void CreateRestaurantInfo_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockRestaurantInfoRepository.Setup(x => x.CreateRestaurantInfoAsync(_fixture.ValidCreateRestaurantInfoDto))

@@ -19,7 +19,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetServiceTypes_ReturnsOkObjectResult()
+        public async void GetServiceTypes_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockServiceTypeRepository.Setup(x => x.GetServiceTypesAsync())
@@ -39,7 +39,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetServiceType_ReturnsOkObjectResult()
+        public async void GetServiceType_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -61,7 +61,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateServiceType_ReturnCreatedAtRouteResult()
+        public async void CreateServiceType_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockServiceTypeRepository.Setup(x => x.CreateServiceTypeAsync(_fixture.ValidCreateServiceTypeDto))
@@ -84,7 +84,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateServiceType_ReturnsOkObjectResult()
+        public async void UpdateServiceType_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -106,7 +106,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteServiceType_ReturnNoContentResult()
+        public async void DeleteServiceType_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;
