@@ -5,9 +5,12 @@ using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Tests.Repositories.Fixtures;
 using MyRestaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Business.Tests.Repositories
@@ -42,8 +45,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 1;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.PaymentTypes.Single(d => d.Id == id));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new PaymentTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockPaymentTypeService.Object);
 
@@ -62,7 +65,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Id == id));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new PaymentTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockPaymentTypeService.Object);
 
@@ -98,9 +102,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         public async void CreatePaymentTypeAsync_Returns_ConflictException()
         {
             //Arrange
-            var creditPaymentTypeId = 2;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Name == "Credit" && d.Id != 0))
-                .ReturnsAsync(_fixture.PaymentTypes.Single(d => d.Id == creditPaymentTypeId));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new PaymentTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockPaymentTypeService.Object);
 
@@ -118,8 +121,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.PaymentTypes.Single(d => d.Id == id));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockPaymentTypeService.Setup(x => x.UpdatePaymentTypeAsync(It.IsAny<PaymentType>()));
 
@@ -140,7 +143,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Id == id));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockPaymentTypeService.Setup(x => x.UpdatePaymentTypeAsync(It.IsAny<PaymentType>()));
 
             var repository = new PaymentTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockPaymentTypeService.Object);
@@ -159,9 +164,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            var cashPaymentTypeId = 1;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Name == "Cash" && d.Id != id))
-                .ReturnsAsync(_fixture.PaymentTypes.Single(d => d.Id == cashPaymentTypeId));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockPaymentTypeService.Setup(x => x.UpdatePaymentTypeAsync(It.IsAny<PaymentType>()));
 
             var repository = new PaymentTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockPaymentTypeService.Object);
@@ -180,8 +185,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.PaymentTypes.Single(d => d.Id == id));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockPaymentTypeService.Setup(x => x.DeletePaymentTypeAsync(It.IsAny<PaymentType>()));
 
@@ -199,7 +204,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(d => d.Id == id));
+            _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
+                .Returns<Expression<Func<PaymentType, bool>>>(expression => Task.FromResult(_fixture.PaymentTypes.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockPaymentTypeService.Setup(x => x.DeletePaymentTypeAsync(It.IsAny<PaymentType>()));
 
             var repository = new PaymentTypeRepository(AutoMapperSingleton.Mapper, _fixture.MockPaymentTypeService.Object);
