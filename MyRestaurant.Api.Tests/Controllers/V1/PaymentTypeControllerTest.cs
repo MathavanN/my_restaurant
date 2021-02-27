@@ -19,7 +19,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPaymentTypes_ReturnsOkObjectResult()
+        public async void GetPaymentTypes_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockPaymentTypeRepository.Setup(x => x.GetPaymentTypesAsync())
@@ -39,7 +39,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPaymentType_ReturnsOkObjectResult()
+        public async void GetPaymentType_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -62,7 +62,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreatePaymentType_ReturnCreatedAtRouteResult()
+        public async void CreatePaymentType_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockPaymentTypeRepository.Setup(x => x.CreatePaymentTypeAsync(_fixture.ValidCreatePaymentTypeDto))
@@ -86,7 +86,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdatePaymentType_ReturnsOkObjectResult()
+        public async void UpdatePaymentType_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -109,7 +109,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeletePaymentType_ReturnNoContentResult()
+        public async void DeletePaymentType_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

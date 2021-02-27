@@ -4,6 +4,7 @@ using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -20,14 +21,20 @@ namespace MyRestaurant.Business.Repositories
             _serviceType = serviceType;
         }
 
+        private async Task CheckServiceTypeAsync(int id, string type)
+        {
+            var dbStockType = await _serviceType.GetServiceTypeAsync(d => d.Type.Equals(type, StringComparison.InvariantCultureIgnoreCase) && d.Id != id);
+            if (dbStockType != null)
+                throw new RestException(HttpStatusCode.Conflict, $"Service type \"{type}\" is already available.");
+        }
+
         public async Task<GetServiceTypeDto> CreateServiceTypeAsync(CreateServiceTypeDto serviceTypeDto)
         {
-            var dbServiceType = await _serviceType.GetServiceTypeAsync(d => d.Type == serviceTypeDto.Type);
-            if (dbServiceType != null)
-                throw new RestException(HttpStatusCode.Conflict, $"ServiceType {serviceTypeDto.Type } is already available.");
+            await CheckServiceTypeAsync(0, serviceTypeDto.Type);
 
             var serviceType = _mapper.Map<ServiceType>(serviceTypeDto);
-            await _serviceType.AddServiceTypeAsync(serviceType);
+
+            serviceType = await _serviceType.AddServiceTypeAsync(serviceType);
 
             return _mapper.Map<GetServiceTypeDto>(serviceType);
         }
@@ -66,6 +73,8 @@ namespace MyRestaurant.Business.Repositories
         public async Task<GetServiceTypeDto> UpdateServiceTypeAsync(int id, EditServiceTypeDto serviceTypeDto)
         {
             var serviceType = await GetServiceTypeById(id);
+
+            await CheckServiceTypeAsync(id, serviceTypeDto.Type);
 
             serviceType = _mapper.Map(serviceTypeDto, serviceType);
 

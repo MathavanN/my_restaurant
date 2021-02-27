@@ -87,9 +87,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetStockItemDto> UpdateStockItemAsync(long id, EditStockItemDto stockItemDto)
         {
-            await CheckStockItemAsync(id, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId, stockItemDto.ItemUnit);
-
             var stockItem = await GetStockItemById(id);
+
+            await CheckStockItemAsync(id, stockItemDto.Name, stockItemDto.TypeId, stockItemDto.UnitOfMeasureId, stockItemDto.ItemUnit);
 
             stockItem = _mapper.Map(stockItemDto, stockItem);
 

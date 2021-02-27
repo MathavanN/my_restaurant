@@ -71,9 +71,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetUnitOfMeasureDto> UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto)
         {
-            await CheckUnitOfMeasureAsync(id, unitOfMeasureDto.Code);
-
             var unitOfMeasure = await GetUnitOfMeasureId(id);
+
+            await CheckUnitOfMeasureAsync(id, unitOfMeasureDto.Code);
 
             unitOfMeasure = _mapper.Map(unitOfMeasureDto, unitOfMeasure);
 

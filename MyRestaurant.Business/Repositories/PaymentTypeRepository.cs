@@ -69,9 +69,9 @@ namespace MyRestaurant.Business.Repositories
         }
         public async Task<GetPaymentTypeDto> UpdatePaymentTypeAsync(int id, EditPaymentTypeDto paymentTypeDto)
         {
-            await CheckPaymentTypeAsync(id, paymentTypeDto.Name);
-
             var paymentType = await GetPaymentTypeById(id);
+
+            await CheckPaymentTypeAsync(id, paymentTypeDto.Name);
 
             paymentType = _mapper.Map(paymentTypeDto, paymentType);
 

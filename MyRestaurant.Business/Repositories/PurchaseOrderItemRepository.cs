@@ -60,9 +60,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetPurchaseOrderItemDto> UpdatePurchaseOrderItemAsync(long id, EditPurchaseOrderItemDto purchaseOrderItemDto)
         {
-            await CheckOrderItemAsync(id, purchaseOrderItemDto.PurchaseOrderId, purchaseOrderItemDto.ItemId);
-
             var item = await GetPurchaseOrderItemById(id);
+
+            await CheckOrderItemAsync(id, purchaseOrderItemDto.PurchaseOrderId, purchaseOrderItemDto.ItemId);
 
             item = _mapper.Map(purchaseOrderItemDto, item);
 

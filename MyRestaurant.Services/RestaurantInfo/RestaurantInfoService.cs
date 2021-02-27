@@ -12,10 +12,11 @@ namespace MyRestaurant.Services
         private readonly IMyRestaurantContext _context;
         public RestaurantInfoService(IMyRestaurantContext context) => _context = context;
 
-        public async Task AddRestaurantInfoAsync(RestaurantInfo info)
+        public async Task<RestaurantInfo> AddRestaurantInfoAsync(RestaurantInfo info)
         {
             _context.Create(info);
             await _context.CommitAsync();
+            return info;
         }
 
         public async Task DeleteRestaurantInfoAsync(RestaurantInfo info)

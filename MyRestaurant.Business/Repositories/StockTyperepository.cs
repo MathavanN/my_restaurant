@@ -69,9 +69,9 @@ namespace MyRestaurant.Business.Repositories
         }
         public async Task<GetStockTypeDto> UpdateStockTypeAsync(int id, EditStockTypeDto stockTypeDto)
         {
-            await CheckStockTypeAsync(id, stockTypeDto.Type); 
-
             var stockType = await GetStockTypeById(id);
+
+            await CheckStockTypeAsync(id, stockTypeDto.Type); 
 
             stockType = _mapper.Map(stockTypeDto, stockType);
 

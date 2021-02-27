@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Business.Tests.Repositories
@@ -22,7 +23,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGetSuppliersAsync_Returns_GetSupplierEnvelop()
+        public async void GetSuppliersAsync_Returns_GetSupplierEnvelop()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.GetSuppliersAsync("", "", "", 0, 10))
@@ -42,12 +43,32 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGetSupplierAsync_Returns_GetSupplierDto()
+        public async void GetSuppliersAsync_With_Empty_Paged_Params_Returns_GetSupplierEnvelop()
+        {
+            //Arrange
+            _fixture.MockSupplierService.Setup(x => x.GetSuppliersAsync("", "", "", 0, 10))
+                .ReturnsAsync(_fixture.CollectionEnvelop);
+
+            var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
+
+            //Act
+            var result = await repository.GetSuppliersAsync(null, null, "", "", "");
+
+            //Assert
+            var supplierEnvelop = result.Should().BeAssignableTo<SupplierEnvelop>().Subject;
+            supplierEnvelop.SupplierCount.Should().Be(2);
+            supplierEnvelop.Suppliers.Should().HaveCount(2);
+            supplierEnvelop.ItemsPerPage.Should().Be(10);
+            supplierEnvelop.TotalPages.Should().Be(1);
+        }
+
+        [Fact]
+        public async void GetSupplierAsync_Returns_GetSupplierDto()
         {
             //Arrange
             var id = 1;
             _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
-                .ReturnsAsync(_fixture.Suppliers.Single(d => d.Id == id));
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
@@ -61,26 +82,27 @@ namespace MyRestaurant.Business.Tests.Repositories
             result.ContactPerson.Should().Be("James");
         }
 
-        //[Fact]
-        //public async void GetSupplierAsync_Returns_NotFoundException()
-        //{
-        //    //Arrange
-        //    var id = 201;
-        //    _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(d => d.Id == id));
+        [Fact]
+        public async void GetSupplierAsync_Returns_NotFoundException()
+        {
+            //Arrange
+            var id = 201;
+            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
 
-        //    var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
+            var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
-        //    //Act
-        //    var exception = await Assert.ThrowsAsync<RestException>(() => repository.GetSupplierAsync(id));
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.GetSupplierAsync(id));
 
-        //    //Assert
-        //    exception.ErrorCode.Should().Be(HttpStatusCode.NotFound);
-        //    exception.ErrorMessage.Should().Be("Supplier not found.");
-        //    exception.ErrorType.Should().Be(HttpStatusCode.NotFound.ToString());
-        //}
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.NotFound);
+            exception.ErrorMessage.Should().Be("Supplier not found.");
+            exception.ErrorType.Should().Be(HttpStatusCode.NotFound.ToString());
+        }
 
         [Fact]
-        public async void CreateSupplierAsync_Return_New_GetSupplierDto()
+        public async void CreateSupplierAsync_Returns_New_GetSupplierDto()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.AddSupplierAsync(It.IsAny<Supplier>()))
@@ -102,9 +124,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         public async void CreateSupplierAsync_Returns_ConflictException()
         {
             //Arrange
-            var vbtSupplierId = 2;
-            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(d => d.Name == "VBT Pvt Ltd" && d.Id != 0))
-                .ReturnsAsync(_fixture.Suppliers.Single(d => d.Id == vbtSupplierId));
+            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
@@ -128,34 +149,36 @@ namespace MyRestaurant.Business.Tests.Repositories
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 
-        //[Fact]
-        //public async void UpdateSupplierAsync_Return_Updated_GetSupplierDto()
-        //{
-        //    //Arrange
-        //    var id = 2;
-        //    _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(d => d.Id == id))
-        //        .ReturnsAsync(_fixture.Suppliers.Single(d => d.Id == id));
+        [Fact]
+        public async void UpdateSupplierAsync_Returns_Updated_GetSupplierDto()
+        {
+            //Arrange
+            long id = 2;
+            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
 
-        //    _fixture.MockSupplierService.Setup(x => x.UpdateSupplierAsync(It.IsAny<Supplier>()));
+            _fixture.MockSupplierService.Setup(x => x.UpdateSupplierAsync(It.IsAny<Supplier>()));
 
-        //    var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
+            var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
-        //    //Act
-        //    var result = await repository.UpdateSupplierAsync(id, _fixture.EditSupplierDto);
+            //Act
+            var result = await repository.UpdateSupplierAsync(id, _fixture.EditSupplierDto);
 
-        //    //Assert
-        //    result.Should().BeOfType(typeof(GetSupplierDto));
-        //    result.Id.Should().Be(id);
-        //    result.Name.Should().Be(_fixture.EditSupplierDto.Name);
-        //    result.Address1.Should().Be(_fixture.EditSupplierDto.Address1);
-        //}
+            //Assert
+            result.Should().BeOfType(typeof(GetSupplierDto));
+            result.Id.Should().Be(id);
+            result.Name.Should().Be(_fixture.EditSupplierDto.Name);
+            result.Address1.Should().Be(_fixture.EditSupplierDto.Address1);
+        }
 
         [Fact]
         public async void UpdateSupplierAsync_Returns_NotFoundException()
         {
             //Arrange
             var id = 201;
-            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()));
+            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockSupplierService.Setup(x => x.UpdateSupplierAsync(It.IsAny<Supplier>()));
 
             var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
@@ -174,9 +197,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            var abcSupplierId = 1;
             _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
-                .ReturnsAsync(_fixture.Suppliers.Single(d => d.Id == abcSupplierId));
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockSupplierService.Setup(x => x.UpdateSupplierAsync(It.IsAny<Supplier>()));
 
             var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
@@ -202,12 +225,12 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteSupplierAsync_Return_NoResult()
+        public async void DeleteSupplierAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
             _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
-                .ReturnsAsync(_fixture.Suppliers.Single(d => d.Id == id));
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockSupplierService.Setup(x => x.DeleteSupplierAsync(It.IsAny<Supplier>()));
 
@@ -220,23 +243,25 @@ namespace MyRestaurant.Business.Tests.Repositories
             _fixture.MockSupplierService.Verify(x => x.DeleteSupplierAsync(It.IsAny<Supplier>()), Times.Once);
         }
 
-        //[Fact]
-        //public async void DeleteSupplierAsync_Returns_NotFoundException()
-        //{
-        //    //Arrange
-        //    var id = 201;
-        //    _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(d => d.Id == id));
-        //    _fixture.MockSupplierService.Setup(x => x.DeleteSupplierAsync(It.IsAny<Supplier>()));
+        [Fact]
+        public async void DeleteSupplierAsync_Returns_NotFoundException()
+        {
+            //Arrange
+            var id = 201;
+            _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
+                .Returns<Expression<Func<Supplier, bool>>>(expression => Task.FromResult(_fixture.Suppliers.AsQueryable().FirstOrDefault(expression)));
 
-        //    var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
+            _fixture.MockSupplierService.Setup(x => x.DeleteSupplierAsync(It.IsAny<Supplier>()));
 
-        //    //Act
-        //    var exception = await Assert.ThrowsAsync<RestException>(() => repository.DeleteSupplierAsync(id));
+            var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
-        //    //Assert
-        //    exception.ErrorCode.Should().Be(HttpStatusCode.NotFound);
-        //    exception.ErrorMessage.Should().Be("Supplier not found.");
-        //    exception.ErrorType.Should().Be(HttpStatusCode.NotFound.ToString());
-        //}
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.DeleteSupplierAsync(id));
+
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.NotFound);
+            exception.ErrorMessage.Should().Be("Supplier not found.");
+            exception.ErrorType.Should().Be(HttpStatusCode.NotFound.ToString());
+        }
     }
 }

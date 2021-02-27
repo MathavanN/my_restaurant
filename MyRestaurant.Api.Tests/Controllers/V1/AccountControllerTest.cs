@@ -18,7 +18,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterAdmin_ReturnsSuccessOkObjectResult()
+        public async void RegisterAdmin_Returns_Success_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(_fixture.ValidRegisterAdminDto))
@@ -39,7 +39,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterAdmin_ReturnsFailedOkObjectResult()
+        public async void RegisterAdmin_Returns_Failed_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(_fixture.ValidRegisterAdminDto))
@@ -60,7 +60,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterNormalUser_ReturnsSuccessOkObjectResult()
+        public async void RegisterNormalUser_Returns_Success_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(_fixture.ValidRegisterNormalDto))
@@ -81,7 +81,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterNormalUser_ReturnsFailedOkObjectResult()
+        public async void RegisterNormalUser_Returns_Failed_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(_fixture.ValidRegisterNormalDto))
@@ -102,7 +102,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Login_ReturnOkObjectResult()
+        public async void Login_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.LoginAsync(_fixture.ValidLoginDto, "0.0.0.0"))
@@ -131,7 +131,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Refresh_ReturnOkObjectResult()
+        public async void Refresh_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RefreshToken(_fixture.ValidRefreshDto, "0.0.0.0"))
@@ -160,7 +160,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Revoke_ReturnOkObjectResult()
+        public async void Revoke_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RevokeToken(_fixture.ValidRevokeDto, "0.0.0.0"));
@@ -184,7 +184,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public void GetCurrentUser_ReturnObObjectResult()
+        public void GetCurrentUser_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.GetCurrentUser())
@@ -209,7 +209,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetUsers_ReturnsOkObjectResult()
+        public async void GetUsers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.GetUsersAsync())

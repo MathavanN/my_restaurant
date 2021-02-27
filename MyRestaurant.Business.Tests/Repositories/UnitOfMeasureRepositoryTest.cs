@@ -5,9 +5,12 @@ using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Tests.Repositories.Fixtures;
 using MyRestaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Business.Tests.Repositories
@@ -21,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGetSuppliersAsync_Returns_GetSupplierEnvelop()
+        public async void GetUnitOfMeasuresAsync_Returns_GetUnitOfMeasureDtos()
         {
             //Arrange
             _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasuresAsync())
@@ -42,8 +45,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 1;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.UnitOfMeasures.Single(d => d.Id == id));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new UnitOfMeasureRepository(AutoMapperSingleton.Mapper, _fixture.MockUnitOfMeasureService.Object);
 
@@ -62,7 +65,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Id == id));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new UnitOfMeasureRepository(AutoMapperSingleton.Mapper, _fixture.MockUnitOfMeasureService.Object);
 
@@ -76,7 +80,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateUnitOfMeasureAsync_Return_New_GetUnitOfMeasureDto()
+        public async void CreateUnitOfMeasureAsync_Returns_New_GetUnitOfMeasureDto()
         {
             //Arrange
             _fixture.MockUnitOfMeasureService.Setup(x => x.AddUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()))
@@ -98,9 +102,8 @@ namespace MyRestaurant.Business.Tests.Repositories
         public async void CreateUnitOfMeasureAsync_Returns_ConflictException()
         {
             //Arrange
-            var gramUomId = 2;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Code == "g" && d.Id != 0))
-                .ReturnsAsync(_fixture.UnitOfMeasures.Single(d => d.Id == gramUomId));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
 
             var repository = new UnitOfMeasureRepository(AutoMapperSingleton.Mapper, _fixture.MockUnitOfMeasureService.Object);
 
@@ -114,12 +117,12 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Return_Updated_GetUnitOfMeasureDto()
+        public async void UpdateUnitOfMeasureAsync_Returns_Updated_GetUnitOfMeasureDto()
         {
             //Arrange
             var id = 3;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.UnitOfMeasures.Single(d => d.Id == id));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockUnitOfMeasureService.Setup(x => x.UpdateUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()));
 
@@ -140,7 +143,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Id == id));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockUnitOfMeasureService.Setup(x => x.UpdateUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()));
 
             var repository = new UnitOfMeasureRepository(AutoMapperSingleton.Mapper, _fixture.MockUnitOfMeasureService.Object);
@@ -159,9 +164,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 2;
-            var mlId = 1;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Code == "ml" && d.Id != id))
-                .ReturnsAsync(_fixture.UnitOfMeasures.Single(d => d.Id == mlId));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockUnitOfMeasureService.Setup(x => x.UpdateUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()));
 
             var repository = new UnitOfMeasureRepository(AutoMapperSingleton.Mapper, _fixture.MockUnitOfMeasureService.Object);
@@ -176,12 +181,12 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasureAsync_Return_NoResult()
+        public async void DeleteUnitOfMeasureAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Id == id))
-                .ReturnsAsync(_fixture.UnitOfMeasures.Single(d => d.Id == id));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockUnitOfMeasureService.Setup(x => x.DeleteUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()));
 
@@ -199,7 +204,9 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             var id = 201;
-            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(d => d.Id == id));
+            _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
+                .Returns<Expression<Func<UnitOfMeasure, bool>>>(expression => Task.FromResult(_fixture.UnitOfMeasures.AsQueryable().FirstOrDefault(expression)));
+
             _fixture.MockUnitOfMeasureService.Setup(x => x.DeleteUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()));
 
             var repository = new UnitOfMeasureRepository(AutoMapperSingleton.Mapper, _fixture.MockUnitOfMeasureService.Object);

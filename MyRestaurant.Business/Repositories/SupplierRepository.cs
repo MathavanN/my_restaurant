@@ -76,9 +76,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetSupplierDto> UpdateSupplierAsync(long id, EditSupplierDto supplierDto)
         {
-            await CheckSupplierAsync(id, supplierDto.Name);
-
             var supplier = await GetSupplierId(id);
+
+            await CheckSupplierAsync(id, supplierDto.Name);
 
             supplier = _mapper.Map(supplierDto, supplier);
 

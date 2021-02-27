@@ -20,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetUnitOfMeasures_ReturnsOkObjectResult()
+        public async void GetUnitOfMeasures_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockUnitOfMeasureRepository.Setup(x => x.GetUnitOfMeasuresAsync())
@@ -40,7 +40,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetUnitOfMeasure_ReturnsOkObjectResult()
+        public async void GetUnitOfMeasure_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -63,7 +63,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateUnitOfMeasure_ReturnCreatedAtRouteResult()
+        public async void CreateUnitOfMeasure_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockUnitOfMeasureRepository.Setup(x => x.CreateUnitOfMeasureAsync(_fixture.ValidCreateUnitOfMeasureDto))
@@ -87,7 +87,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasure_ReturnsOkObjectResult()
+        public async void UpdateUnitOfMeasure_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -110,7 +110,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasure_ReturnNoContentResult()
+        public async void DeleteUnitOfMeasure_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;
