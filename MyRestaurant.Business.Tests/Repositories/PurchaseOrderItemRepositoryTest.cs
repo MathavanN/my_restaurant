@@ -34,7 +34,6 @@ namespace MyRestaurant.Business.Tests.Repositories
                     return await Task.FromResult(orders);
                 });
 
-
             var repository = new PurchaseOrderItemRepository(AutoMapperSingleton.Mapper, _fixture.MockPurchaseOrderItemService.Object);
 
             //Act
