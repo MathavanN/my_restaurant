@@ -121,7 +121,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockItemAsync_Return_New_GetStockItemDto()
+        public async void CreateStockItemAsync_Returns_New_GetStockItemDto()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.AddStockItemAsync(It.IsAny<StockItem>()))
@@ -159,7 +159,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Return_Updated_GetStockItemDto()
+        public async void UpdateStockItemAsync_Returns_Updated_GetStockItemDto()
         {
             //Arrange
             long id = 1;
@@ -224,7 +224,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockItemAsync_Return_NoResult()
+        public async void DeleteStockItemAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
