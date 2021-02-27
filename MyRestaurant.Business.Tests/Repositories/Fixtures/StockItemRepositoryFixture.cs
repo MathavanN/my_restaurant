@@ -69,9 +69,9 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             {
                 TypeId = 1,
                 Name = "Rice",
-                ItemUnit = 20,
+                ItemUnit = 10,
                 UnitOfMeasureId = 1,
-                Description = "20kg bag"
+                Description = "10kg bag"
             };
         }
         public void Dispose()
