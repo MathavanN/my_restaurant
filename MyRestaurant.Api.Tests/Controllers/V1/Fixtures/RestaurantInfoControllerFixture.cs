@@ -26,7 +26,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 new GetRestaurantInfoDto { Id = 1, Name = "Golden Dining",
                 Address = "Kandy Road, Kaithady, Jaffna, Sri Lanka",
                 LandLine = "+9423454544",
-                Mobile = " +94567876786",
+                Mobile = "+94567876786",
                 Email = "test@gmail.com" },
             };
 
@@ -37,7 +37,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 City = "Jaffna",
                 Country = "Sri Lanka",
                 LandLine = "+9423454544",
-                Mobile = " +94567876786",
+                Mobile = "+94567876786",
                 Email = "test@gmail.com"
             };
 
@@ -47,7 +47,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Name = "Golden Dining",
                 Address = "Kandy Road, Kaithady, Jaffna, Sri Lanka",
                 LandLine = "+9423454544",
-                Mobile = " +94567876786",
+                Mobile = "+94567876786",
                 Email = "test@gmail.com"
             };
         }
