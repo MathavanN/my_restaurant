@@ -80,7 +80,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockTypeAsync_Return_New_GetStockTypeDto()
+        public async void CreateStockTypeAsync_Returns_New_GetStockTypeDto()
         {
             //Arrange
             _fixture.MockStockTypeService.Setup(x => x.AddStockTypeAsync(It.IsAny<StockType>()))
@@ -117,7 +117,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockTypeAsync_Return_Updated_GetStockTypeDto()
+        public async void UpdateStockTypeAsync_Returns_Updated_GetStockTypeDto()
         {
             //Arrange
             var id = 2;
@@ -181,7 +181,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockTypeAsync_Return_NoResult()
+        public async void DeleteStockTypeAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
