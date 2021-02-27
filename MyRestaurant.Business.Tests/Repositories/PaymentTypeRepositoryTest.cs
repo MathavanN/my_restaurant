@@ -80,7 +80,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreatePaymentTypeAsync_Return_New_GetPaymentTypeDto()
+        public async void CreatePaymentTypeAsync_Returns_New_GetPaymentTypeDto()
         {
             //Arrange
             _fixture.MockPaymentTypeService.Setup(x => x.AddPaymentTypeAsync(It.IsAny<PaymentType>()))
@@ -117,7 +117,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePaymentTypeAsync_Return_Updated_GetPaymentTypeDto()
+        public async void UpdatePaymentTypeAsync_Returns_Updated_GetPaymentTypeDto()
         {
             //Arrange
             var id = 2;
@@ -181,7 +181,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePaymentTypeAsync_Return_NoResult()
+        public async void DeletePaymentTypeAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
