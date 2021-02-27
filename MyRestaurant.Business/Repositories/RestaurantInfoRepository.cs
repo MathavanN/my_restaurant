@@ -23,7 +23,8 @@ namespace MyRestaurant.Business.Repositories
         public async Task<GetRestaurantInfoDto> CreateRestaurantInfoAsync(CreateRestaurantInfoDto infoDto)
         {
             var restaurantInfo = _mapper.Map<RestaurantInfo>(infoDto);
-            await _restaurantInfo.AddRestaurantInfoAsync(restaurantInfo);
+
+            restaurantInfo = await _restaurantInfo.AddRestaurantInfoAsync(restaurantInfo);
 
             return _mapper.Map<GetRestaurantInfoDto>(restaurantInfo);
         }
