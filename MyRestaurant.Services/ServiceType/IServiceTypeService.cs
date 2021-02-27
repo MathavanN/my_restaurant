@@ -10,7 +10,7 @@ namespace MyRestaurant.Services
     {
         Task<IEnumerable<ServiceType>> GetServiceTypesAsync();
         Task<ServiceType> GetServiceTypeAsync(Expression<Func<ServiceType, bool>> expression);
-        Task AddServiceTypeAsync(ServiceType serviceType);
+        Task<ServiceType> AddServiceTypeAsync(ServiceType serviceType);
         Task UpdateServiceTypeAsync(ServiceType serviceType);
         Task DeleteServiceTypeAsync(ServiceType serviceType);
     }

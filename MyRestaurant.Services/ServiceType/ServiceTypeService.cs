@@ -17,10 +17,11 @@ namespace MyRestaurant.Services
 
         public async Task<ServiceType> GetServiceTypeAsync(Expression<Func<ServiceType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
-        public async Task AddServiceTypeAsync(ServiceType serviceType)
+        public async Task<ServiceType> AddServiceTypeAsync(ServiceType serviceType)
         {
             _context.Create(serviceType);
             await _context.CommitAsync();
+            return serviceType;
         }
 
         public async Task DeleteServiceTypeAsync(ServiceType serviceType)
