@@ -37,7 +37,7 @@ namespace MyRestaurant.Business.Repositories
             var statusNoNeedNewGRN = new List<Status> { Status.Approved, Status.Pending };
 
             if (order.GoodsReceivedNotes.Any(d => statusNoNeedNewGRN.Contains(d.ApprovalStatus)))
-                throw new RestException(HttpStatusCode.BadRequest, "GRN already created for this purchase order");
+                throw new RestException(HttpStatusCode.BadRequest, "GRN already created for this purchase order.");
 
             return order;
         }
@@ -50,7 +50,7 @@ namespace MyRestaurant.Business.Repositories
                 throw new RestException(HttpStatusCode.NotFound, "Purchase order not found.");
 
             if (order.ApprovalStatus != Status.Approved)
-                throw new RestException(HttpStatusCode.BadRequest, "GRN can create for approved purchase order");
+                throw new RestException(HttpStatusCode.BadRequest, "GRN can create for approved purchase order.");
 
             return order;
         }
@@ -117,10 +117,10 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetGoodsReceivedNoteDto> UpdateGoodsReceivedNoteAsync(long id, EditGoodsReceivedNoteDto goodsReceivedNoteDto)
         {
+            var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
+
             //verify PO allowed to EDIT GRN
             await CheckPurchaseOrder(goodsReceivedNoteDto.PurchaseOrderId);
-
-            var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
 
             goodsReceivedNote = _mapper.Map(goodsReceivedNoteDto, goodsReceivedNote);
 

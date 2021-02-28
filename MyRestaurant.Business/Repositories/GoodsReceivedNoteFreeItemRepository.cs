@@ -26,6 +26,7 @@ namespace MyRestaurant.Business.Repositories
             if (dbItem != null)
                 throw new RestException(HttpStatusCode.Conflict, $"Item already available for this goods received note.");
         }
+
         private async Task<GoodsReceivedNoteFreeItem> GetGoodsReceivedNoteFreeItemById(long id)
         {
             var item = await _goodsReceivedNoteFreeItem.GetGoodsReceivedNoteFreeItemAsync (d => d.Id == id);
@@ -41,6 +42,7 @@ namespace MyRestaurant.Business.Repositories
             await CheckGoodsReceivedNoteFreeItemAsync(0, goodsReceivedNoteFreeItemDto.GoodsReceivedNoteId, goodsReceivedNoteFreeItemDto.ItemId);
 
             var item = _mapper.Map<GoodsReceivedNoteFreeItem>(goodsReceivedNoteFreeItemDto);
+
             item = await _goodsReceivedNoteFreeItem.AddGoodsReceivedNoteFreeItemAsync(item);
 
             return _mapper.Map<GetGoodsReceivedNoteFreeItemDto>(item);
@@ -69,9 +71,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetGoodsReceivedNoteFreeItemDto> UpdateGoodsReceivedNoteFreeItemAsync(long id, EditGoodsReceivedNoteFreeItemDto goodsReceivedNoteFreeItemDto)
         {
-            await CheckGoodsReceivedNoteFreeItemAsync(id, goodsReceivedNoteFreeItemDto.GoodsReceivedNoteId, goodsReceivedNoteFreeItemDto.ItemId);
-
             var item = await GetGoodsReceivedNoteFreeItemById(id);
+
+            await CheckGoodsReceivedNoteFreeItemAsync(id, goodsReceivedNoteFreeItemDto.GoodsReceivedNoteId, goodsReceivedNoteFreeItemDto.ItemId);
 
             item = _mapper.Map(goodsReceivedNoteFreeItemDto, item);
 
