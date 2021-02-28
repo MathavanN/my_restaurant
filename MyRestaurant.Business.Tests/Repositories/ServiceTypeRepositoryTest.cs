@@ -60,7 +60,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetServiceTypeAsync_Returns_NotFoundException()
+        public async void GetServiceTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -97,7 +97,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateServiceTypeAsync_Returns_ConflictException()
+        public async void CreateServiceTypeAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockServiceTypeService.Setup(x => x.GetServiceTypeAsync(It.IsAny<Expression<Func<ServiceType, bool>>>()))
@@ -136,7 +136,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateServiceTypeAsync_Returns_NotFoundException()
+        public async void UpdateServiceTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -157,7 +157,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateServiceTypeAsync_Returns_ConflictException()
+        public async void UpdateServiceTypeAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 1;
@@ -197,7 +197,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteServiceTypeAsync_Returns_NotFoundException()
+        public async void DeleteServiceTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

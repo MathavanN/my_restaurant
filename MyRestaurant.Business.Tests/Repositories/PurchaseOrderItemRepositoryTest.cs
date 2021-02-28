@@ -65,7 +65,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPurchaseOrderItemAsync_Returns_NotFoundException()
+        public async void GetPurchaseOrderItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -105,7 +105,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreatePurchaseOrderItemAsync_Returns_ConflictException()
+        public async void CreatePurchaseOrderItemAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockPurchaseOrderItemService.Setup(x => x.GetPurchaseOrderItemAsync(It.IsAny<Expression<Func<PurchaseOrderItem, bool>>>()))
@@ -152,7 +152,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderItemAsync_Returns_NotFoundException()
+        public async void UpdatePurchaseOrderItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -173,7 +173,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderItemAsync_Returns_ConflictException()
+        public async void UpdatePurchaseOrderItemAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -218,7 +218,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePurchaseOrderItemAsync_Returns_NotFoundException()
+        public async void DeletePurchaseOrderItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

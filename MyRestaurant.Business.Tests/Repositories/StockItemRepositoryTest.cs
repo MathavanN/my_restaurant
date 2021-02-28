@@ -102,7 +102,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockItemAsync_Returns_NotFoundException()
+        public async void GetStockItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -141,7 +141,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockItemAsync_Returns_ConflictException()
+        public async void CreateStockItemAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.GetStockItemAsync(It.IsAny<Expression<Func<StockItem, bool>>>()))
@@ -184,7 +184,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Returns_NotFoundException()
+        public async void UpdateStockItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -205,7 +205,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Returns_ConflictException()
+        public async void UpdateStockItemAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 1;
@@ -243,7 +243,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockItemAsync_Returns_NotFoundException()
+        public async void DeleteStockItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

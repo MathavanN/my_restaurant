@@ -66,7 +66,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteAsync_Returns_NotFoundException()
+        public async void GetGoodsReceivedNoteAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -286,7 +286,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteAsync_Returns_NotFoundException()
+        public async void UpdateGoodsReceivedNoteAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -360,7 +360,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteAsync_Returns_NotFoundException()
+        public async void DeleteGoodsReceivedNoteAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
