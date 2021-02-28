@@ -373,7 +373,6 @@ namespace MyRestaurant.Business.Tests.Repositories
                 _fixture.MockUserAccessorService.Object, _fixture.MockPurchaseOrderService.Object, _fixture.MockPurchaseOrderItemService.Object,
                 _fixture.MockGoodsReceivedNoteItemService.Object);
 
-
             //Act
             var exception = await Assert.ThrowsAsync<RestException>(() => repository.DeleteGoodsReceivedNoteAsync(id));
 

@@ -14,7 +14,6 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-
 namespace MyRestaurant.Business.Tests.Repositories
 {
     public class AccountRepositoryTest : IClassFixture<AccountRepositoryFixture>
