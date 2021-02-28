@@ -199,7 +199,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasureAsync_Returns_NoResult()
+        public async void DeletePurchaseOrderItemAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -218,7 +218,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasureAsync_Returns_NotFoundException()
+        public async void DeletePurchaseOrderItemAsync_Returns_NotFoundException()
         {
             //Arrange
             var id = 201;
