@@ -65,7 +65,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteFreeItemAsync_Returns_NotFoundException()
+        public async void GetGoodsReceivedNoteFreeItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -105,7 +105,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteFreeItemAsync_Returns_ConflictException()
+        public async void CreateGoodsReceivedNoteFreeItemAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteFreeItemService.Setup(x => x.GetGoodsReceivedNoteFreeItemAsync(It.IsAny<Expression<Func<GoodsReceivedNoteFreeItem, bool>>>()))
@@ -153,7 +153,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteFreeItemAsync_Returns_NotFoundException()
+        public async void UpdateGoodsReceivedNoteFreeItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -193,7 +193,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteFreeItemAsync_Returns_NotFoundException()
+        public async void DeleteGoodsReceivedNoteFreeItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
