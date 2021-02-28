@@ -64,7 +64,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetRestaurantInfoAsync_Returns_NotFoundException()
+        public async void GetRestaurantInfoAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
