@@ -69,9 +69,9 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetGoodsReceivedNoteItemDto> UpdateGoodsReceivedNoteItemAsync(long id, EditGoodsReceivedNoteItemDto goodsReceivedNoteItemDto)
         {
-            await CheckGoodsReceivedNoteItemAsync(id, goodsReceivedNoteItemDto.GoodsReceivedNoteId, goodsReceivedNoteItemDto.ItemId);
-
             var item = await GetGoodsReceivedNoteItemById(id);
+
+            await CheckGoodsReceivedNoteItemAsync(id, goodsReceivedNoteItemDto.GoodsReceivedNoteId, goodsReceivedNoteItemDto.ItemId);
 
             item = _mapper.Map(goodsReceivedNoteItemDto, item);
 
