@@ -82,7 +82,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPurchaseOrderAsync_Returns_NotFoundException()
+        public async void GetPurchaseOrderAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -145,7 +145,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Returns_NotFoundException()
+        public async void UpdateUnitOfMeasureAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -166,7 +166,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalPurchaseOrderAsync_Returns_NotFoundException()
+        public async void ApprovalPurchaseOrderAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -231,7 +231,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePurchaseOrderAsync_Returns_NotFoundException()
+        public async void DeletePurchaseOrderAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
