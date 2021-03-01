@@ -18,6 +18,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public CurrentUser CurrentUser { get; private set; }
         public IEnumerable<User> Users { get; private set; }
         public IEnumerable<RefreshToken> RefreshTokens { get; private set; }
+        public RevokeDto RevokeDto { get; private set; }
         public AccountRepositoryFixture()
         {
             MockUserAccessorService = new Mock<IUserAccessorService>();
@@ -42,7 +43,8 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Id = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
                 FirstName = "Golden",
                 LastName = "Dining",
-                Email = "abc@gmail.com"
+                Email = "abc@gmail.com",
+                PasswordHash = "AAAeQhwKjV/UynrkBur+6NUp0P92MWWlSsGtj3uEkN72pojCpK1lNXbMOi37O3REiw=="
             };
             var adminUser = new User
             {
@@ -113,6 +115,11 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Created = DateTime.Now,
                     CreatedByIp = "0.0.0.1",
                 }
+            };
+
+            RevokeDto = new RevokeDto
+            {
+                RefreshToken = "token1"
             };
         }
 
