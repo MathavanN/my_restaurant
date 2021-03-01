@@ -8,6 +8,7 @@ using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<IEnumerable<GetUserDto>> GetUsersAsync()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await Task.FromResult(_userManager.Users.ToList());
 
             return _mapper.Map<IEnumerable<GetUserDto>>(users);
         }
@@ -43,7 +44,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var dbUser = await _userManager.FindByNameAsync(registerDto.Email);
             if (dbUser != null)
-                throw new RestException(HttpStatusCode.Conflict, $"Email {registerDto.Email } is already registered.");
+                throw new RestException(HttpStatusCode.Conflict, $"Email {registerDto.Email} is already registered.");
 
             var user = _mapper.Map<User>(registerDto);
 
@@ -55,7 +56,7 @@ namespace MyRestaurant.Business.Repositories
             return new RegisterResultDto
             {
                 Status = result.Succeeded == true ? "Success" : "Failed",
-                Message = result.Succeeded == true ? "User created successfully, grant Admin access." : $"Failed to create new user. {result.Errors}"
+                Message = result.Succeeded == true ? "User created successfully, grant Admin access." : $"Failed to create new user. Error: ({string.Join(", ", result.Errors.Select(x => x.Description))})"
             };
         }
 
@@ -75,7 +76,7 @@ namespace MyRestaurant.Business.Repositories
             return new RegisterResultDto
             {
                 Status = result.Succeeded == true ? "Success" : "Failed",
-                Message = result.Succeeded == true ? $"User created successfully, grant {string.Join(", ", registerDto.Roles)} access." : $"Failed to create new user. {result.Errors}"
+                Message = result.Succeeded == true ? $"User created successfully, grant {string.Join(", ", registerDto.Roles)} access." : $"Failed to create new user. Error: ({string.Join(", ", result.Errors.Select(x => x.Description))})"
             };
         }
 
