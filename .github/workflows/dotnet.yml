@@ -41,6 +41,8 @@ jobs:
       run: dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj --no-restore --verbosity normal -- --coverage
     - name: Test MyRestaurant.Business.Test
       run: dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj --no-restore --verbosity normal -- --coverage
+    - name: Test MyRestaurant.Services.Test
+      run: dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj --no-restore --verbosity normal -- --coverage
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v1.2.1
       with:
