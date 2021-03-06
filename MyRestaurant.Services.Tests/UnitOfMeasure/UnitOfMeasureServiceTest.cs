@@ -23,7 +23,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             var uoms = result.Should().BeAssignableTo<IEnumerable<UnitOfMeasure>>().Subject;
-            uoms.Should().HaveCount(3);
+            uoms.Should().HaveCount(5);
         }
 
         [Fact]
@@ -64,25 +64,25 @@ namespace MyRestaurant.Services.Tests
             var service = new UnitOfMeasureService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddUnitOfMeasureAsync(new UnitOfMeasure { Code = "l", Description = "l units" });
+            var result = await service.AddUnitOfMeasureAsync(new UnitOfMeasure { Code = "gal", Description = "gallon" });
 
             //Assert
             var uom = result.Should().BeAssignableTo<UnitOfMeasure>().Subject;
-            uom.Code.Should().Be("l");
-            uom.Description.Should().Be("l units");
+            uom.Code.Should().Be("gal");
+            uom.Description.Should().Be("gallon");
 
             //Act
             var uoms = await service.GetUnitOfMeasuresAsync();
 
             //Assert
-            uoms.Should().HaveCount(4);
+            uoms.Should().HaveCount(6);
         }
 
         [Fact]
         public async void UpdateUnitOfMeasureAsync_Successfully_Updated()
         {
             //Arrange
-            var id = 2;
+            var id = 3;
             var service = new UnitOfMeasureService(_myRestaurantContext);
 
             //Act

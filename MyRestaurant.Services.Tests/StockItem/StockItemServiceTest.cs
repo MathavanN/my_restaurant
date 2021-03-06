@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
+using MyRestaurant.Services.Common;
 using System.Collections.Generic;
 using Xunit;
 
@@ -23,7 +24,43 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             var stockItems = result.Should().BeAssignableTo<IEnumerable<StockItem>>().Subject;
-            stockItems.Should().HaveCount(4);
+            stockItems.Should().HaveCount(29);
+        }
+
+        [Fact]
+        public async void GetStockItemsAsync_Returns_First_Paged_StockItems()
+        {
+            //Arrange
+            var service = new StockItemService(_myRestaurantContext);
+
+            //Act
+            var result = await service.GetStockItemsAsync(d => d.TypeId == 1, 0, 10);
+
+            //Assert
+            var stockItemEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<StockItem>>().Subject;
+            stockItemEnvelop.Items.Should().BeAssignableTo<IEnumerable<StockItem>>();
+            stockItemEnvelop.Items.Should().HaveCount(10);
+            stockItemEnvelop.TotalItems.Should().Be(16);
+            stockItemEnvelop.ItemsPerPage.Should().Be(10);
+            stockItemEnvelop.TotalPages().Should().Be(2);
+        }
+
+        [Fact]
+        public async void GetStockItemsAsync_Returns_Next_Paged_StockItems()
+        {
+            //Arrange
+            var service = new StockItemService(_myRestaurantContext);
+
+            //Act
+            var result = await service.GetStockItemsAsync(d => d.TypeId == 1, 1, 10);
+
+            //Assert
+            var stockItemEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<StockItem>>().Subject;
+            stockItemEnvelop.Items.Should().BeAssignableTo<IEnumerable<StockItem>>();
+            stockItemEnvelop.Items.Should().HaveCount(6);
+            stockItemEnvelop.TotalItems.Should().Be(16);
+            stockItemEnvelop.ItemsPerPage.Should().Be(10);
+            stockItemEnvelop.TotalPages().Should().Be(2);
         }
 
         [Fact]
@@ -37,17 +74,17 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockItemAsync(d => d.Id == id);
 
             //Assert
-            var StockItem = result.Should().BeAssignableTo<StockItem>().Subject;
-            StockItem.Id.Should().Be(id);
-            StockItem.Name.Should().Be("Rice");
-            StockItem.Type.Type.Should().Be("Grocery");
+            var stockItem = result.Should().BeAssignableTo<StockItem>().Subject;
+            stockItem.Id.Should().Be(id);
+            stockItem.Name.Should().Be("Rice");
+            stockItem.Type.Type.Should().Be("Grocery");
         }
 
         [Fact]
         public async void GetStockItemAsync_Returns_Null()
         {
             //Arrange
-            var id = 10;
+            var id = 10001;
             var service = new StockItemService(_myRestaurantContext);
 
             //Act
@@ -67,7 +104,7 @@ namespace MyRestaurant.Services.Tests
             var result = await service.AddStockItemAsync(new StockItem {
                 Name = "Cream Soda",
                 TypeId = 2,
-                UnitOfMeasureId = 4,
+                UnitOfMeasureId = 3,
                 ItemUnit = 300
             });
 
@@ -80,7 +117,7 @@ namespace MyRestaurant.Services.Tests
             var stockItems = await service.GetStockItemsAsync();
 
             //Assert
-            stockItems.Should().HaveCount(5);
+            stockItems.Should().HaveCount(30);
         }
 
         [Fact]

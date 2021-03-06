@@ -13,8 +13,9 @@ namespace MyRestaurant.Services.Tests
             {
                 var stockTypes = new List<StockType>
                 {
-                    new StockType { Id = 1, Type = "Grocery", Description = "" },
-                    new StockType { Id = 2, Type = "Beverage", Description = "" }
+                    new StockType { Type = "Grocery", Description = "" },
+                    new StockType { Type = "Beverage", Description = "" },
+                    new StockType { Type = "Stationery" }
                 };
                 context.StockTypes.AddRange(stockTypes);
                 context.SaveChanges();

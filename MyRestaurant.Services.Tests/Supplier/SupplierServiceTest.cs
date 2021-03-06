@@ -14,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSuppliersAsync_Returns_Suppliers()
+        public async void GetSuppliersAsync_Returns_First_Paged_Suppliers()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -25,8 +25,80 @@ namespace MyRestaurant.Services.Tests
             //Assert
             var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
             supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            supplierEnvelop.Items.Should().HaveCount(10);
+            supplierEnvelop.TotalItems.Should().Be(27);
+            supplierEnvelop.ItemsPerPage.Should().Be(10);
+            supplierEnvelop.TotalPages().Should().Be(3);
+        }
+
+        [Fact]
+        public async void GetSuppliersAsync_Returns_Next_Paged_Suppliers()
+        {
+            //Arrange
+            var service = new SupplierService(_myRestaurantContext);
+
+            //Act
+            var result = await service.GetSuppliersAsync("", "", "", 1, 10);
+
+            //Assert
+            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
+            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            supplierEnvelop.Items.Should().HaveCount(10);
+            supplierEnvelop.TotalItems.Should().Be(27);
+            supplierEnvelop.ItemsPerPage.Should().Be(10);
+            supplierEnvelop.TotalPages().Should().Be(3);
+        }
+
+        [Fact]
+        public async void GetSuppliersAsync_By_Name_Returns_Suppliers()
+        {
+            //Arrange
+            var service = new SupplierService(_myRestaurantContext);
+
+            //Act
+            var result = await service.GetSuppliersAsync("Dairy", "", "", 0, 10);
+
+            //Assert
+            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
+            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            supplierEnvelop.Items.Should().HaveCount(1);
+            supplierEnvelop.TotalItems.Should().Be(1);
+            supplierEnvelop.ItemsPerPage.Should().Be(10);
+            supplierEnvelop.TotalPages().Should().Be(1);
+        }
+
+        [Fact]
+        public async void GetSuppliersAsync_By_City_Returns_Suppliers()
+        {
+            //Arrange
+            var service = new SupplierService(_myRestaurantContext);
+
+            //Act
+            var result = await service.GetSuppliersAsync("", "Charleston", "", 0, 10);
+
+            //Assert
+            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
+            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
             supplierEnvelop.Items.Should().HaveCount(2);
             supplierEnvelop.TotalItems.Should().Be(2);
+            supplierEnvelop.ItemsPerPage.Should().Be(10);
+            supplierEnvelop.TotalPages().Should().Be(1);
+        }
+
+        [Fact]
+        public async void GetSuppliersAsync_By_Contact_Person_Returns_Suppliers()
+        {
+            //Arrange
+            var service = new SupplierService(_myRestaurantContext);
+
+            //Act
+            var result = await service.GetSuppliersAsync("", "", "Emmalee", 0, 10);
+
+            //Assert
+            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
+            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            supplierEnvelop.Items.Should().HaveCount(1);
+            supplierEnvelop.TotalItems.Should().Be(1);
             supplierEnvelop.ItemsPerPage.Should().Be(10);
             supplierEnvelop.TotalPages().Should().Be(1);
         }
@@ -51,7 +123,7 @@ namespace MyRestaurant.Services.Tests
         public async void GetSupplierAsync_Returns_Null()
         {
             //Arrange
-            var id = 10;
+            var id = 10001;
             var service = new SupplierService(_myRestaurantContext);
 
             //Act
