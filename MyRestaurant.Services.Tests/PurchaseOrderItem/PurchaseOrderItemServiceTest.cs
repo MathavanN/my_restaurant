@@ -7,7 +7,6 @@ namespace MyRestaurant.Services.Tests
 {
     public class PurchaseOrderItemServiceTest : MyRestaurantContextTestBase
     {
-
         public PurchaseOrderItemServiceTest()
         {
             PurchaseOrderItemInitializer.Initialize(_myRestaurantContext);
