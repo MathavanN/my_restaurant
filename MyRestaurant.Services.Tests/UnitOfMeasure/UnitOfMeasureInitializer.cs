@@ -13,9 +13,11 @@ namespace MyRestaurant.Services.Tests
             {
                 var unitOfMeasures = new List<UnitOfMeasure>
                 {
-                    new UnitOfMeasure { Id = 1, Code = "kg", Description = "kg units" },
-                    new UnitOfMeasure { Id = 2, Code = "g", Description = "g units" },
-                    new UnitOfMeasure { Id = 3, Code = "ml", Description = "ml units" }
+                    new UnitOfMeasure { Code = "kg", Description = "kg units" },
+                    new UnitOfMeasure { Code = "g", Description = "g units" },
+                    new UnitOfMeasure { Code = "ml", Description = "ml units" },
+                    new UnitOfMeasure { Code = "l", Description = "l units" },
+                    new UnitOfMeasure { Code = "none", Description = "" }
                 };
                 context.UnitOfMeasures.AddRange(unitOfMeasures);
                 context.SaveChanges();
