@@ -23,7 +23,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             var stockTypes = result.Should().BeAssignableTo<IEnumerable<StockType>>().Subject;
-            stockTypes.Should().HaveCount(2);
+            stockTypes.Should().HaveCount(3);
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace MyRestaurant.Services.Tests
             var stockTypes = await service.GetStockTypesAsync();
 
             //Assert
-            stockTypes.Should().HaveCount(3);
+            stockTypes.Should().HaveCount(4);
         }
 
         [Fact]
