@@ -118,6 +118,7 @@ namespace MyRestaurant.Services
                 _jwtSettings.AccessTokenExpirationInMinutes,
                 claims);
         }
+        
         public async Task<RefreshToken> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
         
         public async Task UpdateRefreshTokenAsync(RefreshToken token)
