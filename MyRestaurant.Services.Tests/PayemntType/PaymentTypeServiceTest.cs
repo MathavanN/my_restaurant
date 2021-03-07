@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetPaymentTypesAsync();
 
             //Assert
-            var paymentTypes = result.Should().BeAssignableTo<IEnumerable<PaymentType>>().Subject;
-            paymentTypes.Should().HaveCount(3);
+            result.Should().BeAssignableTo<IEnumerable<PaymentType>>();
+            result.Should().HaveCount(3);
         }
 
         [Fact]
@@ -37,10 +37,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetPaymentTypeAsync(d => d.Id == id);
 
             //Assert
-            var paymentType = result.Should().BeAssignableTo<PaymentType>().Subject;
-            paymentType.Id.Should().Be(id);
-            paymentType.Name.Should().Be("Cash");
-            paymentType.CreditPeriod.Should().Be(0);
+            result.Should().BeAssignableTo<PaymentType>();
+            result.Id.Should().Be(id);
+            result.Name.Should().Be("Cash");
+            result.CreditPeriod.Should().Be(0);
         }
 
         [Fact]
@@ -67,9 +67,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.AddPaymentTypeAsync(new PaymentType { Name = "Credit1", CreditPeriod = 15 });
 
             //Assert
-            var paymentType = result.Should().BeAssignableTo<PaymentType>().Subject;
-            paymentType.Name.Should().Be("Credit1");
-            paymentType.CreditPeriod.Should().Be(15);
+            result.Should().BeAssignableTo<PaymentType>();
+            result.Name.Should().Be("Credit1");
+            result.CreditPeriod.Should().Be(15);
         }
 
         [Fact]
@@ -89,10 +89,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetPaymentTypeAsync(d => d.Id == id);
 
             //Assert
-            var paymentType = result.Should().BeAssignableTo<PaymentType>().Subject;
-            paymentType.Id.Should().Be(id);
-            paymentType.Name.Should().Be("Credit");
-            paymentType.CreditPeriod.Should().Be(45);
+            result.Should().BeAssignableTo<PaymentType>();
+            result.Id.Should().Be(id);
+            result.Name.Should().Be("Credit");
+            result.CreditPeriod.Should().Be(45);
         }
 
         [Fact]
