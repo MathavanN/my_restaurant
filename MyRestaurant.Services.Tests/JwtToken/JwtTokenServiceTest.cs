@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
-using Microsoft.Extensions.Options;
 using Moq;
 using MyRestaurant.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Xunit;
@@ -24,15 +22,20 @@ namespace MyRestaurant.Services.Tests
         public async void GetRefreshTokenAsync_Returns_RefreshToken()
         {
             //Arrange
+            var token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MDk3NDc5ODAsImV4cCI6MTYwOTc2OTU4MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwMSJ9.kvX-GbWYLkgEY3Kl9RaRvESbNRkl8NDBxGNTcTFUGBpaLwSM8oWt9U6bKQNoPbcAbNui3ubvbCapkmc3SWVmfg";
             var service = new JwtTokenService(_fixture.MockUserManager.Object, _myRestaurantContext, _fixture.JwtSettings);
 
             //Act
-            var result = await service.GetRefreshTokenAsync(d => d.Token == "token4");
+            var result = await service.GetRefreshTokenAsync(d => d.Token == token);
 
             //Assert
-            var refreshToken = result.Should().BeAssignableTo<RefreshToken>().Subject;
-            refreshToken.Token.Should().Be("token4");
-            refreshToken.CreatedByIp.Should().Be("0.0.0.1");
+            result.Should().BeAssignableTo<RefreshToken>();
+            result.ReplacedByToken.Should().BeNull();
+            result.Id.Should().NotBeEmpty();
+            result.User.FirstName.Should().Be("Normal");
+            result.Token.Should().Be(token);
+            result.CreatedByIp.Should().Be("0.0.0.1");
+            result.IsActive.Should().Be(false);
         }
 
         [Fact]
@@ -65,10 +68,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetRefreshTokenAsync(d => d.Token == refreshToken);
 
             //Assert
-            var token = result.Should().BeAssignableTo<RefreshToken>().Subject;
-            token.Token.Should().Be(refreshToken);
-            token.RevokedByIp.Should().Be("127.0.0.0");
-            token.IsActive.Should().Be(false);
+            result.Should().BeAssignableTo<RefreshToken>();
+            result.Token.Should().Be(refreshToken);
+            result.RevokedByIp.Should().Be("127.0.0.0");
+            result.IsActive.Should().Be(false);
         }
 
         [Fact]
@@ -76,9 +79,12 @@ namespace MyRestaurant.Services.Tests
         {
             //Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
+            var userClaims = _myRestaurantContext.UserClaims.ToList()
+                                .Where(d => d.UserId == adminUser.Id)
+                                .Select(d => new Claim(d.ClaimType, d.ClaimValue)).ToList();
 
             _fixture.MockUserManager.Setup(x => x.GetClaimsAsync(adminUser))
-                .ReturnsAsync(_fixture.Claims);
+                .ReturnsAsync(userClaims);
             _fixture.MockUserManager.Setup(x => x.GetRolesAsync(adminUser))
                 .ReturnsAsync(adminUser.UserRoles.Select(d => d.Role.Name).ToList());
 
@@ -102,9 +108,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GenerateRefreshToken(adminUser.Id, "127.0.0.0");
 
             //Assert
-            var refreshToken = result.Should().BeAssignableTo<RefreshToken>().Subject;
-            refreshToken.UserId.Should().Be(adminUser.Id);
-            refreshToken.CreatedByIp.Should().Be("127.0.0.0");
+            result.Should().BeAssignableTo<RefreshToken>();
+            result.UserId.Should().Be(adminUser.Id);
+            result.CreatedByIp.Should().Be("127.0.0.0");
         }
 
         [Fact]
@@ -123,12 +129,28 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void ValidateRefreshToken_InValid_RefreshToken_Returns_True()
+        public async void ValidateRefreshToken_InValid_RefreshToken_Returns_False()
         {
             // Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
             var service = new JwtTokenService(_fixture.MockUserManager.Object, _myRestaurantContext, _fixture.JwtSettings);
-            var dbToken = await service.GetRefreshTokenAsync(d => d.Token == "token2");
+            var dbToken = await service.GetRefreshTokenAsync(d => d.Token == "token3");
+
+            //Act
+            var result = service.ValidateRefreshToken(dbToken.Token);
+
+            //Assert
+            result.Should().Be(false);
+        }
+
+        [Fact]
+        public async void ValidateRefreshToken_Expired_RefreshToken_Returns_False()
+        {
+            // Arrange
+            var token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MDk3NDc5ODAsImV4cCI6MTYwOTc2OTU4MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwMSJ9.kvX-GbWYLkgEY3Kl9RaRvESbNRkl8NDBxGNTcTFUGBpaLwSM8oWt9U6bKQNoPbcAbNui3ubvbCapkmc3SWVmfg";
+            var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
+            var service = new JwtTokenService(_fixture.MockUserManager.Object, _myRestaurantContext, _fixture.JwtSettings);
+            var dbToken = await service.GetRefreshTokenAsync(d => d.Token == token);
 
             //Act
             var result = service.ValidateRefreshToken(dbToken.Token);
