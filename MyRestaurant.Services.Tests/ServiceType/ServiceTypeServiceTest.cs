@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetServiceTypesAsync();
 
             //Assert
-            var serviceTypes = result.Should().BeAssignableTo<IEnumerable<ServiceType>>().Subject;
-            serviceTypes.Should().HaveCount(2);
+            result.Should().BeAssignableTo<IEnumerable<ServiceType>>();
+            result.Should().HaveCount(2);
         }
 
         [Fact]
@@ -37,9 +37,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetServiceTypeAsync(d => d.Id == id);
 
             //Assert
-            var serviceType = result.Should().BeAssignableTo<ServiceType>().Subject;
-            serviceType.Id.Should().Be(id);
-            serviceType.Type.Should().Be("Take Away");
+            result.Should().BeAssignableTo<ServiceType>();
+            result.Id.Should().Be(id);
+            result.Type.Should().Be("Take Away");
         }
 
         [Fact]
@@ -66,8 +66,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.AddServiceTypeAsync(new ServiceType { Type = "Buffet" });
 
             //Assert
-            var stockType = result.Should().BeAssignableTo<ServiceType>().Subject;
-            stockType.Type.Should().Be("Buffet");
+            result.Should().BeAssignableTo<ServiceType>();
+            result.Type.Should().Be("Buffet");
 
             //Act
             var stockTypes = await service.GetServiceTypesAsync();
@@ -92,9 +92,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetServiceTypeAsync(d => d.Id == id);
 
             //Assert
-            var serviceType = result.Should().BeAssignableTo<ServiceType>().Subject;
-            serviceType.Id.Should().Be(id);
-            serviceType.Type.Should().Be("Take Out");
+            result.Should().BeAssignableTo<ServiceType>();
+            result.Id.Should().Be(id);
+            result.Type.Should().Be("Take Out");
         }
 
         [Fact]
