@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockTypesAsync();
 
             //Assert
-            var stockTypes = result.Should().BeAssignableTo<IEnumerable<StockType>>().Subject;
-            stockTypes.Should().HaveCount(3);
+            result.Should().BeAssignableTo<IEnumerable<StockType>>();
+            result.Should().HaveCount(3);
         }
 
         [Fact]
@@ -37,10 +37,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockTypeAsync(d => d.Id == id);
 
             //Assert
-            var stockType = result.Should().BeAssignableTo<StockType>().Subject;
-            stockType.Id.Should().Be(id);
-            stockType.Type.Should().Be("Grocery");
-            stockType.Description.Should().Be("");
+            result.Should().BeAssignableTo<StockType>();
+            result.Id.Should().Be(id);
+            result.Type.Should().Be("Grocery");
+            result.Description.Should().Be("");
         }
 
         [Fact]
@@ -67,9 +67,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.AddStockTypeAsync(new StockType { Type = "Office", Description = "" });
 
             //Assert
-            var stockType = result.Should().BeAssignableTo<StockType>().Subject;
-            stockType.Type.Should().Be("Office");
-            stockType.Description.Should().Be("");
+            result.Should().BeAssignableTo<StockType>();
+            result.Type.Should().Be("Office");
+            result.Description.Should().Be("");
 
             //Act
             var stockTypes = await service.GetStockTypesAsync();
@@ -95,10 +95,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockTypeAsync(d => d.Id == id);
 
             //Assert
-            var stockType = result.Should().BeAssignableTo<StockType>().Subject;
-            stockType.Id.Should().Be(id);
-            stockType.Type.Should().Be("Beverage");
-            stockType.Description.Should().Be("Drinks items");
+            result.Should().BeAssignableTo<StockType>();
+            result.Id.Should().Be(id);
+            result.Type.Should().Be("Beverage");
+            result.Description.Should().Be("Drinks items");
         }
 
         [Fact]
