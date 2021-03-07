@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetUnitOfMeasuresAsync();
 
             //Assert
-            var uoms = result.Should().BeAssignableTo<IEnumerable<UnitOfMeasure>>().Subject;
-            uoms.Should().HaveCount(5);
+            result.Should().BeAssignableTo<IEnumerable<UnitOfMeasure>>();
+            result.Should().HaveCount(5);
         }
 
         [Fact]
@@ -37,10 +37,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetUnitOfMeasureAsync(d => d.Id == id);
 
             //Assert
-            var unitOfMeasure = result.Should().BeAssignableTo<UnitOfMeasure>().Subject;
-            unitOfMeasure.Id.Should().Be(id);
-            unitOfMeasure.Code.Should().Be("kg");
-            unitOfMeasure.Description.Should().Be("kg units");
+            result.Should().BeAssignableTo<UnitOfMeasure>();
+            result.Id.Should().Be(id);
+            result.Code.Should().Be("kg");
+            result.Description.Should().Be("kg units");
         }
 
         [Fact]
@@ -67,9 +67,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.AddUnitOfMeasureAsync(new UnitOfMeasure { Code = "gal", Description = "gallon" });
 
             //Assert
-            var uom = result.Should().BeAssignableTo<UnitOfMeasure>().Subject;
-            uom.Code.Should().Be("gal");
-            uom.Description.Should().Be("gallon");
+            result.Should().BeAssignableTo<UnitOfMeasure>();
+            result.Code.Should().Be("gal");
+            result.Description.Should().Be("gallon");
 
             //Act
             var uoms = await service.GetUnitOfMeasuresAsync();
@@ -95,10 +95,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetUnitOfMeasureAsync(d => d.Id == id);
 
             //Assert
-            var uom = result.Should().BeAssignableTo<UnitOfMeasure>().Subject;
-            uom.Id.Should().Be(id);
-            uom.Code.Should().Be("ml");
-            uom.Description.Should().Be("ml units to add");
+            result.Should().BeAssignableTo<UnitOfMeasure>();
+            result.Id.Should().Be(id);
+            result.Code.Should().Be("ml");
+            result.Description.Should().Be("ml units to add");
         }
 
         [Fact]
