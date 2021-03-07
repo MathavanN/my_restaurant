@@ -25,8 +25,9 @@ namespace MyRestaurant.Services.Tests
                     new RefreshToken
                     {
                         UserId = context.Users.First(d => d.FirstName == "Normal").Id,
-                        Token = "token2",
+                        Token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MDk3NDc5ODAsImV4cCI6MTYwOTc2OTU4MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwMSJ9.kvX-GbWYLkgEY3Kl9RaRvESbNRkl8NDBxGNTcTFUGBpaLwSM8oWt9U6bKQNoPbcAbNui3ubvbCapkmc3SWVmfg",
                         Expires = DateTime.Now.AddDays(-10).AddHours(2),
+                        Revoked = null,
                         Created = DateTime.Now.AddDays(-10),
                         CreatedByIp = "0.0.0.1",
                     },
