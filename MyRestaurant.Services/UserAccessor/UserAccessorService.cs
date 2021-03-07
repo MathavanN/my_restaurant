@@ -21,7 +21,7 @@ namespace MyRestaurant.Services
                 Email = userClaims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
                 FirstName = userClaims?.FirstOrDefault(x => x.Type == "firstName")?.Value,
                 LastName = userClaims?.FirstOrDefault(x => x.Type == "lastName")?.Value,
-                Roles = userClaims?.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value)
+                Roles = userClaims?.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList()
             };
         }
     }
