@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteFreeItemsAsync(d => d.GoodsReceivedNoteId == 1);
 
             //Assert
-            var items = result.Should().BeAssignableTo<IEnumerable<GoodsReceivedNoteFreeItem>>().Subject;
-            items.Should().HaveCount(1);
+            result.Should().BeAssignableTo<IEnumerable<GoodsReceivedNoteFreeItem>>();
+            result.Should().HaveCount(1);
         }
 
         [Fact]
@@ -37,10 +37,11 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteFreeItemAsync(d => d.Id == id);
 
             //Assert
-            var item = result.Should().BeAssignableTo<GoodsReceivedNoteFreeItem>().Subject;
-            item.Id.Should().Be(id);
-            item.Item.Name.Should().Be("Chips");
-            item.Discount.Should().Be(0.1m);
+            result.Should().BeAssignableTo<GoodsReceivedNoteFreeItem>();
+            result.GoodsReceivedNote.Should().BeAssignableTo<GoodsReceivedNote>();
+            result.Id.Should().Be(id);
+            result.Item.Name.Should().Be("Chips");
+            result.Discount.Should().Be(0.1m);
         }
 
         [Fact]
@@ -77,10 +78,10 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var item = result.Should().BeAssignableTo<GoodsReceivedNoteFreeItem>().Subject;
-            item.Item.Name.Should().Be("Honey");
-            item.Discount.Should().Be(0.1m);
-            item.Quantity.Should().Be(2);
+            result.Should().BeAssignableTo<GoodsReceivedNoteFreeItem>();
+            result.Item.Name.Should().Be("Honey");
+            result.Discount.Should().Be(0.1m);
+            result.Quantity.Should().Be(2);
 
             //Act
             var items = await service.GetGoodsReceivedNoteFreeItemsAsync(d => d.GoodsReceivedNoteId == goodsReceivedNoteId);
@@ -107,11 +108,11 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteFreeItemAsync(d => d.GoodsReceivedNoteId == goodsReceivedNoteId);
 
             //Assert
-            var item = result.Should().BeAssignableTo<GoodsReceivedNoteFreeItem>().Subject;
-            item.Item.Name.Should().Be("Chips");
-            item.Discount.Should().Be(0.1m);
-            item.Quantity.Should().Be(2);
-            item.ItemUnitPrice.Should().Be(350);
+            result.Should().BeAssignableTo<GoodsReceivedNoteFreeItem>();
+            result.Item.Name.Should().Be("Chips");
+            result.Discount.Should().Be(0.1m);
+            result.Quantity.Should().Be(2);
+            result.ItemUnitPrice.Should().Be(350);
         }
 
         [Fact]
