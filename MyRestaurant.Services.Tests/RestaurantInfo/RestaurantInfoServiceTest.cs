@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetRestaurantInfosAsync();
 
             //Assert
-            var restaurantInfos = result.Should().BeAssignableTo<IEnumerable<RestaurantInfo>>().Subject;
-            restaurantInfos.Should().HaveCount(1);
+            result.Should().BeAssignableTo<IEnumerable<RestaurantInfo>>();
+            result.Should().HaveCount(1);
         }
 
         [Fact]
@@ -37,9 +37,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetRestaurantInfoAsync(d => d.Id == id);
 
             //Assert
-            var restaurantInfo = result.Should().BeAssignableTo<RestaurantInfo>().Subject;
-            restaurantInfo.Id.Should().Be(id);
-            restaurantInfo.Name.Should().Be("Golden Dining");
+            result.Should().BeAssignableTo<RestaurantInfo>();
+            result.Id.Should().Be(id);
+            result.Name.Should().Be("Golden Dining");
         }
 
         [Fact]
@@ -74,9 +74,9 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var restaurantInfo = result.Should().BeAssignableTo<RestaurantInfo>().Subject;
-            restaurantInfo.Name.Should().Be("Golden Dining");
-            restaurantInfo.LandLine.Should().Be("+9423454545");
+            result.Should().BeAssignableTo<RestaurantInfo>();
+            result.Name.Should().Be("Golden Dining");
+            result.LandLine.Should().Be("+9423454545");
         }
 
         [Fact]
@@ -97,11 +97,11 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetRestaurantInfoAsync(d => d.Id == id);
 
             //Assert
-            var restaurantInfo = result.Should().BeAssignableTo<RestaurantInfo>().Subject;
-            restaurantInfo.Id.Should().Be(id);
-            restaurantInfo.LandLine.Should().Be("+9423656565");
-            restaurantInfo.Mobile.Should().Be("+9423989898");
-            restaurantInfo.Email.Should().Be("newtest@gmail.com");
+            result.Should().BeAssignableTo<RestaurantInfo>();
+            result.Id.Should().Be(id);
+            result.LandLine.Should().Be("+9423656565");
+            result.Mobile.Should().Be("+9423989898");
+            result.Email.Should().Be("newtest@gmail.com");
         }
 
         [Fact]

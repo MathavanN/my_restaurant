@@ -24,8 +24,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNotesAsync();
 
             //Assert
-            var grns = result.Should().BeAssignableTo<IEnumerable<GoodsReceivedNote>>().Subject;
-            grns.Should().HaveCount(3);
+            result.Should().BeAssignableTo<IEnumerable<GoodsReceivedNote>>();
+            result.Should().HaveCount(3);
         }
 
         [Fact]
@@ -39,10 +39,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteAsync(d => d.Id == id);
 
             //Assert
-            var grn = result.Should().BeAssignableTo<GoodsReceivedNote>().Subject;
-            grn.Id.Should().Be(id);
-            grn.InvoiceNumber.Should().Be("INV_20210132_01");
-            grn.PaymentType.CreditPeriod.Should().Be(0);
+            result.Should().BeAssignableTo<GoodsReceivedNote>();
+            result.Id.Should().Be(id);
+            result.InvoiceNumber.Should().Be("INV_20210132_01");
+            result.PaymentType.CreditPeriod.Should().Be(0);
         }
 
         [Fact]
@@ -85,9 +85,10 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var grn = result.Should().BeAssignableTo<GoodsReceivedNote>().Subject;
-            grn.InvoiceNumber.Should().Be("INV_20210224_01");
-            grn.ApprovalStatus.Should().Be(Status.Pending);
+            result.Should().BeAssignableTo<GoodsReceivedNote>();
+            result.ReceivedUser.FirstName.Should().Be("Report");
+            result.InvoiceNumber.Should().Be("INV_20210224_01");
+            result.ApprovalStatus.Should().Be(Status.Pending);
         }
 
         [Fact]
@@ -108,11 +109,13 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteAsync(d => d.Id == id);
 
             //Assert
-            var grn = result.Should().BeAssignableTo<GoodsReceivedNote>().Subject;
-            grn.Id.Should().Be(id);
-            grn.Nbt.Should().Be(0.6m);
-            grn.Vat.Should().Be(0.75m);
-            grn.Discount.Should().Be(10);
+            result.Should().BeAssignableTo<GoodsReceivedNote>();
+            result.ApprovedUser.FirstName.Should().Be("Admin");
+            result.PurchaseOrder.OrderNumber.Should().Be("PO_20210227_8d8caa8b86ce209");
+            result.Id.Should().Be(id);
+            result.Nbt.Should().Be(0.6m);
+            result.Vat.Should().Be(0.75m);
+            result.Discount.Should().Be(10);
         }
 
         [Fact]

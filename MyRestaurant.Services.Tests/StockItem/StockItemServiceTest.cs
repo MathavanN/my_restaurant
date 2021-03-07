@@ -23,8 +23,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockItemsAsync();
 
             //Assert
-            var stockItems = result.Should().BeAssignableTo<IEnumerable<StockItem>>().Subject;
-            stockItems.Should().HaveCount(29);
+            result.Should().BeAssignableTo<IEnumerable<StockItem>>();
+            result.Should().HaveCount(29);
         }
 
         [Fact]
@@ -37,12 +37,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockItemsAsync(d => d.TypeId == 1, 0, 10);
 
             //Assert
-            var stockItemEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<StockItem>>().Subject;
-            stockItemEnvelop.Items.Should().BeAssignableTo<IEnumerable<StockItem>>();
-            stockItemEnvelop.Items.Should().HaveCount(10);
-            stockItemEnvelop.TotalItems.Should().Be(16);
-            stockItemEnvelop.ItemsPerPage.Should().Be(10);
-            stockItemEnvelop.TotalPages().Should().Be(2);
+            result.Should().BeAssignableTo<CollectionEnvelop<StockItem>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<StockItem>>();
+            result.Items.Should().HaveCount(10);
+            result.TotalItems.Should().Be(16);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(2);
         }
 
         [Fact]
@@ -55,12 +55,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockItemsAsync(d => d.TypeId == 1, 1, 10);
 
             //Assert
-            var stockItemEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<StockItem>>().Subject;
-            stockItemEnvelop.Items.Should().BeAssignableTo<IEnumerable<StockItem>>();
-            stockItemEnvelop.Items.Should().HaveCount(6);
-            stockItemEnvelop.TotalItems.Should().Be(16);
-            stockItemEnvelop.ItemsPerPage.Should().Be(10);
-            stockItemEnvelop.TotalPages().Should().Be(2);
+            result.Should().BeAssignableTo<CollectionEnvelop<StockItem>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<StockItem>>();
+            result.Items.Should().HaveCount(6);
+            result.TotalItems.Should().Be(16);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(2);
         }
 
         [Fact]
@@ -74,10 +74,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockItemAsync(d => d.Id == id);
 
             //Assert
-            var stockItem = result.Should().BeAssignableTo<StockItem>().Subject;
-            stockItem.Id.Should().Be(id);
-            stockItem.Name.Should().Be("Rice");
-            stockItem.Type.Type.Should().Be("Grocery");
+            result.Should().BeAssignableTo<StockItem>();
+            result.Id.Should().Be(id);
+            result.Name.Should().Be("Rice");
+            result.Type.Type.Should().Be("Grocery");
         }
 
         [Fact]
@@ -109,9 +109,9 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var stockItem = result.Should().BeAssignableTo<StockItem>().Subject;
-            stockItem.Name.Should().Be("Cream Soda");
-            stockItem.UnitOfMeasure.Code.Should().Be("ml");
+            result.Should().BeAssignableTo<StockItem>();
+            result.Name.Should().Be("Cream Soda");
+            result.UnitOfMeasure.Code.Should().Be("ml");
 
             //Act
             var stockItems = await service.GetStockItemsAsync();
@@ -139,10 +139,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetStockItemAsync(d => d.Id == id);
 
             //Assert
-            var stockItem = result.Should().BeAssignableTo<StockItem>().Subject;
-            stockItem.Id.Should().Be(id);
-            stockItem.ItemUnit.Should().Be(10);
-            stockItem.Description.Should().Be("10kg bag");
+            result.Should().BeAssignableTo<StockItem>();
+            result.Id.Should().Be(id);
+            result.ItemUnit.Should().Be(10);
+            result.Description.Should().Be("10kg bag");
         }
 
         [Fact]

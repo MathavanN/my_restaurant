@@ -23,12 +23,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSuppliersAsync("", "", "", 0, 10);
 
             //Assert
-            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
-            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
-            supplierEnvelop.Items.Should().HaveCount(10);
-            supplierEnvelop.TotalItems.Should().Be(27);
-            supplierEnvelop.ItemsPerPage.Should().Be(10);
-            supplierEnvelop.TotalPages().Should().Be(3);
+            result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            result.Items.Should().HaveCount(10);
+            result.TotalItems.Should().Be(27);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(3);
         }
 
         [Fact]
@@ -41,12 +41,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSuppliersAsync("", "", "", 1, 10);
 
             //Assert
-            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
-            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
-            supplierEnvelop.Items.Should().HaveCount(10);
-            supplierEnvelop.TotalItems.Should().Be(27);
-            supplierEnvelop.ItemsPerPage.Should().Be(10);
-            supplierEnvelop.TotalPages().Should().Be(3);
+            result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            result.Items.Should().HaveCount(10);
+            result.TotalItems.Should().Be(27);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(3);
         }
 
         [Fact]
@@ -59,12 +59,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSuppliersAsync("Dairy", "", "", 0, 10);
 
             //Assert
-            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
-            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
-            supplierEnvelop.Items.Should().HaveCount(1);
-            supplierEnvelop.TotalItems.Should().Be(1);
-            supplierEnvelop.ItemsPerPage.Should().Be(10);
-            supplierEnvelop.TotalPages().Should().Be(1);
+            result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            result.Items.Should().HaveCount(1);
+            result.TotalItems.Should().Be(1);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(1);
         }
 
         [Fact]
@@ -77,12 +77,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSuppliersAsync("", "Charleston", "", 0, 10);
 
             //Assert
-            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
-            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
-            supplierEnvelop.Items.Should().HaveCount(2);
-            supplierEnvelop.TotalItems.Should().Be(2);
-            supplierEnvelop.ItemsPerPage.Should().Be(10);
-            supplierEnvelop.TotalPages().Should().Be(1);
+            result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            result.Items.Should().HaveCount(2);
+            result.TotalItems.Should().Be(2);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(1);
         }
 
         [Fact]
@@ -95,12 +95,12 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSuppliersAsync("", "", "Emmalee", 0, 10);
 
             //Assert
-            var supplierEnvelop = result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>().Subject;
-            supplierEnvelop.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
-            supplierEnvelop.Items.Should().HaveCount(1);
-            supplierEnvelop.TotalItems.Should().Be(1);
-            supplierEnvelop.ItemsPerPage.Should().Be(10);
-            supplierEnvelop.TotalPages().Should().Be(1);
+            result.Should().BeAssignableTo<CollectionEnvelop<Supplier>>();
+            result.Items.Should().BeAssignableTo<IEnumerable<Supplier>>();
+            result.Items.Should().HaveCount(1);
+            result.TotalItems.Should().Be(1);
+            result.ItemsPerPage.Should().Be(10);
+            result.TotalPages().Should().Be(1);
         }
 
         [Fact]
@@ -114,9 +114,9 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSupplierAsync(d => d.Id == id);
 
             //Assert
-            var supplier = result.Should().BeAssignableTo<Supplier>().Subject;
-            supplier.Id.Should().Be(id);
-            supplier.Name.Should().Be("ABC Pvt Ltd");
+            result.Should().BeAssignableTo<Supplier>();
+            result.Id.Should().Be(id);
+            result.Name.Should().Be("ABC Pvt Ltd");
         }
 
         [Fact]
@@ -154,9 +154,9 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var supplier = result.Should().BeAssignableTo<Supplier>().Subject;
-            supplier.Name.Should().Be("Jaffna Supplier Pvt Ltd");
-            supplier.ContactPerson.Should().Be("Aathavan");
+            result.Should().BeAssignableTo<Supplier>();
+            result.Name.Should().Be("Jaffna Supplier Pvt Ltd");
+            result.ContactPerson.Should().Be("Aathavan");
         }
 
         [Fact]
@@ -184,10 +184,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetSupplierAsync(d => d.Id == id);
 
             //Assert
-            var supplier = result.Should().BeAssignableTo<Supplier>().Subject;
-            supplier.Id.Should().Be(id);
-            supplier.Fax.Should().Be("0777113644");
-            supplier.Telephone2.Should().Be("0777113644");
+            result.Should().BeAssignableTo<Supplier>();
+            result.Id.Should().Be(id);
+            result.Fax.Should().Be("0777113644");
+            result.Telephone2.Should().Be("0777113644");
         }
 
         [Fact]

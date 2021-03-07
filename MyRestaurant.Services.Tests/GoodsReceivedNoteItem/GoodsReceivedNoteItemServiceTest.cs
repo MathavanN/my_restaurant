@@ -22,8 +22,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteItemsAsync(d => d.GoodsReceivedNoteId == 1);
 
             //Assert
-            var items = result.Should().BeAssignableTo<IEnumerable<GoodsReceivedNoteItem>>().Subject;
-            items.Should().HaveCount(2);
+            result.Should().BeAssignableTo<IEnumerable<GoodsReceivedNoteItem>>();
+            result.Should().HaveCount(2);
         }
 
         [Fact]
@@ -37,10 +37,11 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteItemAsync(d => d.Id == id);
 
             //Assert
-            var item = result.Should().BeAssignableTo<GoodsReceivedNoteItem>().Subject;
-            item.Id.Should().Be(id);
-            item.Item.Name.Should().Be("Rice");
-            item.Discount.Should().Be(0.1m);
+            result.Should().BeAssignableTo<GoodsReceivedNoteItem>();
+            result.GoodsReceivedNote.Should().BeAssignableTo<GoodsReceivedNote>();
+            result.Id.Should().Be(id);
+            result.Item.Name.Should().Be("Rice");
+            result.Discount.Should().Be(0.1m);
         }
 
         [Fact]
@@ -73,10 +74,10 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var item = result.Should().BeAssignableTo<GoodsReceivedNoteItem>().Subject;
-            item.Item.Name.Should().Be("Chips");
-            item.ItemUnitPrice.Should().Be(350);
-            item.Nbt.Should().Be(0);
+            result.Should().BeAssignableTo<GoodsReceivedNoteItem>();
+            result.Item.Name.Should().Be("Chips");
+            result.ItemUnitPrice.Should().Be(350);
+            result.Nbt.Should().Be(0);
 
             //Act
             var items = await service.GetGoodsReceivedNoteItemsAsync(d => d.GoodsReceivedNoteId == goodsReceivedNoteId);
@@ -103,11 +104,11 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetGoodsReceivedNoteItemAsync(d => d.Id == id);
 
             //Assert
-            var item = result.Should().BeAssignableTo<GoodsReceivedNoteItem>().Subject;
-            item.Id.Should().Be(id);
-            item.ItemUnitPrice.Should().Be(50);
-            item.Quantity.Should().Be(30);
-            item.Nbt.Should().Be(0.5m);
+            result.Should().BeAssignableTo<GoodsReceivedNoteItem>();
+            result.Id.Should().Be(id);
+            result.ItemUnitPrice.Should().Be(50);
+            result.Quantity.Should().Be(30);
+            result.Nbt.Should().Be(0.5m);
         }
 
         [Fact]

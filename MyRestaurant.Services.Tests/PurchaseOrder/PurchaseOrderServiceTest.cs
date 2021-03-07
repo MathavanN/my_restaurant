@@ -24,8 +24,8 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetPurchaseOrdersAsync();
 
             //Assert
-            var orders = result.Should().BeAssignableTo<IEnumerable<PurchaseOrder>>().Subject;
-            orders.Should().HaveCount(6);
+            result.Should().BeAssignableTo<IEnumerable<PurchaseOrder>>();
+            result.Should().HaveCount(6);
         }
 
         [Fact]
@@ -39,10 +39,11 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetPurchaseOrderAsync(d => d.Id == id);
 
             //Assert
-            var purchaseOrder = result.Should().BeAssignableTo<PurchaseOrder>().Subject;
-            purchaseOrder.Id.Should().Be(id);
-            purchaseOrder.OrderNumber.Should().Be("PO_20210130_8d8c510caee6a4b");
-            purchaseOrder.Supplier.Name.Should().Be("ABC Pvt Ltd");
+            result.Should().BeAssignableTo<PurchaseOrder>();
+            result.ApprovedUser.FirstName.Should().Be("Admin");
+            result.Id.Should().Be(id);
+            result.OrderNumber.Should().Be("PO_20210130_8d8c510caee6a4b");
+            result.Supplier.Name.Should().Be("ABC Pvt Ltd");
         }
 
         [Fact]
@@ -81,9 +82,9 @@ namespace MyRestaurant.Services.Tests
             });
 
             //Assert
-            var order = result.Should().BeAssignableTo<PurchaseOrder>().Subject;
-            order.OrderNumber.Should().Be("PO_20210227_8d8c512f7cd7920");
-            order.RequestedUser.FirstName.Should().Be("Normal");
+            result.Should().BeAssignableTo<PurchaseOrder>();
+            result.OrderNumber.Should().Be("PO_20210227_8d8c512f7cd7920");
+            result.RequestedUser.FirstName.Should().Be("Normal");
 
             //Act
             var orders = await service.GetPurchaseOrdersAsync();
@@ -109,10 +110,10 @@ namespace MyRestaurant.Services.Tests
             var result = await service.GetPurchaseOrderAsync(d => d.Id == id);
 
             //Assert
-            var order = result.Should().BeAssignableTo<PurchaseOrder>().Subject;
-            order.Id.Should().Be(id);
-            order.Supplier.Name.Should().Be("ABC Pvt Ltd");
-            order.Description.Should().Be("Supplier Changed");
+            result.Should().BeAssignableTo<PurchaseOrder>();
+            result.Id.Should().Be(id);
+            result.Supplier.Name.Should().Be("ABC Pvt Ltd");
+            result.Description.Should().Be("Supplier Changed");
         }
 
         [Fact]
