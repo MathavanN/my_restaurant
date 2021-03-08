@@ -52,7 +52,7 @@ namespace MyRestaurant.Api.Swagger
                 }
             };
         }
-        
+
         static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
         {
             var info = new OpenApiInfo()

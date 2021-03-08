@@ -24,8 +24,8 @@ namespace MyRestaurant.Business.Repositories
 
         private async Task CheckStockItemAsync(long id, string name, int typeId, int unitOfMeasureId, decimal itemUnit)
         {
-            var dbStockItem = await _stockItem.GetStockItemAsync(d => d.Name == name 
-                                                                    && d.TypeId == typeId && d.UnitOfMeasureId == unitOfMeasureId  
+            var dbStockItem = await _stockItem.GetStockItemAsync(d => d.Name == name
+                                                                    && d.TypeId == typeId && d.UnitOfMeasureId == unitOfMeasureId
                                                                     && d.ItemUnit == itemUnit && d.Id != id);
             if (dbStockItem != null)
                 throw new RestException(HttpStatusCode.Conflict, $"Stock Item is already available.");

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Business.Repositories
 {
-    public class StockTypeRepository: IStockTypeRepository
+    public class StockTypeRepository : IStockTypeRepository
     {
         private readonly IMapper _mapper;
         private readonly IStockTypeService _stockType;
@@ -71,7 +71,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var stockType = await GetStockTypeById(id);
 
-            await CheckStockTypeAsync(id, stockTypeDto.Type); 
+            await CheckStockTypeAsync(id, stockTypeDto.Type);
 
             stockType = _mapper.Map(stockTypeDto, stockType);
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
@@ -29,7 +28,7 @@ namespace MyRestaurant.Business.Repositories
         }
         public CurrentUserDto GetCurrentUser()
         {
-            var currentUser =  _userAccessor.GetCurrentUser();
+            var currentUser = _userAccessor.GetCurrentUser();
             return _mapper.Map<CurrentUserDto>(currentUser);
         }
 
@@ -98,7 +97,7 @@ namespace MyRestaurant.Business.Repositories
 
             return new TokenResultDto { AccessToken = accessToken, RefreshToken = refreshToken.Token };
         }
-        
+
         public async Task RevokeToken(RevokeDto revokeDto, string ipAddress)
         {
             var refreshToken = await _token.GetRefreshTokenAsync(e => e.Token == revokeDto.RefreshToken);
@@ -108,7 +107,7 @@ namespace MyRestaurant.Business.Repositories
 
             refreshToken.Revoked = DateTime.UtcNow;
             refreshToken.RevokedByIp = ipAddress;
-            
+
             await _token.UpdateRefreshTokenAsync(refreshToken);
         }
 
@@ -124,7 +123,7 @@ namespace MyRestaurant.Business.Repositories
             if (dbRefreshToken == null)
                 throw new RestException(HttpStatusCode.NotFound, "RefreshToken not found.");
 
-            if(!dbRefreshToken.IsActive)
+            if (!dbRefreshToken.IsActive)
                 throw new RestException(HttpStatusCode.BadRequest, "RefreshToken revoked by admin.");
 
             var dbUser = await _userManager.FindByIdAsync(dbRefreshToken.UserId.ToString());

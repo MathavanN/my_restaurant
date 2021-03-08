@@ -63,7 +63,7 @@ namespace MyRestaurant.Api.Controllers.V1.Controllers
         public async Task<IActionResult> Revoke(RevokeDto revokeDto)
         {
             await _repository.RevokeToken(revokeDto, IpAddress());
-            
+
             return NoContent();
         }
 
@@ -71,10 +71,10 @@ namespace MyRestaurant.Api.Controllers.V1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetCurrentUser()
         {
-            var currentUser =  _repository.GetCurrentUser();
+            var currentUser = _repository.GetCurrentUser();
             return Ok(currentUser);
         }
-        
+
         [HttpGet("Users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUsers()
