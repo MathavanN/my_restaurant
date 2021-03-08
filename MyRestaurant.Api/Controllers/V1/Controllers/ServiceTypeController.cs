@@ -47,7 +47,7 @@ namespace MyRestaurant.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(IDictionary<string, string>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateServiceType(int id,  EditServiceTypeDto serviceTypeDto) 
+        public async Task<IActionResult> UpdateServiceType(int id, EditServiceTypeDto serviceTypeDto)
         {
             var result = await _repository.UpdateServiceTypeAsync(id, serviceTypeDto);
             return Ok(result);

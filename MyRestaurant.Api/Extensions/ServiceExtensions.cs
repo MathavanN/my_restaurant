@@ -147,7 +147,7 @@ namespace MyRestaurant.Api.Extensions
                     //To disable Auto Model Data Validation Response
                     options.InvalidModelStateResponseFactory = actionContext =>
                     {
-                        var validationErrors = actionContext.ModelState.Where(x =>x.Value.ValidationState == ModelValidationState.Invalid)
+                        var validationErrors = actionContext.ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid)
                                                             .Select(x => new { Key = x.Key, Error = x.Value.Errors.FirstOrDefault().ErrorMessage });
                         var errorCode = HttpStatusCode.BadRequest;
                         object error = new { ErrorCode = errorCode, ErrorType = errorCode.ToString(), ErrorMessage = validationErrors, ErrorDate = DateTime.Now };
