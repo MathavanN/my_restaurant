@@ -36,7 +36,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var users = await Task.FromResult(_userManager.Users.ToList());
 
-            return _mapper.Map<IEnumerable<GetUserDto>>(users);
+            return _mapper.Map<IEnumerable<GetUserDto>>(users.OrderBy(d => d.FirstName));
         }
 
         public async Task<RegisterResultDto> RegisterAdminAsync(RegisterAdminDto registerDto)
