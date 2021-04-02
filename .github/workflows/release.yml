@@ -1,0 +1,64 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  release:
+    branches: [ published ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  release:
+    name: Release
+    strategy:
+      matrix:
+        kind: ['linux', 'windows', 'macOS']
+        include:
+          - kind: linux
+            os: ubuntu-latest
+            target: linux-x64
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+          - kind: macOS
+            os: macos-latest
+            target: osx-x64
+    runs-on: ${{ matrix.os }}
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      
+      - name: Build
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="App-$tag-${{ matrix.target }}"
+          # Build everything
+          dotnet publish src/App/App.csproj --framework netcoreapp3.1 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
+          # Pack files
+          if [ "${{ matrix.target }}" == "win-x64" ]; then
+            # Pack to zip for Windows
+            7z a -tzip "${release_name}.zip" "./${release_name}/*"
+          else
+          tar czvf "${release_name}.tar.gz" "$release_name"
+          fi
+       
+          # Delete output directory
+          rm -r "$release_name"
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "App*"
