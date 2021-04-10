@@ -25,7 +25,6 @@ jobs:
       - name: List all files
         run: |
           ls -R
-        working-directory: my_restaurant
       - name: Publish coverage report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
