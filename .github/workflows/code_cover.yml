@@ -22,6 +22,10 @@ jobs:
           dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=%CD%/coverage/ /p:CoverletOutputFormat=lcov
           dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=%CD%/coverage/ /p:CoverletOutputFormat=lcov
           dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=%CD%/coverage/ /p:CoverletOutputFormat=lcov
+      - name: List all files
+        run: |
+          ls -R
+        working-directory: my_restaurant
       - name: Publish coverage report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
