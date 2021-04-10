@@ -1,61 +1,155 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build and Release
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  release:
-    branches: [ published ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  pull_request:
+    branches: [ master ]
+    types: [labeled]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  check:
+    name: Check PR merged Status and Label
+    runs-on: ubuntu-latest
+    outputs:
+      pr_merged: ${{ steps.pr_status.outputs.PR_MERGED }}
+      pr_label_has_safe_to_release: ${{ steps.pr_status.outputs.PR_LABEL_HAS_SAFE_TO_RELEASE }}
+      current_branch: ${{ steps.pr_status.outputs.CURRENT_BRANCH }}
+      event_number: ${{ steps.pr_status.outputs.EVENT_NUMBER }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set PR Status
+        id: pr_status
+        run: |
+          echo ::set-output name=PR_MERGED::${{github.event.pull_request.merged}}
+          echo ::set-output name=PR_LABEL_HAS_SAFE_TO_RELEASE::${{ contains(github.event.pull_request.labels.*.name, 'safe to release') }}
+          echo ::set-output name=CURRENT_BRANCH::${GITHUB_REF#refs/*/}
+          echo ::set-output name=EVENT_NUMBER::${{ github.event.number }}
+      - name: Check PR Status
+        run: |
+          echo ${{ steps.pr_status.outputs.PR_MERGED }}
+          echo ${{ steps.pr_status.outputs.PR_LABEL_HAS_SAFE_TO_RELEASE }}
+          echo ${{ steps.pr_status.outputs.CURRENT_BRANCH }}
+          echo ${{ steps.pr_status.outputs.EVENT_NUMBER }}
+  
+  tag: 
+    name: Create a tag
+    needs: check
+    env:
+      working-directory: my_restaurant
+      pr_merged: ${{ needs.check.outputs.pr_merged }}
+      pr_label_has_safe_to_release: ${{ needs.check.outputs.pr_label_has_safe_to_release }}
+      current_branch: ${{ needs.check.outputs.current_branch }}
+      event_number: ${{ needs.check.outputs.event_number }}
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      previous_tag: ${{ steps.tag_version.outputs.tag }}
+      tag_part: ${{ steps.tag_version.outputs.part }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a multi-line script
+        run: |
+           if [ ${{env.pr_merged}} = false ]; then
+             echo "PR Not merged...."
+             exit 1
+           fi
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Create a tag
+        id: tag_version
+        uses: anothrNick/github-tag-action@1.35.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          RELEASE_BRANCHES: master
+          TAG_CONTEXT: branch
+          DEFAULT_BUMP: patch
+          WITH_V: false
+  
   release:
-    name: Release
+    name: Create single release for all build_release
+    runs-on: ubuntu-latest
+    needs: [check, tag]
+    env:
+      working-directory: my_restaurant
+      pr_merged: ${{ needs.check.outputs.pr_merged }}
+      pr_label_has_safe_to_release: ${{ needs.check.outputs.pr_label_has_safe_to_release }}
+      new_tag: ${{ needs.tag.outputs.new_tag }}
+      previous_tag: ${{ needs.tag.outputs.tag }}
+      tag_part: ${{ needs.tag.outputs.part }}
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Run a multi-line script
+        run: |
+           if [ ${{env.pr_label_has_safe_to_release}} = false ]; then
+             echo "PR not Labeled for safe to release ...."
+             exit 1
+           fi
+      - uses: actions/checkout@v2
+      - name: Create a GitHub release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          tag_name: ${{ env.new_tag }}
+          release_name: Release v${{ env.new_tag }}
+          body: CHANGELOG.md
+      
+  build:
+    name: Create cross-platform release builds, and upload binaries
+    needs: [tag, release]
+    runs-on: ${{ matrix.os }}
+    env:
+      working-directory: MyConsoleApp
+      version: ${{ needs.tag.outputs.new_tag }}
+      upoad_url: ${{ needs.release.outputs.upload_url }}
     strategy:
       matrix:
-        kind: ['linux', 'windows']
-        include:
-          - kind: linux
-            os: ubuntu-latest
-            target: linux-x64
-          - kind: windows
-            os: windows-latest
-            target: win-x64
-    runs-on: ${{ matrix.os }}
-    # Steps represent a sequence of tasks that will be executed as part of the job
+        os: [windows-latest]
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Setup .NET
+      - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.x
-      
+      - name: Clean
+        run: dotnet clean && dotnet nuget locals all --clear
+        working-directory: ${{env.working-directory}}
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: ${{env.working-directory}}
       - name: Build
-        shell: bash
-        run: |
-          tag=$(git describe --tags --abbrev=0)
-          release_name="App-$tag-${{ matrix.target }}"
-          # Build everything
-          dotnet publish src/App/App.csproj --framework netcoreapp3.1 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
-          # Pack files
-          if [ "${{ matrix.target }}" == "win-x64" ]; then
-            # Pack to zip for Windows
-            7z a -tzip "${release_name}.zip" "./${release_name}/*"
-          else
-          tar czvf "${release_name}.tar.gz" "$release_name"
-          fi
-       
-          # Delete output directory
-          rm -r "$release_name"
+        run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
+        working-directory: ${{env.working-directory}}
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+        working-directory: ${{env.working-directory}}
       - name: Publish
-        uses: softprops/action-gh-release@v1
+        run: dotnet publish --no-build --configuration Release -o Release MyConsoleApp
+        working-directory: ${{env.working-directory}}
+      
+      - name: Zip the asset into a zip file
+        id: zip_asset
+        run: |
+          7z a -tzip MyConsoleApp-${{ matrix.os }}-v${{ env.version }}.zip Release*
+        working-directory: ${{env.working-directory}}
+      
+      - name: List all files
+        run: |
+          ls -R
+        working-directory: ${{env.working-directory}}
+
+      - name: Upload binaries to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          files: "App*"
+          upload_url: ${{ env.upoad_url }}
+          asset_path: ${{env.working-directory}}/my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip
+          asset_name: my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip
+          asset_content_type: application/octet-stream
