@@ -19,11 +19,10 @@ jobs:
            dotnet-version: 5.0.x
       - name: Generate coverage report
         run: |
-          dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-          dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
           dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+          dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+          dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
       - name: Publish coverage report to coveralls.io
-        uses: coverallsapp/github-action@v1.0.1
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.PERSONAL_TOKEN }}
-          path-to-lcov: ./TestResults/coverage.info   
