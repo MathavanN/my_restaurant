@@ -2,14 +2,17 @@ name: .NET Build
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ develop ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+       os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -17,34 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Install MyRestaurant.Models dependencies
-      run: dotnet restore ./MyRestaurant.Models/MyRestaurant.Models.csproj
-    - name: Install MyRestaurant.Core dependencies
-      run: dotnet restore ./MyRestaurant.Core/MyRestaurant.Core.csproj
-    - name: Install MyRestaurant.Services dependencies
-      run: dotnet restore ./MyRestaurant.Services/MyRestaurant.Services.csproj
-    - name: Install MyRestaurant.Business dependencies
-      run: dotnet restore ./MyRestaurant.Business/MyRestaurant.Business.csproj
-    - name: Install MyRestaurant.Api dependencies
-      run: dotnet restore ./MyRestaurant.Api/MyRestaurant.Api.csproj
-    - name: Build MyRestaurant.Models
-      run: dotnet build ./MyRestaurant.Models/MyRestaurant.Models.csproj
-    - name: Build MyRestaurant.Core
-      run: dotnet build ./MyRestaurant.Core/MyRestaurant.Core.csproj
-    - name: Build MyRestaurant.Services
-      run: dotnet build ./MyRestaurant.Services/MyRestaurant.Services.csproj
-    - name: Build MyRestaurant.Business
-      run: dotnet build ./MyRestaurant.Business/MyRestaurant.Business.csproj
-    - name: Build MyRestaurant.Api
-      run: dotnet build ./MyRestaurant.Api/MyRestaurant.Api.csproj --configuration Release --no-restore
-    - name: Test MyRestaurant.Api.Test
-      run: dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj --no-restore --verbosity normal -- --coverage
-    - name: Test MyRestaurant.Business.Test
-      run: dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj --no-restore --verbosity normal -- --coverage
-    - name: Test MyRestaurant.Services.Test
-      run: dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj --no-restore --verbosity normal -- --coverage
-    - name: Upload Coverage to Codecov
-      uses: codecov/codecov-action@v1.2.1
-      with:
-        token: "{{secrets.CODECOV_TOKEN}}"
-        
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
