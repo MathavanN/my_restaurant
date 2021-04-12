@@ -1,15 +1,10 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Build and Release
 
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the develop branch
   pull_request:
     branches: [ master ]
     types: [labeled]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   check:
     name: Check PR merged Status and Label
@@ -105,7 +100,6 @@ jobs:
     needs: [tag, release]
     runs-on: ${{ matrix.os }}
     env:
-      working-directory: MyConsoleApp
       version: ${{ needs.tag.outputs.new_tag }}
       upoad_url: ${{ needs.release.outputs.upload_url }}
     strategy:
@@ -116,33 +110,20 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x
-      - name: Clean
-        run: dotnet clean && dotnet nuget locals all --clear
-        working-directory: ${{env.working-directory}}
+          dotnet-version: 5.0.201
       - name: Install dependencies
         run: dotnet restore
-        working-directory: ${{env.working-directory}}
       - name: Build
         run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
-        working-directory: ${{env.working-directory}}
       - name: Test
         run: dotnet test --no-restore --verbosity normal
-        working-directory: ${{env.working-directory}}
       - name: Publish
         run: dotnet publish --no-build --configuration Release -o Release MyConsoleApp
-        working-directory: ${{env.working-directory}}
       
       - name: Zip the asset into a zip file
         id: zip_asset
         run: |
-          7z a -tzip MyConsoleApp-${{ matrix.os }}-v${{ env.version }}.zip Release*
-        working-directory: ${{env.working-directory}}
-      
-      - name: List all files
-        run: |
-          ls -R
-        working-directory: ${{env.working-directory}}
+          7z a -tzip my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip Release*
 
       - name: Upload binaries to release
         uses: actions/upload-release-asset@v1
