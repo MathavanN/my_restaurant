@@ -104,7 +104,7 @@ jobs:
       upoad_url: ${{ needs.release.outputs.upload_url }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core
