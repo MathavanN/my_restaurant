@@ -92,7 +92,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           tag_name: ${{ env.new_tag }}
-          release_name: Release v${{ env.new_tag }}
+          release_name: v${{ env.new_tag }}
           body_path: CHANGELOG.md
       
   build:
@@ -104,7 +104,7 @@ jobs:
       upoad_url: ${{ needs.release.outputs.upload_url }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core
@@ -118,7 +118,7 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
-        run: dotnet publish --no-build --configuration Release -o Release my_restaurant
+        run: dotnet publish --no-build --configuration Release -o Release
       
       - name: Zip the asset into a zip file
         id: zip_asset
