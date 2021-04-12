@@ -118,7 +118,7 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
-        run: dotnet publish --no-build --configuration Release -o Release my_restaurant
+        run: dotnet publish --no-build --configuration Release -o Release
       
       - name: Zip the asset into a zip file
         id: zip_asset
