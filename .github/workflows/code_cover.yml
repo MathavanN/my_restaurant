@@ -1,0 +1,46 @@
+name: Code coverage
+ 
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop, main ]
+ 
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+           dotnet-version: 5.0.x
+      - name: Service Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.Test.coverage.info /p:CoverletOutputFormat=lcov
+      - name: Publish Service Project coverage report to coveralls.io
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/coverage/Service.Test.coverage.info
+      - name: Business Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Business.Test.coverage.info /p:CoverletOutputFormat=lcov
+      - name: Publish Business Project coverage report to coveralls.io
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/coverage/Business.Test.coverage.info
+      - name: API Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Api.Test.coverage.info /p:CoverletOutputFormat=lcov
+      - name: List all files
+        run: |
+          ls -R
+      - name: Publish API Project coverage report to coveralls.io
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/coverage/Api.Test.coverage.info
