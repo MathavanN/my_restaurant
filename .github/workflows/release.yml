@@ -3,7 +3,7 @@ name: Build and Release
 on:
   pull_request:
     branches: [ master ]
-    types: [labeled]
+    types: [closed]
 
 jobs:
   check:
