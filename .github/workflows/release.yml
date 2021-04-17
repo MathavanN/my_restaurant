@@ -133,6 +133,11 @@ jobs:
         id: publish_stage
         run: |
           echo ::set-output name=PUBLISH_CAN_CREATE::${{ env.release_created }}
+      -name: Print if condition results
+        run: |
+          echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE }}
+          echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+          echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == true }}
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.new_tag }}
