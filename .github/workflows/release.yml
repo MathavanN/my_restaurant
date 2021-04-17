@@ -139,7 +139,7 @@ jobs:
         with:
           dotnet-version: 5.0.201
       - name: Install dependencies
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == true
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         run: dotnet restore
       - name: Build
         if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
