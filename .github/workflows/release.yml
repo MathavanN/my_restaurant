@@ -62,15 +62,11 @@ jobs:
       tag_part: ${{ steps.tag_version.outputs.part }}
     runs-on: ubuntu-latest
     steps:
-      - name: PR Status Output
-        id: tag_stage
-        run: |
-          echo ::set-output name=TAG_CAN_CREATE::${{ env.pr_merged }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Create a tag
-        if: ${{ steps.tag_stage.outputs.TAG_CAN_CREATE == 'true' }}
+        if: ${{ env.pr_merged == 'true' }}
         id: tag_version
         uses: anothrNick/github-tag-action@1.35.0
         env:
@@ -95,14 +91,10 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
       release_created: ${{ steps.release_status.outputs.RELEASE_CREATED }}
     steps:
-      - name: PR Label Status Output
-        id: release_stage
-        run: |
-          echo ::set-output name=RELEASE_CAN_CREATE::${{ env.pr_label_has_safe_to_release }}
       - uses: actions/checkout@v2
       - name: Create a GitHub release
         uses: actions/create-release@v1
-        if: ${{ steps.release_stage.outputs.RELEASE_CAN_CREATE == 'true' }}
+        if: ${{ env.pr_label_has_safe_to_release == 'true' }}
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
@@ -129,44 +121,35 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-      - name: Release Status Output
-        id: publish_stage
-        run: |
-          echo ::set-output name=PUBLISH_CAN_CREATE::${{ env.release_created }}
-      - name: Print if condition results
-        run: |
-          echo ${{ env.release_created == 'true' }}
-          echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
-          echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == true }}
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.new_tag }}
       - name: Setup .NET Core
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.201
       - name: Install dependencies
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         run: dotnet restore
       - name: Build
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
       - name: Test
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         run: dotnet publish --no-build --configuration Release -o Release
       
       - name: Zip the asset into a zip file
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         id: zip_asset
         run: |
           7z a -tzip my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip Release*
       - name: Upload binaries to release
         uses: actions/upload-release-asset@v1
-        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
+        if: ${{ env.release_created == 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
