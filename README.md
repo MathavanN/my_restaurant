@@ -1,4 +1,4 @@
-# my_restaurant
+# My_Restaurant
 Restaurant Management API System
 
 ## _API for Restaurant Management System_
