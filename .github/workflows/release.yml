@@ -23,18 +23,34 @@ jobs:
           echo ::set-output name=PR_LABEL_HAS_SAFE_TO_RELEASE::${{ contains(github.event.pull_request.labels.*.name, 'safe to release') }}
           echo ::set-output name=CURRENT_BRANCH::${GITHUB_REF#refs/*/}
           echo ::set-output name=EVENT_NUMBER::${{ github.event.number }}
-      - name: Check PR Status
+      - name: Display PR Status
         run: |
           echo ${{ steps.pr_status.outputs.PR_MERGED }}
           echo ${{ steps.pr_status.outputs.PR_LABEL_HAS_SAFE_TO_RELEASE }}
           echo ${{ steps.pr_status.outputs.CURRENT_BRANCH }}
           echo ${{ steps.pr_status.outputs.EVENT_NUMBER }}
   
+  build:
+    name: Build the app
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.201
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
   tag: 
     name: Create a tag
-    needs: check
+    needs: [check, build]
     env:
-      working-directory: my_restaurant
       pr_merged: ${{ needs.check.outputs.pr_merged }}
       pr_label_has_safe_to_release: ${{ needs.check.outputs.pr_label_has_safe_to_release }}
       current_branch: ${{ needs.check.outputs.current_branch }}
@@ -45,16 +61,15 @@ jobs:
       tag_part: ${{ steps.tag_version.outputs.part }}
     runs-on: ubuntu-latest
     steps:
-      - name: Run a multi-line script
+      - name: PR Status Output
+        id: tag_stage
         run: |
-           if [ ${{env.pr_merged}} = false ]; then
-             echo "PR Not merged...."
-             exit 1
-           fi
+          echo ::set-output name=TAG_CAN_CREATE::${{ env.pr_merged }}
       - uses: actions/checkout@v2
         with:
-          fetch-depth: '0'
+          fetch-depth: 0
       - name: Create a tag
+        if: steps.tag_stage.outputs.TAG_CAN_CREATE == true
         id: tag_version
         uses: anothrNick/github-tag-action@1.35.0
         env:
@@ -67,9 +82,8 @@ jobs:
   release:
     name: Create single release for all build_release
     runs-on: ubuntu-latest
-    needs: [check, tag]
+    needs: [check, build, tag]
     env:
-      working-directory: my_restaurant
       pr_merged: ${{ needs.check.outputs.pr_merged }}
       pr_label_has_safe_to_release: ${{ needs.check.outputs.pr_label_has_safe_to_release }}
       new_tag: ${{ needs.tag.outputs.new_tag }}
@@ -77,16 +91,16 @@ jobs:
       tag_part: ${{ needs.tag.outputs.part }}
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      release_created: ${{ steps.release_status.outputs.RELEASE_CREATED }}
     steps:
-      - name: Run a multi-line script
+      - name: PR Label Status Output
+        id: release_stage
         run: |
-           if [ ${{env.pr_label_has_safe_to_release}} = false ]; then
-             echo "PR not Labeled for safe to release ...."
-             exit 1
-           fi
+          echo ::set-output name=RELEASE_CAN_CREATE::${{ env.pr_label_has_safe_to_release }}
       - uses: actions/checkout@v2
       - name: Create a GitHub release
         uses: actions/create-release@v1
+        if: steps.release_stage.outputs.RELEASE_CAN_CREATE == true
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
@@ -94,39 +108,58 @@ jobs:
           tag_name: ${{ env.new_tag }}
           release_name: v${{ env.new_tag }}
           body_path: CHANGELOG.md
+      - name: Set Release Status
+        id: release_status
+        run: |
+          echo ::set-output name=RELEASE_CREATED::${{ env.pr_label_has_safe_to_release }}
       
-  build:
+  publish:
     name: Create cross-platform release builds, and upload binaries
     needs: [tag, release]
     runs-on: ${{ matrix.os }}
     env:
+      release_created: ${{ needs.release.outputs.release_created }}
+      new_tag: ${{ needs.tag.outputs.new_tag }}
       version: ${{ needs.tag.outputs.new_tag }}
       upoad_url: ${{ needs.release.outputs.upload_url }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
+      - name: Release Status Output
+        id: publish_stage
+        run: |
+          echo ::set-output name=PUBLISH_CAN_CREATE::${{ env.release_created }}
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.new_tag }}
       - name: Setup .NET Core
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.201
       - name: Install dependencies
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         run: dotnet restore
       - name: Build
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
       - name: Test
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         run: dotnet publish --no-build --configuration Release -o Release
       
       - name: Zip the asset into a zip file
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         id: zip_asset
         run: |
           7z a -tzip my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip Release*
 
       - name: Upload binaries to release
         uses: actions/upload-release-asset@v1
+        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == true
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
