@@ -13,10 +13,3 @@
 ## Change Log
 
 - Initial release
-
-
-## License
-
-MIT
-
-**Free Software, Hell Yeah!**
