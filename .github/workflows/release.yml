@@ -134,31 +134,31 @@ jobs:
         with:
           ref: ${{ env.new_tag }}
       - name: Setup .NET Core
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.201
       - name: Install dependencies
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == true
         run: dotnet restore
       - name: Build
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
       - name: Test
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         run: dotnet publish --no-build --configuration Release -o Release
       
       - name: Zip the asset into a zip file
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         id: zip_asset
         run: |
           7z a -tzip my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip Release*
       - name: Upload binaries to release
         uses: actions/upload-release-asset@v1
-        if: steps.release_stage.outputs.PUBLISH_CAN_CREATE == 'true'
+        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
