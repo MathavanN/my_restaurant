@@ -70,7 +70,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Create a tag
-        if: steps.tag_stage.outputs.TAG_CAN_CREATE == "true"
+        if: ${{ steps.tag_stage.outputs.TAG_CAN_CREATE == 'true' }}
         id: tag_version
         uses: anothrNick/github-tag-action@1.35.0
         env:
@@ -102,7 +102,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create a GitHub release
         uses: actions/create-release@v1
-        if: steps.release_stage.outputs.RELEASE_CAN_CREATE == "true"
+        if: ${{ steps.release_stage.outputs.RELEASE_CAN_CREATE == 'true' }}
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
@@ -137,31 +137,31 @@ jobs:
         with:
           ref: ${{ env.new_tag }}
       - name: Setup .NET Core
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.201
       - name: Install dependencies
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         run: dotnet restore
       - name: Build
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
       - name: Test
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         run: dotnet publish --no-build --configuration Release -o Release
       
       - name: Zip the asset into a zip file
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         id: zip_asset
         run: |
           7z a -tzip my_restaurant-${{ matrix.os }}-v${{ env.version }}.zip Release*
       - name: Upload binaries to release
         uses: actions/upload-release-asset@v1
-        if: steps.publish_stage.outputs.PUBLISH_CAN_CREATE == "true"
+        if: ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
