@@ -133,7 +133,7 @@ jobs:
         id: publish_stage
         run: |
           echo ::set-output name=PUBLISH_CAN_CREATE::${{ env.release_created }}
-      -name: Print if condition results
+      - name: Print if condition results
         run: |
           echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE }}
           echo ${{ steps.publish_stage.outputs.PUBLISH_CAN_CREATE == 'true' }}
