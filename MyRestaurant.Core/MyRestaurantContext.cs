@@ -70,7 +70,9 @@ namespace MyRestaurant.Core
         public DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
         public DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
-
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionType> TransactionTypes { get; set; }
+        
         public void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
         {
             Set<TEntity>().Add(entity);
