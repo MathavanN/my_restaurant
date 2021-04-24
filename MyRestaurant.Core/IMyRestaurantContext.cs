@@ -24,6 +24,8 @@ namespace MyRestaurant.Core
         DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
         DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
         DbSet<PaymentType> PaymentTypes { get; set; }
+        DbSet<Transaction> Transactions { get; set; }
+        DbSet<TransactionType> TransactionTypes { get; set; }
         void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         TEntity Modify<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
         void Delete<TEntity>(TEntity entity) where TEntity : MyRestaurantObject;
