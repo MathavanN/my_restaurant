@@ -11,6 +11,7 @@ namespace MyRestaurant.Models
         public decimal Amount { get; set; }
         public string Description { get; set; }
         public Cashflow Cashflow { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public virtual PaymentType PaymentType { get; set; }
         public virtual TransactionType TransactionType { get; set; }

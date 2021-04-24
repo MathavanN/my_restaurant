@@ -16,6 +16,7 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.Property(e => e.Date).HasColumnType("datetime").IsRequired();
             builder.Property(e => e.Amount).HasColumnType("decimal(18, 2)").IsRequired();
             builder.Property(e => e.Description).HasColumnType("varchar(500)").IsRequired().HasMaxLength(500);
+            builder.Property(e => e.CreatedAt).HasColumnType("datetime").IsRequired();
 
             builder.HasOne(d => d.PaymentType)
                 .WithMany(p => p.Transactions)
