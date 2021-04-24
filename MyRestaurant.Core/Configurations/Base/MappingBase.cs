@@ -16,4 +16,6 @@ namespace MyRestaurant.Core.Configurations.Base
     public abstract class GoodsReceivedNoteMappingBase : BaseEntityTypeConfiguration<GoodsReceivedNote> { }
     public abstract class GoodsReceivedNoteItemMappingBase : BaseEntityTypeConfiguration<GoodsReceivedNoteItem> { }
     public abstract class GoodsReceivedNoteFreeItemMappingBase : BaseEntityTypeConfiguration<GoodsReceivedNoteFreeItem> { }
+    public abstract class TransactionTypeMappingBase : BaseEntityTypeConfiguration<TransactionType> { }
+    public abstract class TransactionMappingBase : BaseEntityTypeConfiguration<Transaction> { }
 }
