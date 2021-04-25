@@ -1,5 +1,7 @@
-﻿using MyRestaurant.Core;
+﻿using Microsoft.AspNetCore.Identity;
+using MyRestaurant.Core;
 using MyRestaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -66,6 +68,34 @@ namespace MyRestaurant.Services.Tests
                     }
                 }
                 context.UserRoles.AddRange(userRoles);
+                context.SaveChanges();
+            }
+
+            if (!context.UserClaims.Any())
+            {
+                var dbUsers = context.Users.ToList();
+                var claims = new List<IdentityUserClaim<Guid>> { };
+                foreach (var user in dbUsers)
+                {
+                    if (user.FirstName == "Golden")
+                    {
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = superAdmin.Name });
+                    }
+                    if (user.FirstName == "Admin")
+                    {
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = admin.Name });
+                    }
+                    if (user.FirstName == "Report")
+                    {
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = report.Name });
+                    }
+                    if (user.FirstName == "Normal")
+                    {
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = normal.Name });
+                    }
+                }
+                
+                context.UserClaims.AddRange(claims);
                 context.SaveChanges();
             }
         }
