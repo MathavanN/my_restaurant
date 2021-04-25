@@ -25,7 +25,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var dbUnitOfMeasure = await _unitOfMeasure.GetUnitOfMeasureAsync(d => d.Code == code && d.Id != id);
             if (dbUnitOfMeasure != null)
-                throw new RestException(HttpStatusCode.Conflict, $"Unit Of Measure {code} is already available.");
+                throw new RestException(HttpStatusCode.Conflict, $"Unit of measure \"{code}\" is already available.");
         }
 
         public async Task<GetUnitOfMeasureDto> CreateUnitOfMeasureAsync(CreateUnitOfMeasureDto unitOfMeasureDto)
