@@ -4,6 +4,7 @@ using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -24,6 +25,7 @@ namespace MyRestaurant.Business.Repositories
         public async Task<GetTransactionDto> CreateTransactionAsync(CreateTransactionDto transactionDto)
         {
             var transaction = _mapper.Map<Transaction>(transactionDto);
+            transaction.CreatedAt = DateTime.Now;
             transaction = await _transaction.AddTransactionAsync(transaction);
 
             return _mapper.Map<GetTransactionDto>(transaction);
