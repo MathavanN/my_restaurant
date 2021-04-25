@@ -54,6 +54,8 @@ namespace MyRestaurant.Core
             builder.ApplyConfiguration(new GoodsReceivedNoteMapping());
             builder.ApplyConfiguration(new GoodsReceivedNoteItemMapping());
             builder.ApplyConfiguration(new GoodsReceivedNoteFreeItemMapping());
+            builder.ApplyConfiguration(new TransactionTypeMapping());
+            builder.ApplyConfiguration(new TransactionMapping());
         }
 
         public DbSet<Audit> Audits { get; set; }
