@@ -58,8 +58,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Date = DateTime.Now.AddDays(-2),
                 Description = "Interest from Deposit",
                 Amount = 456.5m,
-                Cashflow = "Income",
-                CreatedAt = DateTime.Now
+                Cashflow = "Income"
             };
 
             CreatedNewTransaction = new Transaction
@@ -83,8 +82,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Date = DateTime.Now.AddDays(-5),
                 Description = "Income from sale",
                 Amount = 10110.5m,
-                Cashflow = "Income",
-                CreatedAt = DateTime.Now
+                Cashflow = "Income"
             };
         }
 
