@@ -1,4 +1,5 @@
-﻿using MyRestaurant.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using MyRestaurant.Core;
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,11 @@ namespace MyRestaurant.Services
         {
             _context.Create(transaction);
             await _context.CommitAsync();
-            return transaction;
+
+            return await _context.Transactions
+                .Include(p => p.TransactionType)
+                .Include(p => p.PaymentType)
+                .FirstOrDefaultAsync(e => e.Id == transaction.Id);
         }
 
         public async Task DeleteTransactionAsync(Transaction transaction)

@@ -24,7 +24,7 @@ namespace MyRestaurant.Services
             return await _context.GoodsReceivedNoteItems
                 .Include(p => p.Item)
                 .Include(p => p.GoodsReceivedNote)
-                .SingleOrDefaultAsync(e => e.Id == goodsReceivedNoteItem.Id);
+                .FirstOrDefaultAsync(e => e.Id == goodsReceivedNoteItem.Id);
         }
 
         public async Task<IEnumerable<GoodsReceivedNoteItem>> GetGoodsReceivedNoteItemsAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression) => await _context.GetAllAsync(expression);

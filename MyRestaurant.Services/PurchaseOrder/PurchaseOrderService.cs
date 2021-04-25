@@ -24,7 +24,7 @@ namespace MyRestaurant.Services
             return await _context.PurchaseOrders
                 .Include(p => p.Supplier)
                 .Include(p => p.RequestedUser)
-                .SingleOrDefaultAsync(e => e.Id == order.Id);
+                .FirstOrDefaultAsync(e => e.Id == order.Id);
         }
 
         public async Task DeletePurchaseOrderAsync(PurchaseOrder order)

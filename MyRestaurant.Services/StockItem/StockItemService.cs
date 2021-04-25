@@ -26,7 +26,7 @@ namespace MyRestaurant.Services
             return await _context.StockItems
                 .Include(p => p.Type)
                 .Include(p => p.UnitOfMeasure)
-                .SingleOrDefaultAsync(e => e.Id == stockItem.Id);
+                .FirstOrDefaultAsync(e => e.Id == stockItem.Id);
         }
 
         public async Task DeleteStockItemAsync(StockItem stockItem)
