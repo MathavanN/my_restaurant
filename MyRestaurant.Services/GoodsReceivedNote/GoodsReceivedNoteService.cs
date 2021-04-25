@@ -25,7 +25,7 @@ namespace MyRestaurant.Services
                 .Include(p => p.PaymentType)
                 .Include(p => p.PurchaseOrder)
                 .Include(p => p.ReceivedUser)
-                .SingleOrDefaultAsync(e => e.Id == goodsReceivedNote.Id);
+                .FirstOrDefaultAsync(e => e.Id == goodsReceivedNote.Id);
         }
 
         public async Task DeleteGoodsReceivedNoteAsync(GoodsReceivedNote goodsReceivedNote)
