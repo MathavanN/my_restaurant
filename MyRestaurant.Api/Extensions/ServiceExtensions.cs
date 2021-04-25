@@ -15,10 +15,10 @@ using Microsoft.IdentityModel.Tokens;
 using MyRestaurant.Api.Middleware;
 using MyRestaurant.Api.PolicyHandlers;
 using MyRestaurant.Api.Swagger;
-using MyRestaurant.Api.Validators.V1;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories;
 using MyRestaurant.Business.Repositories.Contracts;
+using MyRestaurant.Business.Validators.V1;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
@@ -179,6 +179,8 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IGoodsReceivedNoteRepository, GoodsReceivedNoteRepository>();
             services.AddScoped<IGoodsReceivedNoteItemRepository, GoodsReceivedNoteItemRepository>();
             services.AddScoped<IGoodsReceivedNoteFreeItemRepository, GoodsReceivedNoteFreeItemRepository>();
+            services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
@@ -197,6 +199,8 @@ namespace MyRestaurant.Api.Extensions
             services.AddScoped<IGoodsReceivedNoteService, GoodsReceivedNoteService>();
             services.AddScoped<IGoodsReceivedNoteItemService, GoodsReceivedNoteItemService>();
             services.AddScoped<IGoodsReceivedNoteFreeItemService, GoodsReceivedNoteFreeItemService>();
+            services.AddScoped<ITransactionTypeService, TransactionTypeService>();
+            services.AddScoped<ITransactionService, TransactionService>();
         }
         public static void ConfigureMSSQLContext(this IServiceCollection services, IConfiguration configuration)
         {
