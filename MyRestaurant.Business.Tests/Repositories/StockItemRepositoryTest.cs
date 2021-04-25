@@ -154,7 +154,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.Conflict);
-            exception.ErrorMessage.Should().Be("Stock Item is already available.");
+            exception.ErrorMessage.Should().Be("Stock item is already available.");
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 
@@ -219,7 +219,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.Conflict);
-            exception.ErrorMessage.Should().Be("Stock Item is already available.");
+            exception.ErrorMessage.Should().Be("Stock item is already available.");
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 

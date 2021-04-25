@@ -36,8 +36,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var result = await repository.GetRestaurantInfosAsync();
 
             //Assert
-            var uoms = result.Should().BeAssignableTo<IEnumerable<GetRestaurantInfoDto>>().Subject;
-            uoms.Should().HaveCount(1);
+            var information = result.Should().BeAssignableTo<IEnumerable<GetRestaurantInfoDto>>().Subject;
+            information.Should().HaveCount(1);
         }
 
         [Fact]

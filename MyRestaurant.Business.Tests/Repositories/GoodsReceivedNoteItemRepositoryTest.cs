@@ -39,8 +39,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var result = await repository.GetGoodsReceivedNoteItemsAsync(101);
 
             //Assert
-            var orders = result.Should().BeAssignableTo<IEnumerable<GetGoodsReceivedNoteItemDto>>().Subject;
-            orders.Should().HaveCount(2);
+            var items = result.Should().BeAssignableTo<IEnumerable<GetGoodsReceivedNoteItemDto>>().Subject;
+            items.Should().HaveCount(2);
         }
 
         [Fact]

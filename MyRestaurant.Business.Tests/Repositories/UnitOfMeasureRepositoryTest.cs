@@ -112,7 +112,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.Conflict);
-            exception.ErrorMessage.Should().Be("Unit Of Measure g is already available.");
+            exception.ErrorMessage.Should().Be("Unit of measure \"g\" is already available.");
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 
@@ -176,7 +176,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.Conflict);
-            exception.ErrorMessage.Should().Be("Unit Of Measure ml is already available.");
+            exception.ErrorMessage.Should().Be("Unit of measure \"ml\" is already available.");
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 

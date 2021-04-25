@@ -36,8 +36,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var result = await repository.GetServiceTypesAsync();
 
             //Assert
-            var uoms = result.Should().BeAssignableTo<IEnumerable<GetServiceTypeDto>>().Subject;
-            uoms.Should().HaveCount(2);
+            var serviceType = result.Should().BeAssignableTo<IEnumerable<GetServiceTypeDto>>().Subject;
+            serviceType.Should().HaveCount(2);
         }
 
         [Fact]
