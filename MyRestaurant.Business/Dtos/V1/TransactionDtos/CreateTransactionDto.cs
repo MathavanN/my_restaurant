@@ -10,6 +10,5 @@ namespace MyRestaurant.Business.Dtos.V1
         public decimal Amount { get; set; }
         public string Description { get; set; }
         public string Cashflow { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }
