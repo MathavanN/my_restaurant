@@ -22,7 +22,7 @@ jobs:
           dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj ^
           /p:CollectCoverage=true ^
           /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info ^
-          /p:CoverletOutputFormat=lcov ^
+          /p:CoverletOutputFormat=lcov 
        - name: Business Project coverage report
         run: |
           dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj ^
