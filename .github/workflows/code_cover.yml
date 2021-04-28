@@ -20,6 +20,9 @@ jobs:
       - name: Service Project coverage report
         run: |
           dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.Test.coverage.info /p:CoverletOutputFormat=lcov
+      - name: List all files
+        run: |
+          ls -R
       - name: Publish Service Project coverage report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
@@ -36,9 +39,7 @@ jobs:
       - name: API Project coverage report
         run: |
           dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Api.Test.coverage.info /p:CoverletOutputFormat=lcov
-      - name: List all files
-        run: |
-          ls -R
+      
       - name: Publish API Project coverage report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
