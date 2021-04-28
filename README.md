@@ -12,4 +12,4 @@ Restaurant Management API System
 [![codecov](https://codecov.io/gh/MathavanN/my_restaurant/branch/develop/graph/badge.svg?token=D2xsqWH637)](https://codecov.io/gh/MathavanN/my_restaurant)
 
 
-Test Coveralls
+Test Coveralls0
