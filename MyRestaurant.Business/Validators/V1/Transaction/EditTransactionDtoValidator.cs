@@ -20,5 +20,4 @@ namespace MyRestaurant.Business.Validators.V1
             RuleFor(x => x.Description).NotEmpty().MaximumLength(500).WithMessage("Description maximum length is 500.");
         }
     }
-
 }
