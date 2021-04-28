@@ -103,10 +103,10 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             var objectResult = result.Should().BeOfType<OkObjectResult>().Subject;
             objectResult.StatusCode.Should().Be(200);
 
-            var uom = objectResult.Value.Should().BeAssignableTo<GetStockTypeDto>().Subject;
-            uom.Id.Should().Be(2);
-            uom.Type.Should().Be("Beverage");
-            uom.Description.Should().Be("Beverage items to add");
+            var stockType = objectResult.Value.Should().BeAssignableTo<GetStockTypeDto>().Subject;
+            stockType.Id.Should().Be(2);
+            stockType.Type.Should().Be("Beverage");
+            stockType.Description.Should().Be("Beverage items to add");
         }
 
         [Fact]
