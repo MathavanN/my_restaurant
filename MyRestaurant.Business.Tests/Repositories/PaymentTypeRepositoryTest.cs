@@ -72,7 +72,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Act
             var exception = await Assert.ThrowsAsync<RestException>(() => repository.GetPaymentTypeAsync(id));
-            
+
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.NotFound);
             exception.ErrorMessage.Should().Be("Payment type not found.");

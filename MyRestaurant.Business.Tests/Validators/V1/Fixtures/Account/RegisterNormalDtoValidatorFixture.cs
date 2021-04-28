@@ -21,7 +21,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 ConfirmPassword = "test",
                 FirstName = "James",
                 LastName = "Vasanth",
-                Roles = new List<string> { "Report" , "Normal" }
+                Roles = new List<string> { "Report", "Normal" }
             };
         }
         public void Dispose()

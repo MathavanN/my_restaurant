@@ -35,7 +35,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                     ItemUnit = 250,
                     UnitOfMeasureCode = "g",
                     ItemUnitPrice = 540,
-                    Quantity = 5            
+                    Quantity = 5
                 },
                 new GetPurchaseOrderItemDto {
                     Id = 2,
@@ -71,7 +71,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                     ItemUnit = 5,
                     UnitOfMeasureCode = "kg",
                     ItemUnitPrice = 260,
-                    Quantity = 6 
+                    Quantity = 6
                 }
             };
 

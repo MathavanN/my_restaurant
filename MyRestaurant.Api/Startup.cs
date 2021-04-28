@@ -71,7 +71,7 @@ namespace MyRestaurant.Api
                     }
                 });
             }
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

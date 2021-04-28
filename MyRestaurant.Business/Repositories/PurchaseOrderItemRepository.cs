@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.Business.Repositories
 {
-    public class PurchaseOrderItemRepository : IPurchaseOrderItemRepository {
+    public class PurchaseOrderItemRepository : IPurchaseOrderItemRepository
+    {
         private readonly IMapper _mapper;
         private readonly IPurchaseOrderItemService _purchaseOrderItem;
         public PurchaseOrderItemRepository(IMapper mapper, IPurchaseOrderItemService purchaseOrderItem)

@@ -61,7 +61,7 @@ namespace MyRestaurant.Business.AutoMapping
                 .ForMember(d => d.UnitOfMeasureCode, opt => opt.MapFrom(src => src.UnitOfMeasure.Code));
             CreateMap<PurchaseOrder, GetPurchaseOrderDto>()
                 .ForMember(d => d.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name))
-                .ForMember(d => d.RequestedUserName, opt => opt.MapFrom(src => $"{src.RequestedUser.FirstName} {src.RequestedUser.LastName}" ))
+                .ForMember(d => d.RequestedUserName, opt => opt.MapFrom(src => $"{src.RequestedUser.FirstName} {src.RequestedUser.LastName}"))
                 .ForMember(d => d.RequestedUserId, opt => opt.MapFrom(src => src.RequestedUser.Id))
                 .ForMember(d => d.ApprovedUserName, opt => opt.MapFrom(src => $"{src.ApprovedUser.FirstName} {src.ApprovedUser.LastName}"))
                 .ForMember(d => d.ApprovedUserId, opt => opt.MapFrom(src => src.ApprovedUser.Id));

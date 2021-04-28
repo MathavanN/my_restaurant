@@ -12,7 +12,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
         public EditTransactionDtoValidatorFixture()
         {
             Validator = new EditTransactionDtoValidator();
-            
+
             Model = new EditTransactionDto
             {
                 TransactionTypeId = 2,

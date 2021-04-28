@@ -18,7 +18,7 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.HasIndex(e => new { e.Name, e.TypeId, e.UnitOfMeasureId, e.ItemUnit }, "IX_StockItems").IsUnique();
             builder.Property(e => e.Description).HasColumnType("varchar(500)");
             builder.ToTable("StockItems");
-            
+
             builder.HasOne(d => d.Type)
                 .WithMany(p => p.StockItems)
                 .HasForeignKey(d => d.TypeId)

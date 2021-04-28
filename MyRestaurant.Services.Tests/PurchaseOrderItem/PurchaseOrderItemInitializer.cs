@@ -12,7 +12,7 @@ namespace MyRestaurant.Services.Tests
             StockItemInitializer.Initialize(context);
             PurchaseOrderInitializer.Initialize(context);
 
-            if(!context.PurchaseOrderItems.Any())
+            if (!context.PurchaseOrderItems.Any())
             {
                 var items = new List<PurchaseOrderItem>
                 {

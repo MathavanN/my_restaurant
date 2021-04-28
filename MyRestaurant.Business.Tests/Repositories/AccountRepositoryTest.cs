@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
@@ -12,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 

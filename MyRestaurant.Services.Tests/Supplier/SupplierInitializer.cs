@@ -16,7 +16,7 @@ namespace MyRestaurant.Services.Tests
                     new Supplier
                     {
                         Name = "ABC Pvt Ltd", Address1 = "American Mission School Road", Address2 = "Madduvil South",
-                        City = "Chavakachcheri", Country = "Sri Lanka", Telephone1 = "0765554345", Telephone2 = "0766554567", 
+                        City = "Chavakachcheri", Country = "Sri Lanka", Telephone1 = "0765554345", Telephone2 = "0766554567",
                         Fax = "", Email = "goldendining2010@gmail.com", ContactPerson = "James"
                     },
                     new Supplier
@@ -55,7 +55,7 @@ namespace MyRestaurant.Services.Tests
                         City = "Mullerchester", Country = "Sudan", Telephone1 = "192-637-6273", Telephone2 = "074-655-7364",
                         Fax = "311-587-2726", Email = "Alta.Bechtelar66@gmail.com", ContactPerson = "Emmalee"
                     },
-                    new Supplier 
+                    new Supplier
                     {
                         Name = "Political Organization", Address1 = "58204 Renner Divide", Address2 = "Maryland",
                         City = "North Nikko", Country = "Gabon", Telephone1 = "538-881-6913", Telephone2 = "932-546-7844",
@@ -69,7 +69,7 @@ namespace MyRestaurant.Services.Tests
                     },
                     new Supplier
                     {
-                        Name = "Executive Office", Address1 = "32433 Shaun Inlet", Address2 = "Florida", 
+                        Name = "Executive Office", Address1 = "32433 Shaun Inlet", Address2 = "Florida",
                         City = "Lueilwitzmouth", Country = "Switzerland", Telephone1 = "908-867-1023", Telephone2 = "730-452-3702",
                         Fax = "436-099-9286", Email = "Armand65@hotmail.com", ContactPerson = "Candace"
                     },
@@ -139,13 +139,13 @@ namespace MyRestaurant.Services.Tests
                         City = "Lombard", Country = "Norway", Telephone1 = "146-035-4135", Telephone2 = "079-664-5145",
                         Fax = "455-125-3578", Email = "Adelle.Abshire@hotmail.com", ContactPerson = "Hayden"
                     },
-                    new Supplier 
+                    new Supplier
                     {
                         Name = "Computer Software", Address1 = "8084 Noe Highway", Address2 = "South Dakota",
                         City = "New Leonieshire", Country = "Yemen", Telephone1 = "719-837-6088", Telephone2 = "493-282-1487",
                         Fax = "583-786-1752", Email = "Elody92@gmail.com", ContactPerson = "Macy"
                     },
-                    new Supplier 
+                    new Supplier
                     {
                         Name = "Banking", Address1 = "56290 Kovacek Underpass", Address2 = "Arkansas",
                         City = "North Richland Hills", Country = "Guatemala", Telephone1 = "967-857-5255", Telephone2 = "535-449-7505",

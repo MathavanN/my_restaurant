@@ -114,7 +114,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var repository = new PurchaseOrderItemRepository(AutoMapperSingleton.Mapper, _fixture.MockPurchaseOrderItemService.Object);
 
             //Act
-            var exception = await Assert.ThrowsAsync<RestException>(() => repository.CreatePurchaseOrderItemAsync(new CreatePurchaseOrderItemDto {
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.CreatePurchaseOrderItemAsync(new CreatePurchaseOrderItemDto
+            {
                 PurchaseOrderId = 202,
                 ItemId = 20024,
                 ItemUnitPrice = 350,
@@ -185,7 +186,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var repository = new PurchaseOrderItemRepository(AutoMapperSingleton.Mapper, _fixture.MockPurchaseOrderItemService.Object);
 
             //Act
-            var exception = await Assert.ThrowsAsync<RestException>(() => repository.UpdatePurchaseOrderItemAsync(id, new EditPurchaseOrderItemDto {
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.UpdatePurchaseOrderItemAsync(id, new EditPurchaseOrderItemDto
+            {
                 PurchaseOrderId = 202,
                 ItemId = 20024,
                 ItemUnitPrice = 260,

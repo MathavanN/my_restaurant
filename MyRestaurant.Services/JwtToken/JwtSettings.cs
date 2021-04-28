@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyRestaurant.Services
+﻿namespace MyRestaurant.Services
 {
     public class JwtSettings
     {

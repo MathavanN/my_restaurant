@@ -75,7 +75,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GenerateAccessToken_Returns_AccessToken() 
+        public async void GenerateAccessToken_Returns_AccessToken()
         {
             //Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");

@@ -20,7 +20,7 @@ namespace MyRestaurant.Business.Repositories
         private readonly IPurchaseOrderItemService _purchaseOrderItem;
         private readonly IGoodsReceivedNoteItemService _goodsReceivedNoteItem;
         private readonly IUserAccessorService _userAccessor;
-        public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote, 
+        public GoodsReceivedNoteRepository(IMapper mapper, IGoodsReceivedNoteService goodReceivedNote,
             IUserAccessorService userAccessor, IPurchaseOrderService purchaseOrder,
             IPurchaseOrderItemService purchaseOrderItem, IGoodsReceivedNoteItemService goodsReceivedNoteItem)
         {
@@ -46,7 +46,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var order = await _purchaseOrder.GetPurchaseOrderAsync(d => d.Id == purchaseOrderId);
 
-            if(order == null)
+            if (order == null)
                 throw new RestException(HttpStatusCode.NotFound, "Purchase order not found.");
 
             if (order.ApprovalStatus != Status.Approved)

@@ -4,7 +4,6 @@ using Moq;
 using MyRestaurant.Api.Controllers.V1;
 using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -24,9 +23,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             _fixture.MockSupplierRepository.Setup(x => x.GetSuppliersAsync(10, 0, "", "", ""))
-                .ReturnsAsync(_fixture.SupplierEnvelop); 
+                .ReturnsAsync(_fixture.SupplierEnvelop);
 
-             var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
+            var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
 
             //Act
             var result = await controller.GetSuppliers(10, 0, "", "", "");
