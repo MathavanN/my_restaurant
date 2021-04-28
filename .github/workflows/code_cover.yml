@@ -26,7 +26,7 @@ jobs:
       - name: Publish Service Project coverage report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          github-token: ${{ secrets.COVERALLS_TOKEN }}
           path-to-lcov: ${{ github.workspace }}/coverage/Service.Test.coverage.info
       - name: Business Project coverage report
         run: |
