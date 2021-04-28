@@ -10,3 +10,6 @@ Restaurant Management API System
 [![CodeFactor](https://www.codefactor.io/repository/github/mathavann/my_restaurant/badge)](https://www.codefactor.io/repository/github/mathavann/my_restaurant)
 
 [![codecov](https://codecov.io/gh/MathavanN/my_restaurant/branch/develop/graph/badge.svg?token=D2xsqWH637)](https://codecov.io/gh/MathavanN/my_restaurant)
+
+
+Test Coveralls
