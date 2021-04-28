@@ -9,7 +9,6 @@ namespace MyRestaurant.Services.Tests
 {
     public class UserInitializer
     {
-
         private static void RoleInitialize(MyRestaurantContext context)
         {
             var superAdmin = new Role { Name = "SuperAdmin" };
