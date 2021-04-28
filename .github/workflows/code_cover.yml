@@ -33,5 +33,5 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{ github.workspace }}/coverage/Service.info, ${{ github.workspace }}/coverage/Business.info, ${{ github.workspace }}/coverage/Api.info
+          files: ${{ github.workspace }}/coverage/Service.info,${{ github.workspace }}/coverage/Business.info,${{ github.workspace }}/coverage/Api.info
           directory: ${{ github.workspace }}/coverage/
