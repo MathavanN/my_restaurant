@@ -19,7 +19,7 @@ jobs:
            dotnet-version: 5.0.x
       - name: Service Project coverage report
         run: |
-          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info /p:CoverletOutputFormat=lcov 
+          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info /p:CoverletOutputFormat=lcov /p:Exclude="[*]MyRestaurant.Core.Migrations.*"
       - name: Business Project coverage report
         run: |
           dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Business.info /p:CoverletOutputFormat=lcov 
