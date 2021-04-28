@@ -9,7 +9,8 @@ namespace MyRestaurant.Services.Tests
 {
     public class UserInitializer
     {
-        public static void Initialize(MyRestaurantContext context)
+
+        private static void RoleInitialize(MyRestaurantContext context)
         {
             var superAdmin = new Role { Name = "SuperAdmin" };
             var admin = new Role { Name = "Admin" };
@@ -22,7 +23,10 @@ namespace MyRestaurant.Services.Tests
                 context.Roles.AddRange(roles);
                 context.SaveChanges();
             }
-
+        }
+        
+        private static void UserInitialize(MyRestaurantContext context)
+        {
             var superAdminUser = new User { FirstName = "Golden", LastName = "Dining", Email = "abc@gmail.com" };
             var adminUser = new User { FirstName = "Admin", LastName = "Access", Email = "admin@gmail.com" };
             var reportUser = new User { FirstName = "Report", LastName = "Access", Email = "report@gmail.com" };
@@ -30,16 +34,20 @@ namespace MyRestaurant.Services.Tests
 
             if (!context.Users.Any())
             {
-                superAdminUser.UserRoles.Add(new UserRole { User = superAdminUser, Role = superAdmin });
-                adminUser.UserRoles.Add(new UserRole { User = adminUser, Role = admin });
-                reportUser.UserRoles.Add(new UserRole { User = reportUser, Role = report });
-                normalUser.UserRoles.Add(new UserRole { User = normalUser, Role = normal });
+                var dbRoles = context.Roles.ToList();
+                superAdminUser.UserRoles.Add(new UserRole { User = superAdminUser, Role = dbRoles.FirstOrDefault(x => x.Name == "SuperAdmin") });
+                adminUser.UserRoles.Add(new UserRole { User = adminUser, Role = dbRoles.FirstOrDefault(x => x.Name == "Admin") });
+                reportUser.UserRoles.Add(new UserRole { User = reportUser, Role = dbRoles.FirstOrDefault(x => x.Name == "Report") });
+                normalUser.UserRoles.Add(new UserRole { User = normalUser, Role = dbRoles.FirstOrDefault(x => x.Name == "Normal") });
 
                 var users = new List<User> { superAdminUser, adminUser, reportUser, normalUser };
                 context.Users.AddRange(users);
                 context.SaveChanges();
             }
-
+        }
+        
+        private static void UserRoleInitialize(MyRestaurantContext context)
+        {
             if (!context.UserRoles.Any())
             {
                 var dbRoles = context.Roles.ToList();
@@ -70,7 +78,10 @@ namespace MyRestaurant.Services.Tests
                 context.UserRoles.AddRange(userRoles);
                 context.SaveChanges();
             }
-
+        }
+        
+        private static void UserClaimInitialize(MyRestaurantContext context)
+        {
             if (!context.UserClaims.Any())
             {
                 var dbUsers = context.Users.ToList();
@@ -79,25 +90,33 @@ namespace MyRestaurant.Services.Tests
                 {
                     if (user.FirstName == "Golden")
                     {
-                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = superAdmin.Name });
-                    }
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = "SuperAdmin" });
+                        }
                     if (user.FirstName == "Admin")
                     {
-                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = admin.Name });
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = "Admin" });
                     }
                     if (user.FirstName == "Report")
                     {
-                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = report.Name });
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = "Report" });
                     }
                     if (user.FirstName == "Normal")
                     {
-                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = normal.Name });
+                        claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = "Normal" });
                     }
                 }
-                
+
                 context.UserClaims.AddRange(claims);
                 context.SaveChanges();
             }
+        }
+
+        public static void Initialize(MyRestaurantContext context)
+        {
+            RoleInitialize(context);
+            UserInitialize(context);
+            UserRoleInitialize(context);
+            UserClaimInitialize(context);
         }
     }
 }
