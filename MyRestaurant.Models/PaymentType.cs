@@ -7,6 +7,7 @@ namespace MyRestaurant.Models
         public PaymentType()
         {
             GoodsReceivedNotes = new HashSet<GoodsReceivedNote>();
+            Transactions = new HashSet<Transaction>();
         }
 
         public int Id { get; set; }
@@ -14,5 +15,6 @@ namespace MyRestaurant.Models
         public int CreditPeriod { get; set; }
 
         public virtual ICollection<GoodsReceivedNote> GoodsReceivedNotes { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

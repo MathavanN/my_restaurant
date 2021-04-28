@@ -25,7 +25,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var dbStockType = await _stockType.GetStockTypeAsync(d => d.Type == type && d.Id != id);
             if (dbStockType != null)
-                throw new RestException(HttpStatusCode.Conflict, $"Stock Type {type} is already available.");
+                throw new RestException(HttpStatusCode.Conflict, $"Stock type \"{type}\" is already available.");
         }
 
         public async Task<GetStockTypeDto> CreateStockTypeAsync(CreateStockTypeDto stockTypeDto)

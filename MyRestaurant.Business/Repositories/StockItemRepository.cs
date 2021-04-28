@@ -28,7 +28,7 @@ namespace MyRestaurant.Business.Repositories
                                                                     && d.TypeId == typeId && d.UnitOfMeasureId == unitOfMeasureId
                                                                     && d.ItemUnit == itemUnit && d.Id != id);
             if (dbStockItem != null)
-                throw new RestException(HttpStatusCode.Conflict, $"Stock Item is already available.");
+                throw new RestException(HttpStatusCode.Conflict, $"Stock item is already available.");
         }
 
         public async Task<GetStockItemDto> CreateStockItemAsync(CreateStockItemDto stockItemDto)

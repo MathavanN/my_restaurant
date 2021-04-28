@@ -54,6 +54,8 @@ namespace MyRestaurant.Core
             builder.ApplyConfiguration(new GoodsReceivedNoteMapping());
             builder.ApplyConfiguration(new GoodsReceivedNoteItemMapping());
             builder.ApplyConfiguration(new GoodsReceivedNoteFreeItemMapping());
+            builder.ApplyConfiguration(new TransactionTypeMapping());
+            builder.ApplyConfiguration(new TransactionMapping());
         }
 
         public DbSet<Audit> Audits { get; set; }
@@ -70,7 +72,9 @@ namespace MyRestaurant.Core
         public DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
         public DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
-
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionType> TransactionTypes { get; set; }
+        
         public void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
         {
             Set<TEntity>().Add(entity);

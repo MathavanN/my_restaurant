@@ -74,13 +74,13 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
 
             //Assert
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
-            var item = okResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
+            var order = okResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
 
             okResult.StatusCode.Should().Be(200);
-            item.Id.Should().Be(id);
-            item.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
-            item.SupplierName.Should().Be("VBT Pvt Ltd");
-            item.ApprovalStatus.Should().Be("Pending");
+            order.Id.Should().Be(id);
+            order.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
+            order.SupplierName.Should().Be("VBT Pvt Ltd");
+            order.ApprovalStatus.Should().Be("Pending");
         }
 
         [Fact]
@@ -101,11 +101,11 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             objectResult.RouteValues["id"].Should().Be(4);
             objectResult.RouteValues["version"].Should().Be($"{_fixture.ApiVersion}");
 
-            var item = objectResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
-            item.Id.Should().Be(4);
-            item.OrderNumber.Should().Be("PO_20210216_8d8c512f7cd7920");
-            item.SupplierName.Should().Be("ABC Pvt Ldt");
-            item.ApprovalStatus.Should().Be("Pending");
+            var order = objectResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
+            order.Id.Should().Be(4);
+            order.OrderNumber.Should().Be("PO_20210216_8d8c512f7cd7920");
+            order.SupplierName.Should().Be("ABC Pvt Ldt");
+            order.ApprovalStatus.Should().Be("Pending");
         }
 
         [Fact]
@@ -125,11 +125,11 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             var objectResult = result.Should().BeOfType<OkObjectResult>().Subject;
             objectResult.StatusCode.Should().Be(200);
 
-            var item = objectResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
-            item.Id.Should().Be(id);
-            item.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
-            item.SupplierName.Should().Be("ABC Pvt Ldt");
-            item.ApprovalStatus.Should().Be("Pending");
+            var order = objectResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
+            order.Id.Should().Be(id);
+            order.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
+            order.SupplierName.Should().Be("ABC Pvt Ldt");
+            order.ApprovalStatus.Should().Be("Pending");
         }
 
         [Fact]
@@ -149,11 +149,11 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             var objectResult = result.Should().BeOfType<OkObjectResult>().Subject;
             objectResult.StatusCode.Should().Be(200);
 
-            var item = objectResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
-            item.Id.Should().Be(id);
-            item.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
-            item.SupplierName.Should().Be("ABC Pvt Ldt");
-            item.ApprovalStatus.Should().Be("Approved");
+            var order = objectResult.Value.Should().BeAssignableTo<GetPurchaseOrderDto>().Subject;
+            order.Id.Should().Be(id);
+            order.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
+            order.SupplierName.Should().Be("ABC Pvt Ldt");
+            order.ApprovalStatus.Should().Be("Approved");
         }
 
         [Fact]

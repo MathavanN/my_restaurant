@@ -36,8 +36,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var result = await repository.GetStockTypesAsync();
 
             //Assert
-            var uoms = result.Should().BeAssignableTo<IEnumerable<GetStockTypeDto>>().Subject;
-            uoms.Should().HaveCount(2);
+            var stockTypes = result.Should().BeAssignableTo<IEnumerable<GetStockTypeDto>>().Subject;
+            stockTypes.Should().HaveCount(2);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.Conflict);
-            exception.ErrorMessage.Should().Be("Stock Type Beverage is already available.");
+            exception.ErrorMessage.Should().Be("Stock type \"Beverage\" is already available.");
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 
@@ -176,7 +176,7 @@ namespace MyRestaurant.Business.Tests.Repositories
 
             //Assert
             exception.ErrorCode.Should().Be(HttpStatusCode.Conflict);
-            exception.ErrorMessage.Should().Be("Stock Type Grocery is already available.");
+            exception.ErrorMessage.Should().Be("Stock type \"Grocery\" is already available.");
             exception.ErrorType.Should().Be(HttpStatusCode.Conflict.ToString());
         }
 

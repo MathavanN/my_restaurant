@@ -24,7 +24,7 @@ namespace MyRestaurant.Services
             return await _context.PurchaseOrderItems
                 .Include(p => p.PurchaseOrder)
                 .Include(p => p.Item)
-                .SingleOrDefaultAsync(e => e.Id == orderItem.Id);
+                .FirstOrDefaultAsync(e => e.Id == orderItem.Id);
         }
 
         public async Task<IEnumerable<PurchaseOrderItem>> GetPurchaseOrderItemsAsync(Expression<Func<PurchaseOrderItem, bool>> expression) => await _context.GetAllAsync(expression);

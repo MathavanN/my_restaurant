@@ -39,6 +39,10 @@ namespace MyRestaurant.Business.AutoMapping
             CreateMap<EditGoodsReceivedNoteItemDto, GoodsReceivedNoteItem>();
             CreateMap<CreateGoodsReceivedNoteFreeItemDto, GoodsReceivedNoteFreeItem>();
             CreateMap<EditGoodsReceivedNoteFreeItemDto, GoodsReceivedNoteFreeItem>();
+            CreateMap<CreateTransactionTypeDto, TransactionType>();
+            CreateMap<EditTransactionTypeDto, TransactionType>();
+            CreateMap<CreateTransactionDto, Transaction>();
+            CreateMap<EditTransactionDto, Transaction>();
 
             //map from models to dto
             CreateMap<ServiceType, GetServiceTypeDto>();
@@ -86,6 +90,10 @@ namespace MyRestaurant.Business.AutoMapping
                 .ForMember(d => d.ItemName, opt => opt.MapFrom(src => src.Item.Name))
                 .ForMember(d => d.ItemUnit, opt => opt.MapFrom(src => src.Item.ItemUnit))
                 .ForMember(d => d.UnitOfMeasureCode, opt => opt.MapFrom(src => src.Item.UnitOfMeasure.Code));
+            CreateMap<TransactionType, GetTransactionTypeDto>();
+            CreateMap<Transaction, GetTransactionDto>()
+                .ForMember(d => d.TransactionType, opt => opt.MapFrom(src => src.TransactionType.Type))
+                .ForMember(d => d.PaymentType, opt => opt.MapFrom(src => src.PaymentType.Name));
         }
     }
 }

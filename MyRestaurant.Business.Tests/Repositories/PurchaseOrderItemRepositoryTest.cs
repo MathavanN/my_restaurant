@@ -40,8 +40,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var result = await repository.GetPurchaseOrderItemsAsync(101);
 
             //Assert
-            var orders = result.Should().BeAssignableTo<IEnumerable<GetPurchaseOrderItemDto>>().Subject;
-            orders.Should().HaveCount(2);
+            var items = result.Should().BeAssignableTo<IEnumerable<GetPurchaseOrderItemDto>>().Subject;
+            items.Should().HaveCount(2);
         }
 
         [Fact]
