@@ -7,7 +7,7 @@ on:
     branches: [ develop, main ]
  
 jobs:
-  build:
+  code_cover:
     
     runs-on: ubuntu-latest
  
@@ -19,29 +19,28 @@ jobs:
            dotnet-version: 5.0.x
       - name: Service Project coverage report
         run: |
-          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.Test.coverage.info /p:CoverletOutputFormat=lcov
+          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj ^
+          /p:CollectCoverage=true ^
+          /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info ^
+          /p:CoverletOutputFormat=lcov ^
+       - name: Business Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj ^
+          /p:CollectCoverage=true ^
+          /p:CoverletOutput=${{ github.workspace }}/coverage/Business.info ^
+          /p:CoverletOutputFormat=lcov 
+      - name: API Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj ^
+          /p:CollectCoverage=true ^
+          /p:CoverletOutput=${{ github.workspace }}/coverage/Api.info ^
+          /p:CoverletOutputFormat=lcov
       - name: List all files
         run: |
           ls -R
-      - name: Publish Service Project coverage report to coveralls.io
-        uses: coverallsapp/github-action@master
+      - name: Publish Business Project coverage report to codecov
+        uses: codecov/codecov-action@v1
         with:
-          github-token: ${{ secrets.COVERALLS_TOKEN }}
-          path-to-lcov: ${{ github.workspace }}/coverage/Service.Test.coverage.info
-      - name: Business Project coverage report
-        run: |
-          dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Business.Test.coverage.info /p:CoverletOutputFormat=lcov
-      - name: Publish Business Project coverage report to coveralls.io
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
-          path-to-lcov: ${{ github.workspace }}/coverage/Business.Test.coverage.info
-      - name: API Project coverage report
-        run: |
-          dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Api.Test.coverage.info /p:CoverletOutputFormat=lcov
-      
-      - name: Publish API Project coverage report to coveralls.io
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
-          path-to-lcov: ${{ github.workspace }}/coverage/Api.Test.coverage.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ github.workspace }}/coverage/Service.info, ./Business.info, ./Api.info
+          directory: ${{ github.workspace }}/coverage/
