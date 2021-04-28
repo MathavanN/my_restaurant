@@ -9,7 +9,6 @@ namespace MyRestaurant.Business.Validators.V1
         {
             RuleFor(x => x.Type).NotEmpty().WithMessage("Type is required.")
                 .MaximumLength(50).WithMessage("Type maximum length is 50.");
-
         }
     }
 }
