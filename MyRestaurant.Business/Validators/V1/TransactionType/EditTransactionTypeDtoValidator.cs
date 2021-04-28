@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MyRestaurant.Business.Dtos.V1;
 
-namespace MyRestaurant.Business.Validators.V1.TransactionType
+namespace MyRestaurant.Business.Validators.V1
 {
     public class EditTransactionTypeDtoValidator : AbstractValidator<EditTransactionTypeDto>
     {
