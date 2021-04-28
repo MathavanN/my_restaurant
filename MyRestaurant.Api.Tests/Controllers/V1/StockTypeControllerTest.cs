@@ -125,5 +125,5 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             var objectResult = result.Should().BeOfType<NoContentResult>().Subject;
             objectResult.StatusCode.Should().Be(204);
         }
-}
+    }
 }
