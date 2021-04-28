@@ -71,7 +71,7 @@ namespace MyRestaurant.Services
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }
-        
+
         public async Task<RefreshToken> GenerateRefreshToken(Guid userId, string ipAddress)
         {
             var token = GenerateToken(_jwtSettings.RefreshTokenSecret,
@@ -93,7 +93,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
             return refreshToken;
         }
-        
+
         public async Task<string> GenerateAccessToken(User user)
         {
             var claims = new List<Claim>
@@ -118,9 +118,9 @@ namespace MyRestaurant.Services
                 _jwtSettings.AccessTokenExpirationInMinutes,
                 claims);
         }
-        
+
         public async Task<RefreshToken> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
-        
+
         public async Task UpdateRefreshTokenAsync(RefreshToken token)
         {
             _context.Modify(token);

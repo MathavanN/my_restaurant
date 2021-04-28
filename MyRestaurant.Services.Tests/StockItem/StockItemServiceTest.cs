@@ -101,7 +101,8 @@ namespace MyRestaurant.Services.Tests
             var service = new StockItemService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddStockItemAsync(new StockItem {
+            var result = await service.AddStockItemAsync(new StockItem
+            {
                 Name = "Cream Soda",
                 TypeId = 2,
                 UnitOfMeasureId = 3,

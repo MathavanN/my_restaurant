@@ -29,7 +29,7 @@ namespace MyRestaurant.Business.Repositories
 
         private async Task<GoodsReceivedNoteFreeItem> GetGoodsReceivedNoteFreeItemById(long id)
         {
-            var item = await _goodsReceivedNoteFreeItem.GetGoodsReceivedNoteFreeItemAsync (d => d.Id == id);
+            var item = await _goodsReceivedNoteFreeItem.GetGoodsReceivedNoteFreeItemAsync(d => d.Id == id);
 
             if (item == null)
                 throw new RestException(HttpStatusCode.NotFound, "Goods received note free item not found.");

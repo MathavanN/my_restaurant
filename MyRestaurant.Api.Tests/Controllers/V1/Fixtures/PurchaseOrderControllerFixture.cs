@@ -27,7 +27,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
             PurchaseOrders = new List<GetPurchaseOrderDto>
             {
-                new GetPurchaseOrderDto { 
+                new GetPurchaseOrderDto {
                     Id = 1,
                     OrderNumber = "PO_20210130_8d8c510caee6a4b",
                     SupplierId = 1,
@@ -39,9 +39,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                     ApprovedUserId = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
                     ApprovedUserName = "Golden Dining",
                     ApprovedDate = DateTime.Now,
-                    Description = "Test" 
+                    Description = "Test"
                 },
-                new GetPurchaseOrderDto { 
+                new GetPurchaseOrderDto {
                     Id = 2,
                     OrderNumber = "PO_20210130_8d8c512f7cd7920",
                     SupplierId = 2,
@@ -53,7 +53,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                     ApprovedUserId = Guid.Empty,
                     ApprovedUserName = null,
                     ApprovedDate = default,
-                    Description = "" 
+                    Description = ""
                 },
                 new GetPurchaseOrderDto
                 {

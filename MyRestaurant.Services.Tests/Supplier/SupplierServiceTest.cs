@@ -140,7 +140,8 @@ namespace MyRestaurant.Services.Tests
             var service = new SupplierService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddSupplierAsync(new Supplier {
+            var result = await service.AddSupplierAsync(new Supplier
+            {
                 Name = "Jaffna Supplier Pvt Ltd",
                 Address1 = "Kandy Road",
                 Address2 = "Kaithady",

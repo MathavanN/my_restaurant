@@ -22,7 +22,7 @@ namespace MyRestaurant.Services
         {
             _context.Create(stockItem);
             await _context.CommitAsync();
-            
+
             return await _context.StockItems
                 .Include(p => p.Type)
                 .Include(p => p.UnitOfMeasure)
@@ -48,7 +48,7 @@ namespace MyRestaurant.Services
             {
                 TotalItems = stockItems.Count(),
                 ItemsPerPage = itemsPerPage,
-                Items = page == 0 ? stockItems.OrderBy(d => d.Name).AsQueryable().Take(itemsPerPage) : 
+                Items = page == 0 ? stockItems.OrderBy(d => d.Name).AsQueryable().Take(itemsPerPage) :
                                     stockItems.OrderBy(d => d.Name).AsQueryable().Skip(toSkip).Take(itemsPerPage),
             };
         }

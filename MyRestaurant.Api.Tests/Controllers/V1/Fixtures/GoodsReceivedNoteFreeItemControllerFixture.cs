@@ -26,8 +26,8 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             GoodsReceivedNoteFreeItems = new List<GetGoodsReceivedNoteFreeItemDto>
             {
                 new GetGoodsReceivedNoteFreeItemDto {
-                    Id = 1, 
-                    GoodsReceivedNoteId = 101, 
+                    Id = 1,
+                    GoodsReceivedNoteId = 101,
                     ItemTypeId = 6,
                     ItemTypeName = "Bevarage",
                     ItemId = 20052,

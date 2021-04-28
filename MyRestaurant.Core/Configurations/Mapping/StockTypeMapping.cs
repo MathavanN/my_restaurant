@@ -5,7 +5,8 @@ using MyRestaurant.Models;
 
 namespace MyRestaurant.Core.Configurations.Mapping
 {
-    internal class StockTypeMapping : StockTypeMappingBase {
+    internal class StockTypeMapping : StockTypeMappingBase
+    {
         public override void Configure(EntityTypeBuilder<StockType> builder)
         {
             builder.HasKey(e => e.Id);

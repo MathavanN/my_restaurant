@@ -20,9 +20,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
         public PaymentTypeControllerFixture()
         {
             ApiVersion = new ApiVersion(1, 0);
-            
+
             MockPaymentTypeRepository = new Mock<IPaymentTypeRepository>();
-            
+
             PaymentTypes = new List<GetPaymentTypeDto> {
                 new GetPaymentTypeDto { Id = 1, Name = "Cash", CreditPeriod = 0 },
                 new GetPaymentTypeDto { Id = 2, Name = "Credit", CreditPeriod = 30 }

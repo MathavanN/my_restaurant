@@ -63,7 +63,8 @@ namespace MyRestaurant.Services.Tests
             var service = new RestaurantInfoService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddRestaurantInfoAsync(new RestaurantInfo {
+            var result = await service.AddRestaurantInfoAsync(new RestaurantInfo
+            {
                 Name = "Golden Dining",
                 Address = "Kandy Road, Kaithady",
                 City = "Jaffna",

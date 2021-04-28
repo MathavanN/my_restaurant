@@ -74,7 +74,7 @@ namespace MyRestaurant.Core
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
-        
+
         public void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
         {
             Set<TEntity>().Add(entity);

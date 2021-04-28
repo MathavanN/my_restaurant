@@ -130,7 +130,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
             //Act
-            var exception = await Assert.ThrowsAsync<RestException>(() => repository.CreateSupplierAsync(new CreateSupplierDto {
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.CreateSupplierAsync(new CreateSupplierDto
+            {
                 Name = "VBT Pvt Ltd",
                 Address1 = "#03-46, Blk 687",
                 Address2 = "Hindu College Road",
@@ -205,7 +206,8 @@ namespace MyRestaurant.Business.Tests.Repositories
             var repository = new SupplierRepository(AutoMapperSingleton.Mapper, _fixture.MockSupplierService.Object);
 
             //Act
-            var exception = await Assert.ThrowsAsync<RestException>(() => repository.UpdateSupplierAsync(id, new EditSupplierDto { 
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.UpdateSupplierAsync(id, new EditSupplierDto
+            {
                 Name = "ABC Pvt Ltd",
                 Address1 = "American Mission School Road",
                 Address2 = "Madduvil South",

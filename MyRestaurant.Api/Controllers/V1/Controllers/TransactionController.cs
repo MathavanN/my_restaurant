@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class TransactionController : BaseApiController<TransactionController> 
+    public class TransactionController : BaseApiController<TransactionController>
     {
         private readonly ITransactionRepository _repository;
         public TransactionController(ITransactionRepository repository)

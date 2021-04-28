@@ -28,7 +28,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1
             result.ShouldHaveValidationErrorFor(x => x.Email)
                 .WithErrorMessage("Email is required.");
         }
-        
+
         [Fact]
         public void Should_Have_Error_When_Email_Is_Null()
         {

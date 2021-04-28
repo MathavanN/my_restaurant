@@ -65,7 +65,8 @@ namespace MyRestaurant.Services.Tests
             var service = new TransactionService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddTransactionAsync(new Transaction {
+            var result = await service.AddTransactionAsync(new Transaction
+            {
                 TransactionTypeId = 10,
                 PaymentTypeId = 1,
                 Date = DateTime.Now.AddDays(-2),

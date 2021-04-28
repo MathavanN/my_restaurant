@@ -27,7 +27,7 @@ namespace MyRestaurant.Services.Tests
                 AccessTokenExpirationInMinutes = 60,
                 RefreshTokenExpirationInMinutes = 43200
             });
-            
+
             Claims = new List<Claim> { };
         }
         static Mock<UserManager<TIDentityUser>> GetUserManagerMock<TIDentityUser>() where TIDentityUser : IdentityUser<Guid>

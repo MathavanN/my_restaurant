@@ -66,7 +66,8 @@ namespace MyRestaurant.Services.Tests
             var service = new GoodsReceivedNoteItemService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddGoodsReceivedNoteItemAsync(new GoodsReceivedNoteItem {
+            var result = await service.AddGoodsReceivedNoteItemAsync(new GoodsReceivedNoteItem
+            {
                 GoodsReceivedNoteId = goodsReceivedNoteId,
                 ItemId = 8,
                 ItemUnitPrice = 350,

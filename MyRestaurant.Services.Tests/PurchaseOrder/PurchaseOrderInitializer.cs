@@ -12,12 +12,12 @@ namespace MyRestaurant.Services.Tests
         {
             UserInitializer.Initialize(context);
             SupplierInitializer.Initialize(context);
-            
+
             if (!context.PurchaseOrders.Any())
             {
                 var orders = new List<PurchaseOrder>
                 {
-                    new PurchaseOrder 
+                    new PurchaseOrder
                     {
                         OrderNumber = "PO_20210130_8d8c510caee6a4b",
                         SupplierId = 1,
@@ -29,7 +29,7 @@ namespace MyRestaurant.Services.Tests
                         Description = "Test",
                         ApprovalReason = "Items are required"
                     },
-                    new PurchaseOrder 
+                    new PurchaseOrder
                     {
                         OrderNumber = "PO_20210130_8d8c512f7cd7920",
                         SupplierId = 2,

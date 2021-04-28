@@ -23,7 +23,7 @@ namespace MyRestaurant.Services.Tests
                 context.SaveChanges();
             }
         }
-        
+
         private static void UserInitialize(MyRestaurantContext context)
         {
             var superAdminUser = new User { FirstName = "Golden", LastName = "Dining", Email = "abc@gmail.com" };
@@ -44,7 +44,7 @@ namespace MyRestaurant.Services.Tests
                 context.SaveChanges();
             }
         }
-        
+
         private static void UserRoleInitialize(MyRestaurantContext context)
         {
             if (!context.UserRoles.Any())
@@ -78,7 +78,7 @@ namespace MyRestaurant.Services.Tests
                 context.SaveChanges();
             }
         }
-        
+
         private static void UserClaimInitialize(MyRestaurantContext context)
         {
             if (!context.UserClaims.Any())
@@ -90,7 +90,7 @@ namespace MyRestaurant.Services.Tests
                     if (user.FirstName == "Golden")
                     {
                         claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = "SuperAdmin" });
-                        }
+                    }
                     if (user.FirstName == "Admin")
                     {
                         claims.Add(new IdentityUserClaim<Guid> { UserId = user.Id, ClaimType = "AccessCategory", ClaimValue = "Admin" });

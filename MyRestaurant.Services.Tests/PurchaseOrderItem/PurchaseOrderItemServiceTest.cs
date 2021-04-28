@@ -67,7 +67,8 @@ namespace MyRestaurant.Services.Tests
             var service = new PurchaseOrderItemService(_myRestaurantContext);
 
             //Act
-            var result = await service.AddPurchaseOrderItemAsync(new PurchaseOrderItem {
+            var result = await service.AddPurchaseOrderItemAsync(new PurchaseOrderItem
+            {
                 PurchaseOrderId = 2,
                 ItemId = 7,
                 ItemUnitPrice = 350,
