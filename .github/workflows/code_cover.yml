@@ -13,13 +13,19 @@ jobs:
  
     steps:
       - uses: actions/checkout@v2
+      - name: Start dependencies (docker-compose)
+        run: |
+          docker-compose up -d
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
            dotnet-version: 5.0.x
       - name: Service Project coverage report
         run: |
-          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info /p:CoverletOutputFormat=lcov /p:Exclude="[*]MyRestaurant.Core.Migrations.*"
+          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info /p:CoverletOutputFormat=lcov 
+      - name: Seed Data Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.SeedData.Tests/MyRestaurant.SeedData.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/SeedData.info /p:CoverletOutputFormat=lcov 
       - name: Business Project coverage report
         run: |
           dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Business.info /p:CoverletOutputFormat=lcov 
@@ -33,5 +39,5 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{ github.workspace }}/coverage/Service.info,${{ github.workspace }}/coverage/Business.info,${{ github.workspace }}/coverage/Api.info
+          files: ${{ github.workspace }}/coverage/Service.info,${{ github.workspace }}/coverage/SeedData.info,${{ github.workspace }}/coverage/Business.info,${{ github.workspace }}/coverage/Api.info
           directory: ${{ github.workspace }}/coverage/
