@@ -1,15 +1,11 @@
 version: "3.9"
 
-networks:
-  app-network:
-
 services:
-  app-sqlserver:
-    image: "mcr.microsoft.com/mssql/server"
+  SQLServer:
+    image: mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-16.04
+    restart: unless-stopped
     ports:
-      - "1433:1433"
+      - '1433:1433'
     environment:
-        SA_PASSWORD: "1z2x3c!"
-        ACCEPT_EULA: "Y"
-    networks:
-      - app-network
+        - SA_PASSWORD: 1z2x3c!
+        - ACCEPT_EULA: Y
