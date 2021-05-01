@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyRestaurant.Business\MyRestaurant.Business.csproj" />
     <ProjectReference Include="..\MyRestaurant.Core\MyRestaurant.Core.csproj" />
+    <ProjectReference Include="..\MyRestaurant.SeedData\MyRestaurant.SeedData.csproj" />
     <ProjectReference Include="..\MyRestaurant.Services\MyRestaurant.Services.csproj" />
   </ItemGroup>
 

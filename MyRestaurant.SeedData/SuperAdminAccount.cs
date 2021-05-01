@@ -1,4 +1,4 @@
-﻿namespace MyRestaurant.Core
+﻿namespace MyRestaurant.SeedData
 {
     public class SuperAdminAccount
     {

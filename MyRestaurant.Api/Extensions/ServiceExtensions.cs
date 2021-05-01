@@ -20,6 +20,7 @@ using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Business.Validators.V1;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
+using MyRestaurant.SeedData;
 using MyRestaurant.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyRestaurant.Core;
+using MyRestaurant.SeedData;
 using Serilog;
 using System;
 
