@@ -16,6 +16,10 @@ jobs:
       - name: Start dependencies (docker-compose)
         run: |
           docker-compose up -d
+      - name: Wait for SqlServer Container
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
