@@ -10,7 +10,7 @@ namespace MyRestaurant.SeedData.Tests
         public readonly string ConnectionString;
         private readonly string _sereverName = "localhost";
         private readonly string _userName = "sa";
-        private readonly string _password = "1z2x3c!";
+        private readonly string _password = "MyStr@ngPassw0rd";
         private bool _disposed;
 
         public DatabaseFixture()
