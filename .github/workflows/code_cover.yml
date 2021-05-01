@@ -13,25 +13,32 @@ jobs:
  
     steps:
       - uses: actions/checkout@v2
+      - name: Start MSSQL in docker
+        run: |
+          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=MyStr@ngPassw0rd" -e "MSSQL_PID=Developer" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-16.04
+      - name: Wait for SqlServer Container
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
            dotnet-version: 5.0.x
       - name: Service Project coverage report
         run: |
-          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info /p:CoverletOutputFormat=lcov /p:Exclude="[*]MyRestaurant.Core.Migrations.*"
+          dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.info /p:CoverletOutputFormat=lcov
+      - name: Seed Data Project coverage report
+        run: |
+          dotnet test ./MyRestaurant.SeedData.Tests/MyRestaurant.SeedData.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/SeedData.info /p:CoverletOutputFormat=lcov
       - name: Business Project coverage report
         run: |
           dotnet test ./MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Business.info /p:CoverletOutputFormat=lcov 
       - name: API Project coverage report
         run: |
           dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Api.info /p:CoverletOutputFormat=lcov
-      - name: List all files
-        run: |
-          ls -R
       - name: Publish Business Project coverage report to codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{ github.workspace }}/coverage/Service.info,${{ github.workspace }}/coverage/Business.info,${{ github.workspace }}/coverage/Api.info
+          files: ${{ github.workspace }}/coverage/Service.info,${{ github.workspace }}/coverage/SeedData.info,${{ github.workspace }}/coverage/Business.info,${{ github.workspace }}/coverage/Api.info
           directory: ${{ github.workspace }}/coverage/
