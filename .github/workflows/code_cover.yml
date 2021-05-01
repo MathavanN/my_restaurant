@@ -19,7 +19,7 @@ jobs:
       - name: Wait for SqlServer Container
         uses: jakejarvis/wait-action@master
         with:
-          time: '5s'
+          time: '30s'
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
