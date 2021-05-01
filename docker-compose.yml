@@ -2,7 +2,7 @@ version: "3.9"
 
 networks:
   app-network:
-  
+
 services:
   app-sqlserver:
     image: "mcr.microsoft.com/mssql/server"
