@@ -45,7 +45,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --filter FullyQualifiedName!~SeedData --no-restore --verbosity normal
 
   tag: 
     name: Create a tag
@@ -137,7 +137,7 @@ jobs:
         run: dotnet build -property:Version=${{ env.version }} --configuration Release --no-restore
       - name: Test
         if: ${{ env.release_created == 'true' }}
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --filter FullyQualifiedName!~SeedData --no-restore --verbosity normal
       - name: Publish
         if: ${{ env.release_created == 'true' }}
         run: dotnet publish --no-build --configuration Release -o Release
