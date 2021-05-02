@@ -23,7 +23,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void GetPurchaseOrderItems_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.GetPurchaseOrderItemsAsync(101))
+            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.GetPurchaseOrderItemsAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.PurchaseOrderItems.Where(d => d.PurchaseOrderId == 101));
 
             var controller = new PurchaseOrderItemController(_fixture.MockPurchaseOrderItemRepository.Object);
@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.GetPurchaseOrderItemAsync(id))
+            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.GetPurchaseOrderItemAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.PurchaseOrderItems.Single(d => d.Id == id));
 
             var controller = new PurchaseOrderItemController(_fixture.MockPurchaseOrderItemRepository.Object);
@@ -67,7 +67,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreatePurchaseOrderItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.CreatePurchaseOrderItemAsync(_fixture.ValidCreatePurchaseOrderItemDto))
+            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.CreatePurchaseOrderItemAsync(It.IsAny<CreatePurchaseOrderItemDto>()))
                 .ReturnsAsync(_fixture.CreatePurchaseOrderItemDtoResult);
 
             var controller = new PurchaseOrderItemController(_fixture.MockPurchaseOrderItemRepository.Object);
@@ -94,7 +94,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.UpdatePurchaseOrderItemAsync(id, _fixture.ValidEditPurchaseOrderItemDto))
+            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.UpdatePurchaseOrderItemAsync(It.IsAny<long>(), It.IsAny<EditPurchaseOrderItemDto>()))
                 .ReturnsAsync(_fixture.EditPurchaseOrderItemDtoResult);
 
             var controller = new PurchaseOrderItemController(_fixture.MockPurchaseOrderItemRepository.Object);
@@ -119,7 +119,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.DeletePurchaseOrderItemAsync(id));
+            _fixture.MockPurchaseOrderItemRepository.Setup(x => x.DeletePurchaseOrderItemAsync(It.IsAny<long>()));
 
             var controller = new PurchaseOrderItemController(_fixture.MockPurchaseOrderItemRepository.Object);
 

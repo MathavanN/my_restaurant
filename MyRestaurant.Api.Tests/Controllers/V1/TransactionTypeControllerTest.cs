@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockTransactionTypeRepository.Setup(x => x.GetTransactionTypeAsync(id))
+            _fixture.MockTransactionTypeRepository.Setup(x => x.GetTransactionTypeAsync(It.IsAny<int>()))
                 .ReturnsAsync(_fixture.TransactionTypes.Single(d => d.Id == id));
 
             var controller = new TransactionTypeController(_fixture.MockTransactionTypeRepository.Object);
@@ -65,7 +65,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateTransactionType_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockTransactionTypeRepository.Setup(x => x.CreateTransactionTypeAsync(_fixture.ValidCreateTransactionTypeDto))
+            _fixture.MockTransactionTypeRepository.Setup(x => x.CreateTransactionTypeAsync(It.IsAny<CreateTransactionTypeDto>()))
                 .ReturnsAsync(_fixture.CreateTransactionTypeDtoResult);
 
             var controller = new TransactionTypeController(_fixture.MockTransactionTypeRepository.Object);
@@ -89,7 +89,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockTransactionTypeRepository.Setup(x => x.UpdateTransactionTypeAsync(id, _fixture.ValidEditTransactionTypeDto))
+            _fixture.MockTransactionTypeRepository.Setup(x => x.UpdateTransactionTypeAsync(It.IsAny<int>(), It.IsAny<EditTransactionTypeDto>()))
                 .ReturnsAsync(_fixture.EditTransactionTypeDtoResult);
 
             var controller = new TransactionTypeController(_fixture.MockTransactionTypeRepository.Object);
@@ -111,7 +111,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockTransactionTypeRepository.Setup(x => x.DeleteTransactionTypeAsync(id));
+            _fixture.MockTransactionTypeRepository.Setup(x => x.DeleteTransactionTypeAsync(It.IsAny<int>()));
 
             var controller = new TransactionTypeController(_fixture.MockTransactionTypeRepository.Object);
 

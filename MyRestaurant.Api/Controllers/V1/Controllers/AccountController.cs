@@ -6,7 +6,7 @@ using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories.Contracts;
 using System.Threading.Tasks;
 
-namespace MyRestaurant.Api.Controllers.V1.Controllers
+namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
     public class AccountController : BaseApiController<AccountController>

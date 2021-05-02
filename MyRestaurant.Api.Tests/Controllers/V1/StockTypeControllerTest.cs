@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockTypeRepository.Setup(x => x.GetStockTypeAsync(id))
+            _fixture.MockStockTypeRepository.Setup(x => x.GetStockTypeAsync(It.IsAny<int>()))
                 .ReturnsAsync(_fixture.StockTypes.Single(d => d.Id == id));
 
             var controller = new StockTypeController(_fixture.MockStockTypeRepository.Object);
@@ -66,7 +66,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateStockType_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockStockTypeRepository.Setup(x => x.CreateStockTypeAsync(_fixture.ValidCreateStockTypeDto))
+            _fixture.MockStockTypeRepository.Setup(x => x.CreateStockTypeAsync(It.IsAny<CreateStockTypeDto>()))
                 .ReturnsAsync(_fixture.CreateStockTypeDtoResult);
 
             var controller = new StockTypeController(_fixture.MockStockTypeRepository.Object);
@@ -91,7 +91,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockTypeRepository.Setup(x => x.UpdateStockTypeAsync(id, _fixture.ValidEditStockTypeDto))
+            _fixture.MockStockTypeRepository.Setup(x => x.UpdateStockTypeAsync(It.IsAny<int>(), It.IsAny<EditStockTypeDto>()))
                 .ReturnsAsync(_fixture.EditStockTypeDtoResult);
 
             var controller = new StockTypeController(_fixture.MockStockTypeRepository.Object);
@@ -114,7 +114,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockTypeRepository.Setup(x => x.DeleteStockTypeAsync(id));
+            _fixture.MockStockTypeRepository.Setup(x => x.DeleteStockTypeAsync(It.IsAny<int>()));
 
             var controller = new StockTypeController(_fixture.MockStockTypeRepository.Object);
 

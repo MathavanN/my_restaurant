@@ -187,6 +187,54 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
+        public async void ApprovalPurchaseOrderAsync_Throws_User_BadRequestException()
+        {
+            //Arrange
+            var id = 2;
+            _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
+                .Returns<Expression<Func<PurchaseOrder, bool>>>(expression => Task.FromResult(_fixture.PurchaseOrders.AsQueryable().FirstOrDefault(expression)));
+
+            _fixture.MockPurchaseOrderService.Setup(x => x.UpdatePurchaseOrderAsync(It.IsAny<PurchaseOrder>()))
+                .Returns(Task.FromResult(_fixture.ApprovedPurchaseOrder));
+
+            _fixture.MockUserAccessorService.Setup(x => x.GetCurrentUser()).Returns(_fixture.NullCurrentUser);
+
+            var repository = new PurchaseOrderRepository(AutoMapperSingleton.Mapper, _fixture.MockPurchaseOrderService.Object, _fixture.MockUserAccessorService.Object);
+
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.ApprovalPurchaseOrderAsync(id, _fixture.ApprovalPurchaseOrderDto));
+
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.BadRequest);
+            exception.ErrorMessage.Should().Be("User details not found. Login again.");
+            exception.ErrorType.Should().Be(HttpStatusCode.BadRequest.ToString());
+        }
+
+        [Fact]
+        public async void ApprovalPurchaseOrderAsync_Throws_UserId_BadRequestException()
+        {
+            //Arrange
+            var id = 2;
+            _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
+                .Returns<Expression<Func<PurchaseOrder, bool>>>(expression => Task.FromResult(_fixture.PurchaseOrders.AsQueryable().FirstOrDefault(expression)));
+
+            _fixture.MockPurchaseOrderService.Setup(x => x.UpdatePurchaseOrderAsync(It.IsAny<PurchaseOrder>()))
+                .Returns(Task.FromResult(_fixture.ApprovedPurchaseOrder));
+
+            _fixture.MockUserAccessorService.Setup(x => x.GetCurrentUser()).Returns(_fixture.EmptyUserIdCurrentUser);
+
+            var repository = new PurchaseOrderRepository(AutoMapperSingleton.Mapper, _fixture.MockPurchaseOrderService.Object, _fixture.MockUserAccessorService.Object);
+
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.ApprovalPurchaseOrderAsync(id, _fixture.ApprovalPurchaseOrderDto));
+
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.BadRequest);
+            exception.ErrorMessage.Should().Be("User details not found. Login again.");
+            exception.ErrorType.Should().Be(HttpStatusCode.BadRequest.ToString());
+        }
+
+        [Fact]
         public async void ApprovalPurchaseOrderAsync_Returns_Approval_GetPurchaseOrderDto()
         {
             //Arrange

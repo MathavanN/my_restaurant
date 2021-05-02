@@ -20,6 +20,8 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public CreateGoodsReceivedNoteDto CreateGoodsReceivedNote { get; private set; }
         public GoodsReceivedNote CreateNewGoodsReceivedNote { get; private set; }
         public CurrentUser CurrentUser { get; private set; }
+        public CurrentUser NullCurrentUser { get; private set; }
+        public CurrentUser EmptyUserIdCurrentUser { get; private set; }
         public IEnumerable<PurchaseOrderItem> PurchaseOrderItems { get; private set; }
         public EditGoodsReceivedNoteDto EditGoodsReceivedNoteDto { get; private set; }
         public ApprovalGoodsReceivedNoteDto ApprovalGoodsReceivedNoteDto { get; private set; }
@@ -391,6 +393,17 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Email = "abc@gmail.com",
                 Roles = new List<string> { "SuperAdmin", "Admin", "Report", "Normal" },
                 UserId = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
+                FirstName = "Golden",
+                LastName = "Dining",
+            };
+
+            NullCurrentUser = null;
+
+            EmptyUserIdCurrentUser = new CurrentUser
+            {
+                UserId = Guid.Empty,
+                Email = "abc@gmail.com",
+                Roles = new List<string> { "SuperAdmin", "Admin", "Report", "Normal" },
                 FirstName = "Golden",
                 LastName = "Dining",
             };

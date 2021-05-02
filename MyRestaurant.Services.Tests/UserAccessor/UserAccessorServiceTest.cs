@@ -23,7 +23,10 @@ namespace MyRestaurant.Services.Tests
                 new Claim(ClaimTypes.Role, "Normal"),
                 new Claim("lastName", "Access"),
             };
-            mockHttpContextAccessor.Setup(d => d.HttpContext.User.Claims).Returns(claims);
+            var claimsIdentity = new ClaimsIdentity();
+            claimsIdentity.AddClaims(claims);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            mockHttpContextAccessor.Setup(d => d.HttpContext.User).Returns(claimsPrincipal);
             var service = new UserAccessorService(mockHttpContextAccessor.Object);
 
             //Act
@@ -34,7 +37,33 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public void GetCurrentUser_Throws_ArgumentNullException()
+        public void GetCurrentUser_Returns_CurrentUser_With_Empty_Guid()
+        {
+            //Arrange
+            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, "abc@gmail.com"),
+                new Claim("firstName", "Normal"),
+                new Claim(ClaimTypes.Role, "Normal"),
+                new Claim("lastName", "Access"),
+            };
+            var claimsIdentity = new ClaimsIdentity();
+            claimsIdentity.AddClaims(claims);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            mockHttpContextAccessor.Setup(d => d.HttpContext.User).Returns(claimsPrincipal);
+            var service = new UserAccessorService(mockHttpContextAccessor.Object);
+
+            //Act
+            var result = service.GetCurrentUser();
+
+            //Assert
+            result.Should().NotBeNull().And.BeOfType<CurrentUser>();
+            result.UserId.Should().Be(Guid.Empty);
+        }
+
+        [Fact]
+        public void GetCurrentUser_Returns_Null()
         {
             //Arrange
             var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
@@ -43,10 +72,10 @@ namespace MyRestaurant.Services.Tests
             var service = new UserAccessorService(mockHttpContextAccessor.Object);
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => service.GetCurrentUser());
+            var result = service.GetCurrentUser();
 
             //Assert
-            exception.Message.Should().Contain("Value cannot be null.");
+            result.Should().BeNull();
         }
     }
 }

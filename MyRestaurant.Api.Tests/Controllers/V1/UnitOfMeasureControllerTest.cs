@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockUnitOfMeasureRepository.Setup(x => x.GetUnitOfMeasureAsync(id))
+            _fixture.MockUnitOfMeasureRepository.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<int>()))
                 .ReturnsAsync(_fixture.UnitOfMeasures.Single(d => d.Id == id));
 
             var controller = new UnitOfMeasureController(_fixture.MockUnitOfMeasureRepository.Object);
@@ -66,7 +66,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateUnitOfMeasure_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockUnitOfMeasureRepository.Setup(x => x.CreateUnitOfMeasureAsync(_fixture.ValidCreateUnitOfMeasureDto))
+            _fixture.MockUnitOfMeasureRepository.Setup(x => x.CreateUnitOfMeasureAsync(It.IsAny<CreateUnitOfMeasureDto>()))
                 .ReturnsAsync(_fixture.CreateUnitOfMeasureDtoResult);
 
             var controller = new UnitOfMeasureController(_fixture.MockUnitOfMeasureRepository.Object);
@@ -91,7 +91,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockUnitOfMeasureRepository.Setup(x => x.UpdateUnitOfMeasureAsync(id, _fixture.ValidEditUnitOfMeasureDto))
+            _fixture.MockUnitOfMeasureRepository.Setup(x => x.UpdateUnitOfMeasureAsync(It.IsAny<int>(), It.IsAny<EditUnitOfMeasureDto>()))
                 .ReturnsAsync(_fixture.EditUnitOfMeasureDtoResult);
 
             var controller = new UnitOfMeasureController(_fixture.MockUnitOfMeasureRepository.Object);
@@ -114,7 +114,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockUnitOfMeasureRepository.Setup(x => x.DeleteUnitOfMeasureAsync(id));
+            _fixture.MockUnitOfMeasureRepository.Setup(x => x.DeleteUnitOfMeasureAsync(It.IsAny<int>()));
 
             var controller = new UnitOfMeasureController(_fixture.MockUnitOfMeasureRepository.Object);
 

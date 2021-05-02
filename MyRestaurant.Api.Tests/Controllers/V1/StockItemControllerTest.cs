@@ -43,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void GetStockItemsByType_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsByTypeAsync(1, 10, 0))
+            _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsByTypeAsync(It.IsAny<int>(), 10, 0))
                 .ReturnsAsync(_fixture.StockItemEnvelop);
 
             var controller = new StockItemController(_fixture.MockStockItemRepository.Object);
@@ -67,7 +67,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockItemRepository.Setup(x => x.GetStockItemAsync(id))
+            _fixture.MockStockItemRepository.Setup(x => x.GetStockItemAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.StockItems.Single(d => d.Id == id));
 
             var controller = new StockItemController(_fixture.MockStockItemRepository.Object);
@@ -90,7 +90,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateStockItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockStockItemRepository.Setup(x => x.CreateStockItemAsync(_fixture.ValidCreateStockItemDto))
+            _fixture.MockStockItemRepository.Setup(x => x.CreateStockItemAsync(It.IsAny<CreateStockItemDto>()))
                 .ReturnsAsync(_fixture.CreateStockItemDtoResult);
 
             var controller = new StockItemController(_fixture.MockStockItemRepository.Object);
@@ -116,7 +116,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockItemRepository.Setup(x => x.UpdateStockItemAsync(id, _fixture.ValidEditStockItemDto))
+            _fixture.MockStockItemRepository.Setup(x => x.UpdateStockItemAsync(It.IsAny<long>(), It.IsAny<EditStockItemDto>()))
                 .ReturnsAsync(_fixture.EditStockItemDtoResult);
 
             var controller = new StockItemController(_fixture.MockStockItemRepository.Object);
@@ -141,7 +141,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockStockItemRepository.Setup(x => x.DeleteStockItemAsync(id));
+            _fixture.MockStockItemRepository.Setup(x => x.DeleteStockItemAsync(It.IsAny<long>()));
 
             var controller = new StockItemController(_fixture.MockStockItemRepository.Object);
 

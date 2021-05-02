@@ -23,7 +23,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void GetGoodsReceivedNoteFreeItems_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.GetGoodsReceivedNoteFreeItemsAsync(202))
+            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.GetGoodsReceivedNoteFreeItemsAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.GoodsReceivedNoteFreeItems.Where(d => d.GoodsReceivedNoteId == 202));
 
             var controller = new GoodsReceivedNoteFreeItemController(_fixture.MockGoodsReceivedNoteFreeItemRepository.Object);
@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.GetGoodsReceivedNoteFreeItemAsync(id))
+            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.GetGoodsReceivedNoteFreeItemAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.GoodsReceivedNoteFreeItems.Single(d => d.Id == id));
 
             var controller = new GoodsReceivedNoteFreeItemController(_fixture.MockGoodsReceivedNoteFreeItemRepository.Object);
@@ -67,7 +67,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateGoodsReceivedNoteFreeItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.CreateGoodsReceivedNoteFreeItemAsync(_fixture.ValidCreateGoodsReceivedNoteFreeItemDto))
+            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.CreateGoodsReceivedNoteFreeItemAsync(It.IsAny<CreateGoodsReceivedNoteFreeItemDto>()))
                 .ReturnsAsync(_fixture.CreateGoodsReceivedNoteFreeItemDtoResult);
 
             var controller = new GoodsReceivedNoteFreeItemController(_fixture.MockGoodsReceivedNoteFreeItemRepository.Object);
@@ -93,7 +93,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.UpdateGoodsReceivedNoteFreeItemAsync(id, _fixture.ValidEditGoodsReceivedNoteFreeItemDto))
+            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.UpdateGoodsReceivedNoteFreeItemAsync(It.IsAny<long>(), It.IsAny<EditGoodsReceivedNoteFreeItemDto>()))
                 .ReturnsAsync(_fixture.EditGoodsReceivedNoteFreeItemDtoResult);
 
             var controller = new GoodsReceivedNoteFreeItemController(_fixture.MockGoodsReceivedNoteFreeItemRepository.Object);
@@ -117,7 +117,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.DeleteGoodsReceivedNoteFreeItemAsync(id));
+            _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.DeleteGoodsReceivedNoteFreeItemAsync(It.IsAny<long>()));
 
             var controller = new GoodsReceivedNoteFreeItemController(_fixture.MockGoodsReceivedNoteFreeItemRepository.Object);
 

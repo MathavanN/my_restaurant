@@ -150,12 +150,12 @@ namespace MyRestaurant.Core
                  }
                  )).ToList();
         }
-        async Task OnAfterSaveChanges(IEnumerable<Tuple<EntityEntry, Audit>> temporatyEntities)
+        async Task OnAfterSaveChanges(IEnumerable<Tuple<EntityEntry, Audit>> temporaryEntities)
         {
-            if (temporatyEntities != null && temporatyEntities.Any())
+            if (temporaryEntities != null && temporaryEntities.Any())
             {
                 await Audits.AddRangeAsync(
-                    temporatyEntities.ForEach(t => t.Item2.KeyValues = JsonConvert.SerializeObject(t.Item1.Properties.Where(p => p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty()))
+                    temporaryEntities.ForEach(t => t.Item2.KeyValues = JsonConvert.SerializeObject(t.Item1.Properties.Where(p => p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty()))
                     .Select(e => e.Item2)
                 );
                 await SaveChangesAsync();
