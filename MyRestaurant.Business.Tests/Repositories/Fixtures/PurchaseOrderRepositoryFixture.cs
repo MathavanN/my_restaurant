@@ -16,6 +16,8 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public IEnumerable<Supplier> Suppliers { get; private set; }
         public CreatePurchaseOrderDto CreatePurchaseOrderDto { get; private set; }
         public CurrentUser CurrentUser { get; private set; }
+        public CurrentUser NullCurrentUser { get; private set; }
+        public CurrentUser EmptyUserIdCurrentUser { get; private set; }
         public PurchaseOrder CreatedNewPurchaseOrder { get; private set; }
         public EditPurchaseOrderDto EditPurchaseOrderDto { get; private set; }
         public PurchaseOrder UpdatedPurchaseOrder { get; private set; }
@@ -158,6 +160,17 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 LastName = "Kamal",
                 Roles = new List<string> { "Admin", "Report", "Normal" },
                 UserId = Guid.Parse("33a91077-ef90-40a1-be42-27354f598c20")
+            };
+
+            NullCurrentUser = null;
+
+            EmptyUserIdCurrentUser = new CurrentUser
+            {
+                UserId = Guid.Empty,
+                Email = "abc@gmail.com",
+                Roles = new List<string> { "SuperAdmin", "Admin", "Report", "Normal" },
+                FirstName = "Golden",
+                LastName = "Dining",
             };
 
             EditPurchaseOrderDto = new EditPurchaseOrderDto
