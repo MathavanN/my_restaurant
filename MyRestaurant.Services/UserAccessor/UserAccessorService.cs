@@ -12,16 +12,31 @@ namespace MyRestaurant.Services
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
+        private Guid GetUserId(ClaimsPrincipal claimsPrincipal)
+        {
+            var id = claimsPrincipal.FindFirstValue("id");
+
+            if (id == null)
+                return Guid.Empty;
+
+            return new Guid(id);
+        }
+
         public CurrentUser GetCurrentUser()
         {
-            var userClaims = _httpContextAccessor.HttpContext.User?.Claims;
+            var claimPrincipal = _httpContextAccessor.HttpContext.User;
+            
+            if (claimPrincipal == null)
+                return null;
+
             return new CurrentUser
             {
-                UserId = new Guid(userClaims?.FirstOrDefault(x => x.Type == "id")?.Value),
-                Email = userClaims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
-                FirstName = userClaims?.FirstOrDefault(x => x.Type == "firstName")?.Value,
-                LastName = userClaims?.FirstOrDefault(x => x.Type == "lastName")?.Value,
-                Roles = userClaims?.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList()
+                UserId = GetUserId(claimPrincipal),
+                Email = claimPrincipal.FindFirstValue(ClaimTypes.Email),
+                FirstName = claimPrincipal.FindFirstValue("firstName"),
+                LastName = claimPrincipal.FindFirstValue("lastName"),
+                Roles = claimPrincipal.FindAll(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList()
             };
         }
     }
