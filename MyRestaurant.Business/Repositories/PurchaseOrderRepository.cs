@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
+using MyRestaurant.Business.Repositories.Common;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
@@ -35,7 +36,7 @@ namespace MyRestaurant.Business.Repositories
 
         public async Task<GetPurchaseOrderDto> CreatePurchaseOrderAsync(CreatePurchaseOrderDto purchaseOrderDto)
         {
-            var currentUser = _userAccessor.GetCurrentUser();
+            var currentUser = Helper.GetCurrentUser(_userAccessor);
             var purchaseOrder = _mapper.Map<PurchaseOrder>(purchaseOrderDto);
             var currentDate = DateTime.Now;
             purchaseOrder.OrderNumber = $"PO_{currentDate:yyyyMMdd}_{currentDate.Ticks:x}";
@@ -94,7 +95,7 @@ namespace MyRestaurant.Business.Repositories
         {
             var order = await GetPurchaseOrderById(id);
             order = _mapper.Map(purchaseOrderDto, order);
-            var currentUser = _userAccessor.GetCurrentUser();
+            var currentUser = Helper.GetCurrentUser(_userAccessor);
             order.ApprovedBy = currentUser.UserId;
             order.ApprovedDate = DateTime.Now;
 

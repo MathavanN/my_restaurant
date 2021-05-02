@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
+using MyRestaurant.Business.Repositories.Common;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
@@ -61,7 +62,7 @@ namespace MyRestaurant.Business.Repositories
             var order = await CheckPurchaseOrder(goodsReceivedNoteDto.PurchaseOrderId);
             CheckPurchaseOrderAllowedToCreateGRN(order);
 
-            var currentUser = _userAccessor.GetCurrentUser();
+            var currentUser = Helper.GetCurrentUser(_userAccessor);
             var goodsReceivedNote = _mapper.Map<GoodsReceivedNote>(goodsReceivedNoteDto);
             goodsReceivedNote.CreatedBy = currentUser.UserId;
             goodsReceivedNote.CreatedDate = DateTime.Now;
@@ -134,7 +135,7 @@ namespace MyRestaurant.Business.Repositories
             var goodsReceivedNote = await GetGoodsReceivedNoteById(id);
             goodsReceivedNote = _mapper.Map(goodsReceivedNoteDto, goodsReceivedNote);
 
-            var currentUser = _userAccessor.GetCurrentUser();
+            var currentUser = Helper.GetCurrentUser(_userAccessor);
             goodsReceivedNote.ApprovedBy = currentUser.UserId;
             goodsReceivedNote.ApprovedDate = DateTime.Now;
 
