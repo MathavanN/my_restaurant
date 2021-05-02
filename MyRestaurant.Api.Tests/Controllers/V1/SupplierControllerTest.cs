@@ -22,7 +22,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void GetSuppliers_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockSupplierRepository.Setup(x => x.GetSuppliersAsync(10, 0, "", "", ""))
+            _fixture.MockSupplierRepository.Setup(x => x.GetSuppliersAsync(It.IsAny<int?>(), It.IsAny<int?>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(_fixture.SupplierEnvelop);
 
             var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
@@ -46,7 +46,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockSupplierRepository.Setup(x => x.GetSupplierAsync(id))
+            _fixture.MockSupplierRepository.Setup(x => x.GetSupplierAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.Suppliers.Single(d => d.Id == id));
 
             var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
@@ -69,7 +69,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateSupplier_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockSupplierRepository.Setup(x => x.CreateSupplierAsync(_fixture.ValidCreateSupplierDto))
+            _fixture.MockSupplierRepository.Setup(x => x.CreateSupplierAsync(It.IsAny<CreateSupplierDto>()))
                 .ReturnsAsync(_fixture.CreateSupplierDtoResult);
 
             var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
@@ -95,7 +95,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockSupplierRepository.Setup(x => x.UpdateSupplierAsync(id, _fixture.ValidEditSupplierDto))
+            _fixture.MockSupplierRepository.Setup(x => x.UpdateSupplierAsync(It.IsAny<long>(), It.IsAny<EditSupplierDto>()))
                 .ReturnsAsync(_fixture.EditSupplierDtoResult);
 
             var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
@@ -119,7 +119,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockSupplierRepository.Setup(x => x.DeleteSupplierAsync(id));
+            _fixture.MockSupplierRepository.Setup(x => x.DeleteSupplierAsync(It.IsAny<int>()));
 
             var controller = new SupplierController(_fixture.MockSupplierRepository.Object);
 

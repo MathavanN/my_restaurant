@@ -43,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.GetGoodsReceivedNoteAsync(id))
+            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.GetGoodsReceivedNoteAsync(It.IsAny<long>()))
                 .ReturnsAsync(_fixture.GoodsReceivedNotes.Single(d => d.Id == id));
 
             var controller = new GoodsReceivedNoteController(_fixture.MockGoodsReceivedNoteRepository.Object);
@@ -66,7 +66,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateGoodsReceivedNote_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.CreateGoodsReceivedNoteAsync(_fixture.ValidCreateGoodsReceivedNoteDto))
+            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.CreateGoodsReceivedNoteAsync(It.IsAny<CreateGoodsReceivedNoteDto>()))
                 .ReturnsAsync(_fixture.CreateGoodsReceivedNoteDtoResult);
 
             var controller = new GoodsReceivedNoteController(_fixture.MockGoodsReceivedNoteRepository.Object);
@@ -92,7 +92,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.UpdateGoodsReceivedNoteAsync(id, _fixture.ValidEditGoodsReceivedNoteDto))
+            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.UpdateGoodsReceivedNoteAsync(It.IsAny<long>(), It.IsAny<EditGoodsReceivedNoteDto>()))
                 .ReturnsAsync(_fixture.EditGoodsReceivedNoteDtoResult);
 
             var controller = new GoodsReceivedNoteController(_fixture.MockGoodsReceivedNoteRepository.Object);
@@ -119,7 +119,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.ApprovalGoodsReceivedNoteAsync(id, _fixture.ValidApprovalGoodsReceivedNoteDto))
+            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.ApprovalGoodsReceivedNoteAsync(It.IsAny<long>(), It.IsAny<ApprovalGoodsReceivedNoteDto>()))
                 .ReturnsAsync(_fixture.ApprovalGoodsReceivedNoteDtoResult);
 
             var controller = new GoodsReceivedNoteController(_fixture.MockGoodsReceivedNoteRepository.Object);
@@ -146,7 +146,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.DeleteGoodsReceivedNoteAsync(id));
+            _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.DeleteGoodsReceivedNoteAsync(It.IsAny<int>()));
 
             var controller = new GoodsReceivedNoteController(_fixture.MockGoodsReceivedNoteRepository.Object);
 

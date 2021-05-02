@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockTransactionRepository.Setup(x => x.GetTransactionAsync(id))
+            _fixture.MockTransactionRepository.Setup(x => x.GetTransactionAsync(It.IsAny<int>()))
                 .ReturnsAsync(_fixture.Transactions.Single(d => d.Id == id));
 
             var controller = new TransactionController(_fixture.MockTransactionRepository.Object);
@@ -67,7 +67,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateTransaction_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockTransactionRepository.Setup(x => x.CreateTransactionAsync(_fixture.ValidCreateTransactionDto))
+            _fixture.MockTransactionRepository.Setup(x => x.CreateTransactionAsync(It.IsAny<CreateTransactionDto>()))
                 .ReturnsAsync(_fixture.CreateTransactionDtoResult);
 
             var controller = new TransactionController(_fixture.MockTransactionRepository.Object);
@@ -93,7 +93,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockTransactionRepository.Setup(x => x.UpdateTransactionAsync(id, _fixture.ValidEditTransactionDto))
+            _fixture.MockTransactionRepository.Setup(x => x.UpdateTransactionAsync(It.IsAny<int>(), It.IsAny<EditTransactionDto>()))
                 .ReturnsAsync(_fixture.EditTransactionDtoResult);
 
             var controller = new TransactionController(_fixture.MockTransactionRepository.Object);
@@ -117,7 +117,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockTransactionRepository.Setup(x => x.DeleteTransactionAsync(id));
+            _fixture.MockTransactionRepository.Setup(x => x.DeleteTransactionAsync(It.IsAny<int>()));
 
             var controller = new TransactionController(_fixture.MockTransactionRepository.Object);
 

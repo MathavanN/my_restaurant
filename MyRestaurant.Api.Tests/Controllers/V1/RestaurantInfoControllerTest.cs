@@ -44,7 +44,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockRestaurantInfoRepository.Setup(x => x.GetRestaurantInfoAsync(id))
+            _fixture.MockRestaurantInfoRepository.Setup(x => x.GetRestaurantInfoAsync(It.IsAny<int>()))
                 .ReturnsAsync(_fixture.RestaurantInfos.Single(d => d.Id == id));
 
             var controller = new RestaurantInfoController(_fixture.MockRestaurantInfoRepository.Object);
@@ -66,7 +66,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateRestaurantInfo_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockRestaurantInfoRepository.Setup(x => x.CreateRestaurantInfoAsync(_fixture.ValidCreateRestaurantInfoDto))
+            _fixture.MockRestaurantInfoRepository.Setup(x => x.CreateRestaurantInfoAsync(It.IsAny<CreateRestaurantInfoDto>()))
                 .ReturnsAsync(_fixture.CreateRestaurantInfoDtoResult);
 
             var controller = new RestaurantInfoController(_fixture.MockRestaurantInfoRepository.Object);

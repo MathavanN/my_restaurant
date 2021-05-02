@@ -43,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockServiceTypeRepository.Setup(x => x.GetServiceTypeAsync(id))
+            _fixture.MockServiceTypeRepository.Setup(x => x.GetServiceTypeAsync(It.IsAny<int>()))
                 .ReturnsAsync(_fixture.ServiceTypes.Single(d => d.Id == id));
 
             var controller = new ServiceTypeController(_fixture.MockServiceTypeRepository.Object);
@@ -64,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void CreateServiceType_Returns_CreatedAtRouteResult()
         {
             //Arrange
-            _fixture.MockServiceTypeRepository.Setup(x => x.CreateServiceTypeAsync(_fixture.ValidCreateServiceTypeDto))
+            _fixture.MockServiceTypeRepository.Setup(x => x.CreateServiceTypeAsync(It.IsAny<CreateServiceTypeDto>()))
                 .ReturnsAsync(_fixture.CreateServiceTypeDtoResult);
 
             var controller = new ServiceTypeController(_fixture.MockServiceTypeRepository.Object);
@@ -88,7 +88,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 1;
-            _fixture.MockServiceTypeRepository.Setup(x => x.UpdateServiceTypeAsync(id, _fixture.ValidUpdateServiceTypeDto))
+            _fixture.MockServiceTypeRepository.Setup(x => x.UpdateServiceTypeAsync(It.IsAny<int>(), It.IsAny<EditServiceTypeDto>()))
                 .ReturnsAsync(_fixture.EditServiceTypeDtoResult);
 
             var controller = new ServiceTypeController(_fixture.MockServiceTypeRepository.Object);
@@ -110,7 +110,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         {
             //Arrange
             var id = 2;
-            _fixture.MockServiceTypeRepository.Setup(x => x.DeleteServiceTypeAsync(id));
+            _fixture.MockServiceTypeRepository.Setup(x => x.DeleteServiceTypeAsync(It.IsAny<int>()));
 
             var controller = new ServiceTypeController(_fixture.MockServiceTypeRepository.Object);
 

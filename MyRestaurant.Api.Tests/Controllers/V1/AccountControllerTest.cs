@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using MyRestaurant.Api.Controllers.V1.Controllers;
+using MyRestaurant.Api.Controllers.V1;
 using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
+using System.Net;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -21,7 +22,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void RegisterAdmin_Returns_Success_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(_fixture.ValidRegisterAdminDto))
+            _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(It.IsAny<RegisterAdminDto>()))
                 .ReturnsAsync(_fixture.SuccessAdminRegisterResultDto);
 
             var controller = new AccountController(_fixture.MockAccountRepository.Object);
@@ -42,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void RegisterAdmin_Returns_Failed_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(_fixture.ValidRegisterAdminDto))
+            _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(It.IsAny<RegisterAdminDto>()))
                 .ReturnsAsync(_fixture.FailedRegisterResultDto);
 
             var controller = new AccountController(_fixture.MockAccountRepository.Object);
@@ -63,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void RegisterNormalUser_Returns_Success_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(_fixture.ValidRegisterNormalDto))
+            _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(It.IsAny<RegisterNormalDto>()))
                 .ReturnsAsync(_fixture.SuccessNormalRegisterResultDto);
 
             var controller = new AccountController(_fixture.MockAccountRepository.Object);
@@ -84,7 +85,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         public async void RegisterNormalUser_Returns_Failed_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(_fixture.ValidRegisterNormalDto))
+            _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(It.IsAny<RegisterNormalDto>()))
                 .ReturnsAsync(_fixture.FailedRegisterResultDto);
 
             var controller = new AccountController(_fixture.MockAccountRepository.Object);
@@ -102,10 +103,10 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Login_Returns_OkObjectResult()
+        public async void Login_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.LoginAsync(_fixture.ValidLoginDto, "0.0.0.0"))
+            _fixture.MockAccountRepository.Setup(x => x.LoginAsync(It.IsAny<LoginDto>(), It.IsAny<string>()))
                 .ReturnsAsync(_fixture.ValidTokenResultDtoResult);
 
             _fixture.HttpContext.Request.Headers["X-Forwarded-For"] = "0.0.0.0";
@@ -131,10 +132,40 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Refresh_Returns_OkObjectResult()
+        public async void Login_Using_IpAddress_From_RemoteIpAddress_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.RefreshToken(_fixture.ValidRefreshDto, "0.0.0.0"))
+            _fixture.MockAccountRepository.Setup(x => x.LoginAsync(It.IsAny<LoginDto>(), It.IsAny<string>()))
+                .ReturnsAsync(_fixture.ValidTokenResultDtoResult);
+
+            _fixture.HttpContext.Request.Headers["test"] = "0.0.0.0";
+            _fixture.HttpContext.Connection.RemoteIpAddress = IPAddress.Parse("127.0.0.1");
+
+            var controller = new AccountController(_fixture.MockAccountRepository.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = _fixture.HttpContext
+                }
+            };
+
+            //Act
+            var result = await controller.Login(_fixture.ValidLoginDto);
+
+            //Assert
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var tokenResult = okResult.Value.Should().BeAssignableTo<TokenResultDto>().Subject;
+
+            okResult.StatusCode.Should().Be(200);
+            tokenResult.AccessToken.Should().Be("this will be a JWT access token");
+            tokenResult.RefreshToken.Should().Be("this will be a JWT refresh token");
+        }
+
+        [Fact]
+        public async void Refresh_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
+        {
+            //Arrange
+            _fixture.MockAccountRepository.Setup(x => x.RefreshToken(It.IsAny<RefreshDto>(), It.IsAny<string>()))
                 .ReturnsAsync(_fixture.ValidTokenResultDtoResult);
 
             _fixture.HttpContext.Request.Headers["X-Forwarded-For"] = "0.0.0.0";
@@ -160,12 +191,67 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Revoke_Returns_OkObjectResult()
+        public async void Refresh_Using_IpAddress_From_RemoteIpAddress_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.RevokeToken(_fixture.ValidRevokeDto, "0.0.0.0"));
+            _fixture.MockAccountRepository.Setup(x => x.RefreshToken(It.IsAny<RefreshDto>(), It.IsAny<string>()))
+                .ReturnsAsync(_fixture.ValidTokenResultDtoResult);
+
+            _fixture.HttpContext.Request.Headers["test"] = "0.0.0.0";
+            _fixture.HttpContext.Connection.RemoteIpAddress = IPAddress.Parse("127.0.0.1");
+
+            var controller = new AccountController(_fixture.MockAccountRepository.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = _fixture.HttpContext
+                }
+            };
+
+            //Act
+            var result = await controller.Refresh(_fixture.ValidRefreshDto);
+
+            //Assert
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var tokenResult = okResult.Value.Should().BeAssignableTo<TokenResultDto>().Subject;
+
+            okResult.StatusCode.Should().Be(200);
+            tokenResult.AccessToken.Should().Be("this will be a JWT access token");
+            tokenResult.RefreshToken.Should().Be("this will be a JWT refresh token");
+        }
+
+        [Fact]
+        public async void Revoke_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
+        {
+            //Arrange
+            _fixture.MockAccountRepository.Setup(x => x.RevokeToken(It.IsAny<RevokeDto>(), It.IsAny<string>()));
 
             _fixture.HttpContext.Request.Headers["X-Forwarded-For"] = "0.0.0.0";
+
+            var controller = new AccountController(_fixture.MockAccountRepository.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = _fixture.HttpContext
+                }
+            };
+
+            //Act
+            var result = await controller.Revoke(_fixture.ValidRevokeDto);
+
+            //Assert
+            var objectResult = result.Should().BeOfType<NoContentResult>().Subject;
+            objectResult.StatusCode.Should().Be(204);
+        }
+
+        [Fact]
+        public async void Revoke_Using_IpAddress_From_RemoteIpAddres_Returns_OkObjectResult()
+        {
+            //Arrange
+            _fixture.MockAccountRepository.Setup(x => x.RevokeToken(It.IsAny<RevokeDto>(), It.IsAny<string>()));
+
+            _fixture.HttpContext.Request.Headers["test"] = "0.0.0.0";
+            _fixture.HttpContext.Connection.RemoteIpAddress = IPAddress.Parse("127.0.0.1");
 
             var controller = new AccountController(_fixture.MockAccountRepository.Object)
             {
