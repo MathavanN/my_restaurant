@@ -214,6 +214,94 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
+        public async void CreateGoodsReceivedNoteAsync_Throws_User_BadRequestException()
+        {
+            //Arrange
+            _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
+                .Returns<Expression<Func<PurchaseOrder, bool>>>(expression => Task.FromResult(_fixture.PurchaseOrders.AsQueryable().FirstOrDefault(expression)));
+
+            _fixture.MockUserAccessorService.Setup(x => x.GetCurrentUser()).Returns(_fixture.NullCurrentUser);
+
+            _fixture.MockPurchaseOrderItemService.Setup(x => x.GetPurchaseOrderItemsAsync(It.IsAny<Expression<Func<PurchaseOrderItem, bool>>>()))
+                .Returns<Expression<Func<PurchaseOrderItem, bool>>>(async (expression) =>
+                {
+                    var orders = _fixture.PurchaseOrderItems.AsQueryable().Where(expression).ToList();
+                    return await Task.FromResult(orders);
+                });
+
+            _fixture.MockGoodsReceivedNoteService.Setup(x => x.AddGoodsReceivedNoteAsync(It.IsAny<GoodsReceivedNote>()))
+                .ReturnsAsync(_fixture.CreateNewGoodsReceivedNote);
+
+            _fixture.MockGoodsReceivedNoteItemService.Setup(x => x.AddGoodsReceivedNoteItemAsync(It.IsAny<GoodsReceivedNoteItem>()));
+
+            var repository = new GoodsReceivedNoteRepository(AutoMapperSingleton.Mapper, _fixture.MockGoodsReceivedNoteService.Object,
+                _fixture.MockUserAccessorService.Object, _fixture.MockPurchaseOrderService.Object, _fixture.MockPurchaseOrderItemService.Object,
+                _fixture.MockGoodsReceivedNoteItemService.Object);
+
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.CreateGoodsReceivedNoteAsync(new CreateGoodsReceivedNoteDto
+            {
+                PurchaseOrderId = 3,
+                InvoiceNumber = "INV_20210224_01",
+                Vat = 0.7m,
+                Discount = 1.4m,
+                Nbt = 0.7m,
+                PaymentTypeId = 1,
+                ReceivedBy = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
+                ReceivedDate = DateTime.Now.AddDays(-5)
+            }));
+
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.BadRequest);
+            exception.ErrorMessage.Should().Be("User details not found. Login again.");
+            exception.ErrorType.Should().Be(HttpStatusCode.BadRequest.ToString());
+        }
+
+        [Fact]
+        public async void CreateGoodsReceivedNoteAsync_Throws_UserId_BadRequestException()
+        {
+            //Arrange
+            _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
+                .Returns<Expression<Func<PurchaseOrder, bool>>>(expression => Task.FromResult(_fixture.PurchaseOrders.AsQueryable().FirstOrDefault(expression)));
+
+            _fixture.MockUserAccessorService.Setup(x => x.GetCurrentUser()).Returns(_fixture.EmptyUserIdCurrentUser);
+
+            _fixture.MockPurchaseOrderItemService.Setup(x => x.GetPurchaseOrderItemsAsync(It.IsAny<Expression<Func<PurchaseOrderItem, bool>>>()))
+                .Returns<Expression<Func<PurchaseOrderItem, bool>>>(async (expression) =>
+                {
+                    var orders = _fixture.PurchaseOrderItems.AsQueryable().Where(expression).ToList();
+                    return await Task.FromResult(orders);
+                });
+
+            _fixture.MockGoodsReceivedNoteService.Setup(x => x.AddGoodsReceivedNoteAsync(It.IsAny<GoodsReceivedNote>()))
+                .ReturnsAsync(_fixture.CreateNewGoodsReceivedNote);
+
+            _fixture.MockGoodsReceivedNoteItemService.Setup(x => x.AddGoodsReceivedNoteItemAsync(It.IsAny<GoodsReceivedNoteItem>()));
+
+            var repository = new GoodsReceivedNoteRepository(AutoMapperSingleton.Mapper, _fixture.MockGoodsReceivedNoteService.Object,
+                _fixture.MockUserAccessorService.Object, _fixture.MockPurchaseOrderService.Object, _fixture.MockPurchaseOrderItemService.Object,
+                _fixture.MockGoodsReceivedNoteItemService.Object);
+
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.CreateGoodsReceivedNoteAsync(new CreateGoodsReceivedNoteDto
+            {
+                PurchaseOrderId = 3,
+                InvoiceNumber = "INV_20210224_01",
+                Vat = 0.7m,
+                Discount = 1.4m,
+                Nbt = 0.7m,
+                PaymentTypeId = 1,
+                ReceivedBy = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
+                ReceivedDate = DateTime.Now.AddDays(-5)
+            }));
+
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.BadRequest);
+            exception.ErrorMessage.Should().Be("User details not found. Login again.");
+            exception.ErrorType.Should().Be(HttpStatusCode.BadRequest.ToString());
+        }
+
+        [Fact]
         public async void CreateGoodsReceivedNoteAsync_Throws_GRN_BadRequestException()
         {
             //Arrange
@@ -306,6 +394,57 @@ namespace MyRestaurant.Business.Tests.Repositories
             exception.ErrorCode.Should().Be(HttpStatusCode.NotFound);
             exception.ErrorMessage.Should().Be("Goods received note not found.");
             exception.ErrorType.Should().Be(HttpStatusCode.NotFound.ToString());
+        }
+
+        [Fact]
+        public async void ApprovalGoodsReceivedNoteAsync_Throws_User_BadRequestException()
+        {
+            //Arrange
+            var id = 3;
+            _fixture.MockGoodsReceivedNoteService.Setup(x => x.GetGoodsReceivedNoteAsync(It.IsAny<Expression<Func<GoodsReceivedNote, bool>>>()))
+                .Returns<Expression<Func<GoodsReceivedNote, bool>>>(expression => Task.FromResult(_fixture.GoodsReceivedNotes.AsQueryable().FirstOrDefault(expression)));
+
+            _fixture.MockUserAccessorService.Setup(x => x.GetCurrentUser()).Returns(_fixture.NullCurrentUser);
+
+            _fixture.MockGoodsReceivedNoteService.Setup(x => x.UpdateGoodsReceivedNoteAsync(It.IsAny<GoodsReceivedNote>()));
+
+            var repository = new GoodsReceivedNoteRepository(AutoMapperSingleton.Mapper, _fixture.MockGoodsReceivedNoteService.Object,
+                _fixture.MockUserAccessorService.Object, _fixture.MockPurchaseOrderService.Object, _fixture.MockPurchaseOrderItemService.Object,
+                _fixture.MockGoodsReceivedNoteItemService.Object);
+
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.ApprovalGoodsReceivedNoteAsync(id, _fixture.ApprovalGoodsReceivedNoteDto));
+
+            //Assert
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.BadRequest);
+            exception.ErrorMessage.Should().Be("User details not found. Login again.");
+            exception.ErrorType.Should().Be(HttpStatusCode.BadRequest.ToString());
+        }
+
+        [Fact]
+        public async void ApprovalGoodsReceivedNoteAsync_Throws_UserId_BadRequestException()
+        {
+            //Arrange
+            var id = 3;
+            _fixture.MockGoodsReceivedNoteService.Setup(x => x.GetGoodsReceivedNoteAsync(It.IsAny<Expression<Func<GoodsReceivedNote, bool>>>()))
+                .Returns<Expression<Func<GoodsReceivedNote, bool>>>(expression => Task.FromResult(_fixture.GoodsReceivedNotes.AsQueryable().FirstOrDefault(expression)));
+
+            _fixture.MockUserAccessorService.Setup(x => x.GetCurrentUser()).Returns(_fixture.EmptyUserIdCurrentUser);
+
+            _fixture.MockGoodsReceivedNoteService.Setup(x => x.UpdateGoodsReceivedNoteAsync(It.IsAny<GoodsReceivedNote>()));
+
+            var repository = new GoodsReceivedNoteRepository(AutoMapperSingleton.Mapper, _fixture.MockGoodsReceivedNoteService.Object,
+                _fixture.MockUserAccessorService.Object, _fixture.MockPurchaseOrderService.Object, _fixture.MockPurchaseOrderItemService.Object,
+                _fixture.MockGoodsReceivedNoteItemService.Object);
+
+            //Act
+            var exception = await Assert.ThrowsAsync<RestException>(() => repository.ApprovalGoodsReceivedNoteAsync(id, _fixture.ApprovalGoodsReceivedNoteDto));
+
+            //Assert
+            exception.ErrorCode.Should().Be(HttpStatusCode.BadRequest);
+            exception.ErrorMessage.Should().Be("User details not found. Login again.");
+            exception.ErrorType.Should().Be(HttpStatusCode.BadRequest.ToString());
         }
 
         [Fact]
