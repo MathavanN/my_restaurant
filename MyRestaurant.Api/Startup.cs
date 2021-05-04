@@ -25,6 +25,8 @@ namespace MyRestaurant.Api
 
             services.ConfigureAppSettings(Configuration);
 
+            services.ConfigureDatabaseInitializer(Configuration);
+
             services.ConfigureMSSQLContext(Configuration);
 
             services.ConfigureIdentity();
