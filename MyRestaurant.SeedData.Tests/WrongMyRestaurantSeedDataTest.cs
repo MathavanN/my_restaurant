@@ -18,7 +18,6 @@ namespace MyRestaurant.SeedData.Tests
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
             var databaseInitializer = scope.ServiceProvider.GetRequiredService<IMyRestaurantSeedData>();
-            await databaseInitializer.Initialize();
 
             //Act
             var exception = await Assert.ThrowsAsync<SqlException>(() => databaseInitializer.Initialize());
