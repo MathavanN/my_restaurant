@@ -74,11 +74,18 @@ namespace MyRestaurant.Api.Extensions
                 options.AddPolicy(ApplicationClaimPolicy.NormalOnly, policy => policy.Requirements.Add(new MyRestaurantAccessRequirement(ApplicationClaimType.Normal)));
             });
         }
+
         public static void ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtSettings>(configuration.GetSection("JWTSettings"));
             services.Configure<SuperAdminAccount>(configuration.GetSection("SuperAdminAccount"));
         }
+
+        public static void ConfigureDatabaseInitializer(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IMyRestaurantSeedData, MyRestaurantSeedData>();
+        }
+
         public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(options =>
@@ -121,6 +128,7 @@ namespace MyRestaurant.Api.Extensions
                 };
             });
         }
+
         public static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, Role>()
@@ -139,6 +147,7 @@ namespace MyRestaurant.Api.Extensions
                 options.Password.RequiredLength = 4;
             });
         }
+
         public static void ConfigureController(this IServiceCollection services)
         {
             services.AddControllers()
@@ -156,10 +165,12 @@ namespace MyRestaurant.Api.Extensions
                 })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateServiceTypeDtoValidator>());
         }
+
         public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }
+
         public static void ConfigureAutoMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(GetServiceTypeDto));

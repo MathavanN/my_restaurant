@@ -47,8 +47,9 @@ namespace MyRestaurant.Api.Middleware
                 case Exception e:
                     var receivedException = e.InnerException ?? e;
                     logger.LogError("SERVER ERROR: {0}", receivedException.Message);
+                    var isSqlError = receivedException is SqlException;
                     var sqlError = receivedException as SqlException;
-                    if (sqlError.Number == 547)
+                    if (isSqlError && sqlError.Number == 547)
                     {
                         error = new
                         {

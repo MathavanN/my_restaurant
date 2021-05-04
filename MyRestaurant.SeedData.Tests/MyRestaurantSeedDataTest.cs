@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyRestaurant.Core;
+using MyRestaurant.SeedData.Tests.Fixture;
 using System.Linq;
 using Xunit;
 
@@ -18,7 +19,8 @@ namespace MyRestaurant.SeedData.Tests
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            await MyRestaurantSeedData.Initialize(scope.ServiceProvider);
+            var databaseInitializer = scope.ServiceProvider.GetRequiredService<IMyRestaurantSeedData>();
+            await databaseInitializer.Initialize();
 
             var context = scope.ServiceProvider.GetRequiredService<MyRestaurantContext>();
 
@@ -38,7 +40,8 @@ namespace MyRestaurant.SeedData.Tests
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            await MyRestaurantSeedData.Initialize(scope.ServiceProvider);
+            var databaseInitializer = scope.ServiceProvider.GetRequiredService<IMyRestaurantSeedData>();
+            await databaseInitializer.Initialize();
 
             var context = scope.ServiceProvider.GetRequiredService<MyRestaurantContext>();
 
@@ -66,7 +69,8 @@ namespace MyRestaurant.SeedData.Tests
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            await MyRestaurantSeedData.Initialize(scope.ServiceProvider);
+            var databaseInitializer = scope.ServiceProvider.GetRequiredService<IMyRestaurantSeedData>();
+            await databaseInitializer.Initialize();
 
             var context = scope.ServiceProvider.GetRequiredService<MyRestaurantContext>();
             

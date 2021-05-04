@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace MyRestaurant.SeedData.Tests
+namespace MyRestaurant.SeedData.Tests.Fixture
 {
     [CollectionDefinition("Database")]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture>
