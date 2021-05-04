@@ -5,7 +5,7 @@ using MyRestaurant.Api;
 using System.Collections.Generic;
 using Xunit;
 
-namespace MyRestaurant.SeedData.Tests
+namespace MyRestaurant.SeedData.Tests.Fixture
 {
     [Collection("Database")]
     public class MyRestaurantWebApplicationFactory : WebApplicationFactory<Startup>
