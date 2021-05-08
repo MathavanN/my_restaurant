@@ -49,31 +49,27 @@ namespace MyRestaurant.Api.Middleware
                     logger.LogError("SERVER ERROR: {0}", receivedException.Message);
                     var isSqlError = receivedException is SqlException;
                     var sqlError = receivedException as SqlException;
+                    var errorCode = HttpStatusCode.InternalServerError;
+                    var errorType = HttpStatusCode.InternalServerError.ToString();
+                    var errorMessage = HttpStatusCode.InternalServerError.ToString();
+
+                    if (!string.IsNullOrWhiteSpace(receivedException.Message))
+                        errorMessage = receivedException.Message;
+
                     if (isSqlError && sqlError.Number == 547)
                     {
-                        error = new
-                        {
-                            ErrorCode = HttpStatusCode.Conflict,
-                            ErrorType = HttpStatusCode.Conflict.ToString(),
-                            ErrorMessage = "This item cannot be deleted.",
-                            ErrorDate = DateTime.Now
-                        };
+                        errorCode = HttpStatusCode.Conflict;
+                        errorType = HttpStatusCode.Conflict.ToString();
+                        errorMessage = "This item cannot be deleted.";
                         context.Response.StatusCode = (int)HttpStatusCode.Conflict;
                     }
                     else
-                    {
-                        error = new
-                        {
-                            ErrorCode = HttpStatusCode.InternalServerError,
-                            ErrorType = HttpStatusCode.InternalServerError.ToString(),
-                            ErrorMessage = string.IsNullOrWhiteSpace(receivedException.Message) ? "Error" : receivedException.Message,
-                            ErrorDate = DateTime.Now
-                        };
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    }
+
+                    error = new { ErrorCode = errorCode, ErrorType = errorType, ErrorMessage = errorMessage, ErrorDate = DateTime.Now };
                     break;
             }
-
+            
             context.Response.ContentType = "application/json";
             if (error != null)
             {
