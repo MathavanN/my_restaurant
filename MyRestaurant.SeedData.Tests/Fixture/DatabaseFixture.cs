@@ -16,7 +16,7 @@ namespace MyRestaurant.SeedData.Tests.Fixture
 
         public DatabaseFixture()
         {
-            ConnectionString = $"Server={_sereverName},1433;Database={Guid.NewGuid().ToString()};User={_userName};Password={_password}";
+            ConnectionString = $"Server={_sereverName},1433;Database={Guid.NewGuid()};User={_userName};Password={_password}";
             WrongConnectionString = $"Server=Test,1433;Database=Test;User=Test;Password=Test";
 
             var builder = new DbContextOptionsBuilder<MyRestaurantContext>();
