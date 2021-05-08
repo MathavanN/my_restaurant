@@ -46,7 +46,7 @@ namespace MyRestaurant.Api.Tests.Middleware
         }
 
         [Fact]
-        public async Task ExceptionMiddleware_Capture_Any_Exception()
+        public async Task ExceptionMiddleware_Capture_Any_Exception_With_InnerException()
         {
             // Arrange
             var defaultContext = new DefaultHttpContext();
@@ -66,6 +66,33 @@ namespace MyRestaurant.Api.Tests.Middleware
             var body = new StreamReader(defaultContext.Response.Body).ReadToEnd();
             body.Should().Contain("500");
             body.Should().Contain("Inner exception error message");
+            body.Should().Contain("errorCode");
+            body.Should().Contain("errorType");
+            body.Should().Contain("errorMessage");
+            body.Should().Contain("errorDate");
+        }
+
+        [Fact]
+        public async Task ExceptionMiddleware_Capture_Any_Exception()
+        {
+            // Arrange
+            var defaultContext = new DefaultHttpContext();
+            defaultContext.Response.Body = new MemoryStream();
+            var loggerMock = new Mock<ILogger<ExceptionMiddleware>>();
+
+            // Act
+            var middlewareInstance = new ExceptionMiddleware(next: (innerHttpContext) =>
+            {
+                throw new Exception("Server Error");
+            }, logger: loggerMock.Object);
+
+            await middlewareInstance.InvokeAsync(defaultContext);
+
+            // Assert
+            defaultContext.Response.Body.Seek(0, SeekOrigin.Begin);
+            var body = new StreamReader(defaultContext.Response.Body).ReadToEnd();
+            body.Should().Contain("500");
+            body.Should().Contain("Server Error");
             body.Should().Contain("errorCode");
             body.Should().Contain("errorType");
             body.Should().Contain("errorMessage");
