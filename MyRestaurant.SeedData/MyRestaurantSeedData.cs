@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MyRestaurant.SeedData
 {
-    public class MyRestaurantSeedData  : IMyRestaurantSeedData
+    public class MyRestaurantSeedData : IMyRestaurantSeedData
     {
         private readonly IServiceProvider _serviceProvider;
         public MyRestaurantSeedData(IServiceProvider serviceProvider)
@@ -60,7 +60,7 @@ namespace MyRestaurant.SeedData
                         await userManager.AddToRolesAsync(user, roleTypes.Select(x => x.ToString()));
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 logger.LogError("An error occurred while seeding the database. {0}", ex.Message);
                 throw;
