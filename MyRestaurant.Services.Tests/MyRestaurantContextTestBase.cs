@@ -7,6 +7,7 @@ namespace MyRestaurant.Services.Tests
     public class MyRestaurantContextTestBase : IDisposable
     {
         protected readonly MyRestaurantContext _myRestaurantContext;
+        private bool _disposed;
 
         public MyRestaurantContextTestBase()
         {
@@ -21,9 +22,23 @@ namespace MyRestaurant.Services.Tests
 
         public void Dispose()
         {
-            _myRestaurantContext.Database.EnsureDeleted();
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
 
-            _myRestaurantContext.Dispose();
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // remove the temp db from the server once all tests are done
+                    _myRestaurantContext.Database.EnsureDeleted();
+                    _myRestaurantContext.Dispose();
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

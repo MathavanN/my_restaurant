@@ -26,7 +26,7 @@ namespace MyRestaurant.Services
         public CurrentUser GetCurrentUser()
         {
             var claimPrincipal = _httpContextAccessor.HttpContext.User;
-            
+
             if (claimPrincipal == null)
                 return null;
 

@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
+using MyRestaurant.Api.Tests.Swagger.Fixture;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using MyRestaurant.Api.Tests.Swagger.Fixture;
 
 namespace MyRestaurant.Api.Tests.Swagger
 {
