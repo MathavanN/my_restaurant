@@ -69,7 +69,7 @@ namespace MyRestaurant.Api.Middleware
                     error = new { ErrorCode = errorCode, ErrorType = errorType, ErrorMessage = errorMessage, ErrorDate = DateTime.Now };
                     break;
             }
-            
+
             context.Response.ContentType = "application/json";
             if (error != null)
             {
