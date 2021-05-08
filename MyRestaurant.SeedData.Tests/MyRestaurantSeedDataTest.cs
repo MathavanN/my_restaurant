@@ -47,7 +47,7 @@ namespace MyRestaurant.SeedData.Tests
 
             //Act
             var unitOfMeasureLogs = await context.Audits.Where(x => x.TableName == "UnitOfMeasures").ToListAsync();
-            
+
             //Assert
             unitOfMeasureLogs.Count.Should().Be(0);
 
@@ -57,7 +57,7 @@ namespace MyRestaurant.SeedData.Tests
             unitOfMeasureLogs = await context.Audits.Where(x => x.TableName == "UnitOfMeasures").ToListAsync();
 
             //Assert
-            unitOfMeasureLogs.Count().Should().Be(1);
+            unitOfMeasureLogs.Count.Should().Be(1);
             unitOfMeasureLogs[0].Action.Should().Be("Added");
             unitOfMeasureLogs[0].KeyValues.Should().Be("{\"Id\":1}");
             unitOfMeasureLogs[0].OldValues.Should().BeNull();
@@ -73,10 +73,10 @@ namespace MyRestaurant.SeedData.Tests
             await databaseInitializer.Initialize();
 
             var context = scope.ServiceProvider.GetRequiredService<MyRestaurantContext>();
-            
+
             //Act
             var stockTypeLogs = await context.Audits.Where(x => x.TableName == "StockTypes").ToListAsync();
-            
+
             //Assert
             stockTypeLogs.Count.Should().Be(0);
 
@@ -91,7 +91,7 @@ namespace MyRestaurant.SeedData.Tests
             stockTypeLogs = await context.Audits.Where(x => x.TableName == "StockTypes").ToListAsync();
 
             //Assert
-            stockTypeLogs.Count().Should().Be(2);
+            stockTypeLogs.Count.Should().Be(2);
             stockTypeLogs[0].Action.Should().Be("Added");
             stockTypeLogs[0].KeyValues.Should().Be("{\"Id\":1}");
             stockTypeLogs[0].OldValues.Should().BeNull();
