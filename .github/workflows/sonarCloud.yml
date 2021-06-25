@@ -1,4 +1,4 @@
-name: Build
+name: SonarCloud
 on:
   push:
     branches: [ develop, main ]
@@ -42,5 +42,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"MathavanN_my_restaurant" /o:"mathavana-github" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test --filter FullyQualifiedName!~SeedData --no-restore --verbosity normal
+          dotnet build --filter FullyQualifiedName!~SeedData --no-restore --verbosity normal
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
