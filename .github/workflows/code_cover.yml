@@ -42,8 +42,12 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ${{ github.workspace }}/coverage/Service.info,${{ github.workspace }}/coverage/SeedData.info,${{ github.workspace }}/coverage/Business.info,${{ github.workspace }}/coverage/Api.info
           directory: ${{ github.workspace }}/coverage/
-      - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Install SonarCloud scanner
+        run: dotnet tool install --global dotnet-sonarscanner
+      - name: Begin Sonar scan
+        run: begin /k:"MathavanN_my_restaurant" /o:"mathavana-github" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+      - name: Build and run unit tests
+        run: |
+          dotnet build --configuration Release --no-restore
+      - name: End Sonar scan
+        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
