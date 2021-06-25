@@ -50,7 +50,7 @@ jobs:
         with:
           projectBaseDir: ${{ github.workspace }}
           args: >
-            -Dsonar.organization=my-restaurant
+            -Dsonar.organization=MathavanN_my_restaurant
             -Dsonar.projectKey=${{ secrets.SONAR_TOKEN }}
             -Dsonar.cs.opencover.reportPaths=${{ github.workspace }}/coverage/*.info
             -Dsonar.coverage.exclusions=**Test*.cs
