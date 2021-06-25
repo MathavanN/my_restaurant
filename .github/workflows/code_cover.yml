@@ -46,12 +46,12 @@ jobs:
         run: dotnet tool install --global dotnet-sonarscanner
       - name: Begin Sonar scan
         run: |
-            dotnet-sonarscanner begin /k:"MathavanN_my_restaurant" \
-                                      /o:"mathavana-github" \
-                                      /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
-                                      /d:sonar.coverage.exclusions="**Test*.cs" |
-                                      /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.info
-                                      /d:sonar.host.url="https://sonarcloud.io"
+          dotnet-sonarscanner begin /k:"MathavanN_my_restaurant" \
+                                    /o:"mathavana-github" \
+                                    /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+                                    /d:sonar.coverage.exclusions="**Test*.cs" \
+                                    /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.info \
+                                    /d:sonar.host.url="https://sonarcloud.io"
       - name: Build
         run: |
           dotnet build --configuration Release --no-restore
