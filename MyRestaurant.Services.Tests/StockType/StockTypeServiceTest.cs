@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockTypesAsync_Returns_StockTypes()
+        public async Task GetStockTypesAsync_Returns_StockTypes()
         {
             //Arrange
             var service = new StockTypeService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockTypeAsync_Returns_StockType()
+        public async Task GetStockTypeAsync_Returns_StockType()
         {
             //Arrange
             var id = 1;
@@ -44,7 +45,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockTypeAsync_Returns_Null()
+        public async Task GetStockTypeAsync_Returns_Null()
         {
             //Arrange
             var id = 10;
@@ -58,7 +59,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddStockTypeAsync_Returns_New_StockType()
+        public async Task AddStockTypeAsync_Returns_New_StockType()
         {
             //Arrange
             var service = new StockTypeService(_myRestaurantContext);
@@ -79,7 +80,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateStockTypeAsync_Successfully_Updated()
+        public async Task UpdateStockTypeAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -102,7 +103,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteStockTypeAsync_Successfully_Deleted()
+        public async Task DeleteStockTypeAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

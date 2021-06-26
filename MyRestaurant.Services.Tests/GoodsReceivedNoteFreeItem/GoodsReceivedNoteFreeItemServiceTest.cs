@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteFreeItemsAsync_Returns_GoodsReceivedNoteFreeItems()
+        public async Task GetGoodsReceivedNoteFreeItemsAsync_Returns_GoodsReceivedNoteFreeItems()
         {
             //Arrange
             var service = new GoodsReceivedNoteFreeItemService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteFreeItemAsync_Returns_GoodsReceivedNoteFreeItem()
+        public async Task GetGoodsReceivedNoteFreeItemAsync_Returns_GoodsReceivedNoteFreeItem()
         {
             //Arrange
             var id = 1;
@@ -45,7 +46,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteFreeItemAsync_Returns_Null()
+        public async Task GetGoodsReceivedNoteFreeItemAsync_Returns_Null()
         {
             //Arrange
             var id = 10001;
@@ -59,7 +60,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddGoodsReceivedNoteFreeItemAsync_Returns_New_GoodsReceivedNoteFreeItem()
+        public async Task AddGoodsReceivedNoteFreeItemAsync_Returns_New_GoodsReceivedNoteFreeItem()
         {
             //Arrange
             var goodsReceivedNoteId = 2;
@@ -91,7 +92,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteFreeItemAsync_Successfully_Updated()
+        public async Task UpdateGoodsReceivedNoteFreeItemAsync_Successfully_Updated()
         {
             //Arrange
             var goodsReceivedNoteId = 1;
@@ -116,7 +117,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteFreeItemAsync_Successfully_Deleted()
+        public async Task DeleteGoodsReceivedNoteFreeItemAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

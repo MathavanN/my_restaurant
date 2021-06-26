@@ -4,6 +4,7 @@ using MyRestaurant.Models;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -19,7 +20,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetRefreshTokenAsync_Returns_RefreshToken()
+        public async Task GetRefreshTokenAsync_Returns_RefreshToken()
         {
             //Arrange
             var token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MDk3NDc5ODAsImV4cCI6MTYwOTc2OTU4MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwMSJ9.kvX-GbWYLkgEY3Kl9RaRvESbNRkl8NDBxGNTcTFUGBpaLwSM8oWt9U6bKQNoPbcAbNui3ubvbCapkmc3SWVmfg";
@@ -39,7 +40,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetRefreshTokenAsync_Returns_Null()
+        public async Task GetRefreshTokenAsync_Returns_Null()
         {
             //Arrange
             var service = new JwtTokenService(_fixture.MockUserManager.Object, _myRestaurantContext, _fixture.JwtSettings);
@@ -52,7 +53,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateRefreshTokenAsync_Successfully_Updated()
+        public async Task UpdateRefreshTokenAsync_Successfully_Updated()
         {
             //Arrange
             var refreshToken = "token4";
@@ -75,7 +76,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GenerateAccessToken_Returns_AccessToken()
+        public async Task GenerateAccessToken_Returns_AccessToken()
         {
             //Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
@@ -98,7 +99,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GenerateRefreshToken_Returns_RefreshToken()
+        public async Task GenerateRefreshToken_Returns_RefreshToken()
         {
             //Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
@@ -114,7 +115,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void ValidateRefreshToken_Valid_RefreshToken_Returns_True()
+        public async Task ValidateRefreshToken_Valid_RefreshToken_Returns_True()
         {
             // Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
@@ -129,7 +130,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void ValidateRefreshToken_InValid_RefreshToken_Returns_False()
+        public async Task ValidateRefreshToken_InValid_RefreshToken_Returns_False()
         {
             // Arrange
             var adminUser = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Admin");
@@ -144,7 +145,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void ValidateRefreshToken_Expired_RefreshToken_Returns_False()
+        public async Task ValidateRefreshToken_Expired_RefreshToken_Returns_False()
         {
             // Arrange
             var token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MDk3NDc5ODAsImV4cCI6MTYwOTc2OTU4MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwMSJ9.kvX-GbWYLkgEY3Kl9RaRvESbNRkl8NDBxGNTcTFUGBpaLwSM8oWt9U6bKQNoPbcAbNui3ubvbCapkmc3SWVmfg";

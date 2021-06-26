@@ -3,6 +3,7 @@ using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -15,7 +16,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNotesAsync_Returns_GoodsReceivedNotes()
+        public async Task GetGoodsReceivedNotesAsync_Returns_GoodsReceivedNotes()
         {
             //Arrange
             var service = new GoodsReceivedNoteService(_myRestaurantContext);
@@ -29,7 +30,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteAsync_Returns_GoodsReceivedNote()
+        public async Task GetGoodsReceivedNoteAsync_Returns_GoodsReceivedNote()
         {
             //Arrange
             var id = 1;
@@ -46,7 +47,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteAsync_Returns_Null()
+        public async Task GetGoodsReceivedNoteAsync_Returns_Null()
         {
             //Arrange
             var id = 10001;
@@ -60,7 +61,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddGoodsReceivedNoteAsync_Returns_New_GoodsReceivedNote()
+        public async Task AddGoodsReceivedNoteAsync_Returns_New_GoodsReceivedNote()
         {
             //Arrange
             var service = new GoodsReceivedNoteService(_myRestaurantContext);
@@ -92,7 +93,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteAsync_Successfully_Updated()
+        public async Task UpdateGoodsReceivedNoteAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -119,7 +120,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteAsync_Successfully_Deleted()
+        public async Task DeleteGoodsReceivedNoteAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

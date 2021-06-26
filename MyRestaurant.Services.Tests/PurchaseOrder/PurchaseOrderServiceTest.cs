@@ -3,6 +3,7 @@ using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -15,7 +16,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPurchaseOrdersAsync_Returns_PurchaseOrders()
+        public async Task GetPurchaseOrdersAsync_Returns_PurchaseOrders()
         {
             //Arrange
             var service = new PurchaseOrderService(_myRestaurantContext);
@@ -29,7 +30,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPurchaseOrderAsync_Returns_PurchaseOrder()
+        public async Task GetPurchaseOrderAsync_Returns_PurchaseOrder()
         {
             //Arrange
             var id = 1;
@@ -47,7 +48,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPurchaseOrderAsync_Returns_Null()
+        public async Task GetPurchaseOrderAsync_Returns_Null()
         {
             //Arrange
             var id = 10001;
@@ -61,7 +62,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddPurchaseOrderAsync_Returns_New_PurchaseOrder()
+        public async Task AddPurchaseOrderAsync_Returns_New_PurchaseOrder()
         {
             //Arrange
             var requestedUserId = _myRestaurantContext.Users.ToList().FirstOrDefault(d => d.FirstName == "Normal").Id;
@@ -94,7 +95,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderAsync_Successfully_Updated()
+        public async Task UpdatePurchaseOrderAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -117,7 +118,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeletePurchaseOrderAsync_Successfully_Deleted()
+        public async Task DeletePurchaseOrderAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

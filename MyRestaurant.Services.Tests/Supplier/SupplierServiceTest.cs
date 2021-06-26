@@ -2,6 +2,7 @@
 using MyRestaurant.Models;
 using MyRestaurant.Services.Common;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -14,7 +15,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSuppliersAsync_Returns_First_Paged_Suppliers()
+        public async Task GetSuppliersAsync_Returns_First_Paged_Suppliers()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -32,7 +33,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSuppliersAsync_Returns_Next_Paged_Suppliers()
+        public async Task GetSuppliersAsync_Returns_Next_Paged_Suppliers()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -50,7 +51,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSuppliersAsync_By_Name_Returns_Suppliers()
+        public async Task GetSuppliersAsync_By_Name_Returns_Suppliers()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -68,7 +69,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSuppliersAsync_By_City_Returns_Suppliers()
+        public async Task GetSuppliersAsync_By_City_Returns_Suppliers()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -86,7 +87,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSuppliersAsync_By_Contact_Person_Returns_Suppliers()
+        public async Task GetSuppliersAsync_By_Contact_Person_Returns_Suppliers()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -104,7 +105,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSupplierAsync_Returns_Supplier()
+        public async Task GetSupplierAsync_Returns_Supplier()
         {
             //Arrange
             var id = 1;
@@ -120,7 +121,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetSupplierAsync_Returns_Null()
+        public async Task GetSupplierAsync_Returns_Null()
         {
             //Arrange
             var id = 10001;
@@ -134,7 +135,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddSupplierAsync_Returns_New_Supplier()
+        public async Task AddSupplierAsync_Returns_New_Supplier()
         {
             //Arrange
             var service = new SupplierService(_myRestaurantContext);
@@ -161,7 +162,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateSupplierAsync_Successfully_Updated()
+        public async Task UpdateSupplierAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -192,7 +193,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteSupplierAsync_Successfully_Deleted()
+        public async Task DeleteSupplierAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

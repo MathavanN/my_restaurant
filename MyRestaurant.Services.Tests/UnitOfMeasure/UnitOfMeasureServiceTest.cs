@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetUnitOfMeasuresAsync_Returns_UnitOfMeasures()
+        public async Task GetUnitOfMeasuresAsync_Returns_UnitOfMeasures()
         {
             //Arrange
             var service = new UnitOfMeasureService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetUnitOfMeasureAsync_Returns_UnitOfMeasure()
+        public async Task GetUnitOfMeasureAsync_Returns_UnitOfMeasure()
         {
             //Arrange
             var id = 1;
@@ -44,7 +45,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetUnitOfMeasureAsync_Returns_Null()
+        public async Task GetUnitOfMeasureAsync_Returns_Null()
         {
             //Arrange
             var id = 10;
@@ -58,7 +59,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddUnitOfMeasureAsync_Returns_New_UnitOfMeasure()
+        public async Task AddUnitOfMeasureAsync_Returns_New_UnitOfMeasure()
         {
             //Arrange
             var service = new UnitOfMeasureService(_myRestaurantContext);
@@ -79,7 +80,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Successfully_Updated()
+        public async Task UpdateUnitOfMeasureAsync_Successfully_Updated()
         {
             //Arrange
             var id = 3;
@@ -102,7 +103,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasureAsync_Successfully_Deleted()
+        public async Task DeleteUnitOfMeasureAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

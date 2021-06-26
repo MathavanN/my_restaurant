@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPaymentTypesAsync_Returns_PaymentTypes()
+        public async Task GetPaymentTypesAsync_Returns_PaymentTypes()
         {
             //Arrange
             var service = new PaymentTypeService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPaymentTypeAsync_Returns_PaymentType()
+        public async Task GetPaymentTypeAsync_Returns_PaymentType()
         {
             //Arrange
             var id = 1;
@@ -44,7 +45,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPaymentTypeAsync_Returns_Null()
+        public async Task GetPaymentTypeAsync_Returns_Null()
         {
             //Arrange
             var id = 10;
@@ -58,7 +59,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddPaymentTypeAsync_Returns_New_PaymentType()
+        public async Task AddPaymentTypeAsync_Returns_New_PaymentType()
         {
             //Arrange
             var service = new PaymentTypeService(_myRestaurantContext);
@@ -73,7 +74,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdatePaymentTypeAsync_Successfully_Updated()
+        public async Task UpdatePaymentTypeAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -96,7 +97,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeletePaymentTypeAsync_Successfully_Deleted()
+        public async Task DeletePaymentTypeAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

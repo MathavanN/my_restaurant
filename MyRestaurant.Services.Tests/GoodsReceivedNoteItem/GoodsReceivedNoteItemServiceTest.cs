@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItemsAsync_Returns_GoodsReceivedNoteItems()
+        public async Task GetGoodsReceivedNoteItemsAsync_Returns_GoodsReceivedNoteItems()
         {
             //Arrange
             var service = new GoodsReceivedNoteItemService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItemAsync_Returns_GoodsReceivedNoteItem()
+        public async Task GetGoodsReceivedNoteItemAsync_Returns_GoodsReceivedNoteItem()
         {
             //Arrange
             var id = 1;
@@ -45,7 +46,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItemAsync_Returns_Null()
+        public async Task GetGoodsReceivedNoteItemAsync_Returns_Null()
         {
             //Arrange
             var id = 10;
@@ -59,7 +60,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddGoodsReceivedNoteItemAsync_Returns_New_GoodsReceivedNoteItem()
+        public async Task AddGoodsReceivedNoteItemAsync_Returns_New_GoodsReceivedNoteItem()
         {
             //Arrange
             var goodsReceivedNoteId = 2;
@@ -88,7 +89,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteItemAsync_Successfully_Updated()
+        public async Task UpdateGoodsReceivedNoteItemAsync_Successfully_Updated()
         {
             //Arrange
             var id = 3;
@@ -113,7 +114,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteItemAsync_Successfully_Deleted()
+        public async Task DeleteGoodsReceivedNoteItemAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;
