@@ -7,12 +7,12 @@ dotnet test MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj ^
 			/p:CoverletOutputFormat=opencover ^
 			/p:Exclude="[xunit.*]"
 
-dotnet test myrestaurant.seeddata.tests/myrestaurant.seeddata.tests.csproj ^
-			-c release ^
-			/p:collectcoverage=true ^
-			/p:coverletoutput=%cd%/coveragereports/seeddata.xml ^
-			/p:coverletoutputformat=opencover ^
-			/p:exclude="[xunit.*]"
+dotnet test MyRestaurant.SeedData.Tests/MyRestaurant.SeedData.Tests.csproj ^
+			-c Release ^
+			/p:CollectCoverage=true ^
+			/p:CoverletOutput=%CD%/CoverageReports/SeedDdata.xml ^
+			/p:CoverletOutputFormat=opencover ^
+			/p:Exclude="[xunit.*]"
 
 dotnet test MyRestaurant.Business.Tests/MyRestaurant.Business.Tests.csproj ^
 			-c Release ^

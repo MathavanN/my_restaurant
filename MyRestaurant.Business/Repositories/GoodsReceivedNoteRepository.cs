@@ -39,7 +39,6 @@ namespace MyRestaurant.Business.Repositories
 
             if (order.GoodsReceivedNotes.Any(d => statusNoNeedNewGRN.Contains(d.ApprovalStatus)))
                 throw new RestException(HttpStatusCode.BadRequest, "GRN already created for this purchase order.");
-
         }
 
         private async Task<PurchaseOrder> CheckPurchaseOrder(long purchaseOrderId)
