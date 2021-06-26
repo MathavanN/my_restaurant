@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class ServiceTypeControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IServiceTypeRepository> MockServiceTypeRepository { get; private set; }
         public IEnumerable<GetServiceTypeDto> ServiceTypes { get; private set; }
@@ -38,7 +39,21 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
         public void Dispose()
         {
-            MockServiceTypeRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockServiceTypeRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

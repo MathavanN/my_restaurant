@@ -10,6 +10,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class AccountControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IAccountRepository> MockAccountRepository { get; private set; }
         public IEnumerable<GetUserDto> Users { get; private set; }
@@ -139,7 +140,21 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
         public void Dispose()
         {
-            MockAccountRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockAccountRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

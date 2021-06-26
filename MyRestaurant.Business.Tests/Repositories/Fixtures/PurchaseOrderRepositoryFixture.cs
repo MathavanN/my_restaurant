@@ -10,6 +10,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class PurchaseOrderRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<IPurchaseOrderService> MockPurchaseOrderService { get; private set; }
         public Mock<IUserAccessorService> MockUserAccessorService { get; private set; }
         public IEnumerable<PurchaseOrder> PurchaseOrders { get; private set; }
@@ -199,7 +200,22 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 
         public void Dispose()
         {
-            MockPurchaseOrderService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockPurchaseOrderService = null;
+                    MockUserAccessorService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

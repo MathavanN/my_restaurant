@@ -11,6 +11,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class StockItemRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<IStockItemService> MockStockItemService { get; private set; }
         public IEnumerable<StockItem> StockItems { get; private set; }
         public CollectionEnvelop<StockItem> CollectionEnvelop { get; private set; }
@@ -76,7 +77,21 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         }
         public void Dispose()
         {
-            MockStockItemService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockStockItemService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

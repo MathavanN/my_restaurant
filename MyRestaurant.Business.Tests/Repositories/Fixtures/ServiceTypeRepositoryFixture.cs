@@ -9,6 +9,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class ServiceTypeRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<IServiceTypeService> MockServiceTypeService { get; private set; }
         public IEnumerable<ServiceType> ServiceTypes { get; private set; }
         public CreateServiceTypeDto CreateServiceTypeDto { get; private set; }
@@ -43,7 +44,21 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         }
         public void Dispose()
         {
-            MockServiceTypeService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockServiceTypeService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

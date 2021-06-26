@@ -9,6 +9,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class StockTypeRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<IStockTypeService> MockStockTypeService { get; private set; }
         public IEnumerable<StockType> StockTypes { get; private set; }
         public CreateStockTypeDto CreateStockTypeDto { get; private set; }
@@ -33,7 +34,21 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 
         public void Dispose()
         {
-            MockStockTypeService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockStockTypeService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

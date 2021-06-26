@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class PurchaseOrderControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IPurchaseOrderRepository> MockPurchaseOrderRepository { get; private set; }
         public IEnumerable<GetPurchaseOrderDto> PurchaseOrders { get; private set; }
@@ -138,9 +139,24 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Description = "Changed supplier"
             };
         }
+        
         public void Dispose()
         {
-            MockPurchaseOrderRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockPurchaseOrderRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

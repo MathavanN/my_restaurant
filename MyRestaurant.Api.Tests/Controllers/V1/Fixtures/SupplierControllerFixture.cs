@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class SupplierControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<ISupplierRepository> MockSupplierRepository { get; private set; }
         public IEnumerable<GetSupplierDto> Suppliers { get; private set; }
@@ -99,9 +100,24 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 ContactPerson = "James"
             };
         }
+        
         public void Dispose()
         {
-            MockSupplierRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockSupplierRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

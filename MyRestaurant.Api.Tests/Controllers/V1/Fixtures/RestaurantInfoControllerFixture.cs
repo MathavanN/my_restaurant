@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class RestaurantInfoControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IRestaurantInfoRepository> MockRestaurantInfoRepository { get; private set; }
         public IEnumerable<GetRestaurantInfoDto> RestaurantInfos { get; private set; }
@@ -51,9 +52,24 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Email = "test@gmail.com"
             };
         }
+        
         public void Dispose()
         {
-            MockRestaurantInfoRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockRestaurantInfoRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }
