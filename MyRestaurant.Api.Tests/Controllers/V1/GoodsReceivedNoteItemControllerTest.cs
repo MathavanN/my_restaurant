@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItems_Returns_OkObjectResult()
+        public async Task GetGoodsReceivedNoteItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemRepository.Setup(x => x.GetGoodsReceivedNoteItemsAsync(It.IsAny<long>()))
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItem_Returns_OkObjectResult()
+        public async Task GetGoodsReceivedNoteItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -64,7 +65,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteItem_Returns_CreatedAtRouteResult()
+        public async Task CreateGoodsReceivedNoteItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemRepository.Setup(x => x.CreateGoodsReceivedNoteItemAsync(It.IsAny<CreateGoodsReceivedNoteItemDto>()))
@@ -89,7 +90,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteItem_Returns_OkObjectResult()
+        public async Task UpdateGoodsReceivedNoteItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -113,7 +114,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteItem_Returns_NoContentResult()
+        public async Task DeleteGoodsReceivedNoteItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

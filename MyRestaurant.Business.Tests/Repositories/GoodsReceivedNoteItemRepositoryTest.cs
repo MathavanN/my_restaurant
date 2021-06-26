@@ -23,7 +23,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItemsAsync_Returns_GetGoodsReceivedNoteItemDtos()
+        public async Task GetGoodsReceivedNoteItemsAsync_Returns_GetGoodsReceivedNoteItemDtos()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemService.Setup(x => x.GetGoodsReceivedNoteItemsAsync(It.IsAny<Expression<Func<GoodsReceivedNoteItem, bool>>>()))
@@ -44,7 +44,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItemAsync_Returns_GetGoodsReceivedNoteItemDto()
+        public async Task GetGoodsReceivedNoteItemAsync_Returns_GetGoodsReceivedNoteItemDto()
         {
             //Arrange
             var id = 1;
@@ -64,7 +64,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteItemAsync_Throws_NotFoundException()
+        public async Task GetGoodsReceivedNoteItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -83,7 +83,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteItemAsync_Returns_New_GetGoodsReceivedNoteItemDto()
+        public async Task CreateGoodsReceivedNoteItemAsync_Returns_New_GetGoodsReceivedNoteItemDto()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemService.Setup(x => x.AddGoodsReceivedNoteItemAsync(It.IsAny<GoodsReceivedNoteItem>()))
@@ -104,7 +104,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteItemAsync_Throws_ConflictException()
+        public async Task CreateGoodsReceivedNoteItemAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteItemService.Setup(x => x.GetGoodsReceivedNoteItemAsync(It.IsAny<Expression<Func<GoodsReceivedNoteItem, bool>>>()))
@@ -128,7 +128,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteItemAsync_Returns_Updated_GetGoodsReceivedNoteItemDto()
+        public async Task UpdateGoodsReceivedNoteItemAsync_Returns_Updated_GetGoodsReceivedNoteItemDto()
         {
             //Arrange
             var id = 1;
@@ -152,7 +152,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteItemAsync_Throws_NotFoundException()
+        public async Task UpdateGoodsReceivedNoteItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -173,7 +173,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteItemAsync_Throws_ConflictException()
+        public async Task UpdateGoodsReceivedNoteItemAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -200,7 +200,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteItemAsync_Returns_NoResult()
+        public async Task DeleteGoodsReceivedNoteItemAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -219,7 +219,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteItemAsync_Throws_NotFoundException()
+        public async Task DeleteGoodsReceivedNoteItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

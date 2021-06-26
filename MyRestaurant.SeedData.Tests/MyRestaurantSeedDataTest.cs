@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyRestaurant.Core;
 using MyRestaurant.SeedData.Tests.Fixture;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.SeedData.Tests
@@ -15,7 +16,7 @@ namespace MyRestaurant.SeedData.Tests
         public MyRestaurantSeedDataTest(MyRestaurantWebApplicationFactory factory) => _factory = factory;
 
         [Fact]
-        public async void Initialize_MyRestaurantDatabase_SeedData()
+        public async Task Initialize_MyRestaurantDatabase_SeedData()
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
@@ -36,7 +37,7 @@ namespace MyRestaurant.SeedData.Tests
         }
 
         [Fact]
-        public async void Insert_New_MyRestaurant_Entity_Add_AduitLog()
+        public async Task Insert_New_MyRestaurant_Entity_Add_AduitLog()
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
@@ -65,7 +66,7 @@ namespace MyRestaurant.SeedData.Tests
         }
 
         [Fact]
-        public async void Update_Existing_MyRestaurant_Entity_Add_AduitLog()
+        public async Task Update_Existing_MyRestaurant_Entity_Add_AduitLog()
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();

@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetUnitOfMeasures_Returns_OkObjectResult()
+        public async Task GetUnitOfMeasures_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockUnitOfMeasureRepository.Setup(x => x.GetUnitOfMeasuresAsync())
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetUnitOfMeasure_Returns_OkObjectResult()
+        public async Task GetUnitOfMeasure_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -63,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateUnitOfMeasure_Returns_CreatedAtRouteResult()
+        public async Task CreateUnitOfMeasure_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockUnitOfMeasureRepository.Setup(x => x.CreateUnitOfMeasureAsync(It.IsAny<CreateUnitOfMeasureDto>()))
@@ -87,7 +88,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasure_Returns_OkObjectResult()
+        public async Task UpdateUnitOfMeasure_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -110,7 +111,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasure_Returns_NoContentResult()
+        public async Task DeleteUnitOfMeasure_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

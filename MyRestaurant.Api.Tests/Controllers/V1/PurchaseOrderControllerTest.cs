@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrders_Returns_OkObjectResult()
+        public async Task GetPurchaseOrders_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderRepository.Setup(x => x.GetPurchaseOrdersAsync())
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrdersForGRN_Returns_OkObjectResult()
+        public async Task GetPurchaseOrdersForGRN_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderRepository.Setup(x => x.GetPurchaseOrdersAllowToCreateGRN())
@@ -60,7 +61,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrder_Returns_OkObjectResult()
+        public async Task GetPurchaseOrder_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -84,7 +85,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreatePurchaseOrder_Returns_CreatedAtRouteResult()
+        public async Task CreatePurchaseOrder_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderRepository.Setup(x => x.CreatePurchaseOrderAsync(It.IsAny<CreatePurchaseOrderDto>()))
@@ -109,7 +110,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdatePurchaseOrder_Returns_OkObjectResult()
+        public async Task UpdatePurchaseOrder_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -133,7 +134,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void ApprovePurchaseOrder_Returns_OkObjectResult()
+        public async Task ApprovePurchaseOrder_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -157,7 +158,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeletePurchaseOrder_Returns_NoContentResult()
+        public async Task DeletePurchaseOrder_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

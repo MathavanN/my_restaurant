@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetTransactionTypesAsync_Returns_GetTransactionTypeDtos()
+        public async Task GetTransactionTypesAsync_Returns_GetTransactionTypeDtos()
         {
             //Arrange
             _fixture.MockTransactionTypeService.Setup(x => x.GetTransactionTypesAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetTransactionTypeAsync_Returns_GetTransactionTypeDto()
+        public async Task GetTransactionTypeAsync_Returns_GetTransactionTypeDto()
         {
             //Arrange
             var id = 1;
@@ -60,7 +60,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetTransactionTypeAsync_Throws_NotFoundException()
+        public async Task GetTransactionTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -79,7 +79,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateTransactionTypeAsync_Returns_New_GetTransactionTypeDto()
+        public async Task CreateTransactionTypeAsync_Returns_New_GetTransactionTypeDto()
         {
             //Arrange
             _fixture.MockTransactionTypeService.Setup(x => x.AddTransactionTypeAsync(It.IsAny<TransactionType>()))
@@ -97,7 +97,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateTransactionTypeAsync_Throws_ConflictException()
+        public async Task CreateTransactionTypeAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockTransactionTypeService.Setup(x => x.GetTransactionTypeAsync(It.IsAny<Expression<Func<TransactionType, bool>>>()))
@@ -115,7 +115,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateTransactionTypeAsync_Returns_Updated_GetTransactionTypeDto()
+        public async Task UpdateTransactionTypeAsync_Returns_Updated_GetTransactionTypeDto()
         {
             //Arrange
             var id = 2;
@@ -136,7 +136,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateTransactionTypeAsync_Throws_NotFoundException()
+        public async Task UpdateTransactionTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -157,7 +157,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateTransactionTypeAsync_Throws_ConflictException()
+        public async Task UpdateTransactionTypeAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -178,7 +178,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteTransactionTypeAsync_Returns_NoResult()
+        public async Task DeleteTransactionTypeAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -197,7 +197,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteTransactionTypeAsync_Throws_NotFoundException()
+        public async Task DeleteTransactionTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

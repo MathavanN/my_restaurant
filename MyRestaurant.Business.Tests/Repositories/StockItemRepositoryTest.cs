@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockItemsAsync_Returns_GetStockItemDtos()
+        public async Task GetStockItemsAsync_Returns_GetStockItemDtos()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.GetStockItemsAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockItemsByTypeAsync_Returns_StockItemEnvelop()
+        public async Task GetStockItemsByTypeAsync_Returns_StockItemEnvelop()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.GetStockItemsAsync(d => d.TypeId == 1, 0, 10))
@@ -61,7 +61,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockItemsByTypeAsync_With_Empty_Paged_Params_Returns_StockItemEnvelop()
+        public async Task GetStockItemsByTypeAsync_With_Empty_Paged_Params_Returns_StockItemEnvelop()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.GetStockItemsAsync(d => d.TypeId == 1, 0, 10))
@@ -81,7 +81,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockItemAsync_Returns_GetStockItemDto()
+        public async Task GetStockItemAsync_Returns_GetStockItemDto()
         {
             //Arrange
             var id = 1;
@@ -102,7 +102,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockItemAsync_Throws_NotFoundException()
+        public async Task GetStockItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -121,7 +121,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockItemAsync_Returns_New_GetStockItemDto()
+        public async Task CreateStockItemAsync_Returns_New_GetStockItemDto()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.AddStockItemAsync(It.IsAny<StockItem>()))
@@ -141,7 +141,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockItemAsync_Throws_ConflictException()
+        public async Task CreateStockItemAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockStockItemService.Setup(x => x.GetStockItemAsync(It.IsAny<Expression<Func<StockItem, bool>>>()))
@@ -159,7 +159,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Returns_Updated_GetStockItemDto()
+        public async Task UpdateStockItemAsync_Returns_Updated_GetStockItemDto()
         {
             //Arrange
             long id = 1;
@@ -184,7 +184,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Throws_NotFoundException()
+        public async Task UpdateStockItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -205,7 +205,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Throws_ConflictException()
+        public async Task UpdateStockItemAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 1;
@@ -224,7 +224,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockItemAsync_Returns_NoResult()
+        public async Task DeleteStockItemAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -243,7 +243,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockItemAsync_Throws_NotFoundException()
+        public async Task DeleteStockItemAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

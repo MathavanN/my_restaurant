@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetServiceTypesAsync_Returns_GetServiceTypeDtos()
+        public async Task GetServiceTypesAsync_Returns_GetServiceTypeDtos()
         {
             //Arrange
             _fixture.MockServiceTypeService.Setup(x => x.GetServiceTypesAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetServiceTypeAsync_Returns_GetServiceTypeDto()
+        public async Task GetServiceTypeAsync_Returns_GetServiceTypeDto()
         {
             //Arrange
             var id = 2;
@@ -60,7 +60,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetServiceTypeAsync_Throws_NotFoundException()
+        public async Task GetServiceTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -79,7 +79,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateServiceTypeAsync_Returns_New_GetServiceTypeDto()
+        public async Task CreateServiceTypeAsync_Returns_New_GetServiceTypeDto()
         {
             //Arrange
             _fixture.MockServiceTypeService.Setup(x => x.AddServiceTypeAsync(It.IsAny<ServiceType>()))
@@ -97,7 +97,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateServiceTypeAsync_Throws_ConflictException()
+        public async Task CreateServiceTypeAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockServiceTypeService.Setup(x => x.GetServiceTypeAsync(It.IsAny<Expression<Func<ServiceType, bool>>>()))
@@ -115,7 +115,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateServiceTypeAsync_Returns_Updated_GetServiceTypeDto()
+        public async Task UpdateServiceTypeAsync_Returns_Updated_GetServiceTypeDto()
         {
             //Arrange
             var id = 1;
@@ -136,7 +136,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateServiceTypeAsync_Throws_NotFoundException()
+        public async Task UpdateServiceTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -157,7 +157,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateServiceTypeAsync_Throws_ConflictException()
+        public async Task UpdateServiceTypeAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 1;
@@ -178,7 +178,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteServiceTypeAsync_Returns_NoResult()
+        public async Task DeleteServiceTypeAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -197,7 +197,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteServiceTypeAsync_Throws_NotFoundException()
+        public async Task DeleteServiceTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using MyRestaurant.SeedData.Tests.Fixture;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.SeedData.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.SeedData.Tests
         public WrongMyRestaurantSeedDataTest(WrongMyRestaurantWebApplicationFactory factory) => _factory = factory;
 
         [Fact]
-        public async void Initialize_MyRestaurantDatabase_Throws_Exception()
+        public async Task Initialize_MyRestaurantDatabase_Throws_Exception()
         {
             //Arrange
             var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();

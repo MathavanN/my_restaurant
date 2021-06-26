@@ -5,6 +5,7 @@ using MyRestaurant.Api.Controllers.V1;
 using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -19,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetSuppliers_Returns_OkObjectResult()
+        public async Task GetSuppliers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockSupplierRepository.Setup(x => x.GetSuppliersAsync(It.IsAny<int?>(), It.IsAny<int?>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -42,7 +43,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetSupplier_Returns_OkObjectResult()
+        public async Task GetSupplier_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -66,7 +67,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateSupplier_Returns_CreatedAtRouteResult()
+        public async Task CreateSupplier_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockSupplierRepository.Setup(x => x.CreateSupplierAsync(It.IsAny<CreateSupplierDto>()))
@@ -91,7 +92,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateSupplier_Returns_OkObjectResult()
+        public async Task UpdateSupplier_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -115,7 +116,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteSupplier_Returns_NoContentResult()
+        public async Task DeleteSupplier_Returns_NoContentResult()
         {
             //Arrange
             var id = 1;

@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteFreeItems_Returns_OkObjectResult()
+        public async Task GetGoodsReceivedNoteFreeItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.GetGoodsReceivedNoteFreeItemsAsync(It.IsAny<long>()))
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteFreeItem_Returns_OkObjectResult()
+        public async Task GetGoodsReceivedNoteFreeItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -64,7 +65,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteFreeItem_Returns_CreatedAtRouteResult()
+        public async Task CreateGoodsReceivedNoteFreeItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteFreeItemRepository.Setup(x => x.CreateGoodsReceivedNoteFreeItemAsync(It.IsAny<CreateGoodsReceivedNoteFreeItemDto>()))
@@ -89,7 +90,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteFreeItem_Returns_OkObjectResult()
+        public async Task UpdateGoodsReceivedNoteFreeItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -113,7 +114,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteFreeItem_Returns_NoContentResult()
+        public async Task DeleteGoodsReceivedNoteFreeItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

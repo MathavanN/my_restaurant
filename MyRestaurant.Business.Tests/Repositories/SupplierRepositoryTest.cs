@@ -23,7 +23,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetSuppliersAsync_Returns_GetSupplierEnvelop()
+        public async Task GetSuppliersAsync_Returns_GetSupplierEnvelop()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.GetSuppliersAsync("", "", "", 0, 10))
@@ -43,7 +43,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetSuppliersAsync_With_Empty_Paged_Params_Returns_GetSupplierEnvelop()
+        public async Task GetSuppliersAsync_With_Empty_Paged_Params_Returns_GetSupplierEnvelop()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.GetSuppliersAsync("", "", "", 0, 10))
@@ -63,7 +63,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetSupplierAsync_Returns_GetSupplierDto()
+        public async Task GetSupplierAsync_Returns_GetSupplierDto()
         {
             //Arrange
             var id = 1;
@@ -83,7 +83,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetSupplierAsync_Throws_NotFoundException()
+        public async Task GetSupplierAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -102,7 +102,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateSupplierAsync_Returns_New_GetSupplierDto()
+        public async Task CreateSupplierAsync_Returns_New_GetSupplierDto()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.AddSupplierAsync(It.IsAny<Supplier>()))
@@ -121,7 +121,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateSupplierAsync_Throws_ConflictException()
+        public async Task CreateSupplierAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockSupplierService.Setup(x => x.GetSupplierAsync(It.IsAny<Expression<Func<Supplier, bool>>>()))
@@ -151,7 +151,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateSupplierAsync_Returns_Updated_GetSupplierDto()
+        public async Task UpdateSupplierAsync_Returns_Updated_GetSupplierDto()
         {
             //Arrange
             long id = 2;
@@ -173,7 +173,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateSupplierAsync_Throws_NotFoundException()
+        public async Task UpdateSupplierAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -194,7 +194,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateSupplierAsync_Throws_ConflictException()
+        public async Task UpdateSupplierAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -227,7 +227,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteSupplierAsync_Returns_NoResult()
+        public async Task DeleteSupplierAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -246,7 +246,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteSupplierAsync_Throws_NotFoundException()
+        public async Task DeleteSupplierAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

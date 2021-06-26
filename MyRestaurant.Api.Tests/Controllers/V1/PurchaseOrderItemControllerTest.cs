@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrderItems_Returns_OkObjectResult()
+        public async Task GetPurchaseOrderItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderItemRepository.Setup(x => x.GetPurchaseOrderItemsAsync(It.IsAny<long>()))
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetPurchaseOrderItem_Returns_OkObjectResult()
+        public async Task GetPurchaseOrderItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -64,7 +65,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreatePurchaseOrderItem_Returns_CreatedAtRouteResult()
+        public async Task CreatePurchaseOrderItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockPurchaseOrderItemRepository.Setup(x => x.CreatePurchaseOrderItemAsync(It.IsAny<CreatePurchaseOrderItemDto>()))
@@ -90,7 +91,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderItem_Returns_OkObjectResult()
+        public async Task UpdatePurchaseOrderItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -115,7 +116,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeletePurchaseOrderItem_Returns_NoContentResult()
+        public async Task DeletePurchaseOrderItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;
