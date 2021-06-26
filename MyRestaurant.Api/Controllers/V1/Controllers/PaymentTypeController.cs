@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class PaymentTypeController : BaseApiController<PaymentTypeController>
+    public class PaymentTypeController : BaseApiController
     {
         private readonly IPaymentTypeRepository _repository;
         public PaymentTypeController(IPaymentTypeRepository repository)

@@ -8,7 +8,7 @@ namespace MyRestaurant.Api.Controllers
     [Produces("application/json")]
     [Consumes("application/json")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public abstract class BaseApiController<T> : ControllerBase
+    public abstract class BaseApiController : ControllerBase
     {
     }
 }

@@ -63,7 +63,6 @@ namespace MyRestaurant.Api
 
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {

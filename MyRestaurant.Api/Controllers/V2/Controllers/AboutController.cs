@@ -6,7 +6,7 @@ using MyRestaurant.Api.PolicyHandlers;
 namespace MyRestaurant.Api.Controllers.V2
 {
     [ApiVersion("2.0")]
-    public class AboutController : BaseApiController<AboutController>
+    public class AboutController : BaseApiController
     {
         public AboutController()
         {

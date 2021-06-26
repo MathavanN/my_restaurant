@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class AccountController : BaseApiController<AccountController>
+    public class AccountController : BaseApiController
     {
         private readonly IAccountRepository _repository;
         public AccountController(IAccountRepository repository)

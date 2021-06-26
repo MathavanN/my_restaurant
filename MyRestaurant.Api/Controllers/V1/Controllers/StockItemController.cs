@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class StockItemController : BaseApiController<StockItemController>
+    public class StockItemController : BaseApiController
     {
         private readonly IStockItemRepository _repository;
         public StockItemController(IStockItemRepository repository)

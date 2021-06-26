@@ -33,14 +33,13 @@ namespace MyRestaurant.Business.Repositories
             _userAccessor = userAccessor;
         }
 
-        private PurchaseOrder CheckPurchaseOrderAllowedToCreateGRN(PurchaseOrder order)
+        private static void CheckPurchaseOrderAllowedToCreateGRN(PurchaseOrder order)
         {
             var statusNoNeedNewGRN = new List<Status> { Status.Approved, Status.Pending };
 
             if (order.GoodsReceivedNotes.Any(d => statusNoNeedNewGRN.Contains(d.ApprovalStatus)))
                 throw new RestException(HttpStatusCode.BadRequest, "GRN already created for this purchase order.");
 
-            return order;
         }
 
         private async Task<PurchaseOrder> CheckPurchaseOrder(long purchaseOrderId)

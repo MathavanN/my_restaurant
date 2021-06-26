@@ -37,7 +37,7 @@ namespace MyRestaurant.Api.Extensions
         {
             var configValue = configuration.GetSection(configName).Value;
             if (string.IsNullOrWhiteSpace(configValue))
-                throw new Exception($"Cannot find the {configName} details.");
+                throw new ArgumentException($"Cannot find the {configName} details.");
             return configValue;
         }
         public static void ConfigureCors(this IServiceCollection services, string corsPolicyName, IConfiguration configuration)
@@ -118,7 +118,6 @@ namespace MyRestaurant.Api.Extensions
                     OnMessageReceived = context =>
                     {
                         var accessToken = context.Request.Query["access_token"];
-                        var path = context.HttpContext.Request.Path;
                         if (!string.IsNullOrEmpty(accessToken))
                         {
                             context.Token = accessToken;
@@ -242,7 +241,6 @@ namespace MyRestaurant.Api.Extensions
                 options.ReportApiVersions = true;
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                //options.ApiVersionReader = new MediaTypeApiVersionReader();
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
             });
         }

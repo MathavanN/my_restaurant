@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class UnitOfMeasureController : BaseApiController<UnitOfMeasureController>
+    public class UnitOfMeasureController : BaseApiController
     {
         private readonly IUnitOfMeasureRepository _repository;
         public UnitOfMeasureController(IUnitOfMeasureRepository repository)

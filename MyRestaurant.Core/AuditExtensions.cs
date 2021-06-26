@@ -10,7 +10,7 @@ namespace MyRestaurant.Core
         {
             if (dictionary == null || !dictionary.Any())
             {
-                return null;
+                return new Dictionary<TKey, TValue>();
             }
             return dictionary;
         }

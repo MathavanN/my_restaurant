@@ -11,6 +11,7 @@ namespace MyRestaurant.Services.Tests
 {
     public class JwtTokenServiceFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<UserManager<User>> MockUserManager { get; private set; }
         public IOptions<JwtSettings> JwtSettings { get; private set; }
         public IList<Claim> Claims { get; private set; }
@@ -36,8 +37,8 @@ namespace MyRestaurant.Services.Tests
                     new Mock<IUserStore<TIDentityUser>>().Object,
                     new Mock<IOptions<IdentityOptions>>().Object,
                     new Mock<IPasswordHasher<TIDentityUser>>().Object,
-                    new IUserValidator<TIDentityUser>[0],
-                    new IPasswordValidator<TIDentityUser>[0],
+                    Array.Empty<IUserValidator<TIDentityUser>>(),
+                    Array.Empty<IPasswordValidator<TIDentityUser>>(),
                     new Mock<ILookupNormalizer>().Object,
                     new Mock<IdentityErrorDescriber>().Object,
                     new Mock<IServiceProvider>().Object,
@@ -46,8 +47,22 @@ namespace MyRestaurant.Services.Tests
 
         public void Dispose()
         {
-            MockUserManager = null;
-            JwtSettings = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockUserManager = null;
+                    JwtSettings = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }
