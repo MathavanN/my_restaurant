@@ -6,6 +6,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
 {
     public class CreateGoodsReceivedNoteItemDtoValidatorFixture : IDisposable
     {
+        private bool _disposed;
         public CreateGoodsReceivedNoteItemDto Model { get; set; }
         public CreateGoodsReceivedNoteItemDtoValidator Validator { get; private set; }
 
@@ -24,10 +25,25 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 Discount = 1.2m,
             };
         }
+
         public void Dispose()
         {
-            Model = null;
-            Validator = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Model = null;
+                    Validator = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class TransactionControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<ITransactionRepository> MockTransactionRepository { get; private set; }
         public IEnumerable<GetTransactionDto> Transactions { get; private set; }
@@ -104,7 +105,21 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
         public void Dispose()
         {
-            MockTransactionRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockTransactionRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

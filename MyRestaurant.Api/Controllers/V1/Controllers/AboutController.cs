@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0", Deprecated = true)]
-    public class AboutController : BaseApiController<AboutController>
+    public class AboutController : BaseApiController
     {
         public AboutController()
         {

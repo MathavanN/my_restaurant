@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetStockItems_Returns_OkObjectResult()
+        public async Task GetStockItems_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsAsync())
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetStockItemsByType_Returns_OkObjectResult()
+        public async Task GetStockItemsByType_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockStockItemRepository.Setup(x => x.GetStockItemsByTypeAsync(It.IsAny<int>(), 10, 0))
@@ -63,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetStockItem_Returns_OkObjectResult()
+        public async Task GetStockItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -87,7 +88,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateStockItem_Returns_CreatedAtRouteResult()
+        public async Task CreateStockItem_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockStockItemRepository.Setup(x => x.CreateStockItemAsync(It.IsAny<CreateStockItemDto>()))
@@ -112,7 +113,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateStockItem_Returns_OkObjectResult()
+        public async Task UpdateStockItem_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -137,7 +138,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteStockItem_Returns_NoContentResult()
+        public async Task DeleteStockItem_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

@@ -2,6 +2,7 @@
 using MyRestaurant.Models;
 using MyRestaurant.Services.Common;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -14,7 +15,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockItemsAsync_Returns_StockItems()
+        public async Task GetStockItemsAsync_Returns_StockItems()
         {
             //Arrange
             var service = new StockItemService(_myRestaurantContext);
@@ -28,7 +29,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockItemsAsync_Returns_First_Paged_StockItems()
+        public async Task GetStockItemsAsync_Returns_First_Paged_StockItems()
         {
             //Arrange
             var service = new StockItemService(_myRestaurantContext);
@@ -46,7 +47,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockItemsAsync_Returns_Next_Paged_StockItems()
+        public async Task GetStockItemsAsync_Returns_Next_Paged_StockItems()
         {
             //Arrange
             var service = new StockItemService(_myRestaurantContext);
@@ -64,7 +65,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockItemAsync_Returns_StockItem()
+        public async Task GetStockItemAsync_Returns_StockItem()
         {
             //Arrange
             var id = 1;
@@ -81,7 +82,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetStockItemAsync_Returns_Null()
+        public async Task GetStockItemAsync_Returns_Null()
         {
             //Arrange
             var id = 10001;
@@ -95,7 +96,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddStockItemAsync_Returns_New_StockItem()
+        public async Task AddStockItemAsync_Returns_New_StockItem()
         {
             //Arrange
             var service = new StockItemService(_myRestaurantContext);
@@ -122,7 +123,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateStockItemAsync_Successfully_Updated()
+        public async Task UpdateStockItemAsync_Successfully_Updated()
         {
             //Arrange
             var id = 1;
@@ -147,7 +148,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteStockItemAsync_Successfully_Deleted()
+        public async Task DeleteStockItemAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

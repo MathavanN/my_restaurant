@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNotesAsync_Returns_GetGoodsReceivedNoteDtos()
+        public async Task GetGoodsReceivedNotesAsync_Returns_GetGoodsReceivedNoteDtos()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteService.Setup(x => x.GetGoodsReceivedNotesAsync())
@@ -43,7 +43,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteAsync_Returns_GetGoodsReceivedNoteDto()
+        public async Task GetGoodsReceivedNoteAsync_Returns_GetGoodsReceivedNoteDto()
         {
             //Arrange
             var id = 1;
@@ -66,7 +66,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetGoodsReceivedNoteAsync_Throws_NotFoundException()
+        public async Task GetGoodsReceivedNoteAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -87,7 +87,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteAsync_Returns_New_GetGoodsReceivedNoteDto()
+        public async Task CreateGoodsReceivedNoteAsync_Returns_New_GetGoodsReceivedNoteDto()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -126,7 +126,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteAsync_Throws_PurchaseOrder_NotFoundException()
+        public async Task CreateGoodsReceivedNoteAsync_Throws_PurchaseOrder_NotFoundException()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -170,7 +170,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteAsync_Throws_PurchaseOrder_BadRequestException()
+        public async Task CreateGoodsReceivedNoteAsync_Throws_PurchaseOrder_BadRequestException()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -214,7 +214,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteAsync_Throws_User_BadRequestException()
+        public async Task CreateGoodsReceivedNoteAsync_Throws_User_BadRequestException()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -258,7 +258,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteAsync_Throws_UserId_BadRequestException()
+        public async Task CreateGoodsReceivedNoteAsync_Throws_UserId_BadRequestException()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -302,7 +302,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNoteAsync_Throws_GRN_BadRequestException()
+        public async Task CreateGoodsReceivedNoteAsync_Throws_GRN_BadRequestException()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrderAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -346,7 +346,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteAsync_Returns_Updated_GetGoodsReceivedNoteDto()
+        public async Task UpdateGoodsReceivedNoteAsync_Returns_Updated_GetGoodsReceivedNoteDto()
         {
             //Arrange
             var id = 1;
@@ -374,7 +374,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNoteAsync_Throws_NotFoundException()
+        public async Task UpdateGoodsReceivedNoteAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -397,7 +397,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalGoodsReceivedNoteAsync_Throws_User_BadRequestException()
+        public async Task ApprovalGoodsReceivedNoteAsync_Throws_User_BadRequestException()
         {
             //Arrange
             var id = 3;
@@ -423,7 +423,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalGoodsReceivedNoteAsync_Throws_UserId_BadRequestException()
+        public async Task ApprovalGoodsReceivedNoteAsync_Throws_UserId_BadRequestException()
         {
             //Arrange
             var id = 3;
@@ -448,7 +448,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalGoodsReceivedNoteAsync_Returns_Approval_GetGoodsReceivedNoteDto()
+        public async Task ApprovalGoodsReceivedNoteAsync_Returns_Approval_GetGoodsReceivedNoteDto()
         {
             //Arrange
             var id = 3;
@@ -478,7 +478,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteAsync_Returns_NoResult()
+        public async Task DeleteGoodsReceivedNoteAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -499,7 +499,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNoteAsync_Throws_NotFoundException()
+        public async Task DeleteGoodsReceivedNoteAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

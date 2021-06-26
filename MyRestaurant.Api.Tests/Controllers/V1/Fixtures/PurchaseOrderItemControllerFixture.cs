@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class PurchaseOrderItemControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IPurchaseOrderItemRepository> MockPurchaseOrderItemRepository { get; private set; }
         public IEnumerable<GetPurchaseOrderItemDto> PurchaseOrderItems { get; private set; }
@@ -119,9 +120,24 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Quantity = 7
             };
         }
+        
         public void Dispose()
         {
-            MockPurchaseOrderItemRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockPurchaseOrderItemRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

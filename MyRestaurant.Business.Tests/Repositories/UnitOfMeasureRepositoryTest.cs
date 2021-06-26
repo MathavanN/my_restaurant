@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetUnitOfMeasuresAsync_Returns_GetUnitOfMeasureDtos()
+        public async Task GetUnitOfMeasuresAsync_Returns_GetUnitOfMeasureDtos()
         {
             //Arrange
             _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasuresAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetUnitOfMeasureAsync_Returns_GetUnitOfMeasureDto()
+        public async Task GetUnitOfMeasureAsync_Returns_GetUnitOfMeasureDto()
         {
             //Arrange
             var id = 1;
@@ -61,7 +61,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetUnitOfMeasureAsync_Returns_NotFoundException()
+        public async Task GetUnitOfMeasureAsync_Returns_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -80,7 +80,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateUnitOfMeasureAsync_Returns_New_GetUnitOfMeasureDto()
+        public async Task CreateUnitOfMeasureAsync_Returns_New_GetUnitOfMeasureDto()
         {
             //Arrange
             _fixture.MockUnitOfMeasureService.Setup(x => x.AddUnitOfMeasureAsync(It.IsAny<UnitOfMeasure>()))
@@ -99,7 +99,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateUnitOfMeasureAsync_Throws_ConflictException()
+        public async Task CreateUnitOfMeasureAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockUnitOfMeasureService.Setup(x => x.GetUnitOfMeasureAsync(It.IsAny<Expression<Func<UnitOfMeasure, bool>>>()))
@@ -117,7 +117,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Returns_Updated_GetUnitOfMeasureDto()
+        public async Task UpdateUnitOfMeasureAsync_Returns_Updated_GetUnitOfMeasureDto()
         {
             //Arrange
             var id = 3;
@@ -139,7 +139,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Throws_NotFoundException()
+        public async Task UpdateUnitOfMeasureAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -160,7 +160,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Throws_ConflictException()
+        public async Task UpdateUnitOfMeasureAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -181,7 +181,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasureAsync_Returns_NoResult()
+        public async Task DeleteUnitOfMeasureAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -200,7 +200,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteUnitOfMeasureAsync_Throws_NotFoundException()
+        public async Task DeleteUnitOfMeasureAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

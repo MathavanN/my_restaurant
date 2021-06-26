@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetTransactions_Returns_OkObjectResult()
+        public async Task GetTransactions_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockTransactionRepository.Setup(x => x.GetTransactionsAsync())
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetTransaction_Returns_OkObjectResult()
+        public async Task GetTransaction_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -64,7 +65,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateTransaction_Returns_CreatedAtRouteResult()
+        public async Task CreateTransaction_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockTransactionRepository.Setup(x => x.CreateTransactionAsync(It.IsAny<CreateTransactionDto>()))
@@ -89,7 +90,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateTransaction_Returns_OkObjectResult()
+        public async Task UpdateTransaction_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -113,7 +114,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteTransaction_Returns_NoContentResult()
+        public async Task DeleteTransaction_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

@@ -13,7 +13,7 @@ namespace MyRestaurant.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private Guid GetUserId(ClaimsPrincipal claimsPrincipal)
+        private static Guid GetUserId(ClaimsPrincipal claimsPrincipal)
         {
             var id = claimsPrincipal.FindFirstValue("id");
 

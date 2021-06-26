@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class TransactionTypeControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<ITransactionTypeRepository> MockTransactionTypeRepository { get; private set; }
         public IEnumerable<GetTransactionTypeDto> TransactionTypes { get; private set; }
@@ -52,9 +53,24 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Type = "Mortgage/Rent"
             };
         }
+        
         public void Dispose()
         {
-            MockTransactionTypeRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockTransactionTypeRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetRestaurantInfosAsync_Returns_RestaurantInfos()
+        public async Task GetRestaurantInfosAsync_Returns_RestaurantInfos()
         {
             //Arrange
             var service = new RestaurantInfoService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetRestaurantInfoAsync_Returns_RestaurantInfo()
+        public async Task GetRestaurantInfoAsync_Returns_RestaurantInfo()
         {
             //Arrange
             var id = 1;
@@ -43,7 +44,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetRestaurantInfoAsync_Returns_Null()
+        public async Task GetRestaurantInfoAsync_Returns_Null()
         {
             //Arrange
             var id = 10;
@@ -57,7 +58,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddRestaurantInfoAsync_Returns_New_RestaurantInfo()
+        public async Task AddRestaurantInfoAsync_Returns_New_RestaurantInfo()
         {
             //Arrange
             var service = new RestaurantInfoService(_myRestaurantContext);
@@ -81,7 +82,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateRestaurantInfoAsync_Successfully_Updated()
+        public async Task UpdateRestaurantInfoAsync_Successfully_Updated()
         {
             //Arrange
             var id = 1;
@@ -106,7 +107,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteRestaurantInfoAsync_Successfully_Deleted()
+        public async Task DeleteRestaurantInfoAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class GoodsReceivedNoteItemControllerFixure : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IGoodsReceivedNoteItemRepository> MockGoodsReceivedNoteItemRepository { get; private set; }
         public IEnumerable<GetGoodsReceivedNoteItemDto> GoodsReceivedNoteItems { get; private set; }
@@ -145,9 +146,24 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Discount = 0.1m
             };
         }
+        
         public void Dispose()
         {
-            MockGoodsReceivedNoteItemRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockGoodsReceivedNoteItemRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

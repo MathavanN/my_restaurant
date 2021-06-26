@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class GoodsReceivedNoteFreeItemController : BaseApiController<GoodsReceivedNoteFreeItemController>
+    public class GoodsReceivedNoteFreeItemController : BaseApiController
     {
         private readonly IGoodsReceivedNoteFreeItemRepository _repository;
         public GoodsReceivedNoteFreeItemController(IGoodsReceivedNoteFreeItemRepository repository)

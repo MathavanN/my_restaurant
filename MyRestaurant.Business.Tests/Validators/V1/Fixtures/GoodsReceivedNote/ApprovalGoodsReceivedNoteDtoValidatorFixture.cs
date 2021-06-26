@@ -6,6 +6,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
 {
     public class ApprovalGoodsReceivedNoteDtoValidatorFixture : IDisposable
     {
+        private bool _disposed;
         public ApprovalGoodsReceivedNoteDto Model { get; set; }
         public ApprovalGoodsReceivedNoteDtoValidator Validator { get; private set; }
 
@@ -19,10 +20,25 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 ApprovalReason = "GRN items are received"
             };
         }
+
         public void Dispose()
         {
-            Model = null;
-            Validator = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Model = null;
+                    Validator = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

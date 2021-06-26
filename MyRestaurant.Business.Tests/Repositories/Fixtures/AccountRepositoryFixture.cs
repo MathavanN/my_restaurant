@@ -12,6 +12,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class AccountRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<IJwtTokenService> MockJwtTokenService { get; private set; }
         public Mock<IUserAccessorService> MockUserAccessorService { get; private set; }
         public Mock<UserManager<User>> MockUserManager { get; private set; }
@@ -123,22 +124,36 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             };
         }
 
-        static Mock<UserManager<TIDentityUser>> GetUserManagerMock<TIDentityUser>() where TIDentityUser : IdentityUser<Guid>
-        {
-            return new Mock<UserManager<TIDentityUser>>(
+        static Mock<UserManager<TIDentityUser>> GetUserManagerMock<TIDentityUser>() where TIDentityUser : IdentityUser<Guid> => new(
                     new Mock<IUserStore<TIDentityUser>>().Object,
                     new Mock<IOptions<IdentityOptions>>().Object,
                     new Mock<IPasswordHasher<TIDentityUser>>().Object,
-                    new IUserValidator<TIDentityUser>[0],
-                    new IPasswordValidator<TIDentityUser>[0],
+                    Array.Empty<IUserValidator<TIDentityUser>>(),
+                    Array.Empty<IPasswordValidator<TIDentityUser>>(),
                     new Mock<ILookupNormalizer>().Object,
                     new Mock<IdentityErrorDescriber>().Object,
                     new Mock<IServiceProvider>().Object,
                     new Mock<ILogger<UserManager<TIDentityUser>>>().Object);
-        }
 
         public void Dispose()
         {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockJwtTokenService = null;
+                    MockUserAccessorService = null;
+                    MockUserManager = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

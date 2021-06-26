@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MyRestaurant.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
-    public class PurchaseOrderController : BaseApiController<PurchaseOrderController>
+    public class PurchaseOrderController : BaseApiController
     {
         private readonly IPurchaseOrderRepository _repository;
         public PurchaseOrderController(IPurchaseOrderRepository repository)

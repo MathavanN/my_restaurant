@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -19,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNotes_Returns_OkObjectResult()
+        public async Task GetGoodsReceivedNotes_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.GetGoodsReceivedNotesAsync())
@@ -39,7 +40,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetGoodsReceivedNote_Returns_OkObjectResult()
+        public async Task GetGoodsReceivedNote_Returns_OkObjectResult()
         {
             //Arrange
             var id = 2;
@@ -63,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateGoodsReceivedNote_Returns_CreatedAtRouteResult()
+        public async Task CreateGoodsReceivedNote_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockGoodsReceivedNoteRepository.Setup(x => x.CreateGoodsReceivedNoteAsync(It.IsAny<CreateGoodsReceivedNoteDto>()))
@@ -88,7 +89,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void UpdateGoodsReceivedNote_Returns_OkObjectResult()
+        public async Task UpdateGoodsReceivedNote_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -115,7 +116,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void ApproveGoodsReceivedNote_Returns_OkObjectResult()
+        public async Task ApproveGoodsReceivedNote_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -142,7 +143,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void DeleteGoodsReceivedNote_Returns_NoContentResult()
+        public async Task DeleteGoodsReceivedNote_Returns_NoContentResult()
         {
             //Arrange
             var id = 2;

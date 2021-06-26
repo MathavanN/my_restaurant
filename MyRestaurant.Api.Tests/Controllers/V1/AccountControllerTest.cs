@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -19,7 +20,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterAdmin_Returns_Success_OkObjectResult()
+        public async Task RegisterAdmin_Returns_Success_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(It.IsAny<RegisterAdminDto>()))
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterAdmin_Returns_Failed_OkObjectResult()
+        public async Task RegisterAdmin_Returns_Failed_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterAdminAsync(It.IsAny<RegisterAdminDto>()))
@@ -61,7 +62,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterNormalUser_Returns_Success_OkObjectResult()
+        public async Task RegisterNormalUser_Returns_Success_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(It.IsAny<RegisterNormalDto>()))
@@ -82,7 +83,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void RegisterNormalUser_Returns_Failed_OkObjectResult()
+        public async Task RegisterNormalUser_Returns_Failed_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RegisterNormalAsync(It.IsAny<RegisterNormalDto>()))
@@ -103,7 +104,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Login_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
+        public async Task Login_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.LoginAsync(It.IsAny<LoginDto>(), It.IsAny<string>()))
@@ -132,7 +133,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Login_Using_IpAddress_From_RemoteIpAddress_Returns_OkObjectResult()
+        public async Task Login_Using_IpAddress_From_RemoteIpAddress_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.LoginAsync(It.IsAny<LoginDto>(), It.IsAny<string>()))
@@ -162,7 +163,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Refresh_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
+        public async Task Refresh_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RefreshToken(It.IsAny<RefreshDto>(), It.IsAny<string>()))
@@ -191,7 +192,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Refresh_Using_IpAddress_From_RemoteIpAddress_Returns_OkObjectResult()
+        public async Task Refresh_Using_IpAddress_From_RemoteIpAddress_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RefreshToken(It.IsAny<RefreshDto>(), It.IsAny<string>()))
@@ -221,7 +222,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Revoke_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
+        public async Task Revoke_Using_IpAddress_From_Request_Headers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RevokeToken(It.IsAny<RevokeDto>(), It.IsAny<string>()));
@@ -245,7 +246,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void Revoke_Using_IpAddress_From_RemoteIpAddres_Returns_OkObjectResult()
+        public async Task Revoke_Using_IpAddress_From_RemoteIpAddres_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.RevokeToken(It.IsAny<RevokeDto>(), It.IsAny<string>()));
@@ -295,7 +296,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetUsers_Returns_OkObjectResult()
+        public async Task GetUsers_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockAccountRepository.Setup(x => x.GetUsersAsync())

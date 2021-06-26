@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetServiceTypesAsync_Returns_ServiceTypes()
+        public async Task GetServiceTypesAsync_Returns_ServiceTypes()
         {
             //Arrange
             var service = new ServiceTypeService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetServiceTypeAsync_Returns_ServiceType()
+        public async Task GetServiceTypeAsync_Returns_ServiceType()
         {
             //Arrange
             var id = 1;
@@ -43,7 +44,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetServiceTypeAsync_Returns_Null()
+        public async Task GetServiceTypeAsync_Returns_Null()
         {
             //Arrange
             var id = 10;
@@ -57,7 +58,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddServiceTypeAsync_Returns_New_ServiceType()
+        public async Task AddServiceTypeAsync_Returns_New_ServiceType()
         {
             //Arrange
             var service = new ServiceTypeService(_myRestaurantContext);
@@ -77,7 +78,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateServiceTypeAsync_Successfully_Updated()
+        public async Task UpdateServiceTypeAsync_Successfully_Updated()
         {
             //Arrange
             var id = 1;
@@ -98,7 +99,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteServiceTypeAsync_Successfully_Deleted()
+        public async Task DeleteServiceTypeAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

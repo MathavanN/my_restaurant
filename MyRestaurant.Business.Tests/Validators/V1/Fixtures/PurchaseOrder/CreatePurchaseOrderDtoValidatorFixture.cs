@@ -6,6 +6,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
 {
     public class CreatePurchaseOrderDtoValidatorFixture : IDisposable
     {
+        private bool _disposed;
         public CreatePurchaseOrderDto Model { get; set; }
         public CreatePurchaseOrderDtoValidator Validator { get; private set; }
 
@@ -19,10 +20,25 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 Description = "Purchase order description"
             };
         }
+
         public void Dispose()
         {
-            Model = null;
-            Validator = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Model = null;
+                    Validator = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

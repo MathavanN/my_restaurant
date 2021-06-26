@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetTransactionTypesAsync_Returns_TransactionTypes()
+        public async Task GetTransactionTypesAsync_Returns_TransactionTypes()
         {
             //Arrange
             var service = new TransactionTypeService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetTransactionTypeAsync_Returns_TransactionType()
+        public async Task GetTransactionTypeAsync_Returns_TransactionType()
         {
             //Arrange
             var id = 1;
@@ -43,7 +44,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetTransactionTypeAsync_Returns_Null()
+        public async Task GetTransactionTypeAsync_Returns_Null()
         {
             //Arrange
             var id = 1001;
@@ -57,7 +58,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddTransactionTypeAsync_Returns_New_TransactionType()
+        public async Task AddTransactionTypeAsync_Returns_New_TransactionType()
         {
             //Arrange
             var service = new TransactionTypeService(_myRestaurantContext);
@@ -77,7 +78,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateTransactionTypeAsync_Successfully_Updated()
+        public async Task UpdateTransactionTypeAsync_Successfully_Updated()
         {
             //Arrange
             var id = 4;
@@ -98,7 +99,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteTransactionTypeAsync_Successfully_Deleted()
+        public async Task DeleteTransactionTypeAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

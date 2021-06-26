@@ -6,6 +6,7 @@ using MyRestaurant.Api.Tests.Controllers.V1.Fixtures;
 using MyRestaurant.Business.Dtos.V1;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Api.Tests.Controllers.V1
@@ -20,7 +21,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetRestaurantInfos_Returns_OkObjectResult()
+        public async Task GetRestaurantInfos_Returns_OkObjectResult()
         {
             //Arrange
             _fixture.MockRestaurantInfoRepository.Setup(x => x.GetRestaurantInfosAsync())
@@ -40,7 +41,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void GetRestaurantInfo_Returns_OkObjectResult()
+        public async Task GetRestaurantInfo_Returns_OkObjectResult()
         {
             //Arrange
             var id = 1;
@@ -63,7 +64,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async void CreateRestaurantInfo_Returns_CreatedAtRouteResult()
+        public async Task CreateRestaurantInfo_Returns_CreatedAtRouteResult()
         {
             //Arrange
             _fixture.MockRestaurantInfoRepository.Setup(x => x.CreateRestaurantInfoAsync(It.IsAny<CreateRestaurantInfoDto>()))

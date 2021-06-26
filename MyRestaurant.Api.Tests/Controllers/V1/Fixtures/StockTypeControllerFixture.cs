@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class StockTypeControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IStockTypeRepository> MockStockTypeRepository { get; private set; }
         public IEnumerable<GetStockTypeDto> StockTypes { get; private set; }
@@ -58,7 +59,21 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
         public void Dispose()
         {
-            MockStockTypeRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockStockTypeRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using MyRestaurant.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void Verify_Audit_Has_UnitOfMeasure_Insert_History_Data()
+        public async Task Verify_Audit_Has_UnitOfMeasure_Insert_History_Data()
         {
             //Arrange
             _myRestaurantContext.Create(new UnitOfMeasure { Code = "Test", Description = "Audit test" });
@@ -29,7 +30,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void Verify_Audit_Has_UnitOfMeasure_Update_History_Data()
+        public async Task Verify_Audit_Has_UnitOfMeasure_Update_History_Data()
         {
             //Arrange
             _myRestaurantContext.Create(new UnitOfMeasure { Code = "Test", Description = "Audit test" });
@@ -50,7 +51,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void Verify_DeleteRange_Deleted_Successfully()
+        public async Task Verify_DeleteRange_Deleted_Successfully()
         {
             //Arrange
             UnitOfMeasureInitializer.Initialize(_myRestaurantContext);

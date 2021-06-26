@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPaymentTypesAsync_Returns_GetPaymentTypeDtos()
+        public async Task GetPaymentTypesAsync_Returns_GetPaymentTypeDtos()
         {
             //Arrange
             _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypesAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPaymentTypeAsync_Returns_GetPaymentTypeDto()
+        public async Task GetPaymentTypeAsync_Returns_GetPaymentTypeDto()
         {
             //Arrange
             var id = 1;
@@ -61,7 +61,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPaymentTypeAsync_Throws_NotFoundException()
+        public async Task GetPaymentTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -80,7 +80,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreatePaymentTypeAsync_Returns_New_GetPaymentTypeDto()
+        public async Task CreatePaymentTypeAsync_Returns_New_GetPaymentTypeDto()
         {
             //Arrange
             _fixture.MockPaymentTypeService.Setup(x => x.AddPaymentTypeAsync(It.IsAny<PaymentType>()))
@@ -99,7 +99,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreatePaymentTypeAsync_Throws_ConflictException()
+        public async Task CreatePaymentTypeAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockPaymentTypeService.Setup(x => x.GetPaymentTypeAsync(It.IsAny<Expression<Func<PaymentType, bool>>>()))
@@ -117,7 +117,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePaymentTypeAsync_Returns_Updated_GetPaymentTypeDto()
+        public async Task UpdatePaymentTypeAsync_Returns_Updated_GetPaymentTypeDto()
         {
             //Arrange
             var id = 2;
@@ -139,7 +139,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePaymentTypeAsync_Throws_NotFoundException()
+        public async Task UpdatePaymentTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -160,7 +160,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePaymentTypeAsync_Throws_ConflictException()
+        public async Task UpdatePaymentTypeAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -181,7 +181,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePaymentTypeAsync_Returns_NoResult()
+        public async Task DeletePaymentTypeAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -200,7 +200,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePaymentTypeAsync_Throws_NotFoundException()
+        public async Task DeletePaymentTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

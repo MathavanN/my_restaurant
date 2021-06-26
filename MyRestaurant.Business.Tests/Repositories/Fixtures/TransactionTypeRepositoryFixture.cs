@@ -9,6 +9,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class TransactionTypeRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<ITransactionTypeService> MockTransactionTypeService { get; private set; }
         public IEnumerable<TransactionType> TransactionTypes { get; private set; }
         public CreateTransactionTypeDto CreateTransactionTypeDto { get; private set; }
@@ -35,7 +36,21 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 
         public void Dispose()
         {
-            MockTransactionTypeService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockTransactionTypeService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

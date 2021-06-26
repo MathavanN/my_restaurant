@@ -10,6 +10,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class SupplierRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<ISupplierService> MockSupplierService { get; private set; }
         public IEnumerable<Supplier> Suppliers { get; private set; }
         public CollectionEnvelop<Supplier> CollectionEnvelop { get; private set; }
@@ -105,7 +106,21 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         }
         public void Dispose()
         {
-            MockSupplierService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockSupplierService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

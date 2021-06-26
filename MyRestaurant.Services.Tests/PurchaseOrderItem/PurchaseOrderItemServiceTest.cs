@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MyRestaurant.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -13,7 +14,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPurchaseOrderItemsAsync_Returns_PurchaseOrderItems()
+        public async Task GetPurchaseOrderItemsAsync_Returns_PurchaseOrderItems()
         {
             //Arrange
             var service = new PurchaseOrderItemService(_myRestaurantContext);
@@ -27,7 +28,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPurchaseOrderItemAsync_Returns_PurchaseOrderItem()
+        public async Task GetPurchaseOrderItemAsync_Returns_PurchaseOrderItem()
         {
             //Arrange
             var id = 1;
@@ -47,7 +48,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetPurchaseOrderItemAsync_Returns_Null()
+        public async Task GetPurchaseOrderItemAsync_Returns_Null()
         {
             //Arrange
             var id = 1001;
@@ -61,7 +62,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddPurchaseOrderItemAsync_Returns_New_PurchaseOrderItem()
+        public async Task AddPurchaseOrderItemAsync_Returns_New_PurchaseOrderItem()
         {
             //Arrange
             var service = new PurchaseOrderItemService(_myRestaurantContext);
@@ -90,7 +91,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderItemAsync_Successfully_Updated()
+        public async Task UpdatePurchaseOrderItemAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -117,7 +118,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeletePurchaseOrderItemAsync_Successfully_Deleted()
+        public async Task DeletePurchaseOrderItemAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

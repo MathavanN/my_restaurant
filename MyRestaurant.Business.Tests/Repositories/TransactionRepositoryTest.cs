@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetTransactionsAsync_Returns_GetTransactionDtos()
+        public async Task GetTransactionsAsync_Returns_GetTransactionDtos()
         {
             //Arrange
             _fixture.MockTransactionService.Setup(x => x.GetTransactionsAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetTransactionAsync_Returns_GetTransactionDto()
+        public async Task GetTransactionAsync_Returns_GetTransactionDto()
         {
             //Arrange
             var id = 1;
@@ -62,7 +62,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetTransactionAsync_Throws_NotFoundException()
+        public async Task GetTransactionAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -81,7 +81,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateTransactionAsync_Returns_New_GetTransactionDto()
+        public async Task CreateTransactionAsync_Returns_New_GetTransactionDto()
         {
             //Arrange
             _fixture.MockTransactionService.Setup(x => x.AddTransactionAsync(It.IsAny<Transaction>()))
@@ -101,7 +101,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateTransactionAsync_Returns_Updated_GetTransactionDto()
+        public async Task UpdateTransactionAsync_Returns_Updated_GetTransactionDto()
         {
             //Arrange
             var id = 2;
@@ -124,7 +124,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateTransactionAsync_Throws_NotFoundException()
+        public async Task UpdateTransactionAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -145,7 +145,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteTransactionAsync_Returns_NoResult()
+        public async Task DeleteTransactionAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -164,7 +164,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteTransactionAsync_Throws_NotFoundException()
+        public async Task DeleteTransactionAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

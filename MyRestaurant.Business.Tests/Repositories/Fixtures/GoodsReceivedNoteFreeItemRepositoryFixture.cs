@@ -10,6 +10,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
     public class GoodsReceivedNoteFreeItemRepositoryFixture : IDisposable
     {
+        private bool _disposed;
         public Mock<IGoodsReceivedNoteFreeItemService> MockGoodsReceivedNoteFreeItemService { get; private set; }
         public IEnumerable<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; private set; }
         public CreateGoodsReceivedNoteFreeItemDto CreateGoodsReceivedNoteFreeItemDto { get; private set; }
@@ -97,9 +98,24 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Quantity = 2
             };
         }
+        
         public void Dispose()
         {
-            MockGoodsReceivedNoteFreeItemService = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockGoodsReceivedNoteFreeItemService = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

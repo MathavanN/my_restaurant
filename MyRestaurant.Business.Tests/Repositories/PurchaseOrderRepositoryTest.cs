@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPurchaseOrdersAllowToCreateGRN_Returns_GetPurchaseOrderDtos()
+        public async Task GetPurchaseOrdersAllowToCreateGRN_Returns_GetPurchaseOrderDtos()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrdersAsync(It.IsAny<Expression<Func<PurchaseOrder, bool>>>()))
@@ -45,7 +45,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPurchaseOrdersAsync_Returns_GetPurchaseOrderDtos()
+        public async Task GetPurchaseOrdersAsync_Returns_GetPurchaseOrderDtos()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.GetPurchaseOrdersAsync(null))
@@ -62,7 +62,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPurchaseOrderAsync_Returns_GetPurchaseOrderDto()
+        public async Task GetPurchaseOrderAsync_Returns_GetPurchaseOrderDto()
         {
             //Arrange
             var id = 1;
@@ -82,7 +82,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetPurchaseOrderAsync_Throws_NotFoundException()
+        public async Task GetPurchaseOrderAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -101,7 +101,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreatePurchaseOrderAsync_Returns_New_GetPurchaseOrderDto()
+        public async Task CreatePurchaseOrderAsync_Returns_New_GetPurchaseOrderDto()
         {
             //Arrange
             _fixture.MockPurchaseOrderService.Setup(x => x.AddPurchaseOrderAsync(It.IsAny<PurchaseOrder>()))
@@ -122,7 +122,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdatePurchaseOrderAsync_Returns_Updated_GetPurchaseOrderDto()
+        public async Task UpdatePurchaseOrderAsync_Returns_Updated_GetPurchaseOrderDto()
         {
             //Arrange
             var id = 2;
@@ -145,7 +145,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateUnitOfMeasureAsync_Throws_NotFoundException()
+        public async Task UpdateUnitOfMeasureAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -166,7 +166,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalPurchaseOrderAsync_Throws_NotFoundException()
+        public async Task ApprovalPurchaseOrderAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -187,7 +187,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalPurchaseOrderAsync_Throws_User_BadRequestException()
+        public async Task ApprovalPurchaseOrderAsync_Throws_User_BadRequestException()
         {
             //Arrange
             var id = 2;
@@ -211,7 +211,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalPurchaseOrderAsync_Throws_UserId_BadRequestException()
+        public async Task ApprovalPurchaseOrderAsync_Throws_UserId_BadRequestException()
         {
             //Arrange
             var id = 2;
@@ -235,7 +235,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void ApprovalPurchaseOrderAsync_Returns_Approval_GetPurchaseOrderDto()
+        public async Task ApprovalPurchaseOrderAsync_Returns_Approval_GetPurchaseOrderDto()
         {
             //Arrange
             var id = 2;
@@ -260,7 +260,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePurchaseOrderAsync_Returns_NoResult()
+        public async Task DeletePurchaseOrderAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -279,7 +279,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeletePurchaseOrderAsync_Throws_NotFoundException()
+        public async Task DeletePurchaseOrderAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

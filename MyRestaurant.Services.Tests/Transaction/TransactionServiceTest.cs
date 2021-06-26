@@ -2,6 +2,7 @@
 using MyRestaurant.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestaurant.Services.Tests
@@ -14,7 +15,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetTransactionsAsync_Returns_Transactions()
+        public async Task GetTransactionsAsync_Returns_Transactions()
         {
             //Arrange
             var service = new TransactionService(_myRestaurantContext);
@@ -28,7 +29,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetTransactionAsync_Returns_Transaction()
+        public async Task GetTransactionAsync_Returns_Transaction()
         {
             //Arrange
             var id = 1;
@@ -45,7 +46,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void GetTransactionTypeAsync_Returns_Null()
+        public async Task GetTransactionTypeAsync_Returns_Null()
         {
             //Arrange
             var id = 1001;
@@ -59,7 +60,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void AddTransactionTypeAsync_Returns_New_TransactionType()
+        public async Task AddTransactionTypeAsync_Returns_New_TransactionType()
         {
             //Arrange
             var service = new TransactionService(_myRestaurantContext);
@@ -92,7 +93,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void UpdateTransactionTypeAsync_Successfully_Updated()
+        public async Task UpdateTransactionTypeAsync_Successfully_Updated()
         {
             //Arrange
             var id = 2;
@@ -113,7 +114,7 @@ namespace MyRestaurant.Services.Tests
         }
 
         [Fact]
-        public async void DeleteTransactionTypeAsync_Successfully_Deleted()
+        public async Task DeleteTransactionTypeAsync_Successfully_Deleted()
         {
             //Arrange
             var id = 1;

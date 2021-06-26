@@ -126,7 +126,7 @@ namespace MyRestaurant.Api.Tests.Middleware
             body.Should().Contain("errorDate");
         }
 
-        private SqlException MakeSqlException(int sqlNumber)
+        private static SqlException MakeSqlException(int sqlNumber)
         {
             //create new exception
             var newException = new Exception();
@@ -142,13 +142,13 @@ namespace MyRestaurant.Api.Tests.Middleware
             //Using reflection create the SQL exception
             var e = typeof(SqlException).GetMethod("CreateException", BindingFlags.NonPublic | BindingFlags.Static, null,
                 CallingConventions.ExplicitThis, new[] { typeof(SqlErrorCollection), typeof(string) },
-                new ParameterModifier[] { }).Invoke(null, new object[] { collection, "11.0.0" }) as SqlException;
+                Array.Empty<ParameterModifier>()).Invoke(null, new object[] { collection, "11.0.0" }) as SqlException;
 
             return e;
         }
 
         //constructs a class based off of the type and parameters
-        private T Construct<T>(params object[] p)
+        private static T Construct<T>(params object[] p)
         {
             //declare a new var for type
             var t = new Type[p.Length];

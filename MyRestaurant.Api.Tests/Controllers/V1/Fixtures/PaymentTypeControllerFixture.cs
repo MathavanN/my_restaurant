@@ -9,6 +9,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 {
     public class PaymentTypeControllerFixture : IDisposable
     {
+        private bool _disposed;
         public ApiVersion ApiVersion { get; private set; }
         public Mock<IPaymentTypeRepository> MockPaymentTypeRepository { get; private set; }
         public IEnumerable<GetPaymentTypeDto> PaymentTypes { get; private set; }
@@ -39,7 +40,21 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
 
         public void Dispose()
         {
-            MockPaymentTypeRepository = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    MockPaymentTypeRepository = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

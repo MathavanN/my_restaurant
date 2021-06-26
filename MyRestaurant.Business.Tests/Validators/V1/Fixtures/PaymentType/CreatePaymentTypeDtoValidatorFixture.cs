@@ -6,6 +6,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
 {
     public class CreatePaymentTypeDtoValidatorFixture : IDisposable
     {
+        private bool _disposed;
         public CreatePaymentTypeDto Model { get; set; }
         public CreatePaymentTypeDtoValidator Validator { get; private set; }
 
@@ -19,10 +20,25 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 CreditPeriod = 30
             };
         }
+
         public void Dispose()
         {
-            Model = null;
-            Validator = null;
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Model = null;
+                    Validator = null;
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

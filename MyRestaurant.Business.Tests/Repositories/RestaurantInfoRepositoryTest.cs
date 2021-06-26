@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetRestaurantInfosAsync_Returns_GetRestaurantInfoDtos()
+        public async Task GetRestaurantInfosAsync_Returns_GetRestaurantInfoDtos()
         {
             //Arrange
             _fixture.MockRestaurantInfoService.Setup(x => x.GetRestaurantInfosAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetRestaurantInfoAsync_Returns_GetRestaurantInfoDto()
+        public async Task GetRestaurantInfoAsync_Returns_GetRestaurantInfoDto()
         {
             //Arrange
             var id = 1;
@@ -64,7 +64,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetRestaurantInfoAsync_Throws_NotFoundException()
+        public async Task GetRestaurantInfoAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -83,7 +83,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateRestaurantInfoAsync_Returns_New_GetRestaurantInfoDto()
+        public async Task CreateRestaurantInfoAsync_Returns_New_GetRestaurantInfoDto()
         {
             //Arrange
             _fixture.MockRestaurantInfoService.Setup(x => x.AddRestaurantInfoAsync(It.IsAny<RestaurantInfo>()))

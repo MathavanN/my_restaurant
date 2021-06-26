@@ -46,7 +46,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetUsersAsync_Returns_GetUserDtos()
+        public async Task GetUsersAsync_Returns_GetUserDtos()
         {
             //Arrange
             _fixture.MockUserManager.Setup(x => x.Users)
@@ -64,7 +64,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void LoginAsync_Throws_Email_UnauthorizedException()
+        public async Task LoginAsync_Throws_Email_UnauthorizedException()
         {
             //Arrange
             var login = new LoginDto
@@ -89,7 +89,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void LoginAsync_Throws_Wrong_Password_UnauthorizedException()
+        public async Task LoginAsync_Throws_Wrong_Password_UnauthorizedException()
         {
             //Arrange
             var login = new LoginDto
@@ -117,7 +117,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void LoginAsync_Returns_TokenResultDto()
+        public async Task LoginAsync_Returns_TokenResultDto()
         {
             //Arrange
             var store = new Mock<IUserPasswordStore<User>>();
@@ -162,7 +162,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RegisterAdminAsync_Throws_ConflictException()
+        public async Task RegisterAdminAsync_Throws_ConflictException()
         {
             //Arrange
             var newUser = new RegisterAdminDto
@@ -190,7 +190,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RegisterNormalAsync_Throws_ConflictException()
+        public async Task RegisterNormalAsync_Throws_ConflictException()
         {
             //Arrange
             var newUser = new RegisterNormalDto
@@ -219,7 +219,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RegisterAdminAsync_Returns_Success_RegisterResultDto()
+        public async Task RegisterAdminAsync_Returns_Success_RegisterResultDto()
         {
             //Arrange
             var newUser = new RegisterAdminDto
@@ -252,7 +252,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RegisterNormalAsync_Returns_Success_RegisterResultDto()
+        public async Task RegisterNormalAsync_Returns_Success_RegisterResultDto()
         {
             //Arrange
             var newUser = new RegisterNormalDto
@@ -286,7 +286,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RegisterAdminAsync_Returns_Failed_RegisterResultDto()
+        public async Task RegisterAdminAsync_Returns_Failed_RegisterResultDto()
         {
             //Arrange
             var newUser = new RegisterNormalDto
@@ -320,7 +320,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RegisterNormalAsync_Returns_Failed_RegisterResultDto()
+        public async Task RegisterNormalAsync_Returns_Failed_RegisterResultDto()
         {
             //Arrange
             var newUser = new RegisterAdminDto
@@ -353,7 +353,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RevokeToken_Returns_NoContent()
+        public async Task RevokeToken_Returns_NoContent()
         {
             //Arrange
             _fixture.MockJwtTokenService.Setup(x => x.GetRefreshTokenAsync(It.IsAny<Expression<Func<RefreshToken, bool>>>()))
@@ -373,7 +373,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RevokeToken_Throws_NotFoundException()
+        public async Task RevokeToken_Throws_NotFoundException()
         {
             //Arrange
             _fixture.MockJwtTokenService.Setup(x => x.GetRefreshTokenAsync(It.IsAny<Expression<Func<RefreshToken, bool>>>()))
@@ -394,7 +394,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RefreshToken_Throws_UnauthorizedException()
+        public async Task RefreshToken_Throws_UnauthorizedException()
         {
             //Arrange
             var refreshToken = "I am invalid refresh token";
@@ -414,7 +414,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RefreshToken_Throws_NotFoundException()
+        public async Task RefreshToken_Throws_NotFoundException()
         {
             //Arrange
             var refreshToken = "token101";
@@ -437,7 +437,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RefreshToken_Throws_BadRequestException()
+        public async Task RefreshToken_Throws_BadRequestException()
         {
             //Arrange
             var refreshToken = "token2";
@@ -460,7 +460,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RefreshToken_Throws_User_NotFoundException()
+        public async Task RefreshToken_Throws_User_NotFoundException()
         {
             //Arrange
             var refreshToken = "token4";
@@ -487,7 +487,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void RefreshToken_Returns_TokenResultDto()
+        public async Task RefreshToken_Returns_TokenResultDto()
         {
             //Arrange
             var refreshToken = "token3";

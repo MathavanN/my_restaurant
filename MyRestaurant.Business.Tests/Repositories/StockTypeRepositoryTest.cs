@@ -24,7 +24,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockTypesAsync_Returns_GetStockTypeDtos()
+        public async Task GetStockTypesAsync_Returns_GetStockTypeDtos()
         {
             //Arrange
             _fixture.MockStockTypeService.Setup(x => x.GetStockTypesAsync())
@@ -41,7 +41,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockTypeAsync_Returns_GetStockTypeDto()
+        public async Task GetStockTypeAsync_Returns_GetStockTypeDto()
         {
             //Arrange
             var id = 1;
@@ -61,7 +61,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void GetStockTypeAsync_Throws_NotFoundException()
+        public async Task GetStockTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -80,7 +80,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockTypeAsync_Returns_New_GetStockTypeDto()
+        public async Task CreateStockTypeAsync_Returns_New_GetStockTypeDto()
         {
             //Arrange
             _fixture.MockStockTypeService.Setup(x => x.AddStockTypeAsync(It.IsAny<StockType>()))
@@ -99,7 +99,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void CreateStockTypeAsync_Throws_ConflictException()
+        public async Task CreateStockTypeAsync_Throws_ConflictException()
         {
             //Arrange
             _fixture.MockStockTypeService.Setup(x => x.GetStockTypeAsync(It.IsAny<Expression<Func<StockType, bool>>>()))
@@ -117,7 +117,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockTypeAsync_Returns_Updated_GetStockTypeDto()
+        public async Task UpdateStockTypeAsync_Returns_Updated_GetStockTypeDto()
         {
             //Arrange
             var id = 2;
@@ -139,7 +139,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockTypeAsync_Throws_NotFoundException()
+        public async Task UpdateStockTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;
@@ -160,7 +160,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void UpdateStockTypeAsync_Throws_ConflictException()
+        public async Task UpdateStockTypeAsync_Throws_ConflictException()
         {
             //Arrange
             var id = 2;
@@ -181,7 +181,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockTypeAsync_Returns_NoResult()
+        public async Task DeleteStockTypeAsync_Returns_NoResult()
         {
             //Arrange
             var id = 2;
@@ -200,7 +200,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async void DeleteStockTypeAsync_Throws_NotFoundException()
+        public async Task DeleteStockTypeAsync_Throws_NotFoundException()
         {
             //Arrange
             var id = 201;

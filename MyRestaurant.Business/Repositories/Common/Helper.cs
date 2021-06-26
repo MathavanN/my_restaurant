@@ -5,7 +5,7 @@ using System.Net;
 
 namespace MyRestaurant.Business.Repositories.Common
 {
-    public class Helper
+    public static class Helper
     {
         public static CurrentUser GetCurrentUser(IUserAccessorService userAccessor)
         {
