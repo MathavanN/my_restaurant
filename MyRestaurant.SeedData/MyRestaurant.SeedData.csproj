@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MyRestaurant.Core\MyRestaurant.Core.csproj" />
-    <ProjectReference Include="..\MyRestaurant.Models\MyRestaurant.Models.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MyRestaurant.Core\MyRestaurant.Core.csproj" />
+		<ProjectReference Include="..\MyRestaurant.Models\MyRestaurant.Models.csproj" />
+	</ItemGroup>
 
 </Project>

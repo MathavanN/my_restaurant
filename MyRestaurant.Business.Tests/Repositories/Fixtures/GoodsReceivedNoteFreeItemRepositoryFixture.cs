@@ -98,7 +98,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Quantity = 2
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

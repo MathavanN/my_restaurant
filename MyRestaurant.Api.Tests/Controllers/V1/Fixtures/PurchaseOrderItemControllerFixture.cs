@@ -120,7 +120,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Quantity = 7
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

@@ -56,7 +56,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Description = "Gram test"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

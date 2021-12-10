@@ -2,7 +2,6 @@
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Validators.Common;
 using MyRestaurant.Models;
-using System;
 
 namespace MyRestaurant.Business.Validators.V1
 {

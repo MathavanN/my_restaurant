@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MyRestaurant.Services
+﻿namespace MyRestaurant.Services
 {
     public class CurrentUser
     {

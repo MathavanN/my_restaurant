@@ -52,7 +52,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Email = "test@gmail.com"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

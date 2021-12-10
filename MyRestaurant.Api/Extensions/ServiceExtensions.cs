@@ -1,14 +1,11 @@
 ﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyRestaurant.Api.Middleware;
@@ -23,11 +20,8 @@ using MyRestaurant.Models;
 using MyRestaurant.SeedData;
 using MyRestaurant.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Api.Extensions
 {
@@ -81,7 +75,7 @@ namespace MyRestaurant.Api.Extensions
             services.Configure<SuperAdminAccount>(configuration.GetSection("SuperAdminAccount"));
         }
 
-        public static void ConfigureDatabaseInitializer(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureDatabaseInitializer(this IServiceCollection services)
         {
             services.AddScoped<IMyRestaurantSeedData, MyRestaurantSeedData>();
         }
@@ -156,7 +150,7 @@ namespace MyRestaurant.Api.Extensions
                     options.InvalidModelStateResponseFactory = actionContext =>
                     {
                         var validationErrors = actionContext.ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid)
-                                                            .Select(x => new { Key = x.Key, Error = x.Value.Errors.FirstOrDefault().ErrorMessage });
+                                                            .Select(x => new { x.Key, Error = x.Value.Errors.FirstOrDefault().ErrorMessage });
                         var errorCode = HttpStatusCode.BadRequest;
                         object error = new { ErrorCode = errorCode, ErrorType = errorCode.ToString(), ErrorMessage = validationErrors, ErrorDate = DateTime.Now };
                         return new BadRequestObjectResult(error);

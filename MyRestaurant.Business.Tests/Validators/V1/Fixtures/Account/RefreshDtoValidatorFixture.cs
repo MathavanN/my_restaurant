@@ -19,7 +19,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 RefreshToken = "473ed8ba-2292-49e1-a930-5129a002e753"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

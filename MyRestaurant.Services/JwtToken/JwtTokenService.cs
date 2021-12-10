@@ -3,13 +3,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {

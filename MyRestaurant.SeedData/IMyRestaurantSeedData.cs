@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MyRestaurant.SeedData
+﻿namespace MyRestaurant.SeedData
 {
     public interface IMyRestaurantSeedData
     {

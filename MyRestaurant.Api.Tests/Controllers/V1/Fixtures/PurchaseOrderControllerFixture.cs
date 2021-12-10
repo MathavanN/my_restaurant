@@ -139,7 +139,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Description = "Changed supplier"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

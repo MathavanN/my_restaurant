@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MyRestaurant.Business.Dtos.V1
+﻿namespace MyRestaurant.Business.Dtos.V1
 {
     public class SupplierEnvelop
     {

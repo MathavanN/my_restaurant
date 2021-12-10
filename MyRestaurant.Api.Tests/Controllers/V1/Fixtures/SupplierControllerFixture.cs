@@ -100,7 +100,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 ContactPerson = "James"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

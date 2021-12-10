@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class StockType : MyRestaurantObject
     {

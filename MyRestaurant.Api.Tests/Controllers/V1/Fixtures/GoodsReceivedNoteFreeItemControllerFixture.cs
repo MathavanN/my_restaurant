@@ -112,7 +112,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Discount = 0.1m
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

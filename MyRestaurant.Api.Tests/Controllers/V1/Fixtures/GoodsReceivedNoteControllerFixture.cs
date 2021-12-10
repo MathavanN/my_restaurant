@@ -161,7 +161,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 CreatedDate = DateTime.Now
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

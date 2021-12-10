@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class Transaction : MyRestaurantObject
     {

@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories.Contracts;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Api.Controllers.V1
 {

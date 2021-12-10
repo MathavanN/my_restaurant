@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MyRestaurant.Services.Common
+﻿namespace MyRestaurant.Services.Common
 {
     public class CollectionEnvelop<T>
     {

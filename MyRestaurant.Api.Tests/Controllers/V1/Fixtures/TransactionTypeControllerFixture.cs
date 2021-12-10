@@ -53,7 +53,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Type = "Mortgage/Rent"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);

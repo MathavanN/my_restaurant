@@ -5,12 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MyRestaurant.Core.Configurations.Mapping;
 using MyRestaurant.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Core
 {
@@ -123,13 +118,13 @@ namespace MyRestaurant.Core
         async Task<IEnumerable<Tuple<EntityEntry, Audit>>> OnBeforeSaveChanges()
         {
             ChangeTracker.DetectChanges();
-            var entitiesToTrack = ChangeTracker.Entries().Where(e => !(e.Entity is Audit) && e.State != EntityState.Detached && e.State != EntityState.Unchanged);
+            var entitiesToTrack = ChangeTracker.Entries().Where(e => e.Entity is not Audit && e.State != EntityState.Detached && e.State != EntityState.Unchanged);
 
             await Audits.AddRangeAsync(
                 entitiesToTrack.Where(e => !e.Properties.Any(p => p.IsTemporary)).Select(e => new Audit()
                 {
-                    TableName = e.Metadata.GetTableName(),
-                    Action = Enum.GetName(typeof(EntityState), e.State),
+                    TableName = e.Metadata.GetTableName()!,
+                    Action = Enum.GetName(typeof(EntityState), e.State)!,
                     DateTime = DateTime.Now.ToUniversalTime(),
                     Username = "Default-APP", //this.httpContextAccessor?.HttpContext?.User?.Identity?.Name,
                     KeyValues = JsonConvert.SerializeObject(e.Properties.Where(p => p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty()),
@@ -142,8 +137,8 @@ namespace MyRestaurant.Core
             return entitiesToTrack.Where(e => e.Properties.Any(p => p.IsTemporary))
                  .Select(e => new Tuple<EntityEntry, Audit>(e, new Audit()
                  {
-                     TableName = e.Metadata.GetTableName(),
-                     Action = Enum.GetName(typeof(EntityState), e.State),
+                     TableName = e.Metadata.GetTableName()!,
+                     Action = Enum.GetName(typeof(EntityState), e.State)!,
                      DateTime = DateTime.Now.ToUniversalTime(),
                      Username = "Default-APP",  ///this.httpContextAccessor?.HttpContext?.User?.Identity?.Name,
                      NewValues = JsonConvert.SerializeObject(e.Properties.Where(p => !p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty())
