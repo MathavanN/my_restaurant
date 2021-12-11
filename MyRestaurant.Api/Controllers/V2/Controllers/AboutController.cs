@@ -12,6 +12,7 @@ namespace MyRestaurant.Api.Controllers.V2
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get() => Ok(new { data = "This is About Details v2" });
 
