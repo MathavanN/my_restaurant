@@ -21,12 +21,12 @@ namespace MyRestaurant.Services
             return await _context.GoodsReceivedNoteFreeItems
                 .Include(p => p.Item)
                 .Include(p => p.GoodsReceivedNote)
-                .FirstOrDefaultAsync(e => e.Id == goodsReceivedNoteFreeItem.Id);
+                .FirstAsync(e => e.Id == goodsReceivedNoteFreeItem.Id);
         }
 
         public async Task<IEnumerable<GoodsReceivedNoteFreeItem>> GetGoodsReceivedNoteFreeItemsAsync(Expression<Func<GoodsReceivedNoteFreeItem, bool>> expression) => await _context.GetAllAsync(expression);
 
-        public async Task<GoodsReceivedNoteFreeItem> GetGoodsReceivedNoteFreeItemAsync(Expression<Func<GoodsReceivedNoteFreeItem, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<GoodsReceivedNoteFreeItem?> GetGoodsReceivedNoteFreeItemAsync(Expression<Func<GoodsReceivedNoteFreeItem, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task UpdateGoodsReceivedNoteFreeItemAsync(GoodsReceivedNoteFreeItem goodsReceivedNoteFreeItem)
         {

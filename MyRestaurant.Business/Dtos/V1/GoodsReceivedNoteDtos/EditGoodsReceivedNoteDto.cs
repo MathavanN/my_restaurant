@@ -3,7 +3,7 @@
     public class EditGoodsReceivedNoteDto
     {
         public long PurchaseOrderId { get; set; }
-        public string InvoiceNumber { get; set; }
+        public string InvoiceNumber { get; set; } = default!;
         public int PaymentTypeId { get; set; }
         public decimal Nbt { get; set; }
         public decimal Vat { get; set; }

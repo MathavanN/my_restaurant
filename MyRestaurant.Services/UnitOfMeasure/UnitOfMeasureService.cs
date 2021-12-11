@@ -25,7 +25,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<UnitOfMeasure> GetUnitOfMeasureAsync(Expression<Func<UnitOfMeasure, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<UnitOfMeasure?> GetUnitOfMeasureAsync(Expression<Func<UnitOfMeasure, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasuresAsync() => await _context.GetAllAsync<UnitOfMeasure>();
 

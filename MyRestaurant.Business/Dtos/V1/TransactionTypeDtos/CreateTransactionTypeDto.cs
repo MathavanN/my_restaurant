@@ -2,6 +2,6 @@
 {
     public class CreateTransactionTypeDto
     {
-        public string Type { get; set; }
+        public string Type { get; set; } = default!;
     }
 }

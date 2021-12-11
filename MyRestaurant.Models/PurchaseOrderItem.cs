@@ -2,6 +2,12 @@
 {
     public class PurchaseOrderItem : MyRestaurantObject
     {
+        public PurchaseOrderItem()
+        {
+            Item = default!;
+            PurchaseOrder = default!;
+        }
+
         public long Id { get; set; }
         public long PurchaseOrderId { get; set; }
         public long ItemId { get; set; }

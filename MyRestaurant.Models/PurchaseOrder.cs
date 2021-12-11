@@ -6,6 +6,9 @@
         {
             GoodsReceivedNotes = new HashSet<GoodsReceivedNote>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+            Supplier = default!;
+            RequestedUser = default!;
+            ApprovedUser = default!;
             OrderNumber = default!;
         }
 

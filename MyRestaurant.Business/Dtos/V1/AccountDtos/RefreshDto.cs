@@ -2,6 +2,6 @@
 {
     public class RefreshDto
     {
-        public string RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = default!;
     }
 }

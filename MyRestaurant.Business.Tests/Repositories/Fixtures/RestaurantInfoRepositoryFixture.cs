@@ -13,7 +13,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public Mock<IRestaurantInfoService> MockRestaurantInfoService { get; private set; }
         public IEnumerable<RestaurantInfo> RestaurantInfos { get; private set; }
         public CreateRestaurantInfoDto CreateRestaurantInfoDto { get; private set; }
-        public RestaurantInfo RestaurantInfo { get; private set; }
+        //public RestaurantInfo RestaurantInfo { get; private set; }
         public RestaurantInfoRepositoryFixture()
         {
             MockRestaurantInfoService = new Mock<IRestaurantInfoService>();

@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<UnitOfMeasure>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Code.Should().Be("kg");
             result.Description.Should().Be("kg units");
         }
@@ -88,7 +88,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbUnitOfMeasure = await service.GetUnitOfMeasureAsync(d => d.Id == id);
-            dbUnitOfMeasure.Code = "ml";
+            dbUnitOfMeasure!.Code = "ml";
             dbUnitOfMeasure.Description = "ml units to add";
 
             await service.UpdateUnitOfMeasureAsync(dbUnitOfMeasure);
@@ -97,7 +97,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<UnitOfMeasure>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Code.Should().Be("ml");
             result.Description.Should().Be("ml units to add");
         }
@@ -112,7 +112,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbUnitOfMeasure = await service.GetUnitOfMeasureAsync(d => d.Id == id);
 
-            await service.DeleteUnitOfMeasureAsync(dbUnitOfMeasure);
+            await service.DeleteUnitOfMeasureAsync(dbUnitOfMeasure!);
 
             var result = await service.GetUnitOfMeasureAsync(d => d.Id == id);
 

@@ -21,7 +21,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public CreateGoodsReceivedNoteDto CreateGoodsReceivedNote { get; private set; }
         public GoodsReceivedNote CreateNewGoodsReceivedNote { get; private set; }
         public CurrentUser CurrentUser { get; private set; }
-        public CurrentUser NullCurrentUser { get; private set; }
+        public CurrentUser? NullCurrentUser { get; private set; }
         public CurrentUser EmptyUserIdCurrentUser { get; private set; }
         public IEnumerable<PurchaseOrderItem> PurchaseOrderItems { get; private set; }
         public EditGoodsReceivedNoteDto EditGoodsReceivedNoteDto { get; private set; }
@@ -231,7 +231,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new PurchaseOrderItem {
                     Id = 1,
                     PurchaseOrderId = 1,
-                    Item = stockItems.FirstOrDefault(d => d.Id == 20025),
+                    Item = stockItems.First(d => d.Id == 20025),
                     ItemId = 20025,
                     ItemUnitPrice = 540,
                     Quantity = 5
@@ -239,7 +239,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new PurchaseOrderItem {
                     Id = 2,
                     PurchaseOrderId = 2,
-                    Item = stockItems.FirstOrDefault(d => d.Id == 20026),
+                    Item = stockItems.First(d => d.Id == 20026),
                     ItemId = 20026,
                     ItemUnitPrice = 30,
                     Quantity = 10
@@ -247,7 +247,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new PurchaseOrderItem {
                     Id = 3,
                     PurchaseOrderId = 3,
-                    Item = stockItems.FirstOrDefault(d => d.Id == 20050),
+                    Item = stockItems.First(d => d.Id == 20050),
                     ItemId = 20050,
                     ItemUnitPrice = 50,
                     Quantity = 5
@@ -255,7 +255,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new PurchaseOrderItem {
                     Id = 4,
                     PurchaseOrderId = 3,
-                    Item = stockItems.FirstOrDefault(d => d.Id == 20024),
+                    Item = stockItems.First(d => d.Id == 20024),
                     ItemId = 20024,
                     ItemUnitPrice = 260,
                     Quantity = 6
@@ -267,7 +267,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new GoodsReceivedNote {
                     Id = 1,
                     PurchaseOrderId = 1,
-                    PurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 1),
+                    PurchaseOrder = PurchaseOrders.First(d => d.Id == 1),
                     InvoiceNumber = "INV_20210132_01",
                     PaymentTypeId = 1,
                     PaymentType = paymentType,
@@ -292,7 +292,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new GoodsReceivedNote {
                     Id = 2,
                     PurchaseOrderId = 2,
-                    PurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 2),
+                    PurchaseOrder = PurchaseOrders.First(d => d.Id == 2),
                     InvoiceNumber = "INV_20210206_02",
                     PaymentTypeId = 1,
                     PaymentType = paymentType,
@@ -322,7 +322,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new GoodsReceivedNote {
                     Id = 3,
                     PurchaseOrderId = 5,
-                    PurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 5),
+                    PurchaseOrder = PurchaseOrders.First(d => d.Id == 5),
                     InvoiceNumber = "INV_20210224_01",
                     PaymentTypeId = 1,
                     PaymentType = paymentType,
@@ -347,7 +347,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 new GoodsReceivedNote {
                     Id = 4,
                     PurchaseOrderId = 6,
-                    PurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 6),
+                    PurchaseOrder = PurchaseOrders.First(d => d.Id == 6),
                     InvoiceNumber = "INV_20210224_01",
                     PaymentTypeId = 1,
                     PaymentType = paymentType,
@@ -413,7 +413,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             {
                 Id = 5,
                 PurchaseOrderId = 3,
-                PurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 3),
+                PurchaseOrder = PurchaseOrders.First(d => d.Id == 3),
                 InvoiceNumber = "INV_20210228_03",
                 PaymentTypeId = 1,
                 PaymentType = paymentType,
@@ -454,7 +454,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 ApprovalStatus = "Approved"
             };
 
-            PurchaseOrders.FirstOrDefault(d => d.Id == 6).GoodsReceivedNotes.Add(GoodsReceivedNotes.FirstOrDefault(d => d.Id == 4));
+            PurchaseOrders.First(d => d.Id == 6).GoodsReceivedNotes.Add(GoodsReceivedNotes.First(d => d.Id == 4));
         }
         public void Dispose()
         {

@@ -8,7 +8,7 @@ namespace MyRestaurant.Services
         Task<string> GenerateAccessToken(User user);
         Task<RefreshToken> GenerateRefreshToken(Guid userId, string ipAddress);
         bool ValidateRefreshToken(string token);
-        Task<RefreshToken> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression);
+        Task<RefreshToken?> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression);
         Task UpdateRefreshTokenAsync(RefreshToken token);
     }
 }

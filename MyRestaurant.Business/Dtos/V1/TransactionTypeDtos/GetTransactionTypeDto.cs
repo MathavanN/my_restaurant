@@ -3,6 +3,6 @@
     public class GetTransactionTypeDto
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string Type { get; set; } = default!;
     }
 }

@@ -25,7 +25,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<StockType> GetStockTypeAsync(Expression<Func<StockType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<StockType?> GetStockTypeAsync(Expression<Func<StockType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<StockType>> GetStockTypesAsync() => await _context.GetAllAsync<StockType>();
 

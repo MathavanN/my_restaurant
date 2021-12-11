@@ -4,6 +4,8 @@
     {
         public Transaction()
         {
+            PaymentType = default!;
+            TransactionType = default!;
         }
 
         public long Id { get; set; }

@@ -2,6 +2,6 @@
 {
     public class EditServiceTypeDto
     {
-        public string Type { get; set; }
+        public string Type { get; set; } = default!;
     }
 }

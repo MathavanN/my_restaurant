@@ -7,6 +7,8 @@
             GoodsReceivedNoteFreeItems = new HashSet<GoodsReceivedNoteFreeItem>();
             GoodsReceivedNoteItems = new HashSet<GoodsReceivedNoteItem>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+            Type = default!;
+            UnitOfMeasure = default!;
             Name = default!;
         }
 

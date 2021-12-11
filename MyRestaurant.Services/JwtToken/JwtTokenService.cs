@@ -53,7 +53,7 @@ namespace MyRestaurant.Services
             }
         }
 
-        private static string GenerateToken(string secretKey, string issuer, string audience, double expirationMinutes, IEnumerable<Claim> claims = null)
+        private static string GenerateToken(string secretKey, string issuer, string audience, double expirationMinutes, IEnumerable<Claim>? claims = null)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
@@ -116,7 +116,7 @@ namespace MyRestaurant.Services
                 claims);
         }
 
-        public async Task<RefreshToken> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<RefreshToken?> GetRefreshTokenAsync(Expression<Func<RefreshToken, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task UpdateRefreshTokenAsync(RefreshToken token)
         {

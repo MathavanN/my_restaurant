@@ -25,7 +25,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<PaymentType> GetPaymentTypeAsync(Expression<Func<PaymentType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<PaymentType?> GetPaymentTypeAsync(Expression<Func<PaymentType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<PaymentType>> GetPaymentTypesAsync() => await _context.GetAllAsync<PaymentType>();
 

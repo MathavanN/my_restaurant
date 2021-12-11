@@ -76,7 +76,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<StockItem>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Name.Should().Be("Rice");
             result.Type.Type.Should().Be("Grocery");
         }
@@ -131,7 +131,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbStockItem = await service.GetStockItemAsync(d => d.Id == id);
-            dbStockItem.Name = "Rice";
+            dbStockItem!.Name = "Rice";
             dbStockItem.ItemUnit = 10;
             dbStockItem.UnitOfMeasureId = 1;
             dbStockItem.Description = "10kg bag";
@@ -142,7 +142,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<StockItem>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.ItemUnit.Should().Be(10);
             result.Description.Should().Be("10kg bag");
         }
@@ -157,7 +157,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbStockItem = await service.GetStockItemAsync(d => d.Id == id);
 
-            await service.DeleteStockItemAsync(dbStockItem);
+            await service.DeleteStockItemAsync(dbStockItem!);
 
             var result = await service.GetStockItemAsync(d => d.Id == id);
 

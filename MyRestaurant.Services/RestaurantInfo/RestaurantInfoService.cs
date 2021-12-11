@@ -22,7 +22,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<RestaurantInfo> GetRestaurantInfoAsync(Expression<Func<RestaurantInfo, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<RestaurantInfo?> GetRestaurantInfoAsync(Expression<Func<RestaurantInfo, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<RestaurantInfo>> GetRestaurantInfosAsync() => await _context.GetAllAsync<RestaurantInfo>();
 

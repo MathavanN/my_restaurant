@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<StockType>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Type.Should().Be("Grocery");
             result.Description.Should().Be("");
         }
@@ -88,7 +88,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbStockType = await service.GetStockTypeAsync(d => d.Id == id);
-            dbStockType.Type = "Beverage";
+            dbStockType!.Type = "Beverage";
             dbStockType.Description = "Drinks items";
 
             await service.UpdateStockTypeAsync(dbStockType);
@@ -97,7 +97,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<StockType>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Type.Should().Be("Beverage");
             result.Description.Should().Be("Drinks items");
         }
@@ -112,7 +112,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbStockType = await service.GetStockTypeAsync(d => d.Id == id);
 
-            await service.DeleteStockTypeAsync(dbStockType);
+            await service.DeleteStockTypeAsync(dbStockType!);
 
             var result = await service.GetStockTypeAsync(d => d.Id == id);
 

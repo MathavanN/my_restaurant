@@ -116,7 +116,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<Supplier>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Name.Should().Be("ABC Pvt Ltd");
         }
 
@@ -170,7 +170,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbSupplier = await service.GetSupplierAsync(d => d.Id == id);
-            dbSupplier.Name = "VBT Pvt Ltd";
+            dbSupplier!.Name = "VBT Pvt Ltd";
             dbSupplier.Address1 = "#03-46, Blk 687";
             dbSupplier.Address2 = "Hindu College Road";
             dbSupplier.City = "Jaffna";
@@ -187,7 +187,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<Supplier>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Fax.Should().Be("0777113644");
             result.Telephone2.Should().Be("0777113644");
         }
@@ -202,7 +202,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbSupplier = await service.GetSupplierAsync(d => d.Id == id);
 
-            await service.DeleteSupplierAsync(dbSupplier);
+            await service.DeleteSupplierAsync(dbSupplier!);
 
             var result = await service.GetSupplierAsync(d => d.Id == id);
 

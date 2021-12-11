@@ -21,12 +21,13 @@ namespace MyRestaurant.Services
             return new Guid(id);
         }
 
-        public CurrentUser GetCurrentUser()
+        public CurrentUser? GetCurrentUser()
         {
+            if (_httpContextAccessor.HttpContext == null) return null;
+
             var claimPrincipal = _httpContextAccessor.HttpContext.User;
 
-            if (claimPrincipal == null)
-                return null;
+            if (claimPrincipal == null) return null;
 
             return new CurrentUser
             {

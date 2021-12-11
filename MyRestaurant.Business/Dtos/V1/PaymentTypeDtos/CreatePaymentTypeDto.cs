@@ -2,7 +2,7 @@
 {
     public class CreatePaymentTypeDto
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
         public int CreditPeriod { get; set; }
     }
 }

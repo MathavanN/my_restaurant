@@ -4,6 +4,7 @@
     {
         public RefreshToken()
         {
+            User = default!;
             Token = default!;
             CreatedByIp = default!;
         }

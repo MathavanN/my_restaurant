@@ -3,15 +3,15 @@
     public class GetSupplierDto
     {
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Telephone1 { get; set; }
-        public string Telephone2 { get; set; }
-        public string Fax { get; set; }
-        public string Email { get; set; }
-        public string ContactPerson { get; set; }
+        public string Name { get; set; } = default!;
+        public string Address1 { get; set; } = default!;
+        public string Address2 { get; set; } = default!;
+        public string City { get; set; } = default!;
+        public string Country { get; set; } = default!;
+        public string Telephone1 { get; set; } = default!;
+        public string Telephone2 { get; set; } = default!;
+        public string Fax { get; set; } = default!;
+        public string Email { get; set; } = default!;
+        public string ContactPerson { get; set; } = default!;
     }
 }

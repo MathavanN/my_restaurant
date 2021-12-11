@@ -6,6 +6,10 @@
         {
             GoodsReceivedNoteFreeItems = new HashSet<GoodsReceivedNoteFreeItem>();
             GoodsReceivedNoteItems = new HashSet<GoodsReceivedNoteItem>();
+            ReceivedUser = default!;
+            ApprovedUser = default!;
+            PaymentType = default!;
+            PurchaseOrder = default!;
         }
 
         public long Id { get; set; }

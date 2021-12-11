@@ -41,7 +41,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<GoodsReceivedNote>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.InvoiceNumber.Should().Be("INV_20210132_01");
             result.PaymentType.CreditPeriod.Should().Be(0);
         }
@@ -101,7 +101,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbGRN = await service.GetGoodsReceivedNoteAsync(d => d.Id == id);
-            dbGRN.Nbt = 0.6m;
+            dbGRN!.Nbt = 0.6m;
             dbGRN.Vat = 0.75m;
             dbGRN.Discount = 10;
 
@@ -111,7 +111,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<GoodsReceivedNote>();
-            result.ApprovedUser.FirstName.Should().Be("Admin");
+            result!.ApprovedUser.FirstName.Should().Be("Admin");
             result.PurchaseOrder.OrderNumber.Should().Be("PO_20210227_8d8caa8b86ce209");
             result.Id.Should().Be(id);
             result.Nbt.Should().Be(0.6m);
@@ -129,7 +129,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbGRN = await service.GetGoodsReceivedNoteAsync(d => d.Id == id);
 
-            await service.DeleteGoodsReceivedNoteAsync(dbGRN);
+            await service.DeleteGoodsReceivedNoteAsync(dbGRN!);
 
             var result = await service.GetGoodsReceivedNoteAsync(d => d.Id == id);
 

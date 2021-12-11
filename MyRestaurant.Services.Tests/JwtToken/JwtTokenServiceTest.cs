@@ -31,7 +31,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<RefreshToken>();
-            result.ReplacedByToken.Should().BeNull();
+            result!.ReplacedByToken.Should().BeNull();
             result.Id.Should().NotBeEmpty();
             result.User.FirstName.Should().Be("Normal");
             result.Token.Should().Be(token);
@@ -61,7 +61,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbToken = await service.GetRefreshTokenAsync(d => d.Token == refreshToken);
-            dbToken.Revoked = DateTime.UtcNow;
+            dbToken!.Revoked = DateTime.UtcNow;
             dbToken.RevokedByIp = "127.0.0.0";
 
             await service.UpdateRefreshTokenAsync(dbToken);
@@ -70,7 +70,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<RefreshToken>();
-            result.Token.Should().Be(refreshToken);
+            result!.Token.Should().Be(refreshToken);
             result.RevokedByIp.Should().Be("127.0.0.0");
             result.IsActive.Should().Be(false);
         }
@@ -138,7 +138,7 @@ namespace MyRestaurant.Services.Tests
             var dbToken = await service.GetRefreshTokenAsync(d => d.Token == "token3");
 
             //Act
-            var result = service.ValidateRefreshToken(dbToken.Token);
+            var result = service.ValidateRefreshToken(dbToken!.Token);
 
             //Assert
             result.Should().Be(false);
@@ -154,7 +154,7 @@ namespace MyRestaurant.Services.Tests
             var dbToken = await service.GetRefreshTokenAsync(d => d.Token == token);
 
             //Act
-            var result = service.ValidateRefreshToken(dbToken.Token);
+            var result = service.ValidateRefreshToken(dbToken!.Token);
 
             //Assert
             result.Should().Be(false);

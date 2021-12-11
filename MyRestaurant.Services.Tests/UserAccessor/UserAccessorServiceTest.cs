@@ -26,7 +26,7 @@ namespace MyRestaurant.Services.Tests
             var claimsIdentity = new ClaimsIdentity();
             claimsIdentity.AddClaims(claims);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            mockHttpContextAccessor.Setup(d => d.HttpContext.User).Returns(claimsPrincipal);
+            mockHttpContextAccessor.Setup(d => d.HttpContext!.User).Returns(claimsPrincipal);
             var service = new UserAccessorService(mockHttpContextAccessor.Object);
 
             //Act
@@ -51,7 +51,7 @@ namespace MyRestaurant.Services.Tests
             var claimsIdentity = new ClaimsIdentity();
             claimsIdentity.AddClaims(claims);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            mockHttpContextAccessor.Setup(d => d.HttpContext.User).Returns(claimsPrincipal);
+            mockHttpContextAccessor.Setup(d => d.HttpContext!.User).Returns(claimsPrincipal);
             var service = new UserAccessorService(mockHttpContextAccessor.Object);
 
             //Act
@@ -59,7 +59,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().NotBeNull().And.BeOfType<CurrentUser>();
-            result.UserId.Should().Be(Guid.Empty);
+            result!.UserId.Should().Be(Guid.Empty);
         }
 
         [Fact]
@@ -67,8 +67,8 @@ namespace MyRestaurant.Services.Tests
         {
             //Arrange
             var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
-            ClaimsPrincipal claimsPrincipal = null;
-            mockHttpContextAccessor.Setup(d => d.HttpContext.User).Returns(claimsPrincipal);
+            ClaimsPrincipal? claimsPrincipal = null;
+            mockHttpContextAccessor.Setup(d => d.HttpContext!.User).Returns(claimsPrincipal);
             var service = new UserAccessorService(mockHttpContextAccessor.Object);
 
             //Act

@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<ServiceType>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Type.Should().Be("Take Away");
         }
 
@@ -86,7 +86,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbServiceType = await service.GetServiceTypeAsync(d => d.Id == id);
-            dbServiceType.Type = "Take Out";
+            dbServiceType!.Type = "Take Out";
 
             await service.UpdateServiceTypeAsync(dbServiceType);
 
@@ -94,7 +94,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<ServiceType>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Type.Should().Be("Take Out");
         }
 
@@ -108,7 +108,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbServiceType = await service.GetServiceTypeAsync(d => d.Id == id);
 
-            await service.DeleteServiceTypeAsync(dbServiceType);
+            await service.DeleteServiceTypeAsync(dbServiceType!);
 
             var result = await service.GetServiceTypeAsync(d => d.Id == id);
 

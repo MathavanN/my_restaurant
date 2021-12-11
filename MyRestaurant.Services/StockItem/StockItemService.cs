@@ -22,7 +22,7 @@ namespace MyRestaurant.Services
             return await _context.StockItems
                 .Include(p => p.Type)
                 .Include(p => p.UnitOfMeasure)
-                .FirstOrDefaultAsync(e => e.Id == stockItem.Id);
+                .FirstAsync(e => e.Id == stockItem.Id);
         }
 
         public async Task DeleteStockItemAsync(StockItem stockItem)
@@ -31,7 +31,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<StockItem> GetStockItemAsync(Expression<Func<StockItem, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<StockItem?> GetStockItemAsync(Expression<Func<StockItem, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<StockItem>> GetStockItemsAsync() => await _context.GetAllAsync<StockItem>();
 
