@@ -23,7 +23,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-           dotnet-version: 5.0.x
+           dotnet-version: 6.0.x
       - name: Service Project coverage report
         run: |
           dotnet test ./MyRestaurant.Services.Tests/MyRestaurant.Services.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Service.xml /p:CoverletOutputFormat=opencover
