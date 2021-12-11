@@ -58,12 +58,13 @@ namespace MyRestaurant.Api
 
             if (env.IsDevelopment())
             {
+                var d = provider.ApiVersionDescriptions.Select(x => x.GroupName);
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    foreach (var description in provider.ApiVersionDescriptions)
+                    foreach (var groupName in provider.ApiVersionDescriptions.Select(x =>x.GroupName))
                     {
-                        c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                        c.SwaggerEndpoint($"/swagger/{groupName}/swagger.json", groupName.ToUpperInvariant());
                     }
                 });
             }
