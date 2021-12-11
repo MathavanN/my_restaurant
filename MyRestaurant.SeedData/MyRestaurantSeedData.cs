@@ -58,7 +58,7 @@ namespace MyRestaurant.SeedData
             }
             catch (SqlException ex)
             {
-                logger.LogError("An error occurred while seeding the database. {0}", ex.Message);
+                logger.LogError("An error occurred while seeding the database. {ex.Message}", ex.Message);
                 throw;
             }
         }
