@@ -10,7 +10,7 @@
 
         public long Id { get; set; }
         public long PurchaseOrderId { get; set; }
-        public string InvoiceNumber { get; set; }
+        public string? InvoiceNumber { get; set; }
         public int PaymentTypeId { get; set; }
         public decimal Nbt { get; set; }
         public decimal Vat { get; set; }
@@ -20,7 +20,7 @@
         public Guid? ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public Status ApprovalStatus { get; set; }
-        public string ApprovalReason { get; set; }
+        public string? ApprovalReason { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
 

@@ -2,12 +2,16 @@
 {
     public class Transaction : MyRestaurantObject
     {
+        public Transaction()
+        {
+        }
+
         public long Id { get; set; }
         public int TransactionTypeId { get; set; }
         public int PaymentTypeId { get; set; }
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public Cashflow Cashflow { get; set; }
         public DateTime CreatedAt { get; set; }
 

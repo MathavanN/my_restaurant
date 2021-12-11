@@ -6,6 +6,7 @@
         {
             GoodsReceivedNotes = new HashSet<GoodsReceivedNote>();
             Transactions = new HashSet<Transaction>();
+            Name = default!;
         }
 
         public int Id { get; set; }

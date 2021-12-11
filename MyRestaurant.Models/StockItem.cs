@@ -7,6 +7,7 @@
             GoodsReceivedNoteFreeItems = new HashSet<GoodsReceivedNoteFreeItem>();
             GoodsReceivedNoteItems = new HashSet<GoodsReceivedNoteItem>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+            Name = default!;
         }
 
         public long Id { get; set; }
@@ -14,7 +15,7 @@
         public string Name { get; set; }
         public int UnitOfMeasureId { get; set; }
         public decimal ItemUnit { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public virtual StockType Type { get; set; }
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }

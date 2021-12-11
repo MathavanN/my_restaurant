@@ -12,6 +12,8 @@ namespace MyRestaurant.Models
             GRNReceives = new HashSet<GoodsReceivedNote>();
             GRNApprovals = new HashSet<GoodsReceivedNote>();
             UserRoles = new HashSet<UserRole>();
+            FirstName = default!;
+            LastName = default!;
         }
 
         public string FirstName { get; set; }

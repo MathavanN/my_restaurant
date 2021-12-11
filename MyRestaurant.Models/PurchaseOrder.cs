@@ -6,7 +6,9 @@
         {
             GoodsReceivedNotes = new HashSet<GoodsReceivedNote>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+            OrderNumber = default!;
         }
+
         public long Id { get; set; }
         public string OrderNumber { get; set; }
         public long SupplierId { get; set; }
@@ -14,9 +16,9 @@
         public DateTime RequestedDate { get; set; }
         public Status ApprovalStatus { get; set; }
         public Guid? ApprovedBy { get; set; }
-        public string ApprovalReason { get; set; }
+        public string? ApprovalReason { get; set; }
         public DateTime? ApprovedDate { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual User RequestedUser { get; set; }

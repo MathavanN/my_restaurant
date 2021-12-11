@@ -5,6 +5,7 @@
         public TransactionType()
         {
             Transactions = new HashSet<Transaction>();
+            Type = default!;
         }
 
         public int Id { get; set; }
