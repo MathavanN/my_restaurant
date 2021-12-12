@@ -58,7 +58,6 @@ namespace MyRestaurant.Api
 
             if (env.IsDevelopment())
             {
-                var d = provider.ApiVersionDescriptions.Select(x => x.GroupName);
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {

@@ -1,8 +1,9 @@
 ﻿using System.Net;
+using System.Runtime.Serialization;
 
 namespace MyRestaurant.Business.Errors
 {
-    public class RestException : Exception
+    public class RestException : Exception, ISerializable
     {
         public HttpStatusCode ErrorCode { get; }
         public string ErrorType { get; }

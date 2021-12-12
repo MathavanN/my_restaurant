@@ -1,8 +1,7 @@
 ﻿namespace MyRestaurant.Business.Dtos.V1
 {
-    public class GetServiceTypeDto
+    public class GetServiceTypeDto : ServiceTypeDto
     {
         public int Id { get; set; }
-        public string Type { get; set; } = default!;
     }
 }
