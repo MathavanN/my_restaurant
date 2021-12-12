@@ -20,7 +20,6 @@ namespace MyRestaurant.Business.Errors
             _errorMessage = message;
         }
 
-
         protected RestException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _errorCode = (HttpStatusCode)info.GetValue("ErrorCode", typeof(HttpStatusCode))!;
