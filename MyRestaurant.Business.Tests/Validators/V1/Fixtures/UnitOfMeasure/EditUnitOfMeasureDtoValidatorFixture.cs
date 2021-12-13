@@ -32,8 +32,10 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     Model = null;
                     Validator = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

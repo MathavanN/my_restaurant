@@ -152,7 +152,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     MockPurchaseOrderRepository = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

@@ -45,7 +45,9 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     MockUnitOfMeasureService = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;
