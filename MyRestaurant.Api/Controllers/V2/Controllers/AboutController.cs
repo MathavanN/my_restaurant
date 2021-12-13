@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyRestaurant.Api.PolicyHandlers;
 
@@ -13,6 +12,7 @@ namespace MyRestaurant.Api.Controllers.V2
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get() => Ok(new { data = "This is About Details v2" });
 

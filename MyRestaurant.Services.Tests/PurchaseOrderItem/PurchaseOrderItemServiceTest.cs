@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<PurchaseOrderItem>();
-            result.PurchaseOrder.Should().BeAssignableTo<PurchaseOrder>();
+            result!.PurchaseOrder.Should().BeAssignableTo<PurchaseOrder>();
             result.Id.Should().Be(id);
             result.Item.Name.Should().Be("Rice");
             result.PurchaseOrder.OrderNumber.Should().Be("PO_20210130_8d8c510caee6a4b");
@@ -99,7 +99,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbItem = await service.GetPurchaseOrderItemAsync(d => d.Id == id);
-            dbItem.PurchaseOrderId = 2;
+            dbItem!.PurchaseOrderId = 2;
             dbItem.ItemId = 12;
             dbItem.ItemUnitPrice = 450;
             dbItem.Quantity = 3;
@@ -110,7 +110,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<PurchaseOrderItem>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Item.Name.Should().Be("Sausages");
             result.PurchaseOrder.OrderNumber.Should().Be("PO_20210130_8d8c512f7cd7920");
             result.ItemUnitPrice.Should().Be(450);
@@ -127,7 +127,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbPurchaseOrderItem = await service.GetPurchaseOrderItemAsync(d => d.Id == id);
 
-            await service.DeletePurchaseOrderItemAsync(dbPurchaseOrderItem);
+            await service.DeletePurchaseOrderItemAsync(dbPurchaseOrderItem!);
 
             var result = await service.GetPurchaseOrderItemAsync(d => d.Id == id);
 

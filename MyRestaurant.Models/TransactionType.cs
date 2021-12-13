@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class TransactionType : MyRestaurantObject
     {
         public TransactionType()
         {
             Transactions = new HashSet<Transaction>();
+            Type = default!;
         }
 
         public int Id { get; set; }

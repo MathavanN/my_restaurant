@@ -40,7 +40,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<Transaction>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.TransactionTypeId.Should().Be(1);
             result.PaymentTypeId.Should().Be(2);
         }
@@ -101,7 +101,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbTransaction = await service.GetTransactionAsync(d => d.Id == id);
-            dbTransaction.Amount = 567.5m;
+            dbTransaction!.Amount = 567.5m;
 
             await service.UpdateTransactionAsync(dbTransaction);
 
@@ -109,7 +109,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<Transaction>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Amount.Should().Be(567.5m);
         }
 
@@ -123,7 +123,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbTransactionType = await service.GetTransactionAsync(d => d.Id == id);
 
-            await service.DeleteTransactionAsync(dbTransactionType);
+            await service.DeleteTransactionAsync(dbTransactionType!);
 
             var result = await service.GetTransactionAsync(d => d.Id == id);
 

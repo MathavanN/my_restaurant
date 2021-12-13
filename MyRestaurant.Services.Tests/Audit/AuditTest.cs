@@ -37,7 +37,7 @@ namespace MyRestaurant.Services.Tests
             await _myRestaurantContext.CommitAsync();
 
             var dbUOM = _myRestaurantContext.UnitOfMeasures.FirstOrDefault(d => d.Code == "Test");
-            dbUOM.Description = "Audit test updated";
+            dbUOM!.Description = "Audit test updated";
             _myRestaurantContext.Modify(dbUOM);
 
             await _myRestaurantContext.CommitAsync();

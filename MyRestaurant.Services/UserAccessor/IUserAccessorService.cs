@@ -2,6 +2,6 @@
 {
     public interface IUserAccessorService
     {
-        CurrentUser GetCurrentUser();
+        CurrentUser? GetCurrentUser();
     }
 }

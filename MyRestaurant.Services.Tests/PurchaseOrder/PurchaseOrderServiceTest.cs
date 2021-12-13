@@ -41,7 +41,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<PurchaseOrder>();
-            result.ApprovedUser.FirstName.Should().Be("Admin");
+            result!.ApprovedUser.FirstName.Should().Be("Admin");
             result.Id.Should().Be(id);
             result.OrderNumber.Should().Be("PO_20210130_8d8c510caee6a4b");
             result.Supplier.Name.Should().Be("ABC Pvt Ltd");
@@ -65,7 +65,7 @@ namespace MyRestaurant.Services.Tests
         public async Task AddPurchaseOrderAsync_Returns_New_PurchaseOrder()
         {
             //Arrange
-            var requestedUserId = _myRestaurantContext.Users.ToList().FirstOrDefault(d => d.FirstName == "Normal").Id;
+            var requestedUserId = _myRestaurantContext.Users.ToList().First(d => d.FirstName == "Normal").Id;
             var service = new PurchaseOrderService(_myRestaurantContext);
 
             //Act
@@ -103,7 +103,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbPurchaseOrder = await service.GetPurchaseOrderAsync(d => d.Id == id);
-            dbPurchaseOrder.SupplierId = 1;
+            dbPurchaseOrder!.SupplierId = 1;
             dbPurchaseOrder.Description = "Supplier Changed";
 
             await service.UpdatePurchaseOrderAsync(dbPurchaseOrder);
@@ -112,7 +112,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<PurchaseOrder>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Supplier.Name.Should().Be("ABC Pvt Ltd");
             result.Description.Should().Be("Supplier Changed");
         }
@@ -127,7 +127,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbPurchaseOrder = await service.GetPurchaseOrderAsync(d => d.Id == id);
 
-            await service.DeletePurchaseOrderAsync(dbPurchaseOrder);
+            await service.DeletePurchaseOrderAsync(dbPurchaseOrder!);
 
             var result = await service.GetPurchaseOrderAsync(d => d.Id == id);
 

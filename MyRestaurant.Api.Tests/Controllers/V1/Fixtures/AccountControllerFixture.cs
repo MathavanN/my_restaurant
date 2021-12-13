@@ -73,6 +73,12 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 }
             };
 
+            ValidLoginDto = new LoginDto
+            {
+                Email = "test@test.com",
+                Password = "test"
+            };
+
             ValidRegisterAdminDto = new RegisterAdminDto
             {
                 FirstName = "John",
@@ -96,6 +102,11 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             {
                 Email = "test@gmail.com",
                 Password = "password1234"
+            };
+
+            ValidRefreshDto = new RefreshDto
+            {
+                RefreshToken = "this is refresh token"
             };
 
             ValidRevokeDto = new RevokeDto
@@ -150,7 +161,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     MockAccountRepository = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

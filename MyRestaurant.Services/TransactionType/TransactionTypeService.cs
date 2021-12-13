@@ -1,9 +1,6 @@
 ﻿using MyRestaurant.Core;
 using MyRestaurant.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
@@ -28,7 +25,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<TransactionType> GetTransactionTypeAsync(Expression<Func<TransactionType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<TransactionType?> GetTransactionTypeAsync(Expression<Func<TransactionType, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<TransactionType>> GetTransactionTypesAsync() => await _context.GetAllAsync<TransactionType>();
 

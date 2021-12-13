@@ -17,7 +17,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public IEnumerable<Supplier> Suppliers { get; private set; }
         public CreatePurchaseOrderDto CreatePurchaseOrderDto { get; private set; }
         public CurrentUser CurrentUser { get; private set; }
-        public CurrentUser NullCurrentUser { get; private set; }
+        public CurrentUser? NullCurrentUser { get; private set; }
         public CurrentUser EmptyUserIdCurrentUser { get; private set; }
         public PurchaseOrder CreatedNewPurchaseOrder { get; private set; }
         public EditPurchaseOrderDto EditPurchaseOrderDto { get; private set; }
@@ -68,7 +68,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Id = 1,
                     OrderNumber = "PO_20210130_8d8c510caee6a4b",
                     SupplierId = 1,
-                    Supplier = Suppliers.FirstOrDefault(d => d.Id == 1),
+                    Supplier = Suppliers.First(d => d.Id == 1),
                     RequestedBy = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
                     RequestedDate = DateTime.Now.AddDays(-10),
                     ApprovalStatus = Status.Approved,
@@ -81,7 +81,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Id = 2,
                     OrderNumber = "PO_20210130_8d8c512f7cd7920",
                     SupplierId = 2,
-                    Supplier = Suppliers.FirstOrDefault(d => d.Id == 2),
+                    Supplier = Suppliers.First(d => d.Id == 2),
                     RequestedBy = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
                     RequestedDate = DateTime.Now.AddDays(-5),
                     ApprovalStatus = Status.Pending,
@@ -95,7 +95,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Id = 3,
                     OrderNumber = "PO_20210206_8d8caa8b86ce209",
                     SupplierId = 1,
-                    Supplier = Suppliers.FirstOrDefault(d => d.Id == 1),
+                    Supplier = Suppliers.First(d => d.Id == 1),
                     RequestedBy = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
                     RequestedDate = DateTime.Now.AddDays(-2),
                     ApprovalStatus = Status.Rejected,
@@ -109,7 +109,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Id = 4,
                     OrderNumber = "PO_20210227_8d8caa8b86ce209",
                     SupplierId = 1,
-                    Supplier = Suppliers.FirstOrDefault(d => d.Id == 1),
+                    Supplier = Suppliers.First(d => d.Id == 1),
                     RequestedBy = Guid.Parse("77d8500b-dd97-4b6d-ce43-08d8aa3916b9"),
                     RequestedUser = new User
                     {
@@ -144,7 +144,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Id = 5,
                 OrderNumber = "PO_20210227_8d8c512f7cd7920",
                 SupplierId = 2,
-                Supplier = Suppliers.FirstOrDefault(d => d.Id == 2),
+                Supplier = Suppliers.First(d => d.Id == 2),
                 RequestedBy = Guid.Parse("33a91077-ef90-40a1-be42-27354f598c20"),
                 RequestedDate = DateTime.Now,
                 ApprovalStatus = Status.Pending,
@@ -180,10 +180,10 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Description = "Supplier Changed"
             };
 
-            UpdatedPurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 2);
+            UpdatedPurchaseOrder = PurchaseOrders.First(d => d.Id == 2);
             UpdatedPurchaseOrder.SupplierId = EditPurchaseOrderDto.SupplierId;
             UpdatedPurchaseOrder.Description = EditPurchaseOrderDto.Description;
-            UpdatedPurchaseOrder.Supplier = Suppliers.FirstOrDefault(d => d.Id == EditPurchaseOrderDto.SupplierId);
+            UpdatedPurchaseOrder.Supplier = Suppliers.First(d => d.Id == EditPurchaseOrderDto.SupplierId);
 
             ApprovalPurchaseOrderDto = new ApprovalPurchaseOrderDto
             {
@@ -191,7 +191,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 ApprovalStatus = "Rejected"
             };
 
-            ApprovedPurchaseOrder = PurchaseOrders.FirstOrDefault(d => d.Id == 2);
+            ApprovedPurchaseOrder = PurchaseOrders.First(d => d.Id == 2);
             ApprovedPurchaseOrder.ApprovalStatus = Status.Rejected;
             ApprovedPurchaseOrder.ApprovedBy = CurrentUser.UserId;
             ApprovedPurchaseOrder.ApprovalReason = ApprovalPurchaseOrderDto.ApprovalReason;
@@ -210,8 +210,10 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     MockPurchaseOrderService = null;
                     MockUserAccessorService = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

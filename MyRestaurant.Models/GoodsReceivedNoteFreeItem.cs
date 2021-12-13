@@ -2,6 +2,11 @@
 {
     public class GoodsReceivedNoteFreeItem : MyRestaurantObject
     {
+        public GoodsReceivedNoteFreeItem()
+        {
+            GoodsReceivedNote = default!;
+            Item = default!;
+        }
         public long Id { get; set; }
         public long GoodsReceivedNoteId { get; set; }
         public long ItemId { get; set; }

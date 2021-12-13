@@ -4,7 +4,7 @@ namespace MyRestaurant.Business.Tests
 {
     class AutoMapperSingleton
     {
-        private static IMapper _mapper;
+        private static IMapper? _mapper;
         public static IMapper Mapper
         {
             get
@@ -17,7 +17,7 @@ namespace MyRestaurant.Business.Tests
                     });
                     _mapper = configuration.CreateMapper();
                 }
-                return _mapper;
+                return _mapper!;
             }
         }
     }

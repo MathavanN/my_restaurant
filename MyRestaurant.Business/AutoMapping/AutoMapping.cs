@@ -1,7 +1,6 @@
 ﻿using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
-using System.Linq;
 
 namespace MyRestaurant.Business.AutoMapping
 {

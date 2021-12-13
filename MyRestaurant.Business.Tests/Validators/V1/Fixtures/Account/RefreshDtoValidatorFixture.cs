@@ -19,7 +19,7 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
                 RefreshToken = "473ed8ba-2292-49e1-a930-5129a002e753"
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);
@@ -32,8 +32,10 @@ namespace MyRestaurant.Business.Tests.Validators.V1.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     Model = null;
                     Validator = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

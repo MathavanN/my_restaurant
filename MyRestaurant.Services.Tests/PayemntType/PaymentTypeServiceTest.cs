@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<PaymentType>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Name.Should().Be("Cash");
             result.CreditPeriod.Should().Be(0);
         }
@@ -82,7 +82,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbPaymentType = await service.GetPaymentTypeAsync(d => d.Id == id);
-            dbPaymentType.Name = "Credit";
+            dbPaymentType!.Name = "Credit";
             dbPaymentType.CreditPeriod = 45;
 
             await service.UpdatePaymentTypeAsync(dbPaymentType);
@@ -91,7 +91,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<PaymentType>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Name.Should().Be("Credit");
             result.CreditPeriod.Should().Be(45);
         }
@@ -106,7 +106,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbPaymentType = await service.GetPaymentTypeAsync(d => d.Id == id);
 
-            await service.DeletePaymentTypeAsync(dbPaymentType);
+            await service.DeletePaymentTypeAsync(dbPaymentType!);
 
             var result = await service.GetPaymentTypeAsync(d => d.Id == id);
 

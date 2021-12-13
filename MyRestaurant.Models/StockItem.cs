@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class StockItem : MyRestaurantObject
     {
@@ -9,6 +7,9 @@ namespace MyRestaurant.Models
             GoodsReceivedNoteFreeItems = new HashSet<GoodsReceivedNoteFreeItem>();
             GoodsReceivedNoteItems = new HashSet<GoodsReceivedNoteItem>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+            Type = default!;
+            UnitOfMeasure = default!;
+            Name = default!;
         }
 
         public long Id { get; set; }
@@ -16,7 +17,7 @@ namespace MyRestaurant.Models
         public string Name { get; set; }
         public int UnitOfMeasureId { get; set; }
         public decimal ItemUnit { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public virtual StockType Type { get; set; }
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }

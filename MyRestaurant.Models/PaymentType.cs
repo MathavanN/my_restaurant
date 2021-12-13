@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class PaymentType : MyRestaurantObject
     {
@@ -8,6 +6,7 @@ namespace MyRestaurant.Models
         {
             GoodsReceivedNotes = new HashSet<GoodsReceivedNote>();
             Transactions = new HashSet<Transaction>();
+            Name = default!;
         }
 
         public int Id { get; set; }

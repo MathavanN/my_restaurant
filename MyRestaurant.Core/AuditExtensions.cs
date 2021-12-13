@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace MyRestaurant.Core
+﻿namespace MyRestaurant.Core
 {
     public static class AuditExtensions
     {

@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<GoodsReceivedNoteItem>();
-            result.GoodsReceivedNote.Should().BeAssignableTo<GoodsReceivedNote>();
+            result!.GoodsReceivedNote.Should().BeAssignableTo<GoodsReceivedNote>();
             result.Id.Should().Be(id);
             result.Item.Name.Should().Be("Rice");
             result.Discount.Should().Be(0.1m);
@@ -97,7 +97,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbItem = await service.GetGoodsReceivedNoteItemAsync(d => d.Id == id);
-            dbItem.ItemUnitPrice = 50;
+            dbItem!.ItemUnitPrice = 50;
             dbItem.Quantity = 30;
             dbItem.Nbt = 0.5m;
 
@@ -107,7 +107,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<GoodsReceivedNoteItem>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.ItemUnitPrice.Should().Be(50);
             result.Quantity.Should().Be(30);
             result.Nbt.Should().Be(0.5m);
@@ -123,7 +123,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbGRNItem = await service.GetGoodsReceivedNoteItemAsync(d => d.Id == id);
 
-            await service.DeleteGoodsReceivedNoteItemAsync(dbGRNItem);
+            await service.DeleteGoodsReceivedNoteItemAsync(dbGRNItem!);
 
             var result = await service.GetGoodsReceivedNoteItemAsync(d => d.Id == id);
 

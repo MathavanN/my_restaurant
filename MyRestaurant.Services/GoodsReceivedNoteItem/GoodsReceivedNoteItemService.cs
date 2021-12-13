@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
@@ -24,12 +21,12 @@ namespace MyRestaurant.Services
             return await _context.GoodsReceivedNoteItems
                 .Include(p => p.Item)
                 .Include(p => p.GoodsReceivedNote)
-                .FirstOrDefaultAsync(e => e.Id == goodsReceivedNoteItem.Id);
+                .FirstAsync(e => e.Id == goodsReceivedNoteItem.Id);
         }
 
         public async Task<IEnumerable<GoodsReceivedNoteItem>> GetGoodsReceivedNoteItemsAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression) => await _context.GetAllAsync(expression);
 
-        public async Task<GoodsReceivedNoteItem> GetGoodsReceivedNoteItemAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<GoodsReceivedNoteItem?> GetGoodsReceivedNoteItemAsync(Expression<Func<GoodsReceivedNoteItem, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task UpdateGoodsReceivedNoteItemAsync(GoodsReceivedNoteItem goodsReceivedNoteItem)
         {

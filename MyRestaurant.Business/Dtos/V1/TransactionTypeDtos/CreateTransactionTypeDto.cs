@@ -1,7 +1,6 @@
 ﻿namespace MyRestaurant.Business.Dtos.V1
 {
-    public class CreateTransactionTypeDto
+    public class CreateTransactionTypeDto  :TransactionTypeDto
     {
-        public string Type { get; set; }
     }
 }

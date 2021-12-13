@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Core;
 using MyRestaurant.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
@@ -25,7 +22,7 @@ namespace MyRestaurant.Services
                 .Include(p => p.PaymentType)
                 .Include(p => p.PurchaseOrder)
                 .Include(p => p.ReceivedUser)
-                .FirstOrDefaultAsync(e => e.Id == goodsReceivedNote.Id);
+                .FirstAsync(e => e.Id == goodsReceivedNote.Id);
         }
 
         public async Task DeleteGoodsReceivedNoteAsync(GoodsReceivedNote goodsReceivedNote)
@@ -34,7 +31,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<GoodsReceivedNote> GetGoodsReceivedNoteAsync(Expression<Func<GoodsReceivedNote, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<GoodsReceivedNote?> GetGoodsReceivedNoteAsync(Expression<Func<GoodsReceivedNote, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<IEnumerable<GoodsReceivedNote>> GetGoodsReceivedNotesAsync() => await _context.GetAllAsync<GoodsReceivedNote>();
 

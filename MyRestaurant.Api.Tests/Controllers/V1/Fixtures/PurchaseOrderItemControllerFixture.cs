@@ -120,7 +120,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
                 Quantity = 7
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);
@@ -133,7 +133,9 @@ namespace MyRestaurant.Api.Tests.Controllers.V1.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     MockPurchaseOrderItemRepository = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

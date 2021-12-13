@@ -45,7 +45,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Id = 1,
                     GoodsReceivedNoteId = 101,
                     ItemId = 20026,
-                    Item = stockItems.FirstOrDefault(d => d.Id == 20026),
+                    Item = stockItems.First(d => d.Id == 20026),
                     ItemUnitPrice = 250,
                     Quantity = 1,
                     Nbt = 0.1m,
@@ -57,7 +57,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                     Id = 2,
                     GoodsReceivedNoteId = 202,
                     ItemId = 20050,
-                    Item = stockItems.FirstOrDefault(d => d.Id == 20050),
+                    Item = stockItems.First(d => d.Id == 20050),
                     ItemUnitPrice = 30,
                     Quantity = 5,
                     Nbt = 0.1m,
@@ -82,7 +82,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Id = 3,
                 GoodsReceivedNoteId = 202,
                 ItemId = 20023,
-                Item = stockItems.FirstOrDefault(d => d.Id == 20023),
+                Item = stockItems.First(d => d.Id == 20023),
                 ItemUnitPrice = 350,
                 Quantity = 5,
                 Nbt = 0.1m,
@@ -98,7 +98,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
                 Quantity = 2
             };
         }
-        
+
         public void Dispose()
         {
             Dispose(disposing: true);
@@ -111,7 +111,9 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             {
                 if (disposing)
                 {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                     MockGoodsReceivedNoteFreeItemService = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                 }
 
                 _disposed = true;

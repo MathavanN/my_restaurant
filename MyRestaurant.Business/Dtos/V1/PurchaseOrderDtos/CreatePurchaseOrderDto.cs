@@ -1,8 +1,6 @@
 ﻿namespace MyRestaurant.Business.Dtos.V1
 {
-    public class CreatePurchaseOrderDto
+    public class CreatePurchaseOrderDto : ModifyPurchaseOrderDto
     {
-        public long SupplierId { get; set; }
-        public string Description { get; set; }
     }
 }

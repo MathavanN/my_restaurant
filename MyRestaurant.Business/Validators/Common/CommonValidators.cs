@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyRestaurant.Business.Validators.Common
+﻿namespace MyRestaurant.Business.Validators.Common
 {
     public static class CommonValidators
     {

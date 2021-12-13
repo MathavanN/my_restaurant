@@ -1,10 +1,7 @@
 ﻿using MyRestaurant.Core;
 using MyRestaurant.Models;
 using MyRestaurant.Services.Common;
-using System;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Services
 {
@@ -28,7 +25,7 @@ namespace MyRestaurant.Services
             await _context.CommitAsync();
         }
 
-        public async Task<Supplier> GetSupplierAsync(Expression<Func<Supplier, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
+        public async Task<Supplier?> GetSupplierAsync(Expression<Func<Supplier, bool>> expression) => await _context.GetFirstOrDefaultAsync(expression);
 
         public async Task<CollectionEnvelop<Supplier>> GetSuppliersAsync(string name, string city, string contactPerson, int page, int itemsPerPage)
         {
@@ -41,7 +38,7 @@ namespace MyRestaurant.Services
                 suppliers = suppliers.Where(d => d.City.Equals(city, StringComparison.InvariantCultureIgnoreCase));
 
             if (!string.IsNullOrWhiteSpace(contactPerson))
-                suppliers = suppliers.Where(d => d.ContactPerson.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
+                suppliers = suppliers.Where(d => d.ContactPerson!.Equals(contactPerson, StringComparison.InvariantCultureIgnoreCase));
 
             var toSkip = page * itemsPerPage;
             return new CollectionEnvelop<Supplier>

@@ -2,6 +2,6 @@
 {
     public class RevokeDto
     {
-        public string RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = default!;
     }
 }

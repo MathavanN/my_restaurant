@@ -1,8 +1,6 @@
 ﻿namespace MyRestaurant.Business.Dtos.V1
 {
-    public class ApprovalPurchaseOrderDto
+    public class ApprovalPurchaseOrderDto : ApprovalDto
     {
-        public string ApprovalStatus { get; set; }
-        public string ApprovalReason { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class PurchaseOrder : MyRestaurantObject
     {
@@ -9,7 +6,12 @@ namespace MyRestaurant.Models
         {
             GoodsReceivedNotes = new HashSet<GoodsReceivedNote>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
+            Supplier = default!;
+            RequestedUser = default!;
+            ApprovedUser = default!;
+            OrderNumber = default!;
         }
+
         public long Id { get; set; }
         public string OrderNumber { get; set; }
         public long SupplierId { get; set; }
@@ -17,9 +19,9 @@ namespace MyRestaurant.Models
         public DateTime RequestedDate { get; set; }
         public Status ApprovalStatus { get; set; }
         public Guid? ApprovedBy { get; set; }
-        public string ApprovalReason { get; set; }
+        public string? ApprovalReason { get; set; }
         public DateTime? ApprovedDate { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual User RequestedUser { get; set; }

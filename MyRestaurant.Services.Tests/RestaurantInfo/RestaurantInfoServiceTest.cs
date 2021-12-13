@@ -39,7 +39,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<RestaurantInfo>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.Name.Should().Be("Golden Dining");
         }
 
@@ -90,7 +90,7 @@ namespace MyRestaurant.Services.Tests
 
             //Act
             var dbRestaurantInfo = await service.GetRestaurantInfoAsync(d => d.Id == id);
-            dbRestaurantInfo.LandLine = "+9423656565";
+            dbRestaurantInfo!.LandLine = "+9423656565";
             dbRestaurantInfo.Mobile = "+9423989898";
             dbRestaurantInfo.Email = "newtest@gmail.com";
 
@@ -100,7 +100,7 @@ namespace MyRestaurant.Services.Tests
 
             //Assert
             result.Should().BeAssignableTo<RestaurantInfo>();
-            result.Id.Should().Be(id);
+            result!.Id.Should().Be(id);
             result.LandLine.Should().Be("+9423656565");
             result.Mobile.Should().Be("+9423989898");
             result.Email.Should().Be("newtest@gmail.com");
@@ -116,7 +116,7 @@ namespace MyRestaurant.Services.Tests
             //Act
             var dbRestaurantInfo = await service.GetRestaurantInfoAsync(d => d.Id == id);
 
-            await service.DeleteRestaurantInfoAsync(dbRestaurantInfo);
+            await service.DeleteRestaurantInfoAsync(dbRestaurantInfo!);
 
             var result = await service.GetRestaurantInfoAsync(d => d.Id == id);
 

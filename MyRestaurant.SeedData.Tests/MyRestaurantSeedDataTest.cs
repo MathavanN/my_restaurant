@@ -86,7 +86,7 @@ namespace MyRestaurant.SeedData.Tests
             await context.SaveChangesAsync();
 
             var stockType = await context.StockTypes.Where(x => x.Id == 1).FirstOrDefaultAsync();
-            stockType.Type = "Stationery";
+            stockType!.Type = "Stationery";
             await context.SaveChangesAsync();
 
             stockTypeLogs = await context.Audits.Where(x => x.TableName == "StockTypes").ToListAsync();

@@ -5,11 +5,7 @@ using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
 using MyRestaurant.Models;
 using MyRestaurant.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Business.Repositories
 {
@@ -75,7 +71,7 @@ namespace MyRestaurant.Business.Repositories
             return new RegisterResultDto
             {
                 Status = result.Succeeded ? "Success" : "Failed",
-                Message = result.Succeeded ? $"User created successfully, grant {string.Join(", ", registerDto.Roles)} access." : $"Failed to create new user. Error: ({string.Join(", ", result.Errors.Select(x => x.Description))})"
+                Message = result.Succeeded ? $"User created successfully, grant {string.Join(", ", registerDto.Roles!)} access." : $"Failed to create new user. Error: ({string.Join(", ", result.Errors.Select(x => x.Description))})"
             };
         }
 

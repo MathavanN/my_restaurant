@@ -1,19 +1,44 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
+using System.Runtime.Serialization;
 
 namespace MyRestaurant.Business.Errors
 {
-    public class RestException : Exception
+    [Serializable]
+    public class RestException : Exception, ISerializable
     {
-        public HttpStatusCode ErrorCode { get; }
-        public string ErrorType { get; }
-        public string ErrorMessage { get; }
+        [NonSerialized]
+        private readonly HttpStatusCode _errorCode;
+        [NonSerialized]
+        private readonly string _errorType;
+        [NonSerialized]
+        private readonly string _errorMessage;
 
         public RestException(HttpStatusCode statusCode, string message) : base(message)
         {
-            ErrorCode = statusCode;
-            ErrorType = statusCode.ToString();
-            ErrorMessage = message;
+            _errorCode = statusCode;
+            _errorType = statusCode.ToString();
+            _errorMessage = message;
+        }
+
+        protected RestException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            _errorCode = (HttpStatusCode)info.GetValue("ErrorCode", typeof(HttpStatusCode))!;
+            _errorType = info.GetString("ErrorType")!;
+            _errorMessage = info.GetString("ErrorMessage")!;
+        }
+
+        public HttpStatusCode ErrorCode { get { return _errorCode; } }
+        public string ErrorType { get { return _errorType; } }
+        public string ErrorMessage { get { return _errorMessage; } }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ErrorType", _errorType);
+            info.AddValue("ErrorMessage", _errorMessage);
+            info.AddValue("ErrorCode", _errorCode, typeof(HttpStatusCode));
+            
+            // MUST call through to the base class to let it save its own state
+            base.GetObjectData(info, context);
         }
     }
 }

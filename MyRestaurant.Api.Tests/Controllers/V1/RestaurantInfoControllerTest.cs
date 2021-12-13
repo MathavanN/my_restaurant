@@ -78,7 +78,7 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
             //Assert
             var objectResult = result.Should().BeOfType<CreatedAtRouteResult>().Subject;
             objectResult.StatusCode.Should().Be(201);
-            objectResult.RouteValues["id"].Should().Be(1);
+            objectResult.RouteValues!["id"].Should().Be(1);
             objectResult.RouteValues["version"].Should().Be($"{_fixture.ApiVersion}");
 
             var info = objectResult.Value.Should().BeAssignableTo<GetRestaurantInfoDto>().Subject;

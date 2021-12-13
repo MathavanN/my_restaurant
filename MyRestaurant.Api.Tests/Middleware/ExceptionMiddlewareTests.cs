@@ -136,15 +136,15 @@ namespace MyRestaurant.Api.Tests.Middleware
             SqlError error = Construct<SqlError>(sqlNumber, (byte)2, (byte)3, "server name", "error message", "proc", 100, newException);
 
             //Using reflection inject the error into the SqlErrorCollection
-            typeof(SqlErrorCollection).GetMethod("Add", BindingFlags.NonPublic | BindingFlags.Instance)
+            typeof(SqlErrorCollection).GetMethod("Add", BindingFlags.NonPublic | BindingFlags.Instance)!
                 .Invoke(collection, new object[] { error });
 
             //Using reflection create the SQL exception
             var e = typeof(SqlException).GetMethod("CreateException", BindingFlags.NonPublic | BindingFlags.Static, null,
                 CallingConventions.ExplicitThis, new[] { typeof(SqlErrorCollection), typeof(string) },
-                Array.Empty<ParameterModifier>()).Invoke(null, new object[] { collection, "11.0.0" }) as SqlException;
+                Array.Empty<ParameterModifier>())!.Invoke(null, new object[] { collection, "11.0.0" }) as SqlException;
 
-            return e;
+            return e!;
         }
 
         //constructs a class based off of the type and parameters

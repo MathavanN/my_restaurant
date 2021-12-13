@@ -1,9 +1,4 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using MyRestaurant.Api.Extensions;
 
 namespace MyRestaurant.Api
@@ -25,7 +20,7 @@ namespace MyRestaurant.Api
 
             services.ConfigureAppSettings(Configuration);
 
-            services.ConfigureDatabaseInitializer(Configuration);
+            services.ConfigureDatabaseInitializer();
 
             services.ConfigureMSSQLContext(Configuration);
 
@@ -66,9 +61,9 @@ namespace MyRestaurant.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    foreach (var description in provider.ApiVersionDescriptions)
+                    foreach (var groupName in provider.ApiVersionDescriptions.Select(x =>x.GroupName))
                     {
-                        c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                        c.SwaggerEndpoint($"/swagger/{groupName}/swagger.json", groupName.ToUpperInvariant());
                     }
                 });
             }

@@ -34,10 +34,10 @@ namespace MyRestaurant.Services.Tests
             if (!context.Users.Any())
             {
                 var dbRoles = context.Roles.ToList();
-                superAdminUser.UserRoles.Add(new UserRole { User = superAdminUser, Role = dbRoles.FirstOrDefault(x => x.Name == "SuperAdmin") });
-                adminUser.UserRoles.Add(new UserRole { User = adminUser, Role = dbRoles.FirstOrDefault(x => x.Name == "Admin") });
-                reportUser.UserRoles.Add(new UserRole { User = reportUser, Role = dbRoles.FirstOrDefault(x => x.Name == "Report") });
-                normalUser.UserRoles.Add(new UserRole { User = normalUser, Role = dbRoles.FirstOrDefault(x => x.Name == "Normal") });
+                superAdminUser.UserRoles.Add(new UserRole { User = superAdminUser, Role = dbRoles.First(x => x.Name == "SuperAdmin") });
+                adminUser.UserRoles.Add(new UserRole { User = adminUser, Role = dbRoles.First(x => x.Name == "Admin") });
+                reportUser.UserRoles.Add(new UserRole { User = reportUser, Role = dbRoles.First(x => x.Name == "Report") });
+                normalUser.UserRoles.Add(new UserRole { User = normalUser, Role = dbRoles.First(x => x.Name == "Normal") });
 
                 var users = new List<User> { superAdminUser, adminUser, reportUser, normalUser };
                 context.Users.AddRange(users);

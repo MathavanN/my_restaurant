@@ -87,7 +87,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         {
             //Arrange
             _fixture.MockRestaurantInfoService.Setup(x => x.AddRestaurantInfoAsync(It.IsAny<RestaurantInfo>()))
-                .ReturnsAsync(_fixture.RestaurantInfos.FirstOrDefault(d => d.Id == 1));
+                .ReturnsAsync(_fixture.RestaurantInfos.FirstOrDefault(d => d.Id == 1)!);
 
             var repository = new RestaurantInfoRepository(AutoMapperSingleton.Mapper, _fixture.MockRestaurantInfoService.Object);
 

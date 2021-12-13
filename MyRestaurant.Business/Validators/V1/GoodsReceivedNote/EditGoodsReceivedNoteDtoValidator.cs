@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Validators.Common;
-using System;
 
 namespace MyRestaurant.Business.Validators.V1
 {

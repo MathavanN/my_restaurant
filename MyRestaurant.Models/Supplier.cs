@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace MyRestaurant.Models
+﻿namespace MyRestaurant.Models
 {
     public class Supplier : MyRestaurantObject
     {
         public Supplier()
         {
             PurchaseOrders = new HashSet<PurchaseOrder>();
+            Name = default!;
+            Address1 = default!;
+            Address2 = default!;
+            City = default!;
+            Country = default!;
         }
 
         public long Id { get; set; }
@@ -15,11 +18,11 @@ namespace MyRestaurant.Models
         public string Address2 { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public string Telephone1 { get; set; }
-        public string Telephone2 { get; set; }
-        public string Fax { get; set; }
-        public string Email { get; set; }
-        public string ContactPerson { get; set; }
+        public string? Telephone1 { get; set; }
+        public string? Telephone2 { get; set; }
+        public string? Fax { get; set; }
+        public string? Email { get; set; }
+        public string? ContactPerson { get; set; }
 
         public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }

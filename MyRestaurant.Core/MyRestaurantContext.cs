@@ -5,12 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MyRestaurant.Core.Configurations.Mapping;
 using MyRestaurant.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Core
 {
@@ -58,22 +53,22 @@ namespace MyRestaurant.Core
             builder.ApplyConfiguration(new TransactionMapping());
         }
 
-        public DbSet<Audit> Audits { get; set; }
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<ServiceType> ServiceTypes { get; set; }
-        public DbSet<RestaurantInfo> RestaurantInfos { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
-        public DbSet<StockType> StockTypes { get; set; }
-        public DbSet<StockItem> StockItems { get; set; }
-        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
-        public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; }
-        public DbSet<GoodsReceivedNote> GoodsReceivedNotes { get; set; }
-        public DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; }
-        public DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; }
-        public DbSet<PaymentType> PaymentTypes { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<TransactionType> TransactionTypes { get; set; }
+        public DbSet<Audit> Audits { get; set; } = default!;
+        public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
+        public DbSet<ServiceType> ServiceTypes { get; set; } = default!;
+        public DbSet<RestaurantInfo> RestaurantInfos { get; set; } = default!;
+        public DbSet<Supplier> Suppliers { get; set; } = default!;
+        public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; } = default!;
+        public DbSet<StockType> StockTypes { get; set; } = default!;
+        public DbSet<StockItem> StockItems { get; set; } = default!;
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; } = default!;
+        public DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; } = default!;
+        public DbSet<GoodsReceivedNote> GoodsReceivedNotes { get; set; } = default!;
+        public DbSet<GoodsReceivedNoteItem> GoodsReceivedNoteItems { get; set; } = default!;
+        public DbSet<GoodsReceivedNoteFreeItem> GoodsReceivedNoteFreeItems { get; set; } = default!;
+        public DbSet<PaymentType> PaymentTypes { get; set; } = default!;
+        public DbSet<Transaction> Transactions { get; set; } = default!;
+        public DbSet<TransactionType> TransactionTypes { get; set; } = default!;
 
         public void Create<TEntity>(TEntity entity) where TEntity : MyRestaurantObject
         {
@@ -95,12 +90,12 @@ namespace MyRestaurant.Core
             Set<TEntity>().RemoveRange(entities);
         }
 
-        public async Task<TEntity> GetFirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
+        public async Task<TEntity?> GetFirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
             return await Set<TEntity>().Where(expression).FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>(Expression<Func<TEntity, bool>> expression = null, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
+        public async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>(Expression<Func<TEntity, bool>>? expression = null, CancellationToken cancellationToken = default) where TEntity : MyRestaurantObject
         {
             return expression == null ?
                 await Set<TEntity>().ToListAsync(cancellationToken) :
@@ -123,13 +118,13 @@ namespace MyRestaurant.Core
         async Task<IEnumerable<Tuple<EntityEntry, Audit>>> OnBeforeSaveChanges()
         {
             ChangeTracker.DetectChanges();
-            var entitiesToTrack = ChangeTracker.Entries().Where(e => !(e.Entity is Audit) && e.State != EntityState.Detached && e.State != EntityState.Unchanged);
+            var entitiesToTrack = ChangeTracker.Entries().Where(e => e.Entity is not Audit && e.State != EntityState.Detached && e.State != EntityState.Unchanged);
 
             await Audits.AddRangeAsync(
                 entitiesToTrack.Where(e => !e.Properties.Any(p => p.IsTemporary)).Select(e => new Audit()
                 {
-                    TableName = e.Metadata.GetTableName(),
-                    Action = Enum.GetName(typeof(EntityState), e.State),
+                    TableName = e.Metadata.GetTableName()!,
+                    Action = Enum.GetName(typeof(EntityState), e.State)!,
                     DateTime = DateTime.Now.ToUniversalTime(),
                     Username = "Default-APP", //this.httpContextAccessor?.HttpContext?.User?.Identity?.Name,
                     KeyValues = JsonConvert.SerializeObject(e.Properties.Where(p => p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty()),
@@ -142,8 +137,8 @@ namespace MyRestaurant.Core
             return entitiesToTrack.Where(e => e.Properties.Any(p => p.IsTemporary))
                  .Select(e => new Tuple<EntityEntry, Audit>(e, new Audit()
                  {
-                     TableName = e.Metadata.GetTableName(),
-                     Action = Enum.GetName(typeof(EntityState), e.State),
+                     TableName = e.Metadata.GetTableName()!,
+                     Action = Enum.GetName(typeof(EntityState), e.State)!,
                      DateTime = DateTime.Now.ToUniversalTime(),
                      Username = "Default-APP",  ///this.httpContextAccessor?.HttpContext?.User?.Identity?.Name,
                      NewValues = JsonConvert.SerializeObject(e.Properties.Where(p => !p.Metadata.IsPrimaryKey()).ToDictionary(p => p.Metadata.Name, p => p.CurrentValue).NullIfEmpty())

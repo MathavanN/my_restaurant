@@ -74,7 +74,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(login.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == login.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == login.Email)!);
 
             var repository = new AccountRepository(AutoMapperSingleton.Mapper, _fixture.MockUserManager.Object,
                 _fixture.MockJwtTokenService.Object, _fixture.MockUserAccessorService.Object);
@@ -99,9 +99,9 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(login.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == login.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == login.Email)!);
 
-            _fixture.MockUserManager.Setup(x => x.CheckPasswordAsync(_fixture.Users.FirstOrDefault(d => d.Email == login.Email), login.Password))
+            _fixture.MockUserManager.Setup(x => x.CheckPasswordAsync(_fixture.Users.FirstOrDefault(d => d.Email == login.Email)!, login.Password))
                 .ReturnsAsync(false);
 
             var repository = new AccountRepository(AutoMapperSingleton.Mapper, _fixture.MockUserManager.Object,
@@ -130,9 +130,9 @@ namespace MyRestaurant.Business.Tests.Repositories
             var user = _fixture.Users.FirstOrDefault(d => d.Email == login.Email);
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(login.Email))
-                .ReturnsAsync(user);
+                .ReturnsAsync(user!);
 
-            _fixture.MockUserManager.Setup(x => x.CheckPasswordAsync(user, login.Password))
+            _fixture.MockUserManager.Setup(x => x.CheckPasswordAsync(user!, login.Password))
                 .ReturnsAsync(true);
 
             _fixture.MockJwtTokenService.Setup(x => x.GenerateAccessToken(It.IsAny<User>()))
@@ -175,7 +175,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(newUser.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email)!);
 
             var repository = new AccountRepository(AutoMapperSingleton.Mapper, _fixture.MockUserManager.Object,
                 _fixture.MockJwtTokenService.Object, _fixture.MockUserAccessorService.Object);
@@ -204,7 +204,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(newUser.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email)!);
 
             var repository = new AccountRepository(AutoMapperSingleton.Mapper, _fixture.MockUserManager.Object,
                 _fixture.MockJwtTokenService.Object, _fixture.MockUserAccessorService.Object);
@@ -232,7 +232,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(newUser.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email)!);
 
             _fixture.MockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Success).Verifiable();
@@ -266,7 +266,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(newUser.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email)!);
 
             _fixture.MockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Success).Verifiable();
@@ -300,7 +300,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(newUser.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email)!);
 
             _fixture.MockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityErrorDescriber().PasswordTooShort(4))).Verifiable();
@@ -333,7 +333,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             };
 
             _fixture.MockUserManager.Setup(x => x.FindByNameAsync(newUser.Email))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Email == newUser.Email)!);
 
             _fixture.MockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityErrorDescriber().PasswordTooShort(4))).Verifiable();
@@ -360,7 +360,7 @@ namespace MyRestaurant.Business.Tests.Repositories
                 .Returns<Expression<Func<RefreshToken, bool>>>(expression => Task.FromResult(_fixture.RefreshTokens.AsQueryable().FirstOrDefault(expression)));
 
             var refreshToken = _fixture.RefreshTokens.FirstOrDefault(d => d.Token == _fixture.RevokeDto.RefreshToken);
-            _fixture.MockJwtTokenService.Setup(x => x.UpdateRefreshTokenAsync(refreshToken));
+            _fixture.MockJwtTokenService.Setup(x => x.UpdateRefreshTokenAsync(refreshToken!));
 
             var repository = new AccountRepository(AutoMapperSingleton.Mapper, _fixture.MockUserManager.Object,
                 _fixture.MockJwtTokenService.Object, _fixture.MockUserAccessorService.Object);
@@ -369,7 +369,7 @@ namespace MyRestaurant.Business.Tests.Repositories
             await repository.RevokeToken(_fixture.RevokeDto, "0.0.0.1");
 
             //Assert
-            _fixture.MockJwtTokenService.Verify(x => x.UpdateRefreshTokenAsync(refreshToken), Times.Once);
+            _fixture.MockJwtTokenService.Verify(x => x.UpdateRefreshTokenAsync(refreshToken!), Times.Once);
         }
 
         [Fact]
@@ -472,7 +472,7 @@ namespace MyRestaurant.Business.Tests.Repositories
                 .Returns<Expression<Func<RefreshToken, bool>>>(expression => Task.FromResult(_fixture.RefreshTokens.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockUserManager.Setup(x => x.FindByIdAsync(userId.ToString()))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Id == userId));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Id == userId)!);
 
             var repository = new AccountRepository(AutoMapperSingleton.Mapper, _fixture.MockUserManager.Object,
                 _fixture.MockJwtTokenService.Object, _fixture.MockUserAccessorService.Object);
@@ -499,7 +499,7 @@ namespace MyRestaurant.Business.Tests.Repositories
                 .Returns<Expression<Func<RefreshToken, bool>>>(expression => Task.FromResult(_fixture.RefreshTokens.AsQueryable().FirstOrDefault(expression)));
 
             _fixture.MockUserManager.Setup(x => x.FindByIdAsync(userId.ToString()))
-                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Id == userId));
+                .ReturnsAsync(_fixture.Users.FirstOrDefault(d => d.Id == userId)!);
 
             _fixture.MockJwtTokenService.Setup(x => x.GenerateAccessToken(It.IsAny<User>()))
                 .ReturnsAsync("token5");

@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Data.SqlClient;
 using MyRestaurant.Business.Errors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace MyRestaurant.Api.Middleware
 {
@@ -34,19 +30,19 @@ namespace MyRestaurant.Api.Middleware
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ExceptionMiddleware> logger)
         {
-            object error = null;
+            object error = new();
 
             switch (ex)
             {
                 case RestException re:
                     error = new { re.ErrorCode, re.ErrorType, re.ErrorMessage, ErrorDate = DateTime.Now };
-                    logger.LogError("REST ERROR: {0}", error);
+                    logger.LogError("REST ERROR: {error}. {ex}", error, ex);
                     context.Response.StatusCode = (int)re.ErrorCode;
                     break;
 
                 case Exception e:
                     var receivedException = e.InnerException ?? e;
-                    logger.LogError("SERVER ERROR: {0}", receivedException.Message);
+                    logger.LogError("SERVER ERROR: {receivedException.Message}. {ex}", receivedException.Message, ex);
                     var isSqlError = receivedException is SqlException;
                     var sqlError = receivedException as SqlException;
                     var errorCode = HttpStatusCode.InternalServerError;
@@ -56,7 +52,7 @@ namespace MyRestaurant.Api.Middleware
                     if (!string.IsNullOrWhiteSpace(receivedException.Message))
                         errorMessage = receivedException.Message;
 
-                    if (isSqlError && sqlError.Number == 547)
+                    if (isSqlError && sqlError!.Number == 547)
                     {
                         errorCode = HttpStatusCode.Conflict;
                         errorType = HttpStatusCode.Conflict.ToString();
