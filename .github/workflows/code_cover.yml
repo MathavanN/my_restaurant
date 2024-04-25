@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Start MSSQL in docker
         run: |
           docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=MyStr@ngPassw0rd" -e "MSSQL_PID=Developer" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest
       - name: Wait for SqlServer Container
-        uses: jakejarvis/wait-action@master
+        uses: whatnick/wait-action@master
         with:
           time: '10s'
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
            dotnet-version: 8.0.x
       - name: Service Project coverage report
@@ -37,23 +37,23 @@ jobs:
         run: |
           dotnet test ./MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj /p:CollectCoverage=true /p:CoverletOutput=${{ github.workspace }}/coverage/Api.xml /p:CoverletOutputFormat=opencover
       - name: Publish Business Project coverage report to codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ${{ github.workspace }}/coverage/*.xml
           directory: ${{ github.workspace }}/coverage/
-      - name: Install SonarCloud scanner
-        run: dotnet tool install --global dotnet-sonarscanner
-      - name: Begin Sonar scan
-        run: |
-          dotnet-sonarscanner begin /k:"MathavanN_my_restaurant" \
-                                    /o:"mathavana-github" \
-                                    /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
-                                    /d:sonar.coverage.exclusions="**Test*.cs" \
-                                    /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.xml \
-                                    /d:sonar.host.url="https://sonarcloud.io"
-      - name: Build
-        run: |
-          dotnet build --configuration Release --no-restore
-      - name: End Sonar scan
-        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+            projectBaseDir: my_restaurant/
+            args: >
+                -Dsonar.organization=mathavana-github
+                -Dsonar.projectKey=MathavanN_my_restaurant
+                -Dsonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.xml 
+                -Dsonar.sources=src/
+                -Dsonar.test.exclusions="**Test*.cs"
+                -Dsonar.tests=test/
+                -Dsonar.verbose=true
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
