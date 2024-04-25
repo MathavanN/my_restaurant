@@ -25,7 +25,7 @@ namespace MyRestaurant.SeedData.Tests
             var exception = await Assert.ThrowsAsync<SqlException>(() => databaseInitializer.Initialize());
 
             //Assert
-            exception.InnerException.Message.Should().Contain("A network-related or instance-specific error occurred while establishing a connection to SQL Server.");
+            exception.Message.Should().Contain("A network-related or instance-specific error occurred while establishing a connection to SQL Server.");
         }
     }
 }
