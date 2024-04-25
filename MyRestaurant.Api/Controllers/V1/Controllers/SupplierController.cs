@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Repositories.Contracts;
 
@@ -15,7 +16,7 @@ namespace MyRestaurant.Api.Controllers.V1
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetSuppliers(int? limit, int? offset, string name, string city, string contactPerson)
+        public async Task<IActionResult> GetSuppliers(int? limit, int? offset, string? name, string? city, string? contactPerson)
         {
             var result = await _repository.GetSuppliersAsync(limit, offset, name, city, contactPerson);
             return Ok(result);

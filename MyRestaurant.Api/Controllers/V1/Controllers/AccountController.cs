@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyRestaurant.Api.PolicyHandlers;
 using MyRestaurant.Business.Dtos.V1;
@@ -75,9 +76,9 @@ namespace MyRestaurant.Api.Controllers.V1
 
         [HttpGet("Users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetUsers()
+        public IActionResult GetUsers()
         {
-            var result = await _repository.GetUsersAsync();
+            var result = _repository.GetUsers();
             return Ok(result);
         }
 
