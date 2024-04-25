@@ -48,7 +48,6 @@ jobs:
             args: >
                 -Dsonar.organization=mathavana-github
                 -Dsonar.projectKey=MathavanN_my_restaurant
-                -Dsonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.xml 
                 -Dsonar.test.exclusions="**Test*.cs"
                 -Dsonar.verbose=true
         env:
