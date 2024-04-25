@@ -22,7 +22,7 @@ namespace MyRestaurant.SeedData.Tests
             var databaseInitializer = scope.ServiceProvider.GetRequiredService<IMyRestaurantSeedData>();
 
             //Act
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => databaseInitializer.Initialize());
+            var exception = await Assert.ThrowsAsync<SqlException>(() => databaseInitializer.Initialize());
 
             //Assert
             exception.InnerException.Message.Should().Contain("A network-related or instance-specific error occurred while establishing a connection to SQL Server.");
