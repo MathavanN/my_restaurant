@@ -28,8 +28,13 @@ dotnet test MyRestaurant.Api.Tests/MyRestaurant.Api.Tests.csproj ^
 			/p:CoverletOutputFormat=opencover ^
 			/p:Exclude="[xunit.*]"
 
-%UserProfile%\.nuget\packages\reportgenerator\4.8.5\tools\net5.0\ReportGenerator.exe ^
-			"-reports:%CD%\CoverageReports\*.xml" ^
-			"-targetdir:CoverageReports" -reporttypes:HTML
+REM %UserProfile%\.nuget\packages\reportgenerator\4.8.5\tools\net5.0\ReportGenerator.exe ^
+REM 			"-reports:%CD%\CoverageReports\*.xml" ^
+REM 			"-targetdir:CoverageReports" -reporttypes:HTML
+
+reportgenerator ^
+	"-reports:%CD%\CoverageReports\*.xml" ^
+	"-targetdir:CoverageReports" -reporttypes:HTML
+	
 
 start %CD%\CoverageReports\index.html
