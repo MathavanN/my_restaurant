@@ -52,8 +52,9 @@ namespace MyRestaurant.Business.Repositories
         public async Task<IEnumerable<GetStockTypeDto>> GetStockTypesAsync()
         {
             var stockTypes = await _stockType.GetStockTypesAsync();
+            var data = stockTypes.OrderBy(d => d.Type);
 
-            return _mapper.Map<IEnumerable<GetStockTypeDto>>(stockTypes.OrderBy(d => d.Type));
+            return _mapper.Map<IEnumerable<GetStockTypeDto>>(data);
         }
         private async Task<StockType> GetStockTypeById(int id)
         {

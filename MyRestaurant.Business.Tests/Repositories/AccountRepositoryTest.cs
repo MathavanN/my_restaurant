@@ -46,7 +46,7 @@ namespace MyRestaurant.Business.Tests.Repositories
         }
 
         [Fact]
-        public async Task GetUsersAsync_Returns_GetUserDtos()
+        public void GetUsersAsync_Returns_GetUserDtos()
         {
             //Arrange
             _fixture.MockUserManager.Setup(x => x.Users)
@@ -56,7 +56,7 @@ namespace MyRestaurant.Business.Tests.Repositories
                 _fixture.MockJwtTokenService.Object, _fixture.MockUserAccessorService.Object);
 
             //Act
-            var result = await repository.GetUsersAsync();
+            var result = repository.GetUsers();
 
             //Assert
             var users = result.Should().BeAssignableTo<IEnumerable<GetUserDto>>().Subject;

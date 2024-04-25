@@ -56,7 +56,7 @@ namespace MyRestaurant.SeedData
                         await userManager.AddToRolesAsync(user, roleTypes.Select(x => x.ToString()));
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 logger.LogError("An error occurred while seeding the database. {ex.Message}", ex.Message);
                 throw;

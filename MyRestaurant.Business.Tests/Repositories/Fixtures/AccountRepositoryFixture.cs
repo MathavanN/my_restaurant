@@ -7,6 +7,7 @@ using MyRestaurant.Models;
 using MyRestaurant.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyRestaurant.Business.Tests.Repositories.Fixtures
 {
@@ -17,7 +18,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
         public Mock<IUserAccessorService> MockUserAccessorService { get; private set; }
         public Mock<UserManager<User>> MockUserManager { get; private set; }
         public CurrentUser CurrentUser { get; private set; }
-        public IEnumerable<User> Users { get; private set; }
+        public List<User> Users { get; private set; }
         public IEnumerable<RefreshToken> RefreshTokens { get; private set; }
         public RevokeDto RevokeDto { get; private set; }
         public AccountRepositoryFixture()
@@ -74,6 +75,7 @@ namespace MyRestaurant.Business.Tests.Repositories.Fixtures
             normalUser.UserRoles.Add(new UserRole { User = normalUser, Role = normal });
 
             Users = new List<User> { superAdminUser, adminUser, reportUser, normalUser };
+            Users.AsQueryable();
 
             RefreshTokens = new List<RefreshToken>
             {

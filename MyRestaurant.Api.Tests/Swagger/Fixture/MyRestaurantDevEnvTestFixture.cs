@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace MyRestaurant.Api.Tests.Swagger.Fixture
 {
-    public class MyRestaurantDevEnvTestFixture : WebApplicationFactory<Startup>
+    public class MyRestaurantDevEnvTestFixture : WebApplicationFactory<Program>
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {

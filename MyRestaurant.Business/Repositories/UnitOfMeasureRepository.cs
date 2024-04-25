@@ -62,8 +62,9 @@ namespace MyRestaurant.Business.Repositories
         public async Task<IEnumerable<GetUnitOfMeasureDto>> GetUnitOfMeasuresAsync()
         {
             var unitOfMeasures = await _unitOfMeasure.GetUnitOfMeasuresAsync();
+            var data = unitOfMeasures.OrderBy(d => d.Code);
 
-            return _mapper.Map<IEnumerable<GetUnitOfMeasureDto>>(unitOfMeasures.OrderBy(d => d.Code));
+            return _mapper.Map<IEnumerable<GetUnitOfMeasureDto>>(data);
         }
 
         public async Task<GetUnitOfMeasureDto> UpdateUnitOfMeasureAsync(int id, EditUnitOfMeasureDto unitOfMeasureDto)

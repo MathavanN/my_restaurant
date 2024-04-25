@@ -8,7 +8,7 @@ using Xunit;
 namespace MyRestaurant.SeedData.Tests.Fixture
 {
     [Collection("Database")]
-    public class MyRestaurantWebApplicationFactory : WebApplicationFactory<Startup>
+    public class MyRestaurantWebApplicationFactory : WebApplicationFactory<Program>
     {
         private readonly DatabaseFixture _dbFixture;
 

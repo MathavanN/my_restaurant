@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using MyRestaurant.SeedData.Tests.Fixture;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,10 +22,10 @@ namespace MyRestaurant.SeedData.Tests
             var databaseInitializer = scope.ServiceProvider.GetRequiredService<IMyRestaurantSeedData>();
 
             //Act
-            var exception = await Assert.ThrowsAsync<SqlException>(() => databaseInitializer.Initialize());
+            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => databaseInitializer.Initialize());
 
             //Assert
-            exception.Message.Should().Contain("A network-related or instance-specific error occurred while establishing a connection to SQL Server.");
+            exception.InnerException.Message.Should().Contain("A network-related or instance-specific error occurred while establishing a connection to SQL Server.");
         }
     }
 }

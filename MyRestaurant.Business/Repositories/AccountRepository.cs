@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MyRestaurant.Business.Dtos.V1;
 using MyRestaurant.Business.Errors;
 using MyRestaurant.Business.Repositories.Contracts;
@@ -28,11 +29,11 @@ namespace MyRestaurant.Business.Repositories
             return _mapper.Map<CurrentUserDto>(currentUser);
         }
 
-        public async Task<IEnumerable<GetUserDto>> GetUsersAsync()
+        public IEnumerable<GetUserDto> GetUsers()
         {
-            var users = await Task.FromResult(_userManager.Users.ToList());
+            var users = _userManager.Users.OrderBy(d => d.FirstName);
 
-            return _mapper.Map<IEnumerable<GetUserDto>>(users.OrderBy(d => d.FirstName));
+            return _mapper.Map<IEnumerable<GetUserDto>>(users);
         }
 
         public async Task<RegisterResultDto> RegisterAdminAsync(RegisterAdminDto registerDto)

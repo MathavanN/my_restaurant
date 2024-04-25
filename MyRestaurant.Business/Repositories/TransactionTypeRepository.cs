@@ -52,8 +52,9 @@ namespace MyRestaurant.Business.Repositories
         public async Task<IEnumerable<GetTransactionTypeDto>> GetTransactionTypesAsync()
         {
             var transactionTypes = await _transactionType.GetTransactionTypesAsync();
+            var data = transactionTypes.OrderBy(d => d.Type);
 
-            return _mapper.Map<IEnumerable<GetTransactionTypeDto>>(transactionTypes.OrderBy(d => d.Type));
+            return _mapper.Map<IEnumerable<GetTransactionTypeDto>>(data);
         }
         private async Task<TransactionType> GetTransactionTypeById(int id)
         {

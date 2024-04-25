@@ -52,8 +52,9 @@ namespace MyRestaurant.Business.Repositories
         public async Task<IEnumerable<GetPaymentTypeDto>> GetPaymentTypesAsync()
         {
             var paymentTypes = await _paymentType.GetPaymentTypesAsync();
+            var data = paymentTypes.OrderBy(d => d.Name);
 
-            return _mapper.Map<IEnumerable<GetPaymentTypeDto>>(paymentTypes.OrderBy(d => d.Name));
+            return _mapper.Map<IEnumerable<GetPaymentTypeDto>>(data);
         }
         private async Task<PaymentType> GetPaymentTypeById(int id)
         {

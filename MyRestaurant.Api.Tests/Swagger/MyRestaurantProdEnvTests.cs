@@ -17,7 +17,7 @@ namespace MyRestaurant.Api.Tests.Swagger
         }
 
         [Fact]
-        public async Task Development_Environment_Can_Access_Swagger()
+        public async Task Product_Environment_Can_Not_Access_Swagger()
         {
             // Act
             var response = await _client.GetAsync("/swagger/index.html");

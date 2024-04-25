@@ -44,8 +44,9 @@ namespace MyRestaurant.Business.Repositories
         public async Task<IEnumerable<GetTransactionDto>> GetTransactionsAsync()
         {
             var transactions = await _transaction.GetTransactionsAsync();
+            var data = transactions.OrderBy(d => d.Date);
 
-            return _mapper.Map<IEnumerable<GetTransactionDto>>(transactions.OrderBy(d => d.Date));
+            return _mapper.Map<IEnumerable<GetTransactionDto>>(data);
         }
         private async Task<Transaction> GetTransactionById(int id)
         {

@@ -296,16 +296,16 @@ namespace MyRestaurant.Api.Tests.Controllers.V1
         }
 
         [Fact]
-        public async Task GetUsers_Returns_OkObjectResult()
+        public void GetUsers_Returns_OkObjectResult()
         {
             //Arrange
-            _fixture.MockAccountRepository.Setup(x => x.GetUsersAsync())
-                .ReturnsAsync(_fixture.Users);
+            _fixture.MockAccountRepository.Setup(x => x.GetUsers())
+                .Returns(_fixture.Users);
 
             var controller = new AccountController(_fixture.MockAccountRepository.Object);
 
             //Act
-            var result = await controller.GetUsers();
+            var result = controller.GetUsers();
 
             //Assert
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;

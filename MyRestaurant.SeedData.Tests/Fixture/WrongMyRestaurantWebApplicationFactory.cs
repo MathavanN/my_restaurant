@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using MyRestaurant.Api;
 using System.Collections.Generic;
 using Xunit;
 
 namespace MyRestaurant.SeedData.Tests.Fixture
 {
     [Collection("Database")]
-    public class WrongMyRestaurantWebApplicationFactory : WebApplicationFactory<Startup>
+    public class WrongMyRestaurantWebApplicationFactory : WebApplicationFactory<Program>
     {
         private readonly DatabaseFixture _dbFixture;
 
