@@ -15,14 +15,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Analyze with SonarCloud
-        uses: highbyte/sonarscan-dotnet@v2.3.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+      - uses: actions/setup-java@v4
         with:
-          sonarProjectKey: MathavanN_my_restaurant
-          sonarProjectName:  my_restaurant
-          sonarOrganization: mathavana-github
-          dotnetBuildArguments: ./my_restaurant/my_restaurant
+          java-version: '17'
+      - name: Install SonarCloud scanner
+        run: dotnet tool install --global dotnet-sonarscanner
+      - name: Begin Sonar scan
+        run: |
+          dotnet-sonarscanner begin /k:"MathavanN_my_restaurant" \
+                                    /o:"mathavana-github" \
+                                    /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+                                    /d:sonar.coverage.exclusions="**Test*.cs" \
+                                    /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.xml \
+                                    /d:sonar.host.url="https://sonarcloud.io"
+      - name: Build
+        run: |
+          dotnet build --configuration Release --no-restore
+      - name: End Sonar scan
+        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
             
