@@ -24,6 +24,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Install dependencies
+        run: dotnet restore
       - name: Install SonarCloud scanner
         run: dotnet tool install --global dotnet-sonarscanner
       - name: Begin Sonar scan
