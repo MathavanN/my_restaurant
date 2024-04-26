@@ -208,9 +208,9 @@ if (app.Environment.IsDevelopment())
     {
         var descriptions = app.DescribeApiVersions();
 
-        foreach (var description in descriptions)
+        foreach (var groupName in descriptions.Select(description => description.GroupName))
         {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+            options.SwaggerEndpoint($"/swagger/{groupName}/swagger.json", groupName.ToUpperInvariant());
         }
     });
 }
