@@ -24,4 +24,5 @@ jobs:
           sonarProjectKey: MathavanN_my_restaurant
           sonarProjectName:  my_restaurant
           sonarOrganization: mathavana-github
+          dotnetBuildArguments: ./my_restaurant
             
