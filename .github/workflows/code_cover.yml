@@ -25,7 +25,7 @@ jobs:
         with:
            dotnet-version: 8.0.x
       - uses: actions/setup-java@v4
-      - name: Setup Java 17 for Sonar
+        name: Setup Java 17 for Sonar
         with:
           distribution: 'temurin'
           java-version: '17'
