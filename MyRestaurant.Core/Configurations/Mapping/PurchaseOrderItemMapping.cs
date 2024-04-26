@@ -13,7 +13,7 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.Property(e => e.Id).UseIdentityColumn();
             builder.Property(e => e.PurchaseOrderId).IsRequired();
             builder.Property(e => e.ItemId).IsRequired();
-            builder.Property(e => e.ItemUnitPrice).HasColumnType("decimal(18, 2)");
+            builder.Property(e => e.ItemUnitPrice).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
             builder.Property(e => e.Quantity).IsRequired();
             builder.ToTable("PurchaseOrderItems");
 

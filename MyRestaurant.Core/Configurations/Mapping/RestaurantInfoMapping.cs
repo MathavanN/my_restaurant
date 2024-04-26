@@ -11,13 +11,13 @@ namespace MyRestaurant.Core.Configurations.Mapping
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).UseIdentityColumn();
-            builder.Property(e => e.Name).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(e => e.Address).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(e => e.Name).HasColumnType(MappingConstants.DatabaseColumnTypeVarchar_256).IsRequired();
+            builder.Property(e => e.Address).HasColumnType(MappingConstants.DatabaseColumnTypeVarchar_256).IsRequired();
             builder.Property(e => e.City).HasColumnType("varchar(100)").IsRequired();
             builder.Property(e => e.Country).HasColumnType("varchar(100)").IsRequired();
             builder.Property(e => e.LandLine).HasColumnType("varchar(20)");
             builder.Property(e => e.Mobile).HasColumnType("varchar(20)");
-            builder.Property(e => e.Email).HasColumnType("varchar(256)");
+            builder.Property(e => e.Email).HasColumnType(MappingConstants.DatabaseColumnTypeVarchar_256);
             builder.ToTable("RestaurantInfos");
             base.Configure(builder);
         }

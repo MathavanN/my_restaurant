@@ -14,9 +14,9 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.Property(e => e.PurchaseOrderId).IsRequired();
             builder.Property(e => e.InvoiceNumber).HasColumnType("varchar(30)");
             builder.Property(e => e.PaymentTypeId).IsRequired();
-            builder.Property(e => e.Nbt).HasColumnType("decimal(18, 2)");
-            builder.Property(e => e.Vat).HasColumnType("decimal(18, 2)");
-            builder.Property(e => e.Discount).HasColumnType("decimal(18, 2)");
+            builder.Property(e => e.Nbt).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
+            builder.Property(e => e.Vat).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
+            builder.Property(e => e.Discount).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
             builder.Property(e => e.ReceivedBy).IsRequired();
             builder.Property(e => e.ReceivedDate).HasColumnType("datetime").IsRequired();
             builder.Property(e => e.CreatedBy).IsRequired();

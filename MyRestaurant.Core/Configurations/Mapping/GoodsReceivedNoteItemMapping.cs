@@ -13,11 +13,11 @@ namespace MyRestaurant.Core.Configurations.Mapping
             builder.Property(e => e.Id).UseIdentityColumn();
             builder.Property(e => e.GoodsReceivedNoteId).IsRequired();
             builder.Property(e => e.ItemId).IsRequired();
-            builder.Property(e => e.ItemUnitPrice).HasColumnType("decimal(18, 2)");
+            builder.Property(e => e.ItemUnitPrice).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
             builder.Property(e => e.Quantity).IsRequired();
-            builder.Property(e => e.Nbt).HasColumnType("decimal(18, 2)");
-            builder.Property(e => e.Vat).HasColumnType("decimal(18, 2)");
-            builder.Property(e => e.Discount).HasColumnType("decimal(18, 2)");
+            builder.Property(e => e.Nbt).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
+            builder.Property(e => e.Vat).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
+            builder.Property(e => e.Discount).HasColumnType(MappingConstants.DatabaseColumnTypeDecimal_18_2);
             builder.ToTable("GoodsReceivedNoteItems");
 
             builder.HasOne(d => d.GoodsReceivedNote)

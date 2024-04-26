@@ -11,8 +11,8 @@ namespace MyRestaurant.Core.Configurations.Mapping
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Action).HasColumnType("varchar(20)").IsRequired().HasMaxLength(20);
-            builder.Property(e => e.TableName).HasColumnType("varchar(256)").IsRequired();
-            builder.Property(e => e.Username).HasColumnType("varchar(256)").IsRequired();
+            builder.Property(e => e.TableName).HasColumnType(MappingConstants.DatabaseColumnTypeVarchar_256).IsRequired();
+            builder.Property(e => e.Username).HasColumnType(MappingConstants.DatabaseColumnTypeVarchar_256).IsRequired();
             builder.ToTable("Audits");
             base.Configure(builder);
         }
