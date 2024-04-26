@@ -21,10 +21,11 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - uses: actions/setup-java@v4
+      - name: Setup Java 17
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Install dependencies
+      - name: Install Project Dependencies
         run: dotnet restore
       - name: Install SonarCloud scanner
         run: dotnet tool install --global dotnet-sonarscanner
@@ -36,7 +37,7 @@ jobs:
                                     /d:sonar.coverage.exclusions="**Test*.cs" \
                                     /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}/coverage/*.xml \
                                     /d:sonar.host.url="https://sonarcloud.io"
-      - name: Build
+      - name: Build For Sonar Scan
         run: |
           dotnet build --configuration Release --no-restore
       - name: End Sonar scan
