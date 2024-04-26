@@ -42,7 +42,7 @@ namespace MyRestaurant.Api.Middleware
 
                 case Exception e:
                     var receivedException = e.InnerException ?? e;
-                    logger.LogError("SERVER ERROR: {receivedException.Message}. {ex}", receivedException.Message, ex);
+                    logger.LogError("SERVER ERROR: {Message}. {ex}", receivedException.Message, ex);
                     var isSqlError = receivedException is SqlException;
                     var sqlError = receivedException as SqlException;
                     var errorCode = HttpStatusCode.InternalServerError;
